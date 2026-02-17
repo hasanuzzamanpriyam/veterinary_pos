@@ -1,0 +1,2333 @@
+body {
+    overflow: hidden;
+}
+
+body .container.body .right_col {
+    height: 100vh;
+    overflow-y: scroll;
+    min-height: auto !important;
+}
+
+/* header */
+.top_nav {
+    width: 100%;
+}
+
+.nav-sm .left_col {
+    width: 100px !important;
+    max-width: 100px;
+}
+
+.nav-sm .right_col {
+    max-width: calc(100% - 100px) !important;
+    flex: 0 0 calc(100% - 100px);
+}
+
+span.required {
+    color: red;
+    font-size: 12px;
+}
+
+.nav_title a img {
+    background: #fff;
+
+}
+
+.guarantor_area {
+    border-left: 2px solid;
+    height: 100%;
+}
+
+.customer_view_area {
+    margin-top: 15px;
+}
+
+.title {
+    font-size: 17px;
+    color: #000;
+    padding-left: 12px;
+}
+
+.product_list {
+    height: 10%;
+    padding: 2px;
+    text-align: center;
+    margin: auto;
+}
+
+
+.w-20 {
+    padding: 10px 12px;
+}
+
+input.input-field {
+    width: 60px;
+    height: 30px;
+    border-radius: 0px;
+    text-align: end;
+}
+
+/* Disabled due to wrong css impacting on http://127.0.0.1:8000/sales/report */
+
+/*.select2-container{
+    width: 100% !important;
+} */
+
+label {
+    background: #2A3F54;
+    color: #fff;
+    text-align: left !important;
+    font-size: 16px;
+}
+
+.follow-lebel {
+    width: 100%;
+    font-size: 13px;
+}
+
+.follow-input {
+    margin-top: 5px;
+    padding: 0px;
+}
+
+.in-word-area h4 {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.invoice-print {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.in-word-area {
+    padding: .75rem;
+}
+
+.in-word-area h4 span {
+    position: relative;
+}
+
+.in-word-area h4 span:after {
+    content: '';
+    display: inline-table;
+    left: 0;
+    bottom: -2px;
+    border-bottom: 2px dotted;
+    border-color: #000;
+    position: absolute;
+    width: 110%;
+}
+
+.customer-signature-area h4:before {
+    content: '';
+    display: block;
+    clear: both;
+    border: 1px solid #000;
+    width: 100%;
+    top: -3px;
+    position: absolute;
+}
+
+.supplier-signature-area h4:before {
+    content: '';
+    display: block;
+    clear: both;
+    border: 1px solid #000;
+    width: 100%;
+    top: -3px;
+    position: absolute;
+
+}
+
+.print-button {
+    text-align: center;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.left_col .scroll-view::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.left_col .scroll-view {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+@media print {
+    .print-button {
+        display: none;
+    }
+}
+
+
+/*==============custom css by Hannan ============*/
+
+
+/*right col section start*/
+
+body .container.body .right_col {
+    overflow-x: hidden;
+}
+
+.left_col {
+    background: #002253;
+}
+
+.sidebar-footer a {
+    background: #002253;
+}
+
+.navbar.nav_title {
+    background: #002253;
+}
+
+.sidebar-footer.hidden-small {
+    background: #002253;
+}
+
+
+.nav.side-menu>li.active>a {
+    background: linear-gradient(#0052c8, #d70303), #bcd51e;
+}
+
+
+/*right col section end*/
+
+/*menu section*/
+.toggle {
+    width: 50%;
+    gap: 20px;
+}
+
+.top-menu li {
+    margin: 2px;
+}
+
+/*menu section end*/
+
+
+
+/*Dashbord sidebar nav menu start*/
+.nav.side-menu>li>a {
+    text-align: left;
+
+}
+
+ul.nav.child_menu {
+    text-align: left;
+}
+
+/*Dashbord sidebar nav menu start*/
+
+/*add custom form start*/
+form#demo-form2 {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+/*customer photo upload start*/
+.item.customer_photo_group {
+    height: 43px;
+}
+
+.dropify-wrapper {
+    height: 43px !important;
+}
+
+.dropify-wrapper .dropify-message span.file-icon {
+    font-size: 15px !important;
+}
+
+/*customer photo upload end*/
+
+
+
+/*add custom form end*/
+
+h2.add_customer_title {
+    padding: 10px;
+    background-color: #24c124;
+    color: #fff !important;
+}
+
+.container-fluid {
+
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+
+}
+
+.nav_menu {
+    margin-bottom: 0px !important;
+}
+
+h2.customer_add_btn {
+    float: right;
+}
+
+.product-thumb-gallery .thumbnail {
+    cursor: pointer;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.product-thumb-gallery .thumbnail.no-image {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 20px 0;
+}
+
+table.dataTable thead>tr>th.customer_name_th {
+    text-align: left !important;
+    padding-right: 48px !important
+}
+
+table.dataTable tbody>tr>td.customer_name_td {
+    text-align: left !important;
+}
+
+
+table.dataTable thead>tr>th.customer_address_th {
+
+    padding-right: 60px !important
+}
+
+
+table.dataTable tbody>tr>td.customer_address_td {
+    text-align: left !important
+}
+
+
+table.dataTable tbody>tr>td.customer_mobile_td {
+    padding-right: 21px;
+}
+
+table.dataTable tbody>tr>td.customer_type_td {
+    padding-right: 21px;
+}
+
+/*customer sales report section start*/
+.customer-search-area label,
+.supplier-search-area label {
+    padding: 0px 7px;
+}
+
+/*customer list table th bg color    */
+
+table.dataTable thead>tr>th {
+    background: #bfa1ff;
+    color: #1e0202
+}
+
+/*customer list table th bg color    */
+
+/*update customer title start*/
+h2.update_customer_title {
+    padding: 10px;
+    background: #9153f1;
+    color: white !important;
+    border-radius: 2px;
+}
+
+/*update customer title end*/
+
+/*customer back button on view page*/
+div.back_button.mb-2 a.customer_view_back_btn {
+    cursor: pointer;
+    z-index: 5555 !important;
+    position: relative;
+}
+
+/*customer back button on view page end*/
+
+
+/*customer ledger section start*/
+h2.customer_ledger_title {
+    padding: 10px;
+    background: #580ef9;
+    color: #ffffff !important;
+    border-radius: 2px;
+}
+
+/*customer ledger section end*/
+
+h2.customer_statement_title {
+    padding: 10px;
+    background: #580ef9;
+    color: #ffffff !important;
+    border-radius: 2px;
+}
+
+/*customer section end*/
+
+
+/*supplier section start*/
+.supplier_ledger_title {
+    padding: 10px;
+    background: #580ef9;
+    color: #ffffff !important;
+    border-radius: 2px;
+}
+
+.supplier_statement_title {
+    padding: 10px;
+    background: #580ef9;
+    color: #ffffff !important;
+    border-radius: 2px;
+}
+
+/*supplier section end*/
+
+/*product gallery  start*/
+h2.product_gallery_title_two {
+    padding: 10px;
+    background: #580ef9;
+    color: #ffffff !important;
+    border-radius: 2px;
+}
+
+/*product gallery  ebd*/
+
+
+/*Sales report section start*/
+h2.sales_report_title {
+    padding: 10px;
+    background: #6330c3;
+    color: #ffffff !important;
+    font-size: 21px;
+    border-radius: 2px;
+}
+
+/*Sales report section end*/
+
+/*sales return list section start*/
+h2.sales_return_list_btn {
+    float: right;
+}
+
+/*sales return list section end*/
+
+
+
+/*datatable setting toolbox icon section */
+
+.panel_toolbox {
+    float: left !important;
+    padding-left: 13px;
+    padding-top: 6px;
+}
+
+table.table-bordered.dataTable td:last-child,
+table.table-bordered.dataTable td:last-child {
+    border-right-width: 0;
+    width: 73px !important;
+}
+
+.table td,
+.table th {
+    text-align: center;
+}
+
+table.table td {
+    padding: 2px 8px;
+    vertical-align: middle;
+    line-height: 1;
+}
+table.table thead th,
+table.table tfoot td,
+table.table tfoot th {
+    padding: 8px;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+table.table thead th {
+    white-space: nowrap;
+}
+
+.form-control {
+    font-size: 13px;
+}
+
+table.table-bordered.table-sales-entry td,
+table.fz-sales-entry td,
+table.fz-sales-entry th,
+table.table-bordered.table-sales-entry th {
+    padding: 0.25rem;
+    vertical-align: middle;
+}
+
+table.fz-sales-entry .form-control,
+.table.table-bordered.table-sales-entry .form-control {
+    height: auto;
+}
+
+td span {
+    line-height: 18px
+}
+
+div#datatable-responsive_filter label {
+    padding-left: 4px;
+    font-weight: bold;
+    background: #81307e;
+}
+
+table.table-bordered.table-sales-entry .purchase-qty span {
+    min-width: 42px;
+}
+
+
+/* .x_title h2 {
+    border-radius: 2px;
+    background: #81307e;
+    padding: 6px 19px;
+    margin: 11px 5px 6px;
+    color: white;
+} */
+
+
+/*datatable setting toolbox icon section end*/
+
+/*unit list table sesction*/
+
+h2.unit_buttin {
+    float: right;
+}
+
+h2.unit_subtitle {
+    color: #ffffff !important;
+    padding: 10px;
+    background: #6400ff;
+    border-radius: 2px;
+}
+
+h2.update_unit_title {
+    color: #ffffff !important;
+    padding: 10px;
+    background: #4c28ff;
+    border-radius: 2px;
+}
+
+label {
+    background: #81307e;
+    color: #fff;
+    text-align: left !important;
+    font-size: 16px;
+}
+
+@media (min-width: 768px) {
+
+    .col-12.align-items-center.justify-self-center {
+        margin-left: 351px !important;
+    }
+}
+
+/*unit list table sesction end*/
+
+/*template title section   */
+
+.x_title h2 {
+    color: #444fe7;
+}
+
+/*template title section end*/
+
+/*table action dropdown button section*/
+
+ul.dropdown-menu.show {
+    left: unset !important;
+    right: 47px;
+    top: 00px !important;
+    transform: translate3d(0, 0, 0) !important;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    background: #0f0f0f94;
+    border: none;
+    gap: 4px;
+    min-width: auto;
+    margin: 0;
+    padding: 10px;
+}
+
+ul.dropdown-menu.show li {
+    width: 100%;
+}
+
+ul.dropdown-menu.show li a {
+    width: 100%;
+    color: #fff;
+    padding: 6px 10px;
+    text-align: right;
+}
+
+/*table action dropdown button section end*/
+
+/*product section start*/
+
+h2.add_product_title {
+    background: #2affb2;
+    padding: 10px;
+}
+
+h2.add_product_btn {
+    float: right;
+}
+
+/*update product title*/
+h2.update_product_title {
+    background: #b324ad;
+    padding: 10px;
+    border-radius: 2px;
+    color: white;
+}
+
+/*update product title end*/
+
+/*product section end*/
+
+/*supplier section start*/
+h2.add_supplier_title {
+    padding: 10px;
+    background: #5ebf40;
+    border-radius: 2px;
+    color: #fff;
+}
+
+h2.add_suppler_title {
+    float: right;
+}
+
+/*Supplier update title start*/
+h2.supplier_update_title {
+    background: #7400db;
+    padding: 10px;
+    border-radius: 2px;
+    color: #fff !important;
+}
+
+/*Supplier update title end*/
+
+/**supplier single view back button start**/
+
+div.back_button.mb-2 a.supplier_view_back_btn {
+    cursor: pointer;
+    z-index: 5555 !important;
+    position: relative;
+}
+
+/**supplier single view back button end**/
+
+/*supplier section end*/
+
+/*purchase order section start*/
+h2.purchase_entry_title {
+    background: #8700ff;
+    color: white;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+/*purchase entry form label start*/
+.search-area label {
+    padding: 10px;
+}
+
+/*purchase entry form label end*/
+
+/*add new purchase entry button start*/
+h2.add_purchase_btn {
+    float: right;
+}
+
+/*add new purchase entry button end*/
+
+/*purchase entry return title start*/
+h2.purchase_return_entry_title {
+    background: #5524e3;
+    color: #fff;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+/*purchase entry return title end*/
+
+/*purchase entry form label start*/
+
+form.form-horizontal.form-label-left.purchase_return_entry_form label {
+    padding: 10px;
+}
+
+/*purchase entry form label end*/
+
+/*return purchase list button start*/
+
+h2.add_new_purchase_button {
+    float: right !important;
+}
+
+h2.sales_entry_title {
+    background: #6756eb;
+    padding: 10px;
+    border-radius: 2px;
+    color: #fff;
+}
+
+/*sales entry form label start*/
+form.form-horizontal.form-label-left.purchase_entry_form label,
+form.form-horizontal.form-label-left.purchase_return_entry_form label,
+form.form-horizontal.form-label-left.sales_entry_form label {
+    padding: 7px;
+}
+
+/*sales entry form label end*/
+
+/*Add new sales entry button start*/
+h2.sales_order_btn {
+    float: right;
+}
+
+/*Add new sales entry button end*/
+/*sales back button on view page*/
+
+.sale_back_list_button {
+    float: right !important;
+}
+
+/*sales back button on view page end*/
+
+/*sales return entry title start*/
+h2.sales_return_entry_title {
+    background: #803dff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+/*sales return entry title end*/
+
+/*sales return entry from label start*/
+form.sales_return_entry_form label {
+    padding: 10px;
+}
+
+/*sales return entry from label end*/
+
+
+
+/*sales order section start*/
+
+/* Account section start */
+
+/*collection title start*/
+
+h2.collection_title {
+    padding: 10px !important;
+    background: #1712f3 !important;
+    color: white !important;
+    border-radius: 2px;
+}
+
+/*collection title end*/
+
+/*collection add part start*/
+
+/* .customer-search-area {
+    float: right;
+} */
+
+
+/* .select2-container .select2-selection--single .select2-selection__rendered{
+    padding-left: 82px !important;
+    padding-right: 82px !important;
+} */
+
+form.collection_from label {
+    padding: 10px;
+}
+
+
+/*collection add part end*/
+
+/*colloection list start*/
+
+h2.collection_add_button {
+    float: right;
+}
+
+/*colloection list end*/
+
+/*collection update title start*/
+
+h2.update_collection_title {
+    background: #089db5;
+    color: white;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+/*collection update title end*/
+
+/*collection update from label start*/
+
+form.update_form_area label {
+    padding: 2px 6px;
+}
+
+/*collection update from label end*/
+h2.collection_info_title {
+    display: inline-block;
+    padding: 10px;
+    background: #0029ff;
+    color: white !important;
+    border-radius: 2px;
+}
+
+
+
+/*add payment section start*/
+h2.add_payment_title {
+    background: #082cb5;
+    color: white;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+
+/*add payment section end*/
+
+/*add payment select two section start*/
+
+/* .supplier-search-area {
+    float: right;
+} */
+
+/*add payment select two section end*/
+
+/*add payment button start*/
+h2.add_payments_button {
+    float: right;
+}
+
+h2.payments_update_title {
+    background: #089db5;
+    color: white;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+/*add payment button start*/
+
+
+
+
+/* Account section end */
+
+
+/*employee section start*/
+h2.add_employee_title {
+    padding: 10px;
+    background: #0600ff;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.employee_list_add_btn {
+    float: right;
+}
+
+h2.update_employee_title {
+    padding: 10px;
+    background: #742fbd;
+    color: white;
+    border-radius: 2px;
+}
+
+/*back button on view page*/
+a.btn.btn-md.btn-primary.float-right.employee_back_button {
+    cursor: pointer;
+    z-index: 5555 !important;
+    position: relative;
+}
+
+/*back button on view page end*/
+/*employee section end*/
+
+/*bonus section start*/
+
+h2.monthly_bonus_title {
+    padding: 10px;
+    background: #6818ff;
+    color: white;
+    border-radius: 2px;
+}
+
+/* h2.add_bonus_count_title{
+    padding: 10px;
+    background: #6818ff;
+    color: white;
+    border-radius: 2px;
+} */
+
+h2.add_bonus_count_btn {
+    float: right;
+}
+
+h2.update_monthy_bonus_title {
+    padding: 10px;
+    background: #6818ff;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.add_yearly_bonus_count_title {
+    padding: 10px;
+    background: #6818ff;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.add_yearly_bonus_count_btn {
+    float: right;
+}
+
+.update_yearly_bonus_title {
+    padding: 10px;
+    background: #6818ff;
+    color: white !important;
+    border-radius: 2px;
+}
+
+h2.yearly_bonus_title {
+    padding: 10px;
+    background: #6818ff;
+    color: white !important;
+    border-radius: 2px;
+}
+
+/*bonus section end*/
+
+/*follow up date section start*/
+h2.add_customer_follow_update_f_title {
+    padding: 10px;
+    background: #65469f;
+    color: white !important;
+    border-radius: 2px;
+}
+
+h2.customer_follow_update_list_btn {
+    float: right;
+}
+
+h2.ufrom_customer_folllowing_date_title {
+    padding: 10px;
+    background: #65469f;
+    color: white !important;
+    border-radius: 2px;
+}
+
+.customer_follow_update_info_title {
+    display: inline-block;
+    padding: 10px;
+    background: #0029ff;
+    color: white !important;
+    border-radius: 2px;
+}
+
+h2.add_supplier_f_date {
+    padding: 10px;
+    background: #65469f;
+    color: white !important;
+    border-radius: 2px;
+}
+
+/*supplier update title start*/
+h2.u_supplier_follow_update_title {
+    padding: 10px;
+    background: #063ab3;
+    color: white !important;
+    border-radius: 2px;
+}
+
+/*supplier update title end*/
+
+h2.supplier_update_info_title {
+    display: inline-block;
+    padding: 10px;
+    background: #063ab3;
+    color: white !important;
+    border-radius: 2px;
+}
+
+h2.supplier_follow_up_to_date_btn {
+    float: right;
+}
+
+
+/*follow up date section end*/
+
+/*Quotation section start*/
+h2.customer_quotation_btn {
+    float: right;
+}
+
+h2.customer_qotation_view_title {
+
+    padding: 10px;
+    display: inline-block;
+    color: #007bff;
+    border-radius: 2px;
+}
+
+table.quoation_customer_info tbody th {
+    font-size: 16px;
+}
+
+h2.add_quotation_title {
+    padding: 10px;
+
+    color: #007bff;
+    border-radius: 2px;
+}
+
+h2.update_quoation {
+    padding: 10px;
+    color: #007cff;
+    border-radius: 2px;
+}
+
+.collection-form-area label {
+    width: 100%;
+}
+
+/*Quotation section end*/
+
+/*Report anylistic section start*/
+
+h2.purchase_report_title {
+    padding: 10px;
+    background: #8700ff;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.payment_report_title {
+    padding: 10px;
+    background: #5a32cf;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.collection_report {
+    padding: 10px;
+    background: #5a32cf;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.expense_report_title {
+    padding: 10px;
+    background: #5a32cf;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.daily_summary_report {
+    padding: 10px;
+    background: #5a32cf;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.monthly_summary_title {
+    padding: 10px;
+    background: #6c0c9b;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.yearly_summary_report {
+    padding: 10px;
+    background: #6c0c9b;
+    color: white;
+    border-radius: 2px;
+}
+
+
+/*Report anylistic section end*/
+
+/*Expense section start*/
+h2.add_salary_expense_title {
+    padding: 10px;
+    background: #204eff;
+    color: white;
+    border-radius: 2px;
+}
+
+/*add salary expense form start*/
+form.add_salary_expense_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2.salary_expense_list_add_btn {
+    float: right;
+}
+
+/*add salary expense form end*/
+
+/*update salary expense form start*/
+h2.update_salary_expense_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white;
+    border-radius: 2px;
+}
+
+form.update_salary_expense_from {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*bank expense  start*/
+h2.add_bank_expense_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white;
+    border-radius: 2px;
+}
+
+/*bank expense  end*/
+
+/*bank expense list start*/
+
+h2.bank_expense_list_btn {
+    float: right;
+}
+
+/*bank expense list end*/
+
+/* update bank expense form start*/
+h2.update_bank_expense_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white;
+    border-radius: 2px;
+}
+
+/* update bank expense form end*/
+
+/*labur expense start*/
+h2.add_labur_expense_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.labure_expense_list_btn {
+    float: right;
+}
+
+h2.update_labour_expense_title {
+    padding: 10px;
+    background: #00a14e;
+    color: white;
+    border-radius: 2px;
+}
+
+/*labur expense end*/
+
+/*carring expense start*/
+h2.add_carring_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.carring_expense_list_btn {
+    float: right;
+}
+
+h2.update_carring_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white;
+    border-radius: 2px;
+}
+
+/**/
+/*carring expense end*/
+/*dokan expense start*/
+
+h2.add_dokan_expense_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.dokan_expense_list_btn {
+    float: right;
+}
+
+h2.update_dokan_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white;
+    border-radius: 2px;
+}
+
+/*dokan expense end*/
+/*Expense section end*/
+
+/*store section start*/
+h2.add_store_btn {
+    float: right;
+}
+
+h2.add_store_title {
+    padding: 10px;
+    background: #ffffff;
+    color: #444fe7;
+    border-radius: 2px;
+}
+
+.update_store_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white !important;
+    border-radius: 2px;
+}
+
+/*store section end*/
+
+/*category section start*/
+h2.add_category_list_btn {
+    float: right;
+}
+
+h2.add_category_title {
+    background: #2c11fd;
+    color: white;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.update_category_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white !important;
+    border-radius: 2px;
+}
+
+/*category section end*/
+
+/*subcategory section start*/
+h2.subcategory_list_btn {
+    float: right;
+}
+
+h2.add_sub_category_title {
+    padding: 10px;
+    background: #6d20ff;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.update_subcategory_title {
+    padding: 10px;
+    background: #0035ff;
+    color: white;
+    border-radius: 2px;
+}
+
+/*subcategory section end*/
+
+/*brand section start*/
+h2.add_brand_title {
+    background: #1d00ff;
+    color: white;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+h2.update_brand_title {
+    background: #2505f4;
+    color: white;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+/*brand section end*/
+
+/*price group section start*/
+h2.add_price_group_btn {
+    float: right;
+}
+
+h2.price_group_title {
+    padding: 10px;
+    background: #444fe7;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.update_price_group_title {
+    padding: 10px;
+    background: #444fe7;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.add_price_g_title {
+    padding: 10px;
+    background: #0041ff;
+    color: white;
+    border-radius: 2px;
+}
+
+/*price group section end*/
+
+/*bank section start*/
+h2.add_bank_list_btn {
+    float: right;
+}
+
+h2.add_bank_from_title {
+    padding: 10px;
+    background: #0041ff;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.update_bank_from_title {
+    padding: 10px;
+    background: #0041ff;
+    color: white;
+    border-radius: 2px;
+}
+
+/*bank section end*/
+
+/*warehouse section start*/
+h2.warehouse_add_btn {
+    float: right;
+}
+
+h2.add_warehouse_title {
+    padding: 10px;
+    background: #0041ff;
+    color: white;
+    border-radius: 2px;
+}
+
+.update_warehouse_title {
+    padding: 10px;
+    background: #0041ff;
+    color: white !important;
+    border-radius: 2px;
+}
+
+/*warehouse section end*/
+
+/*product group section start*/
+h2.product_g_add_btn {
+    float: right;
+}
+
+h2.update_product_group_title {
+    padding: 10px;
+    background: blue;
+    color: white;
+}
+
+/*product group section end*/
+
+/*Size section start*/
+h2.size_add_btn {
+    float: right;
+}
+
+h2.size_title {
+    padding: 10px;
+    background: blue;
+    color: white;
+    border-radius: 2px;
+}
+
+h2.update_size_title {
+    padding: 10px;
+    background: blue;
+    color: white;
+    border-radius: 2px;
+}
+
+/*Size section end*/
+
+/*purchase entry form strat */
+.row.purchase_entry_form_row {
+    margin-top: -34px;
+}
+
+/*purchase entry form end*/
+.cart-total th {
+    text-align: left;
+}
+
+.cart-total td {
+    text-align: right;
+}
+
+.small-dp-menu {
+    width: 100px;
+    max-width: 100px;
+}
+
+.small-dp-menu label {
+    background: #18846b;
+    color: #fff;
+    padding: 4px 10px;
+}
+
+form.form-horizontal.form-label-left.purchase_return_entry_form label {
+    min-width: 200px !important;
+}
+
+label.entry-lebel {
+    width: 100%;
+}
+
+.thumbnail:hover .mask {
+    opacity: 1
+}
+
+.thumbnail .mask {
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.726);
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    color: #fff;
+    font-weight: 700;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.thumbnail:hover .tools,
+.thumbnail:hover p {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px)
+}
+
+.thumbnail:hover p {
+    -webkit-transition-delay: 0.1s;
+    transition-delay: 0.1s
+}
+
+.thumbnail .mask .badge-info {
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.caption {
+    padding: 5px;
+    background: #F7F7F7;
+    text-align: center;
+}
+
+.caption p {
+    margin-bottom: 5px;
+}
+
+/*purchase return entry form end*/
+
+/*sales entry form strat*/
+
+form.form-horizontal.form-label-left.sales_entry_form label,
+form.form-horizontal.form-label-left.purchase_return_entry_form label,
+form.form-horizontal.form-label-left.purchase_entry_form label,
+form.fz-entry-form label {
+    width: 100%;
+}
+
+.text-right input[type="text"] {
+    text-align: right;
+}
+
+/* .fz-entry-form .form-control {
+    height: calc(1.27em + 0.7rem + 2px);
+} */
+
+form.sales_return_entry_form label {
+    min-width: 200px;
+}
+
+/*sales entry form end*/
+
+/*account section start*/
+form.collection_from label {
+    min-width: 100%;
+}
+
+
+div.collection-form-area .col-lg-2 .form-group label {
+    min-width: 100%;
+}
+
+/*account section end*/
+
+/*follow up date section start*/
+.customer-search-area .form-group label {
+    width: 100%
+}
+
+/*follow up date section end*/
+
+/*Qouate section start*/
+
+.collection-form-area .col-lg-4.col-md-4.col-sm-12 .form-group label {
+    min-width: 50% !important;
+}
+
+/*Qouate section end*/
+
+/*add customer due start*/
+h2.add_customer_due_title {
+    padding: 10px;
+    background: #7000ff;
+    color: white;
+}
+
+.collection-form-area .form-group label {
+    width: 100%;
+}
+
+.add_customer_deu_btn {
+    float: right !important;
+}
+
+.customer_due_add {
+    width: 50%;
+}
+
+
+
+/*add customer due end*/
+
+/*supplier due start*/
+h2.supplier_due_btn {
+    float: right;
+}
+
+.supplier_deu_info_title {
+    padding: 10px;
+    background: #7000ff;
+    color: white !important;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+/*supplier due end*/
+
+/*category table section start */
+
+table.category_list_table th,
+table.category_list_table td {
+    text-align: left;
+    padding-left: 7px !important;
+}
+
+/*category table section end*/
+
+/*follow up date section start*/
+label.py-1.border.follow_update_select_update_label {
+    min-width: 50%;
+}
+
+/*follow up date section end*/
+
+/*payment list table section start*/
+td.payment_list_tb_total {
+    text-align: end !important;
+}
+
+/*payment list table section end*/
+
+/*Sales order section start*/
+table.table.table-striped.table-bordered tr.sales-entry input[type=number] {
+    text-align: left;
+    padding-left: 6px;
+    border: 1px solid #737373;
+    border-radius: 2px
+}
+
+/*Sales order section end*/
+
+/*customer statement table start*/
+.dataTables_wrapper {
+    overflow-x: auto;
+}
+
+/*customer statement table end*/
+
+/*purchase list table start */
+.card-box.purchase-list.table-responsive {
+    overflow-x: unset;
+}
+
+/*purchase list table end*/
+
+/*slaes list table start*/
+.card-box.table-responsive.sales_list_table {
+    overflow-x: unset;
+}
+
+/*slaes list table end*/
+
+
+
+/*calan view start*/
+
+ul.invoice_header_left {
+    padding-left: 0px;
+}
+
+ul.invoice_header_left li.bill_to span {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 3px;
+    display: block;
+}
+
+
+ul.invoice_header_left li {
+    list-style: none;
+    color: black;
+    border-width: 203px;
+}
+
+ul.invoice_header_left li span.invioce_detalis {
+    padding-top: 5px;
+    display: block;
+    font-size: 15px;
+}
+
+ul.invoice_header_right {
+    list-style: none;
+    font-size: 15px;
+    color: black;
+    float: right;
+}
+
+ul.invoice_header_right li {
+    text-align: right;
+}
+
+.col-lg-12.col-md-12.col-sm-12.offset-2.product_list_table {
+    padding-top: 10px;
+}
+
+.col-lg-8.col-md-8.col-sm-12.before_product_list_area {
+    padding: 20px 10px;
+}
+
+.thanks-area h5 {
+    font-size: 16px;
+}
+
+/* .supplier-signature-area h4:before {
+    width: 128px;
+    margin-left: 97px;
+} */
+
+.product-list-area table tbody tr td.comon_column {
+    width: 70px;
+}
+
+table.calculation_below_table tbody tr th {
+    text-align: right;
+    padding-right: 16px;
+    border: none;
+    color: #000000;
+}
+
+table.calculation_below_table tbody tr td {
+    color: #020202;
+    padding-left: 7px;
+    border: 1px solid #dee2e6;
+}
+
+
+table.calculation_below_table tbody tr td {
+    text-align: right;
+    padding: 2px 11px;
+}
+
+/*calan view end*/
+
+/*print section start*/
+/*
+@media print {
+
+    body * {
+        display: none;
+    }
+
+
+    .x_content {
+        display: block !important;
+    }
+}
+
+*/
+
+/*print section end*/
+
+/*table sales entry secton start*/
+
+table.table.table-striped.table-bordered tr.sales-entry input[type=number] {
+    text-align: center;
+}
+
+table.table-sales-entry input.form-control[type="text"],
+table.table-sales-entry input.form-control[type="number"],
+.sales-return-table input.form-control[type="text"],
+.sales-return-table input.form-control[type="number"],
+table.fz-sales-entry input.form-control[type="text"],
+table.fz-sales-entry input.form-control[type="number"] {
+    padding: 0;
+    text-align: center;
+    min-width: 40px;
+    width: 100%;
+    font-size: 13px;
+}
+
+table.table-sales-entry .sub-total input.form-control {
+    text-align: right;
+}
+
+/*table sales entry secton end*/
+
+
+
+/*collection invoice start*/
+a.btn.btn-info.collection-invoice-print-b {
+    margin-left: 9px;
+    margin-top: 10px;
+}
+
+.customer-signature-area h4 {
+    font-size: 16px;
+    position: relative;
+}
+
+.supplier-signature-area h4 {
+    font-size: 16px;
+    position: relative;
+}
+
+.bottom-area {
+    display: flex;
+}
+
+.table-responsive td {
+    white-space: nowrap;
+}
+/*collection invoice end*/
+
+/*invoie section start*/
+a.btn.btn-info.btn-link {
+    color: white;
+    padding: 7px;
+}
+
+a.btn.btn-info.btn-link:hover {
+    color: #0124ab;
+}
+
+/*invoie section end*/
+
+
+/* Sidebar */
+.nav-sm .nav.side-menu li a span.label {
+    display: none;
+}
+
+.navbar-right .top-menu {
+    gap: 5px;
+}
+
+.cart-total th,
+.cart-total td {
+    width: 50%;
+    vertical-align: middle;
+}
+
+.cart-total td input[type="number"] {
+    text-align: right;
+}
+
+.cart-total .has-input th {
+    padding: 0px 10px;
+}
+
+.cart-total .has-input td {
+    padding: 0;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+.fs-14 {
+    font-size: 14px;
+}
+
+.cart-total .has-input td input[type="text"],
+.cart-total .has-input td select,
+.cart-total .has-input td input[type="number"] {
+    padding: 2px 0 2px 8px;
+    height: auto;
+    font-size: 12px;
+}
+
+.cart-total tr:not(.has-input) th,
+.cart-total tr:not(.has-input) td {
+    padding: 2px 8px;
+}
+
+
+
+/*contact us section */
+.description h4 {
+    padding-left: 32px;
+}
+
+/*contact us section end*/
+
+/*customer ledger table start*/
+.due-list-area.mt-4 table.table.table-striped.table-bordered tbody tr td {
+    vertical-align: middle !important;
+}
+
+/*customer ledger table end*/
+
+/*add store section*/
+form#demo-form2 .item {
+    display: flex;
+    justify-content: center;
+}
+
+/*add store section end*/
+
+/*sales return table start*/
+.sales-return-table tbody tr:nth-of-type(odd) {
+    background-color: rgb(255 255 255 / 5%);
+}
+
+td.sale-return-rate span {
+    min-width: 20px;
+}
+
+table tbody tr td.return-qty span {
+    min-width: 40px;
+}
+
+td.return-qty {
+    min-width: 125px;
+}
+
+form.sales_return_entry_form label {
+    /* min-width: 200px; */
+    width: 100%;
+}
+
+form.fz-entry-form label {
+    padding: 0px 10px;
+}
+
+
+td.calculation-text-right {
+    text-align: right;
+}
+
+.px-3 table th {
+    vertical-align: middle;
+    width: 50%;
+    text-align: left;
+    font-size: 12px !important;
+    padding: 10px;
+}
+
+/*sales return table end*/
+
+/*product gallery section*/
+
+h3.product_gallery_title {
+    font-size: 16px;
+}
+
+/*product gallery section end*/
+
+/*sale report section start*/
+.supplier-search-area label {
+    width: 100%;
+}
+
+/*sale report section end*/
+
+
+
+/*price group update price rate start*/
+.x_title h2.update-price-title {
+    color: #ffffff;
+    display: inline-block;
+    background: #007bff;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.update-price-rate {
+    border: 1px solid #356fc2;
+    width: 100%
+}
+
+form.update-price-rate-from {
+    max-width: 100% !important;
+}
+
+/*price group update price rate end*/
+
+/*add payment section start*/
+a.add-payment-close {
+    padding-top: 10px;
+}
+
+/*add payment section end*/
+
+/*search invoice by id start*/
+.sales-invoices-search-area label {
+    width: 100%;
+    padding: 4px;
+}
+
+/*search invoice by id end*/
+
+.select2-container {
+    width: 100% !important;
+}
+
+li.select2-results__option {
+    white-space: nowrap;
+}
+
+
+/*change page heading start*/
+.x_title h2 {
+    background: #007bff;
+    color: #ffffff;
+    /* font-weight: 800; */
+    padding: 10px;
+    border-radius: 3px;
+}
+/*change page heading end*/
+
+/*slaes entry lebel color change*/
+label.sales_entry_lebel {
+    background: linear-gradient(90deg, rgba(150,1,159,1) 39%, rgba(232,178,68,1) 100%);
+}
+
+/*slaes entry lebel color change end*/
+
+/*purchase return entry label color*/
+label.purchase_entry_lebel {
+    background: linear-gradient(90deg, rgba(0, 0, 128, 1) 38%, rgba(182, 105, 63, 0.9836309523809523) 100%);
+}
+/*purchase return entry label end*/
+
+/*collection lebel start*/
+label.collection_entry_lebel {
+    background: linear-gradient(90deg, rgba(84, 0, 138, 1) 21%, rgba(254, 71, 71, 1) 50%, rgba(244, 161, 47, 1) 100%);
+}
+
+
+/*collection lebel end*/
+
+
+/*Add payment Start*/
+label.add_payment_lebel {
+    background: linear-gradient(90deg, rgba(92, 4, 4, 1) 21%, rgba(165, 63, 63, 1) 50%, rgba(201, 21, 255, 1) 100%);
+}
+/*Add payment end*/
+
+/*Add store Start*/
+label.add_store_lebel {
+    background: linear-gradient(90deg, rgba(139, 0, 0, 1) 50%, rgba(204, 85, 0, 1) 100%);
+}
+/*Add store end*/
+
+/*Add customer Start*/
+label.add_customer_lebel {
+    background: linear-gradient(90deg, rgba(30, 54, 100, 1) 50%, rgba(250, 195, 6, 1) 100%);
+}
+/*Add customer end*/
+
+/*Add guarantor Start*/
+label.add_guarantor_lebel {
+    background: linear-gradient(90deg, rgba(242,143,40,1) 50%, rgba(241,82,0,1) 100%);
+}
+/*Add guarantor end*/
+
+/*Add supplier Start*/
+label.add_supplier_lebel {
+    background: linear-gradient(90deg, rgba(0, 28, 94, 1) 50%, rgba(207, 48, 54, 1) 100%);
+}
+/*Add supplier end*/
+
+/*Add prodcut Start*/
+label.add_product_lebel {
+    background: linear-gradient(90deg, rgba(24, 62, 117, 1) 22%, rgba(237, 72, 72, 1) 78%);
+}
+/*Add product end*/
+
+/*Add category Start*/
+label.add_category_lebel {
+    background: linear-gradient(90deg, rgba(227, 75, 98, 1) 22%, rgba(255, 235, 148, 1) 78%);
+}
+/*Add product end*/
+
+/*Add customer_type Start*/
+label.add_customer_type_lebel {
+    background: linear-gradient(90deg, rgba(89, 69, 151, 1) 22%, rgba(162, 236, 145, 1) 78%);
+}
+/*Add  customer_type end*/
+
+
+/*Add brand Start*/
+label.add_brand_lebel {
+    background: linear-gradient(90deg, rgba(8, 23, 178, 1) 22%, rgba(209, 94, 6, 1) 78%);
+}
+/*Add  brand end*/
+
+/*Add priceGroup Start*/
+label.add_price_group_lebel {
+    background: linear-gradient(90deg, rgba(127, 6, 202, 1) 22%, rgba(255, 202, 66, 1) 78%);
+}
+/*Add  priceGroup end*/
+
+/*Add bank Start*/
+label.add_bank_lebel {
+    background: linear-gradient(90deg, rgba(39, 29, 103, 1) 22%, rgba(230, 81, 98, 1) 78%);
+}
+/*Add  bank  end*/
+
+/*Add warehouse Start*/
+label.add_warehouse_lebel {
+    background: linear-gradient(90deg, rgba(111, 0, 71, 1) 22%, rgba(217, 184, 95, 1) 78%);
+}
+/*Add  warehouse  end*/
+
+/*Add productGroup Start*/
+label.add_product_group_lebel {
+    background: linear-gradient(90deg, rgba(7, 55, 99, 1) 22%, rgba(255, 205, 154, 1) 78%);
+}
+/*Add  productGroup  end*/
+
+/*Add size Start*/
+label.add_size_lebel {
+    background: linear-gradient(90deg, rgba(7, 55, 99, 1) 22%, rgba(255, 205, 154, 1) 78%);
+}
+/*Add  size  end*/
+
+/*Add unit Start*/
+label.add_unit_lebel {
+    background: linear-gradient(90deg, rgb(33 94 135) 22%, rgb(255 154 154) 78%);
+}
+
+/*Add  unit  end*/
+
+/*follow on date section start*/
+.follow-input {
+    padding-left: 10px;
+}
+/*follow on date section end*/
+
+/*product single view start*/
+.stock_qty {
+    background: none;
+    color: #000;
+    font-size: 13px;
+}
+
+h5.text-center.single_p_title {
+    font-size: 19px;
+    background: #007bff;
+    padding: 10px;
+    border-radius: 3px;
+    color: white;
+}
+/*product single view  end*/
+
+/*product update form label start*/
+label.sp_update_title {
+    background: linear-gradient(90deg, rgba(24, 62, 117, 1) 22%, rgba(237, 72, 72, 1) 78%);
+}
+
+/*product update form label end*/
+
+/* product gallery title start*/
+h3.product_gallery_title {
+    background: #007bff;
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+    width: 27%;
+}
+
+p.pgallary_title {
+    text-align: center;
+    color: #001aff;
+}
+
+.caption p {
+    margin-bottom: 5px;
+    color: #ab0095;
+}
+
+.mask p {
+    font-size: 14px;
+}
+/* product gallery title end*/
+
+/*purchase report table desc section */
+tr.product_desc td {
+    font-size: 19px;
+}
+/*purchase report table desc section end*/
+
+/*bank deposit table start*/
+label.total_balance_label {
+    font-size: 14px;
+}
+/*bank deposit table start*/
+label.supplier_label {
+    font-size: 14px;
+    padding: 5px;
+}
+/*supplier edit page start*/
+/*supplier edit page end*/
+
+/*payment invoice section start*/
+.payment_print_title {
+    font-size: 16px;
+}
+
+.payment_print_table table tbody th {
+    font-size: 13px;
+}
+
+.payment_print_table table tbody td{
+    font-size:13px;
+}
+
+.payment_print_table table.calculation_below_table{
+    font-size:13px;
+}
+
+div.payment_print_table table.calculation_below_table tbody tr:last-child th {
+    font-size: 13px;
+}
+
+div.payment_print_table table.calculation_below_table tbody tr:last-child td {
+    font-size: 13px;
+}
+
+table.payment_print_cal_table {
+    font-size:13px;
+}
+
+table.payment_print_cal_table tbody tr:last-child th{
+    font-size: 13px;
+}
+
+table.payment_print_cal_table tbody tr:last-child td{
+    font-size: 13px;
+}
+
+.supplier-signature-area h4 {
+    font-size: 13px;
+}
+/*payment invoice section end*/
+
+
+/*collection print section start*/
+.collection_print_title {
+    font-size: 15px;
+}
+
+.collection_print_table tbody th {
+    font-size: 12px;
+}
+
+.collection_print_table tbody tr td {
+    font-size: 13px;
+}
+
+table.collection_cal_table tbody tr th{
+    font-size: 13px !important;
+}
+table.collection_cal_table tbody tr td{
+    font-size: 13px !important;
+}
+
+.customer-signature-area h4 {
+    font-size: 13px;
+}
+
+.collection_cal_table .in-word-area h4 {
+    font-size: 12px !important;
+}
+
+
+/*collection print section end*/
+
+
+table.table-sales-entry .sales-entry-qty-wrapper {
+    flex-wrap: nowrap;
+    gap: 6px;
+}
+table.table-sales-entry .sales-entry-qty-wrapper input.form-control[type="text"] {
+    max-width: 60px;
+}
+table.table-sales-entry .sales-entry-qty-wrapper span {
+    width: 70px;
+    text-align: left;
+}
+.single-product table.product-data th,
+.single-product table.product-data td {
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+.gap-2
+{
+    gap: 10px;
+}
+.gap-3 {
+    gap: 20px;
+}
+
+
+.fz-form {
+    background: #ddd;
+    padding: 20px;
+    border: 1px solid #b7b7b7;
+    border-radius: 6px;
+}
+
+.fz-form-style-1{
+    background: #05009936;
+}
+.fz-form-style-2{
+    background: #1a990036;
+}
+table.customer-data th {
+    text-align: left;
+    width: 30%;
+}
+table.customer-data td
+ {
+    text-align: left;
+    width: 70%;
+}
+
+.fz-report-area {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ddd;
+    padding: 20px;
+}
+table#datatable-responsivesss {
+    width: 100% !important;
+}
+table.table-sales-entry span,
+table.table-sales-entry strong {
+    line-height: 1;
+}
+.sales-info input.form-control, .sales-info label {
+    padding: 0 5px !important;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+}
+.py-half {
+    padding-top: 0.15rem !important;
+}
+.input-group-addon {
+    padding: 6px;
+    font-size: 10px;
+}
+table .text-wrap span,
+table .text-wrap strong {
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+/* Sidebar Action Buttons Animations */
+.sidebar-action-btn {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.sidebar-action-btn:hover {
+    transform: scale(1.15);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
+
+.sidebar-action-btn:active {
+    transform: scale(0.95);
+}
+
+.sidebar-action-btn .glyphicon {
+    transition: all 0.3s ease;
+}
+
+.button-clicked {
+    animation: buttonPulse 0.3s ease;
+}
+
+@keyframes buttonPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.9);
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* FullScreen button icon transition */
+#fullscreen-btn .glyphicon {
+    transition: all 0.3s ease;
+}

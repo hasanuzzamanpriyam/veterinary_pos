@@ -1,0 +1,22 @@
+* [33me4cd8d8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/towfique[m[33m, [m[1;32mtowfique[m[33m)[m banner changed and dashboard calculation changed
+* [33mbc6845a[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m merging the codes
+* [33m5bec305[m .env change
+*   [33m0fdee6e[m Merge branch 'master' of https://github.com/TICLTD/firozenterprise into towfique
+[32m|[m[33m\[m  
+[32m|[m * [33m961a780[m feat: Add new authentication card logo and main application layout Blade components.
+[32m|[m * [33mf5e6cd9[m show data on the dashboard
+[32m|[m * [33mffdafbf[m modified the seeder file
+[32m|[m *   [33m1ec709d[m Merge branch 'master' of https://github.com/TICLTD/firozenterprise
+[32m|[m [34m|[m[35m\[m  
+[32m|[m * [35m|[m [33m543d755[m .env visible
+* [35m|[m [35m|[m [33m5054714[m pdf problem solution
+[35m|[m [35m|[m[35m/[m  
+[35m|[m[35m/[m[35m|[m   
+* [35m|[m [33me9e028e[m route authentication added
+[35m|[m[35m/[m  
+* [33m7fda90d[m Show all list of Ledgers
+* [33m64c6094[m Show all data of Purchase Report
+* [33m8787144[m Add RBAC Management
+* [33m42cedd9[m first commit
+* [33m4e67c3f[m docignore file
+* [33mba2cb63[m ignore files
