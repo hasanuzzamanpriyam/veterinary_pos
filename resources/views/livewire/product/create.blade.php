@@ -1,6 +1,6 @@
 @section('page-title', 'Product Create')
 {{-- @push('styles')
-    <link rel="stylesheet" href="{{asset('assets/css/dropify.min.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/css/dropify.min.css')}}" />
 @endpush --}}
 <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
@@ -12,18 +12,15 @@
         </div>
         <div class="x_content p-3">
             <br />
-             {{-- notification message --}}
+            {{-- notification message --}}
             @if(session()->has('msg'))
                 <div class="text-center alert alert-danger">
                     {{session()->get('msg')}}
                 </div>
             @endif
 
-            <form wire:submit.prevent="sessionCreate()"
-                enctype="multipart/form-data"
-                id="demo-form2"
-                data-parsley-validate
-                class="form-horizontal form-label-left">
+            <form wire:submit.prevent="sessionCreate()" enctype="multipart/form-data" id="demo-form2"
+                data-parsley-validate class="form-horizontal form-label-left">
 
                 @csrf
                 <div class="row m-auto">
@@ -31,7 +28,8 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="code">Product Code <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="code">Product Code
+                                    <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
@@ -48,7 +46,8 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="name">Product Name <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="name">Product Name
+                                    <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
@@ -65,12 +64,14 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="brand">Brand <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="brand">Brand <span
+                                        class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <select name="brand_id" id="brand_id" wire:model="brand_id" class="form-control">
+                                        <select name="brand_id" id="brand_id" wire:model="brand_id"
+                                            class="form-control">
                                             <option value="">Select Option</option>
                                             @foreach($brands as $brand)
                                                 <option value="{{$brand->id}}">{{$brand->name}}</option>
@@ -86,12 +87,14 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="group_id">Product Group <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="group_id">Product
+                                    Group <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <select name="group_id" id="group_id" wire:model="group_id" class="form-control">
+                                        <select name="group_id" id="group_id" wire:model="group_id"
+                                            class="form-control">
                                             <option value="">Select Option</option>
                                             @foreach($product_groups as $product_group)
                                                 <option value="{{$product_group->id}}">{{$product_group->name}}</option>
@@ -107,7 +110,8 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="size">Size <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="size">Size <span
+                                        class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
@@ -117,7 +121,7 @@
                                             @foreach($sizes as $size)
                                                 <option value="{{$size->id}}">{{$size->name}} Kg</option>
                                             @endforeach
-                                       </select>
+                                        </select>
                                     </div>
                                     @error('size_id')
                                         <span class="text-danger">{{$message}}</span>
@@ -128,7 +132,8 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="type">Type <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="type">Type <span
+                                        class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
@@ -144,7 +149,7 @@
                                             @foreach($types as $key => $type)
                                                 <option value="{{$key}}">{{$type}}</option>
                                             @endforeach
-                                       </select>
+                                        </select>
                                     </div>
                                     @error('type')
                                         <span class="text-danger">{{$message}}</span>
@@ -155,12 +160,14 @@
 
                         <div class="item">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2" for="photo">Product Photo <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2" for="photo">Product Photo
+                                    <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div>
-                                        <img src="{{$photo ? $photo->temporaryUrl() : asset('assets/images/no-image.png')}}" width="75" height="75"  class="wow fadeInLeft"  alt="Photo" />
+                                        <img src="{{$photo ? $photo->temporaryUrl() : asset('assets/images/no-image.png')}}"
+                                            width="75" height="75" class="wow fadeInLeft" alt="Photo" />
                                     </div>
                                     <div>
                                         <input type="file" id="photo" name="photo" wire:model="photo" class="">
@@ -175,12 +182,31 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="barcode">Barcode <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="sku">SKU <span
+                                        class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <input type="text" id="barcode" name="barcode" wire:model="barcode" class="form-control">
+                                        <input type="text" id="sku" name="sku" wire:model="sku" class="form-control">
+                                    </div>
+                                    @error('sku')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-2">
+                            <div class="d-flex align-items-start col-md-4 p-0">
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100"
+                                    for="barcode">Barcode/Need to <span class=""></span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <div class="d-flex justify-content-center align-items-start flex-column">
+                                    <div class="w-100">
+                                        <input type="text" id="barcode" name="barcode" wire:model="barcode"
+                                            class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -188,15 +214,17 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="category_id">Category <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100"
+                                    for="category_id">Category <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <select name="category_id" id="category_id" wire:model="category_id" class="form-control">
+                                        <select name="category_id" id="category_id" wire:model="category_id"
+                                            class="form-control">
                                             <option value="">No Category</option>
                                             @foreach($categories as $category)
-                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -206,12 +234,14 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="alert_quantity">Alert Quantity <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100"
+                                    for="alert_quantity">Alert Quantity <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <input type="number" id="alert_quantity" name="alert_quantity" wire:model="alert_quantity" class="form-control">
+                                        <input type="number" id="alert_quantity" name="alert_quantity"
+                                            wire:model="alert_quantity" class="form-control">
                                     </div>
                                     @error('alert_quantity')
                                         <span class="text-danger">{{$message}}</span>
@@ -222,12 +252,32 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="purches_rate">Purchase Rate <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100"
+                                    for="alert_expire_date">Alert Expire Date <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <input type="number" step="0.01" id="purchase_rate" name="purchase_rate" wire:model="purchase_rate" class="form-control">
+                                        <input type="date" id="alert_expire_date" name="alert_expire_date"
+                                            wire:model="alert_expire_date" class="form-control">
+                                    </div>
+                                    @error('alert_expire_date')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-2">
+                            <div class="d-flex align-items-start col-md-4 p-0">
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="purches_rate">TP
+                                    Rate <span class=""></span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <div class="d-flex justify-content-center align-items-start flex-column">
+                                    <div class="w-100">
+                                        <input type="number" step="0.01" id="purchase_rate" name="purchase_rate"
+                                            wire:model="purchase_rate" class="form-control">
                                     </div>
                                     @error('purchase_rate')
                                         <span class="text-danger">{{$message}}</span>
@@ -238,12 +288,14 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="mrp_rate">MRP Rate <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="mrp_rate">MRP Rate
+                                    <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <input type="number" step="0.01" id="mrp_rate" name="mrp_rate" wire:model="mrp_rate" class="form-control">
+                                        <input type="number" step="0.01" id="mrp_rate" name="mrp_rate"
+                                            wire:model="mrp_rate" class="form-control">
                                     </div>
                                     @error('mrp_rate')
                                         <span class="text-danger">{{$message}}</span>
@@ -254,12 +306,14 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="price_rate">Price Rate <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="price_rate">Sale
+                                    Rate <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <input type="number" step="0.01" id="price_rate" name="price_rate" wire:model="price_rate" class="form-control">
+                                        <input type="number" step="0.01" id="price_rate" name="price_rate"
+                                            wire:model="price_rate" class="form-control">
                                     </div>
                                     @error('price_rate')
                                         <span class="text-danger">{{$message}}</span>
@@ -270,12 +324,14 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="remarks">Remarks <span class=""></span></label>
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="remarks">Remarks
+                                    <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <textarea type="text" name="remarks" id="remarks" wire:model="remarks" cols="10" rows="1"  class="form-control"></textarea>
+                                        <textarea type="text" name="remarks" id="remarks" wire:model="remarks" cols="10"
+                                            rows="1" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -298,14 +354,14 @@
 {{-- @push('scripts')
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{asset('assets/js/dropify.min.js')}}"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
 
     $('.dropify').dropify({
-                messages: {
-                    'default': 'Drag and drop',
-                    'remove':  'Remove',
-                }
-            });
-    </script>
+        messages: {
+            'default': 'Drag and drop',
+            'remove': 'Remove',
+        }
+    });
+</script>
 
 @endpush --}}

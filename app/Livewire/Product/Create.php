@@ -36,6 +36,8 @@ class Create extends Component
     public $category_id;
     public $metric_ton;
     public $barcode;
+    public $sku;
+    public $alert_expire_date;
     public $remarks;
     public $photo;
 
@@ -61,6 +63,8 @@ class Create extends Component
             'price_rate' => 'required',
             'alert_quantity' => 'required',
             'category_id' => 'nullable',
+            'sku' => 'nullable',
+            'alert_expire_date' => 'nullable',
             'barcode' => 'nullable',
             'remarks' => 'nullable|max:255',
             'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
@@ -93,6 +97,8 @@ class Create extends Component
             'price_rate' => $validated_data['price_rate'],
             'alert_quantity' => $validated_data['alert_quantity'],
             'category_id' => $validated_data['category_id'],
+            'sku' => $validated_data['sku'],
+            'alert_expire_date' => $validated_data['alert_expire_date'],
             'barcode' => $validated_data['barcode'],
             'remarks' => $validated_data['remarks'],
             'photo' => !empty($filename) ? '/storage/' . $filename : '',
@@ -128,6 +134,8 @@ class Create extends Component
             $this->alert_quantity = isset($product['alert_quantity']) ? $product['alert_quantity'] : null; //$product['alert_quantity'];
             $this->category_id = isset($product['category_id']) ? $product['category_id'] : null; //$product['category_id'];
             $this->metric_ton = isset($product['metric_ton']) ? $product['metric_ton'] : null; //$product['metric_ton'];
+            $this->sku = isset($product['sku']) ? $product['sku'] : null;
+            $this->alert_expire_date = isset($product['alert_expire_date']) ? $product['alert_expire_date'] : null;
             $this->barcode = isset($product['barcode']) ? $product['barcode'] : null; //$product['barcode'];
             $this->remarks = isset($product['remarks']) ? $product['remarks'] : null; //$product['remarks'];
             // $this->photo = isset($product['photo']) ? $product['photo'] : null; //$product['photo'];
