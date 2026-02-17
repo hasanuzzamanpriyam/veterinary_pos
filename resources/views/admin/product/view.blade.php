@@ -90,6 +90,7 @@ Product View
                         <th>Store/Warehouse Name</th>
                         <th class="text-center">Quantity</th>
                         <th class="text-right">Weight</th>
+                        <th class="text-right">Expire Date</th>
                         <th class="text-right">Purchase Value</th>
                         <th class="text-right">Sale Value</th>
                     </tr>
@@ -120,6 +121,7 @@ Product View
                             <td>{{$value['name']}}</td>
                             <td class="text-center">{{formatAmount($value['qty'])}} {{trans_choice('labels.' . $product->type, $value['qty'])}}</td>
                             <td class="text-right">{{formatAmount($value['weight'])}} MT</td>
+                            <td class="text-right">{{ $product['alert_expire_date'] }}</td>
                             <td class="text-right">{{formatAmount($value['price'])}}/=</td>
                             <td class="text-right">{{formatAmount($value['sale_value'])}}/=</td>
                         </tr>
@@ -130,6 +132,7 @@ Product View
                     <td></td>
                     <td class="text-center"><b>{{formatAmount($summary['qty'] ?? 0) }} {{trans_choice('labels.' . $product->type, $summary['qty'] ?? 0)}}</b></td>
                     <td class="text-right"><b>{{formatAmount($summary['weight'] ?? 0)}} MT</b></td>
+                    <td></td>
                     <td class="text-right"><b>{{formatAmount($summary['purchase_tk'] ?? 0)}}/=</b></td>
                     <td class="text-right"><b>{{formatAmount($summary['sale_tk'] ?? 0)}}/=</b></td>
                 </tfoot>
