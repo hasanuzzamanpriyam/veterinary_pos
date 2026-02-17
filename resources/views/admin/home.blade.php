@@ -40,7 +40,7 @@
                                             <h4 class="text-center">Total Quantity</h4>
                                         </div>
                                         <div class="items-description">
-                                            <h5 class="text-center">{{ $total_qty_sales_today ?? 0 }} Bags</h5>
+                                            <h5 class="text-center">{{ $total_qty_sales_today ?? 0 }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                                 $tons = ($todaysTotalSellsWeight ?? 0) / 1000;
                                             @endphp
                                             <h5 class="text-center">
-                                                {{ number_format($tons, 2) }} {{ $tons > 1 ? 'Tons' : 'Kg' }}
+                                                {{ number_format($tons, 2) }}
                                             </h5>
                                         </div>
                                     </div>
@@ -120,8 +120,7 @@
                                                             <h4 class="text-center">Total Quantity</h4>
                                                         </div>
                                                         <div class="items-description">
-                                                            <h5 class="text-center">{{ $total_qty_purchase_today ?? 0 }}
-                                                                Bags</h5>
+                                                            <h5 class="text-center">{{ $total_qty_purchase_today ?? 0 }}</h5>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -137,7 +136,6 @@
                                                             @endphp
                                                             <h5 class="text-center">
                                                                 {{ number_format($tons, 2) }}
-                                                                {{ $tons > 1 ? 'Tons' : 'Ton' }}
                                                             </h5>
                                                         </div>
                                                     </div>

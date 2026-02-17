@@ -335,7 +335,7 @@
                             </td>
                         @endif
                         @if (in_array('weight', $visible_cols))
-                            <td class="text-nowrap">{{$totalWeight ? $totalWeight / 1000 . ' MT' : ''}}</td>
+                            <td class="text-nowrap">{{$totalWeight ? $totalWeight / 1000 : ''}}</td>
                         @endif
 
                         @if (in_array('sale_amount', $visible_cols))

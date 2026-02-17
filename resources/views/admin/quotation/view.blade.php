@@ -41,7 +41,7 @@ Quotation View
                                             <tr><th class="text-right">Product Name: <td >{{$quotation->product->name}}</td></th></tr>
                                             <tr><th class="text-right">Brand: <td >{{$quotation->brand->name}}</td></th></tr>
                                             <tr><th class="text-right">Group: <td >{{$quotation->productGroup->name}}</td></th></tr>
-                                            <tr><th class="text-right">Quantity: <td >{{$quotation->quantity}} Pcs/Bags</td></th></tr>
+                                            <tr><th class="text-right">Quantity: <td >{{$quotation->quantity}}</td></th></tr>
                                         </tbody>
                                     </table>
                                 </div>

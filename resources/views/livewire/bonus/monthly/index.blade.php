@@ -93,7 +93,7 @@
                                         <tr class="text-center">
                                             <th style="width: 40px">SL</th>
                                             <th class="text-left">Month</th>
-                                            <th class="text-right">Weight Ton</th>
+                                            <th class="text-right">Weight</th>
                                             <th class="text-right">Bonus Rate Tk</th>
                                             <th class="text-right">Bonus Amount</th>
                                         </tr>
@@ -111,14 +111,14 @@
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td class="text-left">{{date('F Y', strtotime($bonus->month))}}</td>
-                                                <td class="text-right">{{$bonus->weight}} (Ton)</td>
+                                                <td class="text-right">{{$bonus->weight}}</td>
                                                 <td class="text-right">{{formatAmount($bonus->rate)}}/=</td>
                                                 <td class="text-right">{{formatAmount($bonus->bonusAmount)}}/=</td>
                                             </tr>
                                         @endforeach
                                         <tr class="font-weight-bold">
                                             <td class="text-left" colspan="2">Total</td>
-                                            <td class="text-right">{{$total_weight}} (Ton)</td>
+                                            <td class="text-right">{{$total_weight}}</td>
                                             <td class="text-right"></td>
                                             <td class="text-right">{{formatAmount($total_commission)}}/=</td>
                                         </tr>

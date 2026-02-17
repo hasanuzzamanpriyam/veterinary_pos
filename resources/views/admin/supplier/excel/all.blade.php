@@ -165,7 +165,7 @@
                     @endif
                     @if ( array_key_exists("weight", $columns) )
                     {{-- Weight --}}
-                    <td class="text-right weight">{{ $totalWeight ? $totalWeight / 1000 . 'MT' : '' }}</td>
+                    <td class="text-right weight">{{ $totalWeight ? $totalWeight / 1000 : '' }}</td>
                     @endif
                     @if ( array_key_exists("purchase_amount", $columns) )
                     {{-- Total purchases/Price --}}
@@ -301,7 +301,7 @@
                 </td>
                 @endif
                 @if ( array_key_exists("weight", $columns) )
-                <td><b>{{$g_total_sumarry['weight'] ? $g_total_sumarry['weight'] / 1000 . 'MT' : ''}}</b></td>
+                <td><b>{{$g_total_sumarry['weight'] ? $g_total_sumarry['weight'] / 1000 : ''}}</b></td>
                 @endif
                 @if ( array_key_exists("purchase_amount", $columns) )
                 <td class="text-right purchase_amount" style="text-align: right"><b>{{$g_total_sumarry['purchases'] ? number_format($g_total_sumarry['purchases']) . '/=' : ''}}</b></td>

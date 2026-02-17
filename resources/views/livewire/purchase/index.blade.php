@@ -143,7 +143,9 @@
                                                             <option value="{{ $product->id }}">
                                                                     {{$product->code}} -
                                                                     {{$product->name}} -
-                                                                    {{$line_stock_qty}} {{trans_choice( 'labels.' . $product->type, $line_stock_qty )}} -
+                                                                    {{$line_sto
+                                                           ck_qty}} {{transchoice( 'labels.' . $product->type, $line_sock
+                                                           _qty )}} -
                                                                     {{$product->purchase_rate}}/=
                                                             </option>
                                                         @endforeach
@@ -398,7 +400,10 @@
                                                                 <p class="m-0">
                                                                     <span>৳.{{ $product->purchase_rate }}/=</span>
                                                                 </p>
-                                                                <div class="badge-info text-light">{{ $product->opening_stock ?? 0 }} {{ trans_choice('labels.bag', $product->opening_stock ?? 0) }}</div>
+                                                                <div class="badge-info text-light">{{ $
+                                                                        product->opening_stock ?? 0 }} {{ 
+                                                                       trans_choice('labels.bag', $product->opening_stock ?? 0) }}</di
+                                                                    v>
                                                             </div>
 
                                                             @if(!empty($product->product->brand_id))

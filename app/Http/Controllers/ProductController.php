@@ -87,7 +87,6 @@ class ProductController extends Controller
             'type' => $request->type,
             'size_id' => $request->size_id,
             'unit_id' => $request->unit_id,
-            'metric_ton' => $request->metric_ton,
             'barcode' => $request->barcode,
             'group_id' => $validator['group_id'],
             'purchase_rate' => $validator['purchase_rate'],

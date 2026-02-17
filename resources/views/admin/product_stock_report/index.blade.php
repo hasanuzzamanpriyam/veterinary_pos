@@ -71,11 +71,11 @@ Product List
                                         <td></td>
                                         <td></td>
 
-                                            <td>{{$product->opening_stock }} Bags</td>
-                                        @if(empty($product->size_id))
-                                            <td></td>
-                                        @else
-                                            <td>{{$product->size->name*$product->opening_stock/1000}} {{$product->metric_ton}}</td>
+                                    <td>{{$product->opening_stock }}</td>
+                                @if(empty($product->size_id))
+                                    <td></td>
+                                @else
+                                    <td>{{$product->size->name*$product->opening_stock/1000}}</td>
                                         @endif
                                         <td class="text-right"></td>
                                         <td class="text-right"></td>

@@ -129,7 +129,7 @@
                                         $g_total_summary['weight'] = $g_total_summary['weight'] ?? 0;
                                         $g_total_summary['weight'] += $qty_summary['weight'];
                                         @endphp
-                                        {{isset($qty_summary['weight']) && $qty_summary['weight'] > 0 ? $qty_summary['weight']/1000 : 0}} MT
+                                        {{isset($qty_summary['weight']) && $qty_summary['weight'] > 0 ? $qty_summary['weight']/1000 : 0}}
                                     </td>
 
                                     {{-- Purchase Tk --}}
@@ -168,7 +168,7 @@
                                     <span style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</span>
                                     @endforeach
                                 </th>
-                                <th class="text-center" style="white-space: nowrap;">{{formatAmount(($g_total_summary['weight'] ?? 0)/1000) . ' ' . trans_choice('labels.ton', ($g_total_summary['weight'] ?? 0)/1000)}}</th>
+                                <th class="text-center" style="white-space: nowrap;">{{formatAmount(($g_total_summary['weight'] ?? 0)/1000)}}</th>
                                 <th class="text-right">{{formatAmount($g_total_summary['total'])}}/=</th>
                                 <th></th>
                             </tfoot>

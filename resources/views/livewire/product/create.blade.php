@@ -119,7 +119,7 @@
                                         <select name="size_id" id="size_id" wire:model="size_id" class="form-control">
                                             <option value="">Select Option</option>
                                             @foreach($sizes as $size)
-                                                <option value="{{$size->id}}">{{$size->name}} Kg</option>
+                                                <option value="{{$size->id}}">{{$size->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
