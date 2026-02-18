@@ -117,28 +117,71 @@
                     </div>
                 </div>
             </div>
-            <h3 class="text-center">Stock Details</h3>
-            @if ($store_data->isEmpty())
-                <div class="alert text-danger text-center">
-                    <strong>There is no stock!</strong>
-                </div>
-            @else
-                <table id="stock-table" class="product-data table table-striped">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Store/Warehouse Name</th>
-                            <th class="text-center">Quantity</th>
-                            <th class="text-right">Weight</th>
-                            <th class="text-right">Purchase Value</th>
-                            <th class="text-right">Sale Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        </div>
+        <h3 class="text-center">Stock Details</h3>
+        @if ($store_data->isEmpty())
+            <div class="alert text-danger text-center">
+                <strong>There is no stock!</strong>
+            </div>
+        @else
+            <table id="stock-table" class="product-data table table-striped">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Store/Warehouse Name</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-right">Weight</th>
+                        <th class="text-right">Expire Date</th>
+                        <th class="text-right">Purchase Value</th>
+                        <th class="text-right">Sale Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $summary = [];
+                    @endphp
+                    @foreach($store_data as $key => $value)
+
+                        @if ($value['qty'] == 0 )
+                            @continue
+                        @endif
                         @php
-                            $summary = [];
+                            $summary['qty'] = $summary['qty'] ?? 0;
+                            $summary['qty'] += $value['qty'];
+                            $summary['weight'] = $summary['weight'] ?? 0;
+                            $summary['weight'] += $value['weight'];
+                            $summary['purchase_tk'] = $summary['purchase_tk'] ?? 0;
+                            $summary['purchase_tk'] += $value['price'];
+                            $summary['sale_tk'] = $summary['sale_tk'] ?? 0;
+                            $summary['sale_tk'] += $value['sale_value'];
+
                         @endphp
-                        @foreach($store_data as $key => $value)
+
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$value['name']}}</td>
+                            <td class="text-center">{{formatAmount($value['qty'])}} {{trans_choice('labels.' . $product->type, $value['qty'])}}</td>
+                            <td class="text-right">{{formatAmount($value['weight'])}} MT</td>
+                            <td class="text-right">{{ $product['alert_expire_date'] }}</td>
+                            <td class="text-right">{{formatAmount($value['price'])}}/=</td>
+                            <td class="text-right">{{formatAmount($value['sale_value'])}}/=</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center"><b>{{formatAmount($summary['qty'] ?? 0) }} {{trans_choice('labels.' . $product->type, $summary['qty'] ?? 0)}}</b></td>
+                    <td class="text-right"><b>{{formatAmount($summary['weight'] ?? 0)}} MT</b></td>
+                    <td></td>
+                    <td class="text-right"><b>{{formatAmount($summary['purchase_tk'] ?? 0)}}/=</b></td>
+                    <td class="text-right"><b>{{formatAmount($summary['sale_tk'] ?? 0)}}/=</b></td>
+                </tfoot>
+            </table>
+        @endif
+    </div>
+</div>
+@endsection
 
                             @if ($value['qty'] == 0)
                                 @continue
