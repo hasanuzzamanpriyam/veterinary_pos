@@ -12,6 +12,11 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12">
                             <h5 class="text-center single_p_title">{{$product->name}} </h5>
+                            <div class="text-center">
+                                @if($product->barcode)
+                                    <svg class="barcode-render" data-barcode="{{$product->barcode}}"></svg>
+                                @endif
+                            </div>
 
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-12">
@@ -142,7 +147,7 @@
                     @endphp
                     @foreach($store_data as $key => $value)
 
-                        @if ($value['qty'] == 0 )
+                        @if ($value['qty'] == 0)
                             @continue
                         @endif
                         @php
@@ -160,7 +165,8 @@
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$value['name']}}</td>
-                            <td class="text-center">{{formatAmount($value['qty'])}} {{trans_choice('labels.' . $product->type, $value['qty'])}}</td>
+                            <td class="text-center">{{formatAmount($value['qty'])}}
+                                {{trans_choice('labels.' . $product->type, $value['qty'])}}</td>
                             <td class="text-right">{{formatAmount($value['weight'])}} MT</td>
                             <td class="text-right">{{ $product['alert_expire_date'] }}</td>
                             <td class="text-right">{{formatAmount($value['price'])}}/=</td>
@@ -171,7 +177,8 @@
                 <tfoot>
                     <td></td>
                     <td></td>
-                    <td class="text-center"><b>{{formatAmount($summary['qty'] ?? 0) }} {{trans_choice('labels.' . $product->type, $summary['qty'] ?? 0)}}</b></td>
+                    <td class="text-center"><b>{{formatAmount($summary['qty'] ?? 0) }}
+                            {{trans_choice('labels.' . $product->type, $summary['qty'] ?? 0)}}</b></td>
                     <td class="text-right"><b>{{formatAmount($summary['weight'] ?? 0)}} MT</b></td>
                     <td></td>
                     <td class="text-right"><b>{{formatAmount($summary['purchase_tk'] ?? 0)}}/=</b></td>
@@ -179,45 +186,5 @@
                 </tfoot>
             </table>
         @endif
-    </div>
-</div>
-@endsection
-
-                            @if ($value['qty'] == 0)
-                                @continue
-                            @endif
-                            @php
-                                $summary['qty'] = $summary['qty'] ?? 0;
-                                $summary['qty'] += $value['qty'];
-                                $summary['weight'] = $summary['weight'] ?? 0;
-                                $summary['weight'] += $value['weight'];
-                                $summary['purchase_tk'] = $summary['purchase_tk'] ?? 0;
-                                $summary['purchase_tk'] += $value['price'];
-                                $summary['sale_tk'] = $summary['sale_tk'] ?? 0;
-                                $summary['sale_tk'] += $value['sale_value'];
-
-                            @endphp
-
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$value['name']}}</td>
-                                <td class="text-center">{{formatAmount($value['qty'])}}</td>
-                                <td class="text-right">{{formatAmount($value['weight'])}}</td>
-                                <td class="text-right">{{formatAmount($value['price'])}}/=</td>
-                                <td class="text-right">{{formatAmount($value['sale_value'])}}/=</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <td></td>
-                        <td></td>
-                        <td class="text-center"><b>{{formatAmount($summary['qty'] ?? 0)}}</b></td>
-                        <td class="text-right"><b>{{formatAmount($summary['weight'] ?? 0)}}</b></td>
-                        <td class="text-right"><b>{{formatAmount($summary['purchase_tk'] ?? 0)}}/=</b></td>
-                        <td class="text-right"><b>{{formatAmount($summary['sale_tk'] ?? 0)}}/=</b></td>
-                    </tfoot>
-                </table>
-            @endif
-        </div>
     </div>
 @endsection
