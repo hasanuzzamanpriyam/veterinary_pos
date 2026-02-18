@@ -178,7 +178,7 @@
                     <td></td>
                     <td></td>
                     <td class="text-center"><b>{{formatAmount($summary['qty'] ?? 0) }}
-                            {{trans_choice('labels.' . $product->type, $summary['qty'] ?? 0)}}</b></td>
+                            {{trans_choice($product->type, $summary['qty'] ?? 0)}}</b></td>
                     <td class="text-right"><b>{{formatAmount($summary['weight'] ?? 0)}}</b></td>
                     <td></td>
                     <td class="text-right"><b>{{formatAmount($summary['purchase_tk'] ?? 0)}}/=</b></td>

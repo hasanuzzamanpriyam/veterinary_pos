@@ -97,6 +97,7 @@
                                     <th class="all">Weight</th>
                                     <th class="all">Purchase Value</th>
                                     <th class="all">Sale Value</th>
+                                    <th class="all">MRP Value</th>
                                     <th class="all">Offer</th>
                                     <th class="all">Action</th>
                                 </tr>
@@ -107,6 +108,7 @@
                                     $items = 0;
                                     $gtotal_purchase_price = 0;
                                     $gtotal_sale_price = 0;
+                                    $gtotal_mrp_price = 0;
                                     $gtotal_stock = [];
                                     $gtotal_matricton = 0;
                                 @endphp
@@ -121,6 +123,10 @@
 
                                             $gtotal_purchase_price += $purchase_price;
                                             $gtotal_sale_price += $sale_price;
+
+                                            $mrp_price = isset($stock['mrp_price']) ? $stock['qty'] * $stock['mrp_price'] : 0;
+                                            $gtotal_mrp_price += $mrp_price;
+                                            
                                             $gtotal_matricton += $totatl_weight;
 
                                             $type = $stock['type'];
@@ -140,6 +146,7 @@
                                             <td>{{formatAmount($totatl_weight)}}</td>
                                             <td class="text-right">{{ $purchase_price ? formatAmount($purchase_price) . '/-' : '' }}</td>
                                             <td class="text-right">{{ $sale_price ? formatAmount($sale_price) . '/-' : '' }}</td>
+                                            <td class="text-right">{{ $mrp_price ? formatAmount($mrp_price) . '/-' : '' }}</td>
                                             <td class="text-right">
                                                 @if(isset($stock['offer']) && $stock['offer'])
                                                     @php $offer = $stock['offer']; @endphp
@@ -191,6 +198,7 @@
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_matricton)}}</strong></td>
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_purchase_price)}}/-</strong></td>
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_sale_price)}}/-</strong></td>
+                                    <td  class="text-right"><strong>{{formatAmount($gtotal_mrp_price)}}/-</strong></td>
                                     <td  class="text-right"></td>
                                 </tr>
                             </tfoot>
