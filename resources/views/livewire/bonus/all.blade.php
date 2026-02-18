@@ -75,7 +75,7 @@
                                             <th class="text-left">Supplier/Company Name</th>
                                             <th class="text-left">Address</th>
                                             <th class="text-left">Mobile</th>
-                                            <th class="text-right">Weight Ton</th>
+                                            <th class="text-right">Weight</th>
                                             <th class="text-right">Monthly Bonus Tk</th>
                                             <th class="text-right">Yearly Bonus Tk</th>
                                             <th class="text-right">Cash Offer Tk</th>
@@ -117,7 +117,7 @@
                                                 <td class="text-left">{{ optional($all_suppliers->firstWhere('supplier_id', $supplier_id))->supplier->company_name ?? 'N/A' }}</td>
                                                 <td class="text-left">{{ optional($all_suppliers->firstWhere('supplier_id', $supplier_id))->supplier->address ?? 'N/A' }}</td>
                                                 <td class="text-left">{{ optional($all_suppliers->firstWhere('supplier_id', $supplier_id))->supplier->mobile ?? 'N/A' }}</td>
-                                                <td class="text-right">{{$weight ? formatAmount($weight) . '(Ton)' : ''}}</td>
+                                                <td class="text-right">{{$weight ? formatAmount($weight) : ''}}</td>
                                                 <td class="text-right">{{$monthlyBonus ? formatAmount($monthlyBonus) . '/-' : ''}}</td>
                                                 <td class="text-right">{{$yearlyBonus ? formatAmount($yearlyBonus) . '/-' : ''}}</td>
                                                 <td class="text-right">{{$cashOffer ? formatAmount($cashOffer) . '/-' : ''}}</td>
@@ -140,7 +140,7 @@
                                             <td class="text-left" colspan="2">Total</td>
                                             <td class="text-right"></td>
                                             <td class="text-right"></td>
-                                            <td class="text-right">{{$total_weight}} (Ton)</td>
+                                            <td class="text-right">{{$total_weight}}</td>
                                             <td class="text-right">{{formatAmount($total_monthly_bonus)}}/=</td>
                                             <td class="text-right">{{formatAmount($total_yearly_bonus)}}/=</td>
                                             <td class="text-right">{{formatAmount($total_cash_offer)}}/=</td>

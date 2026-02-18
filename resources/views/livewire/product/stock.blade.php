@@ -136,8 +136,8 @@
                                             <td class="text-left">{{$stock['group'] ?? ''}}</td>
                                             <td>{{$stock['size']}}</td>
                                             <td>{{ucfirst($type)}}</td>
-                                            <td>{{formatAmount($quantity)}} {{trans_choice('labels.'. $type, $quantity)}}</td>
-                                            <td>{{formatAmount($totatl_weight)}} {{trans_choice('labels.ton', $totatl_weight)}}</td>
+                                            <td>{{formatAmount($quantity)}}</td>
+                                            <td>{{formatAmount($totatl_weight)}}</td>
                                             <td class="text-right">{{ $purchase_price ? formatAmount($purchase_price) . '/-' : '' }}</td>
                                             <td class="text-right">{{ $sale_price ? formatAmount($sale_price) . '/-' : '' }}</td>
                                             <td class="text-right">
@@ -183,12 +183,12 @@
                                                     ksort($gtotal_stock['qty']);
                                                 @endphp
                                                 @foreach ($gtotal_stock['qty'] as $key => $value)
-                                                    <div><strong>{{ formatAmount($value) }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></div>
+                                                    <div><strong>{{ formatAmount($value) }}</strong></div>
                                                 @endforeach
                                             @endif
                                         </div>
                                     </td>
-                                    <td  class="text-right"><strong>{{formatAmount($gtotal_matricton)}} {{trans_choice('labels.ton', $gtotal_matricton)}}</strong></td>
+                                    <td  class="text-right"><strong>{{formatAmount($gtotal_matricton)}}</strong></td>
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_purchase_price)}}/-</strong></td>
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_sale_price)}}/-</strong></td>
                                     <td  class="text-right"></td>

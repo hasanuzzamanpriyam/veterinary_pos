@@ -343,7 +343,7 @@
                             </td>
                         @endif
                         @if (in_array('weight', $visible_cols))
-                            <td class="text-nowrap">{{$totalWeight ? $totalWeight / 1000 . ' MT' : ''}}</td>
+                            <td class="text-nowrap">{{$totalWeight ? $totalWeight / 1000 : ''}}</td>
                         @endif
 
                         @if (in_array('purchase_amount', $visible_cols))
@@ -441,7 +441,7 @@
                     @endif
                     @if (in_array('weight', $visible_cols))
                         <td class="text-center">
-                            <strong>{{ isset($g_total_summary['weight']) && $g_total_summary['weight'] > 0 ? $g_total_summary['weight']/1000 . ' MT' : '' }}</strong>
+                            <strong>{{ isset($g_total_summary['weight']) && $g_total_summary['weight'] > 0 ? $g_total_summary['weight']/1000 : '' }}</strong>
                         </td>
                     @endif
                     @if (in_array('purchase_amount', $visible_cols))

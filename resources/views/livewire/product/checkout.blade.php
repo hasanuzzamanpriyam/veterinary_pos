@@ -39,6 +39,12 @@
                                 <th>Product Name</th>
                                 <td>{{$product['name']}}</td>
                             </tr>
+                            @if($product['barcode'])
+                                <tr>
+                                    <th>Barcode</th>
+                                    <td><svg class="barcode-render" data-barcode="{{$product['barcode']}}"></svg></td>
+                                </tr>
+                            @endif
                             <tr>
                                 <th>Brand</th>
                                 <td>{{$brands->find($product['brand_id'])->name ?? ''}}</td>

@@ -56,7 +56,6 @@ class Checkout extends Component
                 'category_id' => $product_data['category_id'],
                 'type' => $product_data['type'],
                 'size_id' => $product_data['size_id'],
-                'metric_ton' => 'Ton',
                 'sku' => $product_data['sku'],
                 'alert_expire_date' => $product_data['alert_expire_date'],
                 'barcode' => $product_data['barcode'],

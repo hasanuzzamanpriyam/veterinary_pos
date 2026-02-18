@@ -159,7 +159,7 @@ Purchase List 1
                                         </td>
 
                                         {{-- Weight --}}
-                                        <td class="text-center">{{ $purchase->type == 'return' ? '-' : ''}}{{$qty_summary['weight'] > 0 ? $qty_summary['weight']/1000 : 0}} MT</td>
+                                        <td class="text-center">{{ $purchase->type == 'return' ? '-' : ''}}{{$qty_summary['weight'] > 0 ? $qty_summary['weight']/1000 : 0}}</td>
 
                                         {{-- Purchase Value --}}
                                         <td class="text-right">{{number_format($purchase_value)}}/=</td>

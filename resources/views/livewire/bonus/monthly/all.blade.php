@@ -80,7 +80,7 @@
                                             <th class="text-left">Supplier Name</th>
                                             <th class="text-left">Address</th>
                                             <th class="text-left">Mobile</th>
-                                            <th class="text-right">Weight Ton</th>
+                                            <th class="text-right">Weight</th>
                                             <th class="text-right">Bonus Amount</th>
                                             <th style="width: 60px">Action</th>
                                         </tr>
@@ -108,7 +108,7 @@
                                                 <td class="text-left">{{$suppliers->find($supplier_id)->company_name}}</td>
                                                 <td class="text-left">{{$suppliers->find($supplier_id)->address}}</td>
                                                 <td class="text-left">{{$suppliers->find($supplier_id)->mobile}}</td>
-                                                <td class="text-right">{{$bonus['weight']}} (Ton)</td>
+                                                <td class="text-right">{{$bonus['weight']}}</td>
                                                 <td class="text-right">{{$bonus['bonusAmount']}}/=</td>
                                                 <td>
                                                     <a href="{{route('monthly.bonus.index',['startdate' => $startDate,'enddate' => $endDate,'supplier_id' => $supplier_id])}}">
@@ -122,7 +122,7 @@
                                             <td class="text-left" colspan="2">Total</td>
                                             <td class="text-right"></td>
                                             <td class="text-right"></td>
-                                            <td class="text-right">{{$total_weight}} (Ton)</td>
+                                            <td class="text-right">{{$total_weight}}</td>
                                             <td class="text-right">{{$total_commission}} /=</td>
                                             <td></td>
                                         </tr>

@@ -17,9 +17,9 @@
         @isset($pageTitle)
             {{ $pageTitle }}
         @else
-            @yield('page-title')
+        @yield('page-title')
         @endif
-         - {{ $setting->app_name ?? 'Inventory' }}
+        - {{ $setting->app_name ?? 'Inventory' }}
     </title>
 
 
@@ -39,22 +39,25 @@
     <!-- Data Table Style -->
     <link href="{{ asset('assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+        rel="stylesheet">
+    <link href="{{ asset('assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+        rel="stylesheet">
+    <link href="{{ asset('assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+        rel="stylesheet">
 
-        @stack('styles')
-        <!-- Custom Theme Style -->
-        <link href="{{ asset('assets/build/css/custom.min.css') }}" rel="stylesheet">
+    @stack('styles')
+    <!-- Custom Theme Style -->
+    <link href="{{ asset('assets/build/css/custom.min.css') }}" rel="stylesheet">
 
-        <!-- Custom CSS -->
-        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
 
-        <link href="{{ asset('assets/vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
-        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <link href="{{ asset('assets/vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
-        @livewireStyles
+    @livewireStyles
 
 </head>
 
@@ -132,6 +135,7 @@
 
     <!-- Custom Theme Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
     <script src="{{ asset('assets/build/js/custom.min.js') }}"></script>
 
 
@@ -139,7 +143,7 @@
 
     <script>
         // this is for laravel blade
-        $(document).on('click', '#delete', function(e) {
+        $(document).on('click', '#delete', function (e) {
             e.preventDefault();
             var link = $(this).attr('href');
             const swalWithBootstrapButtons = Swal.mixin({
@@ -173,28 +177,28 @@
             });
         });
 
-        window.fzNumberFormater = function(number) {
-            return number.toLocaleString('us', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        window.fzNumberFormater = function (number) {
+            return number.toLocaleString('us', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         }
 
         // Sidebar Action Buttons (FullScreen, Lock, Logout)
-        $(document).ready(function() {
+        $(document).ready(function () {
             // FullScreen toggle
-            $('#fullscreen-btn').on('click', function(e) {
+            $('#fullscreen-btn').on('click', function (e) {
                 e.preventDefault();
                 toggleFullScreen();
                 animateButton($(this));
             });
 
             // Lock screen
-            $('#lock-btn').on('click', function(e) {
+            $('#lock-btn').on('click', function (e) {
                 e.preventDefault();
                 animateButton($(this));
                 window.location.href = '{{ route('lock-screen') }}';
             });
 
             // Logout
-            $('#logout-btn').on('click', function(e) {
+            $('#logout-btn').on('click', function (e) {
                 e.preventDefault();
                 animateButton($(this));
                 // Create a temporary logout form
@@ -215,9 +219,9 @@
             // FullScreen toggle function
             function toggleFullScreen() {
                 if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().then(function() {
+                    document.documentElement.requestFullscreen().then(function () {
                         changeFullScreenIcon(true);
-                    }).catch(function(error) {
+                    }).catch(function (error) {
                         console.error('Error attempting to enable fullscreen:', error);
                     });
                 } else {
@@ -243,14 +247,14 @@
             }
 
             // Listen for fullscreen changes (user presses ESC)
-            document.addEventListener('fullscreenchange', function() {
+            document.addEventListener('fullscreenchange', function () {
                 changeFullScreenIcon(!!document.fullscreenElement);
             });
 
             // Button animation on click
             function animateButton($btn) {
                 $btn.addClass('button-clicked');
-                setTimeout(function() {
+                setTimeout(function () {
                     $btn.removeClass('button-clicked');
                 }, 300);
             }
@@ -258,7 +262,7 @@
 
         //this is for livewire component
         window.addEventListener('show-delete-message', event => {
-            $(document).ready(function() {
+            $(document).ready(function () {
 
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
@@ -301,7 +305,7 @@
 
         /*dataTable sorting section start*/
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Destroy the existing DataTable instance if it exists
             if ($.fn.DataTable.isDataTable('table.category_list_table')) {
                 $('table.category_list_table').DataTable().destroy();
@@ -351,6 +355,40 @@
 
     @livewireScripts
 
+    <script>
+        function renderBarcodes() {
+            $('.barcode-render').each(function () {
+                var barcode = $(this).data('barcode');
+                if (barcode) {
+                    try {
+                        JsBarcode(this, barcode, {
+                            format: "CODE128",
+                            width: 1.2,
+                            height: 30,
+                            displayValue: true,
+                            fontSize: 12
+                        });
+                    } catch (e) {
+                        console.error('Barcode generation failed for:', barcode, e);
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            renderBarcodes();
+        });
+
+        document.addEventListener('livewire:navigated', () => {
+            renderBarcodes();
+        });
+
+        document.addEventListener('livewire:init', () => {
+            Livewire.hook('morph.updated', ({ el, component }) => {
+                renderBarcodes();
+            });
+        });
+    </script>
     @stack('scripts')
 </body>
 

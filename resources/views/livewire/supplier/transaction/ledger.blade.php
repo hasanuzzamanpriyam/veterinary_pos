@@ -458,7 +458,7 @@
                                         @php
                                             $weightT = $total_summary['weight'] / 1000;
                                         @endphp
-                                        {{formatAmount($weightT)}} {{trans_choice('labels.ton', $total_summary['weight'])}}
+                                        {{formatAmount($weightT)}}
                                     </th>
                                     <th class="text-right">{{formatAmount($total_summary['purchase_tk'] ?? 0)}}/=</th>
                                     <th class="text-right">{{formatAmount($total_summary['payment_tk'] ?? 0)}}/=</th>

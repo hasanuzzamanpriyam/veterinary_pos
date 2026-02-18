@@ -49,7 +49,7 @@ Product List
                                 @foreach($products as $product)
                                     @php
                                         $stock_qty = isset($stock_list[$product->id]) ? $stock_list[$product->id]['qty'] : 0;
-                                        $stocks_line = isset($stock_list[$product->id]) ? ($stock_list[$product->id]['qty'] * $product->size->name / 1000) . ' ' . trans_choice('labels.ton', $stock_list[$product->id]['qty']) : '0 Ton';
+                                        $stocks_line = isset($stock_list[$product->id]) ? ($stock_list[$product->id]['qty'] * $product->size->name / 1000) : '0';
                                     @endphp
                                     <tr>
                                         {{-- S.N. --}}
@@ -86,14 +86,14 @@ Product List
                                         @if(empty($product->size_id))
                                             <td></td>
                                         @else
-                                            <td>{{$product->size->name}} Kg</td>
+                                            <td>{{$product->size->name}}</td>
                                         @endif
 
                                         {{-- Type --}}
                                         <td>{{ucfirst($product->type)}}</td>
 
                                         {{-- Stock --}}
-                                        <td>{{$stock_qty }} {{trans_choice('labels.' . $product->type, $stock_qty)}}</td>
+                                        <td>{{$stock_qty}}</td>
 
                                         {{-- M/T --}}
                                         @if(empty($product->size_id))

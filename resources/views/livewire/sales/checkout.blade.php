@@ -19,9 +19,9 @@
                 </div>
             @endif
             <form wire:submit.prevent="salesStore()" enctype="multipart/form-data" data-parsley-validate
-                        class="form-horizontal form-label-left">
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12">
+                class="form-horizontal form-label-left">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12">
 
                         @csrf
                         <!--Start supplier area-->
@@ -82,9 +82,9 @@
                                 $total_discounts = 0;
                             @endphp
                             @forelse (Cart::instance('sales')->content() as $product)
-                                @php
-                                    $total_discounts += $product->options->discount;
-                                @endphp
+                            @php
+                                $total_discounts += $product->options->discount;
+                            @endphp
                             @endforeach
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <h5 class="x_title text-center text-dark">Products Info</h5>
@@ -95,7 +95,7 @@
                                             <th class="all">Name</th>
                                             <th class="all">Quantity</th>
                                             @if($total_discounts > 0)
-                                            <th class="all">Discount</th>
+                                                <th class="all">Discount</th>
                                             @endif
                                             <th class="all">Sales (Qty)</th>
                                             <th class="all">Price Rate</th>
@@ -129,13 +129,15 @@
                                             <tr>
                                                 <td>{{ $product->options->code }}</td>
                                                 <td>{{ $product->name }}</td>
-                                                <td class="text-center">{{ $product->qty }} {{ trans_choice('labels.' . $product->options->type, $product->qty) }}</td>
+                                                <td class="text-center">{{ $product->qty }}</td>
                                                 @if($total_discounts > 0)
-                                                <td class="text-center">{{ $product->options->discount }} {{ trans_choice('labels.' . $product->options->type, $product->options->discount) }}</td>
+                                                    <td class="text-center">{{ $product->options->discount }}</td>
                                                 @endif
-                                                <td class="text-center">{{ $product->qty - $product->options->discount }} {{ trans_choice('labels.' . $product->options->type, ($product->qty - $product->options->discount)) }}</td>
+                                                <td class="text-center">{{ $product->qty - $product->options->discount }}</td>
                                                 <td class="text-right">{{ $product->price }}/=</td>
-                                                <td class="text-right">{{ ($product->qty - $product->options->discount) * $product->price }}/=</td>
+                                                <td class="text-right">
+                                                    {{ ($product->qty - $product->options->discount) * $product->price }}/=
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -147,36 +149,34 @@
                                     <tr class="font-weight-bold">
                                         <td>
                                             <div class="d-flex justify-content-start">
-                                                <span><strong>{{trans_choice('labels.items', $items)}}:</strong>
-                                                    {{ $items }}</span>
+                                                <span><strong>{{ $items }}</strong></span>
                                             </div>
                                         </td>
                                         <td></td>
                                         <td>
                                             <div>
-                                                @if( isset($summary['qty']) && $summary['qty'] > 0)
+                                                @if(isset($summary['qty']) && $summary['qty'] > 0)
                                                     @foreach ($summary['qty'] as $key => $value)
-                                                        <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
-                                                    @endforeach
-                                                @endif
+                                                        <span class="d-inline-block"><strong>{{ $value }}</strong></span>
+                                                    @endif
                                             </div>
                                         </td>
                                         @if($total_discounts > 0)
-                                        <td>
-                                            <div>
-                                                @if( isset($summary['discount']) && $summary['discount'] > 0)
-                                                    @foreach ($summary['discount'] as $key => $value)
-                                                        <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                        </td>
+                                            <td>
+                                                <div>
+                                                    @if(isset($summary['discount']) && $summary['discount'] > 0)
+                                                        @foreach ($summary['discount'] as $key => $value)
+                                                        <span class="d-inline-block"><strong>{{ $value }}</strong></span>
+                                                        @endforeach
+                                                    @endif
+                                                </div>
+                                            </td>
                                         @endif
                                         <td>
                                             <div>
-                                                @if( isset($summary['total']) && $summary['total'] > 0)
+                                                @if(isset($summary['total']) && $summary['total'] > 0)
                                                     @foreach ($summary['total'] as $key => $value)
-                                                        <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                        <span class="d-inline-block"><strong>{{ $value }}</strong></span>
                                                     @endforeach
                                                 @endif
                                             </div>
@@ -189,168 +189,193 @@
                             {{-- End Purchase Total Amount Area --}}
                         </div>
 
-                </div>
-                <div class="cart-total col-lg-4 col-md-4 col-sm-12">
-                    <h5 class="x_title text-center text-dark">Amount Calculation</h5>
-                    <div class="px-3">
-                        <table class="table table-striped table-bordered">
-                            <tr class="text-right">
-                                <th>Total Sales</th>
-                                <td>{{ $total_amount }}/=</td>
-                            </tr>
-                            <tr class="text-right">
-                                <th>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                                            data-toggle="dropdown">
-                                            Discount <span class="caret"></span></button>
-                                        <div class="dropdown-menu small-dp-menu" role="menu">
-                                            <div class="">
-                                                <input type="number" wire:model.lazy="price_discount" class="form-control" placeholder="Discount" />
+                    </div>
+                    <div class="cart-total col-lg-4 col-md-4 col-sm-12">
+                        <h5 class="x_title text-center text-dark">Amount Calculation</h5>
+                        <div class="px-3">
+                            <table class="table table-striped table-bordered">
+                                <tr class="text-right">
+                                    <th>Total Sales</th>
+                                    <td>{{ $total_amount }}/=</td>
+                                </tr>
+                                <tr class="text-right">
+                                    <th>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                                data-toggle="dropdown">
+                                                Discount <span class="caret"></span></button>
+                                            <div class="dropdown-menu small-dp-menu" role="menu">
+                                                <div class="">
+                                                    <input type="number" wire:model.lazy="price_discount"
+                                                        class="form-control" placeholder="Discount" />
 
-                                                <div class="input-group-text justify-content-between">
-                                                    <label>
-                                                        <input type="radio" name="discount" wire:click="discountType(1)"><span>Fix</span>
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" name="discount" wire:click="discountType(2)"><span>% Per</span>
-                                                    </label>
+                                                    <div class="input-group-text justify-content-between">
+                                                        <label>
+                                                            <input type="radio" name="discount"
+                                                                wire:click="discountType(1)"><span>Fix</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="discount"
+                                                                wire:click="discountType(2)"><span>% Per</span>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </th>
-                                <td>{{ $total_discount }}/=</td>
-                            </tr>
-                            <tr class="text-right">
-                                <th>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                                            data-toggle="dropdown">
-                                            VAT <span class="caret"></span></button>
-                                        <div class="dropdown-menu small-dp-menu" role="menu">
-                                            <div class="">
-                                                <input type="number" wire:model.lazy="vat_discount" class="form-control" placeholder="VAT" />
+                                    </th>
+                                    <td>{{ $total_discount }}/=</td>
+                                </tr>
+                                <tr class="text-right">
+                                    <th>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                                data-toggle="dropdown">
+                                                VAT <span class="caret"></span></button>
+                                            <div class="dropdown-menu small-dp-menu" role="menu">
+                                                <div class="">
+                                                    <input type="number" wire:model.lazy="vat_discount"
+                                                        class="form-control" placeholder="VAT" />
 
-                                                <div class="input-group-text justify-content-between">
-                                                    <label>
-                                                        <input type="radio" name="vat" wire:click="vatType(1)"><span>Fix</span>
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" name="vat" wire:click="vatType(2)"><span>% Per</span>
-                                                    </label>
+                                                    <div class="input-group-text justify-content-between">
+                                                        <label>
+                                                            <input type="radio" name="vat"
+                                                                wire:click="vatType(1)"><span>Fix</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="vat"
+                                                                wire:click="vatType(2)"><span>% Per</span>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </th>
-                                <td>{{ $total_vat }}/=</td>
-                            </tr>
-                            <tr class="text-right has-input">
-                                <th>Carring</th>
-                                <td> <input type="number" wire:keyup="otherCharge('carring', $event.target.value)" wire:change="otherCharge('carring', $event.target.value)" name="carring"
-                                        class="form-control">
-                                </td>
-                            </tr>
-                            <tr class="text-right has-input">
-                                <th>Other Charge</th>
-                                <td> <input type="number" wire:keyup="otherCharge('other_charge', $event.target.value)" wire:change="otherCharge('other_charge', $event.target.value)" name="other_charge"
-                                        class="form-control"></td>
-                            </tr>
-                            <tr class="text-right">
-                                <th>Sub Total</th>
-                                <td>{{ $grand_total . '/=' ?? '' }}</td>
-                            </tr>
-
-                            <tr class="text-right">
-                                <th>@if ($balance >= 0)
-                                    Previous Due
-
-                                    @else
-                                    Advance Collection
-                                @endif</th>
-                                <td>{{ $prev_balance . '/=' ?? '' }}</td>
-                            </tr>
-                            <tr class="text-right">
-                                <th>Grand Total</th>
-                                <td>{{ $grand_total + $prev_balance . '/=' ?? '' }}</td>
-                            </tr>
-
-                            {{-- <tr><th>Previous Due<td>= {{$previous_due  .'/=' ?? ''}}</td></th></tr> --}}
-                            {{-- <tr><th>Advance Payment<td>= {{$advance_pay  .'/=' ?? ''}}</td></th></tr> --}}
-
-                            <tr class="text-right has-input">
-                                <th>Received By</th>
-                                <td>
-                                    @if (isset($bank_title))
-                                    @else
-                                        <select type="text" wire:model="payment_by"
-                                            wire:change="paymentSearch($event.target.value)" name="payment_by"
+                                    </th>
+                                    <td>{{ $total_vat }}/=</td>
+                                </tr>
+                                <tr class="text-right has-input">
+                                    <th>Carring</th>
+                                    <td> <input type="number" wire:keyup="otherCharge('carring', $event.target.value)"
+                                            wire:change="otherCharge('carring', $event.target.value)" name="carring"
                                             class="form-control">
-                                            <option value="">Select Option</option>
-                                            @foreach ($payment_types as $payment_type)
-                                                <option value="{{ $payment_type }}">{{ $payment_type }}</option>
-                                            @endforeach
-                                        </select>
+                                    </td>
+                                </tr>
+                                <tr class="text-right has-input">
+                                    <th>Other Charge</th>
+                                    <td> <input type="number"
+                                            wire:keyup="otherCharge('other_charge', $event.target.value)"
+                                            wire:change="otherCharge('other_charge', $event.target.value)"
+                                            name="other_charge" class="form-control"></td>
+                                </tr>
+                                <tr class="text-right">
+                                    <th>Sub Total</th>
+                                    <td>{{ $grand_total . '/=' ?? '' }}</td>
+                                </tr>
 
-                                    @endif
+                                <tr class="text-right">
+                                    <th>@if ($balance >= 0)
+                                        Previous Due
 
-                                    @if (isset($bank_list))
-                                        @if ($bank_list == 1)
-                                            <select type="text" wire:model="bank_title"
+                                    @else
+                                            Advance Collection
+                                        @endif</th>
+                                    <td>{{ $prev_balance . '/=' ?? '' }}</td>
+                                </tr>
+                                <tr class="text-right">
+                                    <th>Grand Total</th>
+                                    <td>{{ $grand_total + $prev_balance . '/=' ?? '' }}</td>
+                                </tr>
+
+                                {{-- <tr>
+                                    <th>Previous Due
+                                    <td>= {{$previous_due .'/=' ?? ''}}</td>
+                                    </th>
+                                </tr> --}}
+                                {{-- <tr>
+                                    <th>Advance Payment
+                                    <td>= {{$advance_pay .'/=' ?? ''}}</td>
+                                    </th>
+                                </tr> --}}
+
+                                <tr class="text-right has-input">
+                                    <th>Received By</th>
+                                    <td>
+                                        @if (isset($bank_title))
+                                        @else
+                                            <select type="text" wire:model="payment_by"
                                                 wire:change="paymentSearch($event.target.value)" name="payment_by"
                                                 class="form-control">
                                                 <option value="">Select Option</option>
-                                                @foreach ($banks as $bank)
-                                                    <option value="{{ $bank->title }}">{{ $bank->title }}</option>
+                                                @foreach ($payment_types as $payment_type)
+                                                    <option value="{{ $payment_type }}">{{ $payment_type }}</option>
                                                 @endforeach
                                             </select>
-                                        @elseif($bank_list == 2)
-                                            <input type="text" wire:model="bank_title" class="form-control">
-                                        @else
+
                                         @endif
-                                    @endif
-                                </td>
-                            </tr>
-                            {{-- <tr><th>Current Due<td>= </td></th></tr> --}}
-                            <tr class="text-right has-input">
-                                <th>Remarks</th>
-                                <td><input type="text" wire:model.lazy="received_by" name="received_by" class="form-control">
-                                </td>
-                            </tr>
-                            <tr class="text-right has-input">
-                                <th>Collection</th>
-                                <td><input type="number" wire:keyup="otherCharge('payment', $event.target.value)" wire:change="otherCharge('payment', $event.target.value)" name="payment" class="form-control">
-                                </td>
-                            </tr>
-                            <tr class="text-right">
-                                <th>@if ($balance >= 0)
-                                    Due Amount
+
+                                        @if (isset($bank_list))
+                                            @if ($bank_list == 1)
+                                                <select type="text" wire:model="bank_title"
+                                                    wire:change="paymentSearch($event.target.value)" name="payment_by"
+                                                    class="form-control">
+                                                    <option value="">Select Option</option>
+                                                    @foreach ($banks as $bank)
+                                                        <option value="{{ $bank->title }}">{{ $bank->title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            @elseif($bank_list == 2)
+                                                <input type="text" wire:model="bank_title" class="form-control">
+                                            @else
+                                            @endif
+                                        @endif
+                                    </td>
+                                </tr>
+                                {{-- <tr>
+                                    <th>Current Due
+                                    <td>= </td>
+                                    </th>
+                                </tr> --}}
+                                <tr class="text-right has-input">
+                                    <th>Remarks</th>
+                                    <td><input type="text" wire:model.lazy="received_by" name="received_by"
+                                            class="form-control">
+                                    </td>
+                                </tr>
+                                <tr class="text-right has-input">
+                                    <th>Collection</th>
+                                    <td><input type="number" wire:keyup="otherCharge('payment', $event.target.value)"
+                                            wire:change="otherCharge('payment', $event.target.value)" name="payment"
+                                            class="form-control">
+                                    </td>
+                                </tr>
+                                <tr class="text-right">
+                                    <th>@if ($balance >= 0)
+                                        Due Amount
 
                                     @else
-                                    Advance Collection
-                                @endif</th>
-                                <td>{{ $balance }}/=</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12">
-                    <div class="row">
-                        <div class="ln_solid"></div>
-                        <div class="form-group col-md-12">
-                            <div class="input-group justify-content-center d-flex" style="gap: 10px">
-                                <button type="button" wire:click="back" class="btn btn-primary btn-md">Back</button>
-                                <button type="button" wire:click="cancel" class="btn btn-danger btn-md">Cancel</button>
-                                <input type="submit" value="Submit" class="btn btn-success btn-md">
-                            </div>
+                                            Advance Collection
+                                        @endif</th>
+                                    <td>{{ $balance }}/=</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12"></div>
-            </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12">
+                        <div class="row">
+                            <div class="ln_solid"></div>
+                            <div class="form-group col-md-12">
+                                <div class="input-group justify-content-center d-flex" style="gap: 10px">
+                                    <button type="button" wire:click="back" class="btn btn-primary btn-md">Back</button>
+                                    <button type="button" wire:click="cancel"
+                                        class="btn btn-danger btn-md">Cancel</button>
+                                    <input type="submit" value="Submit" class="btn btn-success btn-md">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12"></div>
+                </div>
             </form>
         </div>
     </div>

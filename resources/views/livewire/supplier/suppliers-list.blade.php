@@ -210,7 +210,7 @@
                                         </td>
 
                                         {{-- Weight --}}
-                                        <td>{{$totalWeight ? $totalWeight / 1000 . ' MT' : ''}}</td>
+                                        <td>{{$totalWeight ? $totalWeight / 1000 : ''}}</td>
 
                                        {{-- Pur. (TK) --}}
                                        <td class="text-right">{{ $total_purchases ? number_format($total_purchases) . '/=' : '' }}</td>
@@ -317,7 +317,7 @@
                                         @endif
                                     </td>
                                     <td class="text-right">
-                                        <strong>{{ isset($g_total_summary['weight']) && $g_total_summary['weight'] > 0 ? $g_total_summary['weight']/1000 . ' MT' : '' }}</strong>
+                                        <strong>{{ isset($g_total_summary['weight']) && $g_total_summary['weight'] > 0 ? $g_total_summary['weight']/1000 : '' }}</strong>
                                     </td>
                                     <td class="text-right">
                                         <strong>{{ isset($g_total_summary['purchase_tk']) && $g_total_summary['purchase_tk'] > 0 ? number_format($g_total_summary['purchase_tk']) . '/=' : '' }}</strong>

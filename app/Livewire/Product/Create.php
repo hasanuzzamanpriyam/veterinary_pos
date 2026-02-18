@@ -34,7 +34,6 @@ class Create extends Component
     public $mrp_rate;
     public $price_rate;
     public $category_id;
-    public $metric_ton;
     public $barcode;
     public $sku;
     public $alert_expire_date;
@@ -133,7 +132,6 @@ class Create extends Component
             $this->price_rate = isset($product['price_rate']) ? $product['price_rate'] : null; //$product['price_rate'];
             $this->alert_quantity = isset($product['alert_quantity']) ? $product['alert_quantity'] : null; //$product['alert_quantity'];
             $this->category_id = isset($product['category_id']) ? $product['category_id'] : null; //$product['category_id'];
-            $this->metric_ton = isset($product['metric_ton']) ? $product['metric_ton'] : null; //$product['metric_ton'];
             $this->sku = isset($product['sku']) ? $product['sku'] : null;
             $this->alert_expire_date = isset($product['alert_expire_date']) ? $product['alert_expire_date'] : null;
             $this->barcode = isset($product['barcode']) ? $product['barcode'] : null; //$product['barcode'];

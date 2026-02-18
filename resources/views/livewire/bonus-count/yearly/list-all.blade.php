@@ -78,8 +78,8 @@
                                                         @foreach ($bonus_list as $rate)
                                                             @if ($rate->supplier_id == $party->id)
                                                                 <tr>
-                                                                    <td class="text-left" style="width: 45%">{{$rate->start}} {{trans_choice('labels.ton', $rate->start)}}</td>
-                                                                    <td class="text-left" style="width: 45%">{{$rate->end}} {{trans_choice('labels.ton', $rate->end)}}</td>
+                                                                    <td class="text-left" style="width: 45%">{{$rate->start}}</td>
+                                                                    <td class="text-left" style="width: 45%">{{$rate->end}}</td>
                                                                     <td class="text-right">{{$rate->rate}}/=</td>
                                                                 </tr>
                                                             @endif
