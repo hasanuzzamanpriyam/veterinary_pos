@@ -159,6 +159,7 @@ class Index extends Component
             'price' => $price_group_rate ?? $products->product->price_rate,
             'options' => [
                 'code' => $products->product_code,
+                'barcode' => $products->product->barcode,
                 'discount' => 0,
                 'weight' => $product->size->name,
                 'product_store_id' => $products->product_store_id,

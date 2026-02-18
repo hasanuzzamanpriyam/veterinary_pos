@@ -86,6 +86,7 @@ class ManageProductStock extends Component
             'price' => $product->purchase_rate,
             'options' => [
                 'code' => $product->code,
+                'barcode' => $product->barcode,
                 'brand_id' => $product->brand_id,
                 'discount' => 0,
                 'weight' => $product->size->name,

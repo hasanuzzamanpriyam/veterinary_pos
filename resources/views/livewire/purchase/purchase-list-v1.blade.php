@@ -103,6 +103,10 @@
                                         @endphp
                                         <p class="mb-0 text-left">
                                             {{ $product->product_code}} -
+                                            @if($product->product->barcode)
+                                                <svg class="barcode-render" data-barcode="{{ $product->product->barcode }}"
+                                                    style="height: 20px; vertical-align: middle; display: inline-block;"></svg> -
+                                            @endif
                                             {{ $product->product_name}} {{'('}}{{ $product->product->size->description}}{{')'}} -
                                             {{ formatAmount($product->quantity - $product->discount_qty)}} {{ trans_choice('labels.'.$type, ($product->quantity - $product->discount_qty))}}{{' @ '}}{{ formatAmount($product->unit_price) }}/=
                                             {{ formatAmount($product->total_price)}}/=

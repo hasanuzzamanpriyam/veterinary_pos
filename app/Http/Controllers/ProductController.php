@@ -16,9 +16,14 @@ use App\Models\ProductStockReport;
 use App\Models\ProductStockAdjustments;
 use App\Models\ProductStore;
 use App\Models\Store;
+use App\Models\CustomerTransactionDetails;
+use App\Models\SupplierTransactionDetails;
+use App\Models\PriceGroupProduct;
+use App\Models\ProductOffer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -131,39 +136,42 @@ class ProductController extends Controller
 
         ]);
 
-        // dd($request->photo);
+        // Get existing product to preserve empty fields
+        $existingProduct = Product::where('id', $request->id)->first();
 
-        if(!empty($request->photo)) {
+        // Photo handling logic
+        if (!empty($request->photo)) {
             if ($request->old_photo) {
-                Storage::disk('public')->delete($request->old_photo);
+                $deletePath = strpos($request->old_photo, 'storage/') === 0
+                    ? str_replace('storage/', '', $request->old_photo)
+                    : $request->old_photo;
+                Storage::disk('public')->delete($deletePath);
             }
-
-            $photo_path = $request->photo->store('/images/product', 'public');
+            $photo_path = 'storage/' . $request->photo->store('/images/product', 'public');
         } else {
-            if(!empty($request->old_photo)) {
+            if (!empty($request->old_photo)) {
                 $photo_path = $request->old_photo;
             } else {
-                $photo_path = "";
+                $photo_path = $existingProduct->photo;
             }
         }
 
-
-
-        Product::where('id',$request->id)->update([
-            'code' => $request->code,
-            'name' => $request->name,
-            'brand_id' => $request->brand_id,
-            'category_id' => $request->category_id,
-            'type' => $request->type,
-            'size_id' => $request->size_id,
-            'barcode' => $request->barcode,
-            'group_id' => $request->group_id,
-            'purchase_rate' => $request->purchase_rate,
-            'price_rate' => $request->price_rate,
-            'mrp_rate' => $request->mrp_rate,
-            'alert_quantity' => $request->alert_quantity,
-            'remarks' => $request->remarks,
-            'photo' => !empty($photo_path) ? '/storage/' . $photo_path : '',
+        // Build update array - use request value if provided, otherwise keep existing
+        Product::where('id', $request->id)->update([
+            'code' => !empty($request->code) ? $request->code : $existingProduct->code,
+            'name' => !empty($request->name) ? $request->name : $existingProduct->name,
+            'brand_id' => !empty($request->brand_id) ? $request->brand_id : $existingProduct->brand_id,
+            'category_id' => !empty($request->category_id) ? $request->category_id : $existingProduct->category_id,
+            'type' => !empty($request->type) ? $request->type : $existingProduct->type,
+            'size_id' => !empty($request->size_id) ? $request->size_id : $existingProduct->size_id,
+            'barcode' => !empty($request->barcode) ? $request->barcode : $existingProduct->barcode,
+            'group_id' => !empty($request->group_id) ? $request->group_id : $existingProduct->group_id,
+            'purchase_rate' => !empty($request->purchase_rate) ? $request->purchase_rate : $existingProduct->purchase_rate,
+            'price_rate' => !empty($request->price_rate) ? $request->price_rate : $existingProduct->price_rate,
+            'mrp_rate' => !empty($request->mrp_rate) ? $request->mrp_rate : $existingProduct->mrp_rate,
+            'alert_quantity' => !empty($request->alert_quantity) ? $request->alert_quantity : $existingProduct->alert_quantity,
+            'remarks' => !empty($request->remarks) ? $request->remarks : $existingProduct->remarks,
+            'photo' => $photo_path,
         ]);
 
         $alert = array('msg' => 'Product Successfully Updated', 'alert-type' => 'info');
@@ -173,29 +181,41 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        $stock_data = ProductStore::where('product_id',$id)->get();
-        $mergedProducts = $stock_data->groupBy('product_id')->map(function ($items) {
-            return [
-                'qty' => $items->sum('product_quantity')
-            ];
-        });
+        DB::beginTransaction();
 
-        if( count($stock_data) > 0 && $mergedProducts[$id]['qty'] > 0){
-            $alert = array('msg' => 'Product Stock Exists. Please Delete Stock First', 'alert-type' => 'warning');
+        try {
+            $product = Product::where('id', $id)->first();
+
+            if (!$product) {
+                $alert = array('msg' => 'Product not found', 'alert-type' => 'danger');
+                return redirect()->route('product.index')->with($alert);
+            }
+
+            CustomerTransactionDetails::where('product_id', $id)->delete();
+            SupplierTransactionDetails::where('product_id', $id)->delete();
+            PriceGroupProduct::where('product_id', $id)->delete();
+            ProductOffer::where('product_id', $id)->delete();
+            ProductStore::where('product_id', $id)->delete();
+
+            if (!empty($product->photo)) {
+                $photoPath = public_path($product->photo);
+                if (file_exists($photoPath)) {
+                    unlink($photoPath);
+                }
+            }
+
+            $product->delete();
+
+            DB::commit();
+
+            $alert = array('msg' => 'Product Successfully Deleted', 'alert-type' => 'success');
+            return redirect()->route('product.index')->with($alert);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $alert = array('msg' => 'Error deleting product: ' . $e->getMessage(), 'alert-type' => 'danger');
             return redirect()->route('product.index')->with($alert);
         }
-        $getImg = Product::where('id',$id)->first();
-        if(file_exists($getImg->photo ))
-        {
-            unlink($getImg->photo);
-
-        }
-
-        Product::where('id',$id)->delete();
-
-
-        $alert = array('msg' => 'Product Successfully Deleted', 'alert-type' => 'warning');
-        return redirect()->route('product.index')->with($alert);
     }
 
     public function view($id)

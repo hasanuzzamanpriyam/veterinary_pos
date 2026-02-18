@@ -129,7 +129,15 @@
                                             $gtotal_stock['qty'][$type] += $quantity;
                                         @endphp
                                         <tr>
-                                            <td>{{$stock['code']}}</td>
+                                            <td>
+                                                <div class="d-flex flex-column align-items-start">
+                                                    <span>{{ $stock['code'] }}</span>
+                                                    @if(isset($stock['barcode']) && $stock['barcode'])
+                                                        <svg class="barcode-render" data-barcode="{{ $stock['barcode'] }}"
+                                                            style="height: 25px; margin-top: 4px; max-width: 100%;"></svg>
+                                                    @endif
+                                                </div>
+                                            </td>
                                             <td class="text-left">{{$stock['product_name']}}</td>
                                             <td class="text-left">{{$stock['brand']}}</td>
                                             <td class="text-left">{{$stock['category'] ?? ""}}</td>

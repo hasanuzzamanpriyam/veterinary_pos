@@ -118,7 +118,15 @@
                                                 $summary['purchase'][$type] += $product->options->purchased_qty;
                                             @endphp
                                             <tr>
-                                                <td>{{$product->options->code}}</td>
+                                                <td>
+                                                    <div class="d-flex flex-column align-items-start">
+                                                        <span>{{ $product->options->code }}</span>
+                                                        @if($product->options->barcode)
+                                                            <svg class="barcode-render" data-barcode="{{ $product->options->barcode }}"
+                                                                style="height: 25px; margin-top: 4px; max-width: 100%;"></svg>
+                                                        @endif
+                                                    </div>
+                                                </td>
                                                 <td>{{$product->name}}</td>
                                                 <td>{{formatAmount($product->options->purchased_qty)}} {{trans_choice('labels.'. $product->options->type, $product->options->purchased_qty)}}</td>
                                                 <td>{{formatAmount($product->qty)}} {{trans_choice('labels.'. $product->options->type, $product->qty)}}</td>

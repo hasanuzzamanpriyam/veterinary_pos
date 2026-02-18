@@ -37,7 +37,7 @@
                                 @if(empty($product->photo))
                                     <h4>No Image Found!</h4>
                                 @else
-                                    <img src="/public{{$product->photo}}" class="img-thumbnail img-responsive" alt="Logo"
+                                    <img src="{{asset($product->photo)}}" class="img-thumbnail img-responsive" alt="Logo"
                                         width="250" height="320">
                                 @endif
                             </div>

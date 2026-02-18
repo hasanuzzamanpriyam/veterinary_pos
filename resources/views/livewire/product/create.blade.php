@@ -197,27 +197,28 @@
                             </div>
                         </div>
 
-                        <div class="item mb-2" x-data="{ 
+                        <div class="item mb-2" x-data="{
                             barcodeText: @entangle('barcode'),
                             updateBarcode() {
-                                if (this.barcodeText) {
-                                    try {
-                                        JsBarcode('#barcode_image', this.barcodeText, {
-                                            format: 'CODE128',
-                                            width: 1.5,
-                                            height: 40,
-                                            displayValue: true,
-                                            fontSize: 14
-                                        });
-                                    } catch (e) {
-                                        // Clear barcode if invalid
+                                $nextTick(() => {
+                                    if (this.barcodeText) {
+                                        try {
+                                            JsBarcode('#barcode_image', this.barcodeText, {
+                                                format: 'CODE128',
+                                                width: 1.5,
+                                                height: 40,
+                                                displayValue: true,
+                                                fontSize: 14
+                                            });
+                                        } catch (e) {
+                                            document.getElementById('barcode_image').innerHTML = '';
+                                        }
+                                    } else {
                                         document.getElementById('barcode_image').innerHTML = '';
                                     }
-                                } else {
-                                    document.getElementById('barcode_image').innerHTML = '';
-                                }
+                                });
                             }
-                        }" x-init="updateBarcode(); $watch('barcodeText', value => updateBarcode())">
+                        }" x-init="$watch('barcodeText', value => updateBarcode()); updateBarcode()" x-cloak>
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="barcode">Barcode
                                     <span class=""></span></label>
@@ -225,10 +226,11 @@
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <input type="text" id="barcode" name="barcode" wire:model.live="barcode"
-                                            class="form-control" placeholder="Enter barcode number">
+                                        <input type="text" id="barcode" name="barcode"
+                                            wire:model.debounce.300ms="barcode" class="form-control"
+                                            placeholder="Enter barcode number">
                                     </div>
-                                    <div class="mt-2 text-center w-100" style="min-height: 60px;">
+                                    <div class="mt-2 text-center w-100" style="min-height: 60px;" wire:ignore>
                                         <svg id="barcode_image"></svg>
                                     </div>
                                 </div>

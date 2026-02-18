@@ -132,6 +132,7 @@ class Index extends Component
                 'options' => [
                     'transaction_id' => $sales->id,
                     'code' => $sales->product_code,
+                    'barcode' => $products->product->barcode,
                     'weight' => $sales->weight,
                     'product_store_id' => $sales->product_store_id,
                     'stock' => 1,

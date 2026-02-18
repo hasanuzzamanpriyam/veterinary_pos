@@ -113,7 +113,15 @@
                                             $total_amount += $product->price * $product->qty;
                                         @endphp
                                         <tr>
-                                            <td>{{$product->options->code}}</td>
+                                            <td>
+                                                <div class="d-flex flex-column align-items-start">
+                                                    <span>{{ $product->options->code }}</span>
+                                                    @if($product->options->barcode)
+                                                        <svg class="barcode-render" data-barcode="{{ $product->options->barcode }}"
+                                                            style="height: 25px; margin-top: 4px; max-width: 100%;"></svg>
+                                                    @endif
+                                                </div>
+                                            </td>
                                             <td class="text-center">{{$product->name}}</td>
                                             <td class="text-center">{{$product->options->sale_qty}}  {{ trans_choice('labels.'.$type, $product->options->sale_qty) }}</td>
                                             <td class="text-center">{{$product->qty}}  {{ trans_choice('labels.'.$type, $product->qty) }}</td>
