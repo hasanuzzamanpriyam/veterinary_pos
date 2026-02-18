@@ -89,11 +89,11 @@
                                                 <td>{{ $product->options->code }}</td>
                                                 <td>{{ $product->name }}</td>
                                                 <td class="text-center">
-                                                    {{ $product->qty }} {{ trans_choice('labels.' . $product->options->type, $product->qty) }}
+                                                    {{ $product->qty }} {{ trans_choice($product->options->type, $product->qty) }}
                                                 </td>
 
                                                 <td class="text-center">
-                                                    <span>{{ $product->options->stock }} {{trans_choice('labels.' . $product->options->type, $product->options->stock)}}</span>
+                                                    <span>{{ $product->options->stock }} {{trans_choice($product->options->type, $product->options->stock)}}</span>
                                                 </td>
                                                 <td class="text-right">{{ $product->price }}/=</td>
                                                 <td class="text-right">{{ $product->qty * $product->price }}/=</td>
@@ -118,12 +118,11 @@
                                                 <div>
                                                     @if( isset($summary['qty']) && $summary['qty'] > 0)
                                                         @foreach ($summary['qty'] as $key => $value)
-                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
                                                         @endforeach
                                                     @endif
                                                 </div>
                                             </td>
-
 
                                             <td></td>
                                             <td></td>

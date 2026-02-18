@@ -139,9 +139,9 @@
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
                                         @php($types = array(
-                                            'bag' => 'Bag',
+                                            'gm' => 'Gram',
                                             'kg' => 'Kg',
-                                            'dozen' => 'Dozen',
+                                            'ml' => 'Ml',
                                             'pcs' => 'Pc',
                                         ))
                                         <select name="type" id="type" wire:model="type" class="form-control">

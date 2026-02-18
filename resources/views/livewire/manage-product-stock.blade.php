@@ -149,7 +149,7 @@
                                                                     {{-- Stock --}}
                                                                     <td>
                                                                         <div class="text-center">
-                                                                            <span>{{ $product->options->stock }} {{trans_choice('labels.' . $product->options->type, $product->options->stock)}}</span>
+                                                                            <span>{{ $product->options->stock }} {{trans_choice($product->options->type, $product->options->stock)}}</span>
                                                                         </div>
                                                                     </td>
 
@@ -197,7 +197,7 @@
                                                         <tr class="text-left">
                                                             <td>
                                                                  <div class="d-flex justify-content-start">
-                                                                    <span><strong>{{trans_choice('labels.items', $items)}}:</strong>
+                                                                    <span>
                                                                         {{ $items }}</span>
                                                                 </div>
                                                             </td>
@@ -206,7 +206,7 @@
                                                                 <div>
                                                                     @if( isset($summary['qty']) && $summary['qty'] > 0)
                                                                         @foreach ($summary['qty'] as $key => $value)
-                                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                                            <span class="d-inline-block"><strong>{{ $value }}</strong></span>
                                                                         @endforeach
                                                                     @endif
                                                                 </div>
