@@ -131,14 +131,14 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                for="bar_code">Barcode<span class=""></span>
+                                for="barcode">Barcode<span class=""></span>
                             </label>
                             <div class="col-md-8 col-sm-8">
-                                <input type="text" id="bar_code" name="bar_code" value="{{$product->bar_code}}"
+                                <input type="text" id="barcode" name="barcode" value="{{$product->barcode}}"
                                     class="form-control">
                                 <div class="mt-2 text-center">
-                                    @if($product->bar_code)
-                                        <svg class="barcode-render" data-barcode="{{$product->bar_code}}"></svg>
+                                    @if($product->barcode)
+                                        <svg class="barcode-render" data-barcode="{{$product->barcode}}"></svg>
                                     @endif
                                 </div>
                             </div>

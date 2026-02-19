@@ -1,6 +1,9 @@
 services:
     php:
-        image: firozenterprise:1.1
+        build:
+            context: .
+            dockerfile: docker/php/prod.Dockerfile
+        image: firozent:1.0
         restart: unless-stopped
         volumes:
             - .:/var/www/html

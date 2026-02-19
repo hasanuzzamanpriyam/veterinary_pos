@@ -869,7 +869,7 @@
                 <!-- Logo Column -->
                 <div class="col-lg-4 col-md-6 footer-column">
                     <img src="{{ asset('assets/images/footer_logo.png') }}" alt="Logo" class="footer-logo">
-                    <h4>Firoz Enterprise</h4>
+                    <h4>{{ $setting->website_name ?? 'Firoz Enterprise' }}</h4>
                     <p>Your trusted partner for premium animal feed solutions since 2010.</p>
                 </div>
 

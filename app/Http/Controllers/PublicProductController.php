@@ -17,6 +17,7 @@ class PublicProductController extends Controller
 
         // Get paginated products
         $products = Product::with(['category', 'brand', 'size'])
+            ->orderBy('id', 'desc')
             ->paginate(12); // Show 12 products per page
 
         $this->processProducts($products);
@@ -29,6 +30,7 @@ class PublicProductController extends Controller
         $page = $request->get('page', 1);
 
         $products = Product::with(['category', 'brand', 'size'])
+            ->orderBy('id', 'desc')
             ->paginate(12, ['*'], 'page', $page);
 
         $this->processProducts($products);
