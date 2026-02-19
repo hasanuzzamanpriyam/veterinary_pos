@@ -29,8 +29,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::latest()
-        ->orderby('code', 'asc')
+        $products = Product::orderBy('id', 'desc')
         ->with(['brand','category','productGroup','size'])
         ->get();
 
