@@ -1,4 +1,4 @@
-@section('page-title', 'Purchase Entry')
+ @section('page-title', 'Purchase Entry')
 <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
         <div class="x_title p-3">
@@ -143,9 +143,7 @@
                                                             <option value="{{ $product->id }}">
                                                                     {{$product->code}} -
                                                                     {{$product->name}} -
-                                                                    {{$line_sto
-                                                           ck_qty}} {{transchoice( 'labels.' . $product->type, $line_sock
-                                                           _qty )}} -
+                                                                    {{$line_stock_qty}} {{trans_choice( 'labels.' . $product->type, $line_stock_qty )}} -
                                                                     {{$product->purchase_rate}}/=
                                                             </option>
                                                         @endforeach
@@ -400,10 +398,7 @@
                                                                 <p class="m-0">
                                                                     <span>৳.{{ $product->purchase_rate }}/=</span>
                                                                 </p>
-                                                                <div class="badge-info text-light">{{ $
-                                                                        product->opening_stock ?? 0 }} {{ 
-                                                                       trans_choice('labels.bag', $product->opening_stock ?? 0) }}</di
-                                                                    v>
+                                                                <div class="badge-info text-light">{{ $product->opening_stock ?? 0 }} {{ trans_choice('labels.bag', $product->opening_stock ?? 0) }}</div>
                                                             </div>
 
                                                             @if(!empty($product->product->brand_id))

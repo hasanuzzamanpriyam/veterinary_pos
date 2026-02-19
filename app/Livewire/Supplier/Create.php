@@ -61,7 +61,7 @@ class Create extends Component
             'phone' => $validated_data['phone'],
             'mobile' => $validated_data['mobile'],
             'email' => $validated_data['email'],
-            'photo' => $validated_data['photo'],
+            // 'photo' => $validated_data['photo'],
             'ledger_page' => $validated_data['ledger_page'],
             'condition' => $validated_data['condition'],
             'dealer_code' => $validated_data['dealer_code'],
@@ -72,6 +72,11 @@ class Create extends Component
             'previous_due' => $validated_data['previous_due'],
             'starting_date' => $validated_data['starting_date'],
         ];
+
+        if ($this->photo) {
+            $path = $this->photo->store('uploads/supplier', 'public');
+            $supplier['photo'] = $path;
+        }
 
         session()->put('supplier_data', $supplier);
 

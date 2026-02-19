@@ -23,7 +23,7 @@ class Checkout extends Component
         if ($this->supplier) {
             $balance = $this->supplier['advance_payment'] ? -$this->supplier['advance_payment'] : $this->supplier['previous_due'];
 
-            $photo_path = null;
+            $photo_path = isset($this->supplier['photo']) ? $this->supplier['photo'] : null;
 
             $formated_starting_date = $this->supplier['starting_date'] ? date('Y-m-d', strtotime($this->supplier['starting_date'])) : null;
 
@@ -49,13 +49,13 @@ class Checkout extends Component
 
             if ($this->supplier['advance_payment'] || $this->supplier['previous_due']) {
                 SupplierLedger::insert([
-                    'supplier_id'       => $supplier_id,
-                    'type'              => 'other',
-                    'balance'           => $balance ? $balance : 0,
-                    'payment'           => $this->supplier['advance_payment'] ? $this->supplier['advance_payment'] : null,
-                    'payment_remarks'   => $this->supplier['advance_payment'] ? "Advance Payment" : "Previous Due",
-                    'date'              => $formated_starting_date,
-                    'u_id'              => 0,
+                    'supplier_id' => $supplier_id,
+                    'type' => 'other',
+                    'balance' => $balance ? $balance : 0,
+                    'payment' => $this->supplier['advance_payment'] ? $this->supplier['advance_payment'] : null,
+                    'payment_remarks' => $this->supplier['advance_payment'] ? "Advance Payment" : "Previous Due",
+                    'date' => $formated_starting_date,
+                    'u_id' => 0,
                 ]);
             }
 
