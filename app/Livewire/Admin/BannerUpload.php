@@ -15,7 +15,8 @@ class BannerUpload extends Component
 
     public function mount()
     {
-        $this->currentBanner = Auth::user()->banner_photo_url;
+        $user = Auth::user();
+        $this->currentBanner = $user->banner_photo_url;
     }
 
     public function updatedBanner()
@@ -40,7 +41,7 @@ class BannerUpload extends Component
         $this->currentBanner = $user->banner_photo_url;
         $this->banner = null;
 
-        session()->flash('message', 'Banner updated successfully!');
+        session()->flash('message', 'Banner updated successfully! This banner is now used across the entire project.');
         session()->flash('alert-type', 'success');
     }
 

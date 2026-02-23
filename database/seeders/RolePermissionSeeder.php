@@ -156,17 +156,17 @@ class RolePermissionSeeder extends Seeder
 
         // Create all permissions
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission]);
         }
 
         // Create roles and assign permissions
 
         // 1. Super Admin - Full access
-        $superAdmin = Role::create(['name' => 'Super Admin']);
+        $superAdmin = Role::firstOrCreate(['name' => 'Super Admin']);
         $superAdmin->givePermissionTo(Permission::all());
 
         // 2. Admin - All business operations except role management
-        $admin = Role::create(['name' => 'Admin']);
+        $admin = Role::firstOrCreate(['name' => 'Admin']);
         $adminPermissions = Permission::whereNotIn('name', [
             'role-view', 'role-create', 'role-edit', 'role-delete',
             'permission-view', 'permission-create', 'permission-delete',
@@ -175,7 +175,7 @@ class RolePermissionSeeder extends Seeder
         $admin->givePermissionTo($adminPermissions);
 
         // 3. Manager - View all, manage customers/suppliers, limited editing
-        $manager = Role::create(['name' => 'Manager']);
+        $manager = Role::firstOrCreate(['name' => 'Manager']);
         $manager->givePermissionTo([
             // Customer
             'customer-view', 'customer-create', 'customer-edit', 'customer-ledger', 'customer-statement', 'customer-export',
@@ -204,7 +204,7 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         // 4. Staff - Basic data entry for sales, purchases, customers
-        $staff = Role::create(['name' => 'Staff']);
+        $staff = Role::firstOrCreate(['name' => 'Staff']);
         $staff->givePermissionTo([
             // Customer
             'customer-view', 'customer-create', 'customer-ledger',
@@ -226,7 +226,7 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         // 5. Viewer - Read-only access to reports and listings
-        $viewer = Role::create(['name' => 'Viewer']);
+        $viewer = Role::firstOrCreate(['name' => 'Viewer']);
         $viewer->givePermissionTo([
             // View only permissions
             'customer-view', 'customer-ledger', 'customer-statement',
