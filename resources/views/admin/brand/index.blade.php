@@ -11,8 +11,8 @@ Brand List
         <div class="x_title p-3">
 
             <div class="header-title d-flex align-items-center gap-2">
-                <h2 class="mr-auto">Brand List</h2>
-                <a href="{{route('brand.create')}}" class="btn btn-md btn-primary"> <i class="fa fa-plus" aria-hidden="true"></i> Add Brand</a>
+                <h2 class="mr-auto">Company List</h2>
+                <a href="{{route('brand.create')}}" class="btn btn-md btn-primary"> <i class="fa fa-plus" aria-hidden="true"></i> Add Company</a>
             </div>
 
         </div>
@@ -31,7 +31,7 @@ Brand List
                                 <tr>
                                 <th class="all">S.N.</th>
                                 <th class="all">ID</th>
-                                <th class="all">Brand Name</th>
+                                <th class="all">Company Name</th>
                                 <th class="all">Description</th>
                                 <th class="all">Remarks</th>
                                 <th class="all">Action</th>

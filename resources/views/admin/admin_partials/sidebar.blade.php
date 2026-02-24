@@ -361,7 +361,7 @@
                                 <li><a href="{{ route('subcategory.index') }}">Sub Category</a></li>
                             @endcan
                             @can('brand-manage')
-                                <li><a href="{{ route('brand.index') }}">Brand</a></li>
+                                <li><a href="{{ route('brand.index') }}">Company</a></li>
                             @endcan
                             @can('price-group-manage')
                                 <li><a href="{{ route('price_group.index') }}">Price Group</a></li>
@@ -374,9 +374,6 @@
                             @endcan
                             @can('size-manage')
                                 <li><a href="{{ route('size.index') }}">Size</a></li>
-                            @endcan
-                            @can('unit-manage')
-                                <li><a href="{{ route('unit.index') }}">Unit</a></li>
                             @endcan
                         </ul>
                     </li>

@@ -29,7 +29,8 @@ class Checkout extends Component
     public $offer_end_date;
     public $offer_active = true;
 
-    public function mount() {
+    public function mount()
+    {
         $this->product_groups = ProductGroup::get();
         $this->categories = Category::get();
         $this->warehouses = Warehouse::get();
@@ -45,11 +46,12 @@ class Checkout extends Component
         return redirect()->route('live.product.create');
     }
 
-    public function submit(){
-                if(session()->has('product_data')) {
-                        $product_data = session()->get('product_data');
+    public function submit()
+    {
+        if (session()->has('product_data')) {
+            $product_data = session()->get('product_data');
 
-                    $product = Product::insertGetId([
+            $product = Product::insertGetId([
                 'name' => $product_data['name'],
                 'brand_id' => $product_data['brand_id'],
                 'category_id' => $product_data['category_id'],
@@ -64,6 +66,7 @@ class Checkout extends Component
                 'mrp_rate' => $product_data['mrp_rate'],
                 'alert_quantity' => $product_data['alert_quantity'],
                 'remarks' => $product_data['remarks'],
+                'production_date' => $product_data['production_date'] ?? null,
                 'photo' => $product_data['photo'],
 
             ]);

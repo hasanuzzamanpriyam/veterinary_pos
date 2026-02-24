@@ -31,7 +31,7 @@ Size List
                                 <tr>
                                 <th class="all">S.N.</th>
                                 <th class="all">ID</th>
-                                <th class="all">Size Name</th>
+                                <th class="all">Size</th>
                                 <th class="all">Description</th>
                                 <th class="all">Remarks</th>
                                 <th class="all">Action</th>

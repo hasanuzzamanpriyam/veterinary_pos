@@ -37,9 +37,11 @@ class Create extends Component
     public $sku;
     public $alert_expire_date;
     public $remarks;
+    public $production_date;
     public $photo;
 
-    public function mount() {
+    public function mount()
+    {
         $this->product_groups = ProductGroup::get();
         $this->categories = Category::get();
         $this->warehouses = Warehouse::get();
@@ -48,9 +50,10 @@ class Create extends Component
         $this->sizes = Size::get();
     }
 
-    public function rules(){
+    public function rules()
+    {
         return [
-            'name'  => 'required',
+            'name' => 'required',
             'brand_id' => 'required',
             'group_id' => 'required',
             'size_id' => 'required',
@@ -63,23 +66,26 @@ class Create extends Component
             'sku' => 'nullable',
             'alert_expire_date' => 'nullable',
             'barcode' => 'nullable',
+            'production_date' => 'nullable|date',
             'remarks' => 'nullable|max:255',
             'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 
-    public function updatedPhoto(){
+    public function updatedPhoto()
+    {
         $this->validateOnly('photo', [
             'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     }
 
-    public function sessionCreate(){
+    public function sessionCreate()
+    {
         $validated_data = $this->validate();
         // dd('data', $validated_data);
-        if ($this->photo){
+        if ($this->photo) {
             $filename = $this->photo->store('/images/product', 'public');
-        }else{
+        } else {
             $filename = "";
         }
         $product = [
@@ -96,11 +102,12 @@ class Create extends Component
             'sku' => $validated_data['sku'],
             'alert_expire_date' => $validated_data['alert_expire_date'],
             'barcode' => $validated_data['barcode'],
+            'production_date' => $validated_data['production_date'],
             'remarks' => $validated_data['remarks'],
             'photo' => !empty($filename) ? '/storage/' . $filename : '',
         ];
 
-            session()->put('product_data', $product);
+        session()->put('product_data', $product);
 
         return redirect()->route('live.product.checkout');
     }
@@ -115,7 +122,7 @@ class Create extends Component
     {
 
         // dd(session()->has('product_data'));
-        if(session()->has('product_data')){
+        if (session()->has('product_data')) {
             $product = session()->get('product_data');
             $this->name = isset($product['name']) ? $product['name'] : null;
             $this->brand_id = isset($product['brand_id']) ? $product['brand_id'] : null;
@@ -131,11 +138,12 @@ class Create extends Component
             $this->sku = isset($product['sku']) ? $product['sku'] : null;
             $this->alert_expire_date = isset($product['alert_expire_date']) ? $product['alert_expire_date'] : null;
             $this->barcode = isset($product['barcode']) ? $product['barcode'] : null; //$product['barcode'];
+            $this->production_date = isset($product['production_date']) ? $product['production_date'] : null;
             $this->remarks = isset($product['remarks']) ? $product['remarks'] : null; //$product['remarks'];
             // $this->photo = isset($product['photo']) ? $product['photo'] : null; //$product['photo'];
         }
         return view('livewire.product.create', get_defined_vars())
-        ->extends('layouts.admin')
-        ->section('main-content');
+            ->extends('layouts.admin')
+            ->section('main-content');
     }
 }
