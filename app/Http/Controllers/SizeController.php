@@ -21,7 +21,7 @@ class SizeController extends Controller
     public function store(Request $request)
     {
         $validator = $request->validate([
-            'name' => [ 'required','integer'],
+            'name' => [ 'required','string'],
             'description' => [ 'max:1000'],
             'remarks' => [ 'max:255'],
            
@@ -47,7 +47,7 @@ class SizeController extends Controller
     public function update(Request $request)
     {
         $validator = $request->validate([
-            'name' => ['required','integer'],
+            'name' => ['required','string'],
             'description' => [ 'max:1000'],
             'remarks' => [ 'max:255'],
            

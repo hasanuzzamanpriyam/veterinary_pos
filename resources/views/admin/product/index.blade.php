@@ -39,11 +39,9 @@
                                         <th class="all">Size</th>
                                         <th class="all">Type</th>
                                         <th class="all">Stock</th>
-                                        <th class="all">Weight</th>
                                         <th class="all">TP Rate</th>
                                         <th class="all">MRP Rate</th>
                                         <th class="all">Sales Rate</th>
-                                        <th class="all">Offer</th>
                                         <th class="all">Action</th>
                                     </tr>
                                 </thead>
@@ -51,25 +49,24 @@
                                     @foreach($products as $product)
                                         @php
                                             $stock_qty = isset($stock_list[$product->id]) ? $stock_list[$product->id]['qty'] : 0;
-                                            $stocks_line = isset($stock_list[$product->id]) ? ($stock_list[$product->id]['qty'] * $product->size->name / 1000) : '0';
                                         @endphp
                                         <tr>
-                                             {{-- S.N. --}}
-                                             <td>{{$loop->iteration}}</td>
+                                            {{-- S.N. --}}
+                                            <td>{{$loop->iteration}}</td>
 
-                                             {{-- Barcode --}}
-                                             <td>
-                                                 <div class="d-flex flex-column align-items-start">
-                                                     @if($product->barcode)
-                                                         {{-- Show Barcode if it exists --}}
-                                                         <svg class="barcode-render" data-barcode="{{ $product->barcode }}"
-                                                             style="height: 25px; margin-top: 4px; max-width: 100%;">
-                                                         </svg>
-                                                     @endif
-                                                 </div>
-                                             </td>
+                                            {{-- Barcode --}}
+                                            <td>
+                                                <div class="d-flex flex-column align-items-start">
+                                                    @if($product->barcode)
+                                                        {{-- Show Barcode if it exists --}}
+                                                        <svg class="barcode-render" data-barcode="{{ $product->barcode }}"
+                                                            style="height: 25px; margin-top: 4px; max-width: 100%;">
+                                                        </svg>
+                                                    @endif
+                                                </div>
+                                            </td>
 
-                                             {{-- Name --}}
+                                            {{-- Name --}}
                                             <td class="text-left">{{$product->name}}</td>
 
                                             {{-- Brand --}}
@@ -106,12 +103,6 @@
                                             {{-- Stock --}}
                                             <td>{{$stock_qty}}</td>
 
-                                            {{-- M/T --}}
-                                            @if(empty($product->size_id))
-                                                <td></td>
-                                            @else
-                                                <td>{{$stocks_line}}</td>
-                                            @endif
 
                                             {{-- Purches Rate --}}
                                             @if(empty($product->purchase_rate))
@@ -134,19 +125,6 @@
                                                 <td class="text-right">{{formatAmount($product->price_rate)}}/-</td>
                                             @endif
 
-                                            {{-- Offer --}}
-                                            <td class="text-right">
-                                                @if(isset($product->active_offer) && $product->active_offer)
-                                                    @php $offer = $product->active_offer; @endphp
-                                                    @if($offer->type === \App\Models\ProductOffer::TYPE_PERCENTAGE)
-                                                        {{ rtrim(rtrim(number_format($offer->value, 4, '.', ''), '0'), '.') }}%
-                                                    @else
-                                                        {{ formatAmount($offer->value) }} /-
-                                                    @endif
-                                                    <div class="small text-muted">New:
-                                                        {{ formatAmount($product->sale_price_with_offer) }}/-</div>
-                                                @endif
-                                            </td>
 
                                             {{-- Action --}}
                                             <td>
