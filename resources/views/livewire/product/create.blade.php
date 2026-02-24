@@ -22,8 +22,7 @@
                 <div class="row m-auto">
                     <div class="col-lg-6 col-md-6 col-sm-12">
 
-                        <div class="item mb-2" 
-    x-data="{
+                        <div class="item mb-2" x-data="{
         barcodeText: @entangle('barcode'),
         hasBarcode: false,
         updateBarcode() {
@@ -48,39 +47,30 @@
                 }
             });
         }
-    }"
-    x-init="$watch('barcodeText', value => updateBarcode()); updateBarcode()"
-    x-cloak
->
-    <div class="d-flex align-items-start col-md-4 p-0">
-        <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="barcode">
-            Barcode
-        </label>
-    </div>
+    }" x-init="$watch('barcodeText', value => updateBarcode()); updateBarcode()" x-cloak>
+                            <div class="d-flex align-items-start col-md-4 p-0">
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="barcode">
+                                    Barcode
+                                </label>
+                            </div>
 
-    <div class="col-md-8 col-sm-8">
-        <div class="d-flex justify-content-center align-items-start flex-column">
+                            <div class="col-md-8 col-sm-8">
+                                <div class="d-flex justify-content-center align-items-start flex-column">
 
-            <div class="w-100">
-                <input type="text"
-                       id="barcode"
-                       name="barcode"
-                       wire:model.debounce.300ms="barcode"
-                       class="form-control"
-                       placeholder="Enter barcode number">
-            </div>
+                                    <div class="w-100">
+                                        <input type="text" id="barcode" name="barcode"
+                                            wire:model.debounce.300ms="barcode" class="form-control"
+                                            placeholder="Enter barcode number">
+                                    </div>
 
-            <!-- Barcode SVG (Only show when generated) -->
-            <div class="mt-2 text-center w-100"
-                 x-show="hasBarcode"
-                 x-transition
-                 wire:ignore>
-                <svg id="barcode_image"></svg>
-            </div>
+                                    <!-- Barcode SVG (Only show when generated) -->
+                                    <div class="mt-2 text-center w-100" x-show="hasBarcode" x-transition wire:ignore>
+                                        <svg id="barcode_image"></svg>
+                                    </div>
 
-        </div>
-    </div>
-</div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
@@ -273,6 +263,25 @@
                             </div>
                         </div>
 
+                        
+                        <div class="item mb-2">
+                            <div class="d-flex align-items-start col-md-4 p-0">
+                                <label class="col-form-label add_product_lebel px-2 py-2 w-100"
+                                    for="production_date">Production Date <span class=""></span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <div class="d-flex justify-content-center align-items-start flex-column">
+                                    <div class="w-100">
+                                        <input type="date" id="production_date" name="production_date"
+                                            wire:model="production_date" class="form-control">
+                                    </div>
+                                    @error('production_date')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-2 py-2 w-100"
@@ -290,6 +299,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
