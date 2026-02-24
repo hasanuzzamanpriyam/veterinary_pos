@@ -128,7 +128,6 @@ class Index extends Component
             'qty' => 1,
             'price' => $products->purchase_rate,
             'options' => [
-                'code' => $products->code,
                 'barcode' => $products->barcode,
                 'discount' => 0,
                 'weight' => $products->size->name,

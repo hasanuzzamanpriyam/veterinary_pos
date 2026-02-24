@@ -72,7 +72,6 @@
                                                                 @foreach ($products as $product)
                                                                     <option class="text-left p-2"
                                                                         value="{{ $product->id }}">
-                                                                        {{ $product->code }} -
                                                                         {{ $product->name }} -
                                                                         {{ $product['qty'] }}
                                                                         {{ isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty']  : 0 }}

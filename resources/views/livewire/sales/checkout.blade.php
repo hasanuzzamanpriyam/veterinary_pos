@@ -129,7 +129,6 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex flex-column align-items-start">
-                                                        <span>{{ $product->options->code }}</span>
                                                         @if($product->options->barcode)
                                                             <svg class="barcode-render" data-barcode="{{ $product->options->barcode }}"
                                                                 style="height: 25px; margin-top: 4px; max-width: 100%;"></svg>

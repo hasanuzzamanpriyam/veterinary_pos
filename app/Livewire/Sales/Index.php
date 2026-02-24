@@ -158,7 +158,6 @@ class Index extends Component
             'qty' => 1,
             'price' => $price_group_rate ?? $products->product->price_rate,
             'options' => [
-                'code' => $products->product_code,
                 'barcode' => $products->product->barcode,
                 'discount' => 0,
                 'weight' => $product->size->name,
@@ -315,7 +314,6 @@ class Index extends Component
                 $sale_price = $items->first()->product->price_rate;
                 return [
                     'name' => $items->first()->product->name,
-                    'code' => $items->first()->product->code,
                     'qty' => $items->sum('product_quantity'),
                     'type' => $items->first()->product->type,
                     'price' => $sale_price,

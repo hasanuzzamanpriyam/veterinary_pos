@@ -28,24 +28,6 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="code">Product Code
-                                    <span class=""></span></label>
-                            </div>
-                            <div class="col-md-8 col-sm-8">
-                                <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
-                                        <input type="text" id="code" name="code" wire:model="code" class="form-control">
-
-                                    </div>
-                                    @error('code')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-2">
-                            <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="name">Product Name
                                     <span class=""></span></label>
                             </div>

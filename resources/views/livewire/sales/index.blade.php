@@ -189,7 +189,6 @@
 
                                                                             <option class="text-left p-2"
                                                                                 value="{{ $id }}">
-                                                                                {{ $product['code'] }} -
                                                                                 {{ $product['name'] }} -
                                                                                 {{ $product['qty'] }} {{trans_choice( 'labels.' . $product['type'], $product['qty'] )}} -
 

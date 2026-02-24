@@ -38,7 +38,6 @@ Product List
                                     <tr>
                                         <td>{{ $loop->iteration}}</td>
                                         <td>{{ $product->priceGroup->name}}</td>
-                                        <td>{{ $product->product->code}}</td>
                                         <td>{{ $product->product->name}}</td>
                                         <td>{{ $product->product->brand->name}}</td>
                                         <td>{{ $product->product->category->name ?? " "}}</td>

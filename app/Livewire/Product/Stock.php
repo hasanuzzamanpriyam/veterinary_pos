@@ -83,7 +83,6 @@ class Stock extends Component
 
             return [
                 'product_id' => $items->first()->product_id,
-                'code' => $items->first()->product_code,
                 'product_name' => $items->first()->product_name, // add more fields as needed
                 'qty' => $items->sum('product_quantity'),
                 'purchase_price' => $items->first()->product->purchase_rate,
@@ -96,7 +95,7 @@ class Stock extends Component
                 'brand' => $items->first()->product->brand->name,
                 'group' => $items->first()->product->productGroup->name
             ];
-        })->sortBy('code')->values();
+        })->sortBy('product_name')->values();
 
         // filter by stock
         $grouped = $grouped->where('qty', '>', 0);

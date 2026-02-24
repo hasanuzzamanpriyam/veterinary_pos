@@ -64,7 +64,6 @@ Product Stack
                                         <td>{{$loop->iteration}}</td>
                                         <td>
                                             <div class="d-flex flex-column align-items-start">
-                                                <span>{{ $product->code }}</span>
                                                 @if($product->barcode)
                                                     <svg class="barcode-render" data-barcode="{{ $product->barcode }}"
                                                         style="height: 25px; margin-top: 4px; max-width: 100%;"></svg>

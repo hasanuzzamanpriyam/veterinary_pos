@@ -49,8 +49,7 @@ Product List
                             <tbody>
                                 @foreach($products as $product)
                                     <tr>
-
-                                        <td>{{$product->code}}</td>
+ 
                                         <td>{{$product->name}}</td>
                                         @if(empty($product->brand_id))
                                             <td></td>

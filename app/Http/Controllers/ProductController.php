@@ -62,7 +62,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = $request->validate([
-            'code' => [ 'max:255'],
             'name' => [ 'max:255'],
             'group_id' => ['max:11'],
             'purchase_rate' => ['max:20'],
@@ -84,7 +83,6 @@ class ProductController extends Controller
         }
 
       $product = Product::insertGetId([
-            'code' => $validator['code'],
             'name' => $validator['name'],
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
@@ -124,7 +122,6 @@ class ProductController extends Controller
     {
 
         $request->validate([
-            'code' => [ 'max:255'],
             'name' => [ 'max:255'],
             'group_id' => ['max:11'],
             'purchase_rate' => ['max:20'],
@@ -157,7 +154,6 @@ class ProductController extends Controller
 
         // Build update array - use request value if provided, otherwise keep existing
         Product::where('id', $request->id)->update([
-            'code' => !empty($request->code) ? $request->code : $existingProduct->code,
             'name' => !empty($request->name) ? $request->name : $existingProduct->name,
             'brand_id' => !empty($request->brand_id) ? $request->brand_id : $existingProduct->brand_id,
             'category_id' => !empty($request->category_id) ? $request->category_id : $existingProduct->category_id,

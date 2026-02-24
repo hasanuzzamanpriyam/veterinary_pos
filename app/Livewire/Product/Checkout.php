@@ -41,7 +41,7 @@ class Checkout extends Component
 
     public function cancel()
     {
-        session()->flash('product_data');
+        session()->forget('product_data');
         return redirect()->route('live.product.create');
     }
 
@@ -50,7 +50,6 @@ class Checkout extends Component
                         $product_data = session()->get('product_data');
 
                     $product = Product::insertGetId([
-                'code' => $product_data['code'],
                 'name' => $product_data['name'],
                 'brand_id' => $product_data['brand_id'],
                 'category_id' => $product_data['category_id'],

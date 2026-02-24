@@ -113,7 +113,6 @@ class Pstockadjusment extends Component
             'qty' => 1,
             'price' => $product->purchase_rate,
             'options' => [
-                'code' => $product->code,
                 'barcode' => $product->barcode,
                 'brand_id' => $product->brand_id,
                 'discount' => 0,
@@ -174,7 +173,6 @@ class Pstockadjusment extends Component
             $this->products = $source_store_products->groupBy('product_id')->map(function ($items) {
                 return [
                     'name' => $items->first()->product->name,
-                    'code' => $items->first()->product->code,
                     'qty' => $items->sum('product_quantity'),
                     'type' => $items->first()->product->type,
                     'price' => $items->last()->purchase_price

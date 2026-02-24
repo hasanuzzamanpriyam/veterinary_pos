@@ -165,7 +165,6 @@ class Checkout extends Component
                             'warehouse_id' => $value['warehouse_id'],
                             'product_store_id' => $value['product_store_id'],
                             'product_id' => $product->id,
-                            'product_code' => $product->options->code,
                             'product_name' => $product->name,
                             'unit_price' => $product->price,
                             'quantity' => $product->qty,
