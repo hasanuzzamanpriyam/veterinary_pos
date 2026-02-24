@@ -170,7 +170,7 @@
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <input type="text" id="sku" name="sku" wire:model="sku" class="form-control">
+                                         <input type="text" id="sku" name="sku" wire:model="sku" class="form-control">
                                     </div>
                                     @error('sku')
                                         <span class="text-danger">{{$message}}</span>

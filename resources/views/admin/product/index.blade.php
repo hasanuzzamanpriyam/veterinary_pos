@@ -31,15 +31,16 @@
                                 <thead>
                                     <tr>
                                         <th class="all">S.N.</th>
-                                        <th class="all">Code</th>
-                                        <th class="all">Name</th>
-                                        <th class="all">Brand</th>
-                                        <th class="all">Category</th>
-                                        <th class="all">Group</th>
-                                        <th class="all">Size</th>
-                                        <th class="all">Type</th>
-                                        <th class="all">Stock</th>
-                                        <th class="all">TP Rate</th>
+                                        <th class="all">Purchase Date</th>
+                                        <th class="all">Store</th>
+                                        <th class="all">Quantity</th>
+                                        <th class="all">Purchase Rate</th>
+                                        <th class="all">Purchase Amount</th>
+                                        <th class="all">Sale Rate</th>
+                                        <th class="all">Sale value</th>
+                                        <th class="all">Production Date</th>
+                                        <th class="all">Expire Date</th>
+                                        {{-- End --}}
                                         <th class="all">MRP Rate</th>
                                         <th class="all">Sales Rate</th>
                                         <th class="all">Action</th>
