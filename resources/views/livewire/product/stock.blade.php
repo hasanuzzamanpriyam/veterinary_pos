@@ -94,11 +94,9 @@
                                     <th class="all">Size</th>
                                     <th class="all">Type</th>
                                     <th class="all">Stock</th>
-                                    <th class="all">Weight</th>
                                     <th class="all">Purchase Value</th>
                                     <th class="all">Sale Value</th>
                                     <th class="all">MRP Value</th>
-                                    <th class="all">Offer</th>
                                     <th class="all">Action</th>
                                 </tr>
                             </thead>
@@ -110,7 +108,6 @@
                                     $gtotal_sale_price = 0;
                                     $gtotal_mrp_price = 0;
                                     $gtotal_stock = [];
-                                    $gtotal_matricton = 0;
                                 @endphp
                                 @if (count($stock_list) > 0)
                                     @foreach($stock_list as $key => $stock)
@@ -118,7 +115,6 @@
                                             $items++;
                                             $purchase_price = isset($stock['purchase_price']) ? $stock['qty'] * $stock['purchase_price'] : 0;
                                             $sale_price = isset($stock['sale_price']) ? $stock['qty'] * $stock['sale_price'] : 0;
-                                            $totatl_weight = $stock['qty'] * $stock['size'] / 1000;
 
 
                                             $gtotal_purchase_price += $purchase_price;
@@ -126,8 +122,6 @@
 
                                             $mrp_price = isset($stock['mrp_price']) ? $stock['qty'] * $stock['mrp_price'] : 0;
                                             $gtotal_mrp_price += $mrp_price;
-                                            
-                                            $gtotal_matricton += $totatl_weight;
 
                                             $type = $stock['type'];
                                             $gtotal_stock['qty'][$type] = $gtotal_stock['qty'][$type] ?? 0;
@@ -151,21 +145,9 @@
                                             <td>{{$stock['size']}}</td>
                                             <td>{{ucfirst($type)}}</td>
                                             <td>{{formatAmount($quantity)}}</td>
-                                            <td>{{formatAmount($totatl_weight)}}</td>
                                             <td class="text-right">{{ $purchase_price ? formatAmount($purchase_price) . '/-' : '' }}</td>
                                             <td class="text-right">{{ $sale_price ? formatAmount($sale_price) . '/-' : '' }}</td>
                                             <td class="text-right">{{ $mrp_price ? formatAmount($mrp_price) . '/-' : '' }}</td>
-                                            <td class="text-right">
-                                                @if(isset($stock['offer']) && $stock['offer'])
-                                                    @php $offer = $stock['offer']; @endphp
-                                                    @if($offer->type === \App\Models\ProductOffer::TYPE_PERCENTAGE)
-                                                        {{ rtrim(rtrim(number_format($offer->value, 4, '.', ''), '0'), '.') }}%
-                                                    @else
-                                                        {{ formatAmount($offer->value) }} /-
-                                                    @endif
-                                                    <div class="small text-muted">New: {{ formatAmount($stock['sale_price_with_offer']) }}/-</div>
-                                                @endif
-                                            </td>
                                             <td>
                                                 <div class="btn-group btn-group-vertical customer_diplay_list">
                                                     <button type="button" class="btn btn-primary btn-sm dropdown-toggle py-0 px-2"
@@ -203,11 +185,9 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td  class="text-right"><strong>{{formatAmount($gtotal_matricton)}}</strong></td>
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_purchase_price)}}/-</strong></td>
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_sale_price)}}/-</strong></td>
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_mrp_price)}}/-</strong></td>
-                                    <td  class="text-right"></td>
                                 </tr>
                             </tfoot>
                         </table>

@@ -107,39 +107,7 @@
                         </div>
                     </div>
                 </div>
-                @if(auth()->check() && auth()->user()->hasRole('Super Admin'))
-                    <hr />
-                    <h5>Offer (Super Admin)</h5>
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label>Type</label>
-                            <select class="form-control" wire:model="offer_type">
-                                <option value="percentage">Percentage</option>
-                                <option value="amount">Fixed Amount</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Value</label>
-                            <input type="number" step="0.01" class="form-control" wire:model="offer_value" />
-                        </div>
-                        <div class="col-md-3">
-                            <label>Start Date</label>
-                            <input type="date" class="form-control" wire:model="offer_start_date" />
-                        </div>
-                        <div class="col-md-3">
-                            <label>End Date</label>
-                            <input type="date" class="form-control" wire:model="offer_end_date" />
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="offerActive" wire:model="offer_active">
-                                <label class="form-check-label" for="offerActive">Active</label>
-                            </div>
-                        </div>
-                    </div>
-                @endif
+
             </div>
         </div>
     </div>
