@@ -26,20 +26,42 @@
                 <div class="row m-auto">
                     <div class="col-lg-6 col-md-6 col-sm-12">
 
-                        <div class="item mb-2">
+                        <div class="item mb-2" x-data="{
+                            barcodeText: @entangle('barcode'),
+                            updateBarcode() {
+                                $nextTick(() => {
+                                    if (this.barcodeText) {
+                                        try {
+                                            JsBarcode('#barcode_image', this.barcodeText, {
+                                                format: 'CODE128',
+                                                width: 1.5,
+                                                height: 40,
+                                                displayValue: true,
+                                                fontSize: 14
+                                            });
+                                        } catch (e) {
+                                            document.getElementById('barcode_image').innerHTML = '';
+                                        }
+                                    } else {
+                                        document.getElementById('barcode_image').innerHTML = '';
+                                    }
+                                });
+                            }
+                        }" x-init="$watch('barcodeText', value => updateBarcode()); updateBarcode()" x-cloak>
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="code">Product Code
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="barcode">Barcode
                                     <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                        <input type="text" id="code" name="code" wire:model="code" class="form-control">
-
+                                        <input type="text" id="barcode" name="barcode"
+                                            wire:model.debounce.300ms="barcode" class="form-control"
+                                            placeholder="Enter barcode number">
                                     </div>
-                                    @error('code')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                                    <div class="mt-2 text-center w-100" style="min-height: 60px;" wire:ignore>
+                                        <svg id="barcode_image"></svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +86,7 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="brand">Brand <span
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="brand">Company<span
                                         class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
@@ -81,6 +103,26 @@
                                     @error('brand_id')
                                         <span class="text-danger">{{$message}}</span>
                                     @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                                                <div class="item mb-2">
+                            <div class="d-flex align-items-start col-md-4 p-0">
+                                <label class="col-form-label add_product_lebel px-3 py-2 w-100"
+                                    for="category_id">Category <span class=""></span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <div class="d-flex justify-content-center align-items-start flex-column">
+                                    <div class="w-100">
+                                        <select name="category_id" id="category_id" wire:model="category_id"
+                                            class="form-control">
+                                            <option value="">No Category</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -130,6 +172,8 @@
                             </div>
                         </div>
 
+
+
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="type">Type <span
@@ -158,7 +202,10 @@
                             </div>
                         </div>
 
-                        <div class="item">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        
+                        <div class="item ">
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-3 py-2" for="photo">Product Photo
                                     <span class=""></span></label>
@@ -178,8 +225,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="sku">SKU <span
@@ -197,65 +243,7 @@
                             </div>
                         </div>
 
-                        <div class="item mb-2" x-data="{
-                            barcodeText: @entangle('barcode'),
-                            updateBarcode() {
-                                $nextTick(() => {
-                                    if (this.barcodeText) {
-                                        try {
-                                            JsBarcode('#barcode_image', this.barcodeText, {
-                                                format: 'CODE128',
-                                                width: 1.5,
-                                                height: 40,
-                                                displayValue: true,
-                                                fontSize: 14
-                                            });
-                                        } catch (e) {
-                                            document.getElementById('barcode_image').innerHTML = '';
-                                        }
-                                    } else {
-                                        document.getElementById('barcode_image').innerHTML = '';
-                                    }
-                                });
-                            }
-                        }" x-init="$watch('barcodeText', value => updateBarcode()); updateBarcode()" x-cloak>
-                            <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="barcode">Barcode
-                                    <span class=""></span></label>
-                            </div>
-                            <div class="col-md-8 col-sm-8">
-                                <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
-                                        <input type="text" id="barcode" name="barcode"
-                                            wire:model.debounce.300ms="barcode" class="form-control"
-                                            placeholder="Enter barcode number">
-                                    </div>
-                                    <div class="mt-2 text-center w-100" style="min-height: 60px;" wire:ignore>
-                                        <svg id="barcode_image"></svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="item mb-2">
-                            <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-3 py-2 w-100"
-                                    for="category_id">Category <span class=""></span></label>
-                            </div>
-                            <div class="col-md-8 col-sm-8">
-                                <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
-                                        <select name="category_id" id="category_id" wire:model="category_id"
-                                            class="form-control">
-                                            <option value="">No Category</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
