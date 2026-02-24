@@ -37,7 +37,7 @@
                                         <option value="all">All</option>
                                         @foreach ($all_products as $product)
                                             <option value="{{$product->id}}" @if ($product_id == $product->id) selected @endif>
-                                                {{$product->code}} - {{$product->name}} - {{$product->brand->name ?? " "}} - {{$product->category->name ?? " "}}
+                                                {{$product->name}} - {{$product->brand->name ?? " "}} - {{$product->category->name ?? " "}}
                                             </option>
                                         @endforeach
                                     </select>

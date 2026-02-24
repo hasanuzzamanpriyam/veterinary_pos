@@ -153,7 +153,6 @@
                                                             @if(isset($products))
                                                                 @foreach ($products as $product)
                                                                     <option class="text-left p-2" value="{{ $product->product_id }}">
-                                                                            {{$product->product->code}} -
                                                                             {{$product->product->name}} -
                                                                             {{$product->quantity}} {{trans_choice('labels.'.$product->product->type, $product->quantity)}} -
                                                                             {{$product->unit_price}}/=

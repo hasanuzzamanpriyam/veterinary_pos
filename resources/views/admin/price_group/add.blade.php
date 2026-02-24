@@ -72,7 +72,6 @@ Product Add to Price Group
                                 @foreach ($products as $product)
                                 <tr>
                                     <td><input type="checkbox" name="product_id[]" value="{{$product->id}}" class="form-control btn btn-primary"></td>
-                                    <td>{{ $product->code}}</td>
                                     <td class="text-left">{{ $product->name}}</td>
                                     <td class="text-left">{{ $product->brand->name}}</td>
                                     <td class="text-left">{{ $product->category->name ?? " "}}</td>

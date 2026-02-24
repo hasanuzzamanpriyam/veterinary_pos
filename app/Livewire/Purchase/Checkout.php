@@ -189,7 +189,6 @@ class Checkout extends Component
                                 'warehouse_id'      => $supplier['warehouse_id'],
                                 'product_store_id'  => $supplier['product_store_id'],
                                 'product_id'        => $product->id,
-                                'product_code'      => $product->options->code,
                                 'product_name'      => $product->name,
                                 'quantity'          => $product->qty,
                                 'discount_qty'      => $product->options->discount,
@@ -216,7 +215,6 @@ class Checkout extends Component
                                 'brand_id'          => $product->options->brand_id,
                                 'product_store_id'  => $supplier['product_store_id'],
                                 'product_name'      => $product->name,
-                                'product_code'      => $product->options->code,
                                 'product_quantity'  => $product->qty,
                                 'purchase_price'    => $product->price,
                             ]);

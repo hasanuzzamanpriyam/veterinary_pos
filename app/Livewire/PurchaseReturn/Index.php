@@ -131,7 +131,6 @@ class Index extends Component
             'price' => $purchase->unit_price ?? $products->product->price_rate,
             'options' => [
                 'transaction_id' => $purchase->id,
-                'code' => $products->product_code,
                 'barcode' => $products->product->barcode,
                 'weight' => $purchase->weight,
                 'product_store_id' => $products->product_store_id,

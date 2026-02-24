@@ -133,7 +133,6 @@
                                                         $qty_summary['weight'] += ($product->quantity - $product->discount_qty) * $product->weight;
                                                     @endphp
                                                     <p class="mb-0 text-left">
-                                                        {{ $product->product_code}} -
                                                         @if($product->product->barcode)
                                                             <svg class="barcode-render"
                                                                 data-barcode="{{ $product->product->barcode }}"

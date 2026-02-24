@@ -113,7 +113,6 @@
                                                         $qty_summary['sale'][$type] += ($product->quantity - $product->discount_qty);
                                                     @endphp
                                                     <p class="mb-0 text-left">
-                                                        {{ $product->product_code}} -
                                                         @if($product->product->barcode)
                                                             <svg class="barcode-render" data-barcode="{{ $product->product->barcode }}"
                                                                 style="height: 20px; vertical-align: middle; display: inline-block;"></svg> -

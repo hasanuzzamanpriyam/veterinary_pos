@@ -45,10 +45,6 @@
                         <div class="col-lg-4 col-md-4 col-sm-12">
                             <table class="product-data table table-striped">
                                 <tr>
-                                    <th>Code</th>
-                                    <td>{{$product->code}}</td>
-                                </tr>
-                                <tr>
                                     <th>Product Name</th>
                                     <td>{{$product->name}}</td>
                                 </tr>

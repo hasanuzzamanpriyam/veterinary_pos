@@ -146,7 +146,6 @@
                                                                 @foreach ($products as $product)
                                                                     <option class="text-left p-2"
                                                                         value="{{ $product->product_id }}">
-                                                                        {{ $product->product_code }} -
                                                                         {{ $product->product->name }} -
                                                                         {{ $product->quantity - $product->discount_qty }}{{$product->discount_qty > 0 ? '+' . $product->discount_qty : '' }}
                                                                         {{ trans_choice('labels.' . $product->product->type, ($product->quantity - $product->discount_qty)) }}

@@ -54,25 +54,22 @@
                                             $stocks_line = isset($stock_list[$product->id]) ? ($stock_list[$product->id]['qty'] * $product->size->name / 1000) : '0';
                                         @endphp
                                         <tr>
-                                            {{-- S.N. --}}
-                                            <td>{{$loop->iteration}}</td>
+                                             {{-- S.N. --}}
+                                             <td>{{$loop->iteration}}</td>
 
-                                            {{-- Code --}}
-                                            <td>
-                                                <div class="d-flex flex-column align-items-start">
-                                                    @if($product->barcode)
-                                                        {{-- Show Barcode if it exists --}}
-                                                        <svg class="barcode-render" data-barcode="{{ $product->barcode }}"
-                                                            style="height: 25px; margin-top: 4px; max-width: 100%;">
-                                                        </svg>
-                                                    @elseif($product->code)
-                                                        {{-- Show Code only if barcode is missing --}}
-                                                        <span>{{ $product->code }}</span>
-                                                    @endif
-                                                </div>
-                                            </td>
+                                             {{-- Barcode --}}
+                                             <td>
+                                                 <div class="d-flex flex-column align-items-start">
+                                                     @if($product->barcode)
+                                                         {{-- Show Barcode if it exists --}}
+                                                         <svg class="barcode-render" data-barcode="{{ $product->barcode }}"
+                                                             style="height: 25px; margin-top: 4px; max-width: 100%;">
+                                                         </svg>
+                                                     @endif
+                                                 </div>
+                                             </td>
 
-                                            {{-- Name --}}
+                                             {{-- Name --}}
                                             <td class="text-left">{{$product->name}}</td>
 
                                             {{-- Brand --}}

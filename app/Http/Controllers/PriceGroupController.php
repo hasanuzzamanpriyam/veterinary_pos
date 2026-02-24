@@ -73,7 +73,7 @@ class PriceGroupController extends Controller
     public function add($id)
     {
         $price_group = PriceGroup::where('id',$id)->first();
-        $products = Product::latest()->orderby('code', 'asc')->get();
+        $products = Product::latest()->orderby('name', 'asc')->get();
 
 
         return view('admin.price_group.add', get_defined_vars());

@@ -34,10 +34,10 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                for="code">Product Code <span class=""></span>
+                                for="name">Product Name <span class=""></span>
                             </label>
                             <div class="col-md-8 col-sm-8">
-                                <input type="text" id="code" name="code" value="{{$product->code}}"
+                                <input type="text" id="name" name="name" value="{{$product->name}}"
                                     class="form-control">
                                 <input type="hidden" id="id" name="id" value="{{$product->id}}">
                             </div>

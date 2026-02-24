@@ -141,7 +141,6 @@
                                                                 $line_stock_qty = isset($store_stocks[$product->id]) ? $store_stocks[$product->id]['qty'] : 0;
                                                             @endphp
                                                             <option value="{{ $product->id }}">
-                                                                    {{$product->code}} -
                                                                     {{$product->name}} -
                                                                     {{$line_stock_qty}} {{trans_choice( 'labels.' . $product->type, $line_stock_qty )}} -
                                                                     {{$product->purchase_rate}}/=

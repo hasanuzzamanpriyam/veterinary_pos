@@ -22,7 +22,6 @@ class Create extends Component
     public $units;
     public $brands;
     public $sizes;
-    public $code;
     public $name;
     public $brand_id;
     public $group_id;
@@ -51,7 +50,6 @@ class Create extends Component
 
     public function rules(){
         return [
-            'code'  => 'required',
             'name'  => 'required',
             'brand_id' => 'required',
             'group_id' => 'required',
@@ -85,7 +83,6 @@ class Create extends Component
             $filename = "";
         }
         $product = [
-            'code' => $validated_data['code'],
             'name' => $validated_data['name'],
             'brand_id' => $validated_data['brand_id'],
             'group_id' => $validated_data['group_id'],
@@ -110,7 +107,7 @@ class Create extends Component
 
     public function cancel()
     {
-        session()->flash('product_data');
+        session()->forget('product_data');
         return redirect()->route('live.product.create');
     }
 
@@ -120,7 +117,6 @@ class Create extends Component
         // dd(session()->has('product_data'));
         if(session()->has('product_data')){
             $product = session()->get('product_data');
-            $this->code = isset($product['code']) ? $product['code'] : null;
             $this->name = isset($product['name']) ? $product['name'] : null;
             $this->brand_id = isset($product['brand_id']) ? $product['brand_id'] : null;
             $this->group_id = isset($product['group_id']) ? $product['group_id'] : null;
