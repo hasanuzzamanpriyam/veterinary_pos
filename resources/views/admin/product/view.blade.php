@@ -159,7 +159,7 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$value['name']}}</td>
                             <td class="text-center">{{formatAmount($value['qty'])}}
-                                {{trans_choice('labels.' . $product->type, $value['qty'])}}</td>
+                                {{trans_choice($product->type, $value['qty'])}}</td>
                             <td class="text-right">{{ $product['alert_expire_date'] }}</td>
                             <td class="text-right">{{formatAmount($value['price'])}}/=</td>
                             <td class="text-right">{{formatAmount($value['sale_value'])}}/=</td>

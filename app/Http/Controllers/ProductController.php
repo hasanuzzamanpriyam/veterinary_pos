@@ -223,7 +223,7 @@ class ProductController extends Controller
             return [
                 'name' => $items->first()->store->name,
                 'qty' => $items->sum('product_quantity'),
-                'weight' => ($product->size->name * $items->sum('product_quantity')) / 1000,
+                'weight' => (floatval($product->size->name ?? 0) * floatval($items->sum('product_quantity'))) / 1000,
                 'price' => $items->sum('product_quantity') * $product->purchase_rate,
                 'sale_value' => $items->sum('product_quantity') * $product->price_rate
             ];
