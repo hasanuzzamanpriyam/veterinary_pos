@@ -285,7 +285,7 @@
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                    for="alert_expire_date">Alert Expire Date <span class=""></span></label>
+                                    for="alert_expire_date"></label>Expire Date <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
