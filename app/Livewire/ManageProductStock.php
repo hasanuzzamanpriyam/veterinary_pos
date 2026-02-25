@@ -150,7 +150,7 @@ class ManageProductStock extends Component
             })->get();
         // when('product_store_id', $this->product_store_id ?? '')->get();
         $all_products = Product::latest()
-            ->orderBy('code', 'asc')
+            ->orderBy('name', 'asc')
             ->get();
         $mergedProducts = $stock_list->groupBy('product_id')->map(function ($items) {
             return [

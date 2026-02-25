@@ -75,7 +75,7 @@
                                                                         {{ $product->name }} -
                                                                         {{ $product['qty'] }}
                                                                         {{ isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty']  : 0 }}
-                                                                        {{trans_choice( 'labels.' . $product->type, (isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty'] : 0) )}} -
+                                                                        {{trans_choice($product->type, (isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty'] : 0) )}} -
                                                                         {{ $product->purchase_rate }}/=
                                                                     </option>
                                                                 @endforeach

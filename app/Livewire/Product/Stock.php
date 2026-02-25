@@ -45,19 +45,19 @@ class Stock extends Component
     public function render()
     {
         $all_products = Product::latest()
-            ->orderBy('code', 'asc')
+            ->orderBy('name', 'asc')
             ->get();
         $products_query = Product::query()
             ->when(!empty($this->queryString), function (Builder $query) {
                 $query->where(function ($subQuery) {
                     $subQuery->where('name', 'like', "%{$this->queryString}%")
-                             ->orWhere('code', 'like', "%{$this->queryString}%");
+                             ->orWhere('barcode', 'like', "%{$this->queryString}%");
                 });
             })
             ->when(!empty($this->product_id) && $this->product_id != 'all', function (Builder $query) {
                 $query->where('id', $this->product_id);
             })
-            ->orderby('code', 'asc');
+            ->orderby('name', 'asc');
 
         if(isset($this->perPage) && $this->perPage == 'all'){
             $products = $products_query->get();
@@ -83,17 +83,20 @@ class Stock extends Component
 
             return [
                 'product_id' => $items->first()->product_id,
+                'code' => $items->first()->product->code ?? '',
+                'barcode' => $items->first()->product_code ?? $items->first()->product->barcode ?? '',
                 'product_name' => $items->first()->product_name, // add more fields as needed
                 'qty' => $items->sum('product_quantity'),
                 'purchase_price' => $items->first()->product->purchase_rate,
-                    'sale_price' => $items->first()->product->price_rate,
-                    'offer' => $items->first()->product->activeOffer(),
-                    'sale_price_with_offer' => $items->first()->product->priceWithOffer($items->first()->product->price_rate)['price'],
+                'sale_price' => $items->first()->product->price_rate,
+                'mrp_price' => $items->first()->product->mrp_rate ?? 0,
+                'offer' => $items->first()->product->activeOffer(),
+                'sale_price_with_offer' => $items->first()->product->priceWithOffer($items->first()->product->price_rate)['price'],
                 'category' => $items->first()->product->category->name ?? 'null',
-                'type' => $items->first()->product->type,
-                'size' => $items->first()->product->size->name,
-                'brand' => $items->first()->product->brand->name,
-                'group' => $items->first()->product->productGroup->name
+                'type' => $items->first()->product->type ?? '',
+                'size' => $items->first()->product->size->name ?? '',
+                'brand' => $items->first()->product->brand->name ?? '',
+                'group' => $items->first()->product->productGroup->name ?? ''
             ];
         })->sortBy('product_name')->values();
 

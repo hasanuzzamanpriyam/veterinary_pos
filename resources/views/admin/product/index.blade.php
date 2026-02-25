@@ -31,16 +31,15 @@
                                 <thead>
                                     <tr>
                                         <th class="all">S.N.</th>
-                                        <th class="all">Purchase Date</th>
-                                        <th class="all">Store</th>
-                                        <th class="all">Quantity</th>
-                                        <th class="all">Purchase Rate</th>
-                                        <th class="all">Purchase Amount</th>
-                                        <th class="all">Sale Rate</th>
-                                        <th class="all">Sale value</th>
-                                        <th class="all">Production Date</th>
-                                        <th class="all">Expire Date</th>
-                                        {{-- End --}}
+                                        <th class="all">Code</th>
+                                        <th class="all">Name</th>
+                                        <th class="all">Brand</th>
+                                        <th class="all">Category</th>
+                                        <th class="all">Group</th>
+                                        <th class="all">Size</th>
+                                        <th class="all">Type</th>
+                                        <th class="all">Stock</th>
+                                        <th class="all">TP Rate</th>
                                         <th class="all">MRP Rate</th>
                                         <th class="all">Sales Rate</th>
                                         <th class="all">Action</th>
@@ -70,7 +69,7 @@
                                             {{-- Name --}}
                                             <td class="text-left">{{$product->name}}</td>
 
-                                            {{-- Brand --}}
+{{-- Brand --}}
                                             @if(empty($product->brand_id))
                                                 <td></td>
                                             @else
@@ -125,9 +124,7 @@
                                             @else
                                                 <td class="text-right">{{formatAmount($product->price_rate)}}/-</td>
                                             @endif
-
-
-                                            {{-- Action --}}
+{{-- Action --}}
                                             <td>
                                                 <div class="btn-group btn-group-vertical customer_diplay_list">
                                                     <button type="button"
@@ -206,8 +203,7 @@
                                 ? i
                                 : 0;
                     };
-
-                    // Helper function to pluralize units dynamically
+// Helper function to pluralize units dynamically
                     var pluralizeUnit = function (unit) {
                         // Convert to lowercase for consistency
                         unit = unit.toLowerCase();
@@ -265,7 +261,7 @@
 
                         // Format the totals into a readable string (e.g., "38 Bags, 40 Kg")
                         var formattedTotals = Object.entries(totals).map(function ([unit, quantity]) {
-                            return `${quantity} ${unit.charAt(0).toUpperCase() + unit.slice(1)}`;
+                            return ${quantity} ${unit.charAt(0).toUpperCase() + unit.slice(1)};
                         }).join(', ');
                         console.log(formattedTotals);
                         return formattedTotals;
@@ -282,7 +278,8 @@
                             // Get the value from the specified column
                             var value = api.cell(rowIdx, columnIndex).data();
 
-                            // Extract quantity and unit from the string (e.g., "5 Kg" or "8 Bags")
+Towfique Emrose, [2/25/2026 6:59 AM]
+// Extract quantity and unit from the string (e.g., "5 Kg" or "8 Bags")
                             var matches = value.match(/(\d+(?:\.\d+)?)\s*([a-zA-Z]+)/g);
                             // console.log(matches);
                             if (matches) {
@@ -312,7 +309,7 @@
 
                         // Format the totals into a readable string (e.g., "38 Bags, 40 Kg")
                         var formattedTotals = Object.entries(totals).map(function ([unit, quantity]) {
-                            return quantity % 1 === 0 ? `${quantity} ${unit.charAt(0).toUpperCase() + unit.slice(1)}` : `${quantity.toFixed(2)} ${unit.charAt(0).toUpperCase() + unit.slice(1)}`;
+                            return quantity % 1 === 0 ? ${quantity} ${unit.charAt(0).toUpperCase() + unit.slice(1)} : ${quantity.toFixed(2)} ${unit.charAt(0).toUpperCase() + unit.slice(1)};
                         }).join(', ');
                         // console.log(formattedTotals);
                         return formattedTotals;
