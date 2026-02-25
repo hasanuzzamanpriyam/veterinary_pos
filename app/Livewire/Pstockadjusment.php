@@ -55,7 +55,7 @@ class Pstockadjusment extends Component
     public function messages()
     {
         return [
-            'source_store_id'      => 'Please select a source store',
+            'source_store_id' => 'Please select a source store',
             'destination_store_id' => 'Please select a destination store',
         ];
     }
@@ -108,7 +108,7 @@ class Pstockadjusment extends Component
     {
         $product = Product::where('id', $id)->first();
         Cart::instance('stock_adjust')->add([
-            'id' =>  $product->id,
+            'id' => $product->id,
             'name' => $product->name,
             'qty' => 1,
             'price' => $product->purchase_rate,

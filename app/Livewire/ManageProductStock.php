@@ -32,7 +32,7 @@ class ManageProductStock extends Component
     public function messages()
     {
         return [
-            'product_store_id'      => 'Please select a store',
+            'product_store_id' => 'Please select a store',
         ];
     }
 
@@ -80,7 +80,7 @@ class ManageProductStock extends Component
         $product = Product::where('id', $id)->first();
         $product_stock = $this->product_stores[$id]['qty'] ?? 0;
         Cart::instance('manage_stock')->add([
-            'id' =>  $product->id,
+            'id' => $product->id,
             'name' => $product->name,
             'qty' => 1,
             'price' => $product->purchase_rate,
@@ -147,7 +147,7 @@ class ManageProductStock extends Component
         $stock_list = ProductStore::query()
             ->when(isset($this->product_store_id), function (Builder $query) {
                 $query->where('product_store_id', $this->product_store_id);
-            })->get();
+            })->orderBy('id', 'desc')->get();
         // when('product_store_id', $this->product_store_id ?? '')->get();
         $all_products = Product::latest()
             ->orderBy('name', 'asc')

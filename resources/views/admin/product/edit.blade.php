@@ -30,21 +30,26 @@
             <form action="{{route('product.update')}}" method="post" enctype="multipart/form-data" id="demo-form2"
                 data-parsley-validate class="form-horizontal form-label-left">
                 @csrf
+                <input type="hidden" name="id" value="{{$product->id}}">
                 <div class="row m-auto">
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                for="name">Product Name <span class=""></span>
+                                for="barcode">Barcode<span class=""></span>
                             </label>
                             <div class="col-md-8 col-sm-8">
-                                <input type="text" id="name" name="name" value="{{$product->name}}"
+                                <input type="text" id="barcode" name="barcode" value="{{$product->barcode}}"
                                     class="form-control">
-                                <input type="hidden" id="id" name="id" value="{{$product->id}}">
+                                <div class="mt-2 text-center">
+                                    @if($product->barcode)
+                                        <svg class="barcode-render" data-barcode="{{$product->barcode}}"></svg>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                for="name">Product Name <span class=""></span>
+                                for="name">Product Name
                             </label>
                             <div class="col-md-8 col-sm-8">
                                 <input type="text" id="name" name="name" value="{{$product->name}}"
@@ -53,7 +58,7 @@
                         </div>
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                for="brand_id">Brand<span class=""></span>
+                                for="brand_id">Company
                             </label>
                             <div class="col-md-8 col-sm-8">
                                 <select name="brand_id" id="brand_id" class="form-control">
@@ -61,6 +66,20 @@
                                     @foreach($brands as $brand)
                                         <option value="{{$brand->id}}" @if($brand->id == $product->brand_id) selected=""
                                         @endif>{{$brand->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
+                                for="category_id">Category<span class=""></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8">
+                                <select name="category_id" id="category_id" class="form-control">
+                                    <option value="">No Category</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}" @if($product->category_id == $category->id)
+                                        selected="" @endif>{{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -88,7 +107,8 @@
                                     <option value="">Select Option</option>
                                     @foreach($sizes as $size)
                                         <option value="{{$size->id}}" @if($size->id == $product->size_id) selected="" @endif>
-                                            {{$size->name}}</option>
+                                            {{$size->name}}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -113,48 +133,53 @@
                                 </select>
                             </div>
                         </div>
+
+                    </div>
+                    {{-- @dump($product) --}}
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="item form-group ">
                             <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
                                 for="photo">Product Photo <span class=""></span>
                             </label>
                             <div class="col-md-8 col-sm-8">
-                                <input type="file" id="photo" name="photo" class="dropify form-control">
                                 @if ($product->photo)
-                                    <img src="{{asset($product->photo)}}" alt="Photo" width="30px" height="40px">
+                                    <div class="mb-2">
+                                        <img src="{{asset($product->photo)}}" alt="Photo"
+                                            style="width: 75px; height: 75px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd;">
+                                    </div>
                                 @endif
+                                <input type="file" id="photo" name="photo" class="form-control">
                                 <input type="hidden" id="old_photo" name="old_photo" value="{{$product->photo}}">
                             </div>
                         </div>
 
-                    </div>
-                    {{-- @dump($product) --}}
-                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                for="barcode">Barcode<span class=""></span>
+                                for="alert_quantity">Alert Quantity<span class=""></span>
                             </label>
                             <div class="col-md-8 col-sm-8">
-                                <input type="text" id="barcode" name="barcode" value="{{$product->barcode}}"
-                                    class="form-control">
-                                <div class="mt-2 text-center">
-                                    @if($product->barcode)
-                                        <svg class="barcode-render" data-barcode="{{$product->barcode}}"></svg>
-                                    @endif
-                                </div>
+                                <input type="number" id="alert_quantity" name="alert_quantity"
+                                    value="{{$product->alert_quantity}}" class="form-control">
                             </div>
                         </div>
+
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                for="category_id">Category<span class=""></span>
+                                for="production_date">Production Date<span class=""></span>
                             </label>
                             <div class="col-md-8 col-sm-8">
-                                <select name="category_id" id="category_id" class="form-control">
-                                    <option value="">No Category</option>
-                                    @foreach($categories as $category)
-                                        <option value="{{$category->id}}" @if($product->category_id == $category->id)
-                                        selected="" @endif>{{$category->name}}</option>
-                                    @endforeach
-                                </select>
+                                <input type="date" id="production_date" name="production_date"
+                                    value="{{$product->production_date}}" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
+                                for="alert_expire_date">Expire Date<span class=""></span>
+                            </label>
+                            <div class="col-md-8 col-sm-8">
+                                <input type="date" id="alert_expire_date" name="alert_expire_date"
+                                    value="{{$product->alert_expire_date}}" class="form-control">
                             </div>
                         </div>
 
@@ -183,15 +208,6 @@
                             <div class="col-md-8 col-sm-8">
                                 <input type="number" step="0.01" id="price_rate" name="price_rate"
                                     value="{{$product->price_rate}}" class="form-control">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                for="alert_quantity">Alert Quantity<span class=""></span>
-                            </label>
-                            <div class="col-md-8 col-sm-8">
-                                <input type="number" id="alert_quantity" name="alert_quantity"
-                                    value="{{$product->alert_quantity}}" class="form-control">
                             </div>
                         </div>
 

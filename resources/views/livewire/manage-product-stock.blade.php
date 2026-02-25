@@ -5,7 +5,8 @@
         <div class="x_title p-3">
             <div class="header-title d-flex align-items-center gap-2">
                 <h2>Manage Product Stock</h2>
-                <a href="{{ route('product.stock') }}" class="mr-auto ml-3 cursor-pointer"><i class="fa fa-close"></i></a>
+                <a href="{{ route('product.stock') }}" class="mr-auto ml-3 cursor-pointer"><i
+                        class="fa fa-close"></i></a>
             </div>
         </div>
 
@@ -14,7 +15,8 @@
                 <div class="mb-3">
                     <ul class="list-group">
                         @foreach ($errors->all() as $error)
-                            <li class="list-group-item list-group-item-danger"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="ml-2">{{ $error }}</span></li>
+                            <li class="list-group-item list-group-item-danger"><i class="fa fa-info-circle"
+                                    aria-hidden="true"></i><span class="ml-2">{{ $error }}</span></li>
                         @endforeach
                     </ul>
                 </div>
@@ -27,8 +29,7 @@
 
                                 <div class="col-lg-12 col-md-12 col-sm-6">
                                     <form wire:submit.prevent="stockUpdate()" enctype="multipart/form-data"
-                                        data-parsley-validate
-                                        class="form-horizontal form-label-left sales_entry_form">
+                                        data-parsley-validate class="form-horizontal form-label-left sales_entry_form">
                                         @csrf
                                         <div class="row">
 
@@ -36,16 +37,18 @@
                                             <div class="col-lg-3 col-md-6 col-sm-12">
 
                                                 <div class="form-group">
-                                                    <label class="py-1 border sales_entry_lebel" for="product_store_id">Store/Warehouse</label>
+                                                    <label class="py-1 border sales_entry_lebel"
+                                                        for="product_store_id">Store/Warehouse</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-9">
                                                 <select type="text" wire:model="product_store_id" id="product_store_id"
-                                                wire:change="productSearch($event.target.value)"
-                                                name="product_store_id" class="form-control">
+                                                    wire:change="productSearch($event.target.value)"
+                                                    name="product_store_id" class="form-control">
                                                     <option>Select Store/Warehouse</option>
                                                     @foreach ($stores as $store)
-                                                        <option value="{{ $store->id }}">{{ $store->name }} - {{ $store->address }} - {{ $store->mobile }}
+                                                        <option value="{{ $store->id }}">{{ $store->name }} -
+                                                            {{ $store->address }} - {{ $store->mobile }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -56,7 +59,8 @@
 
                                         <div class="row">
 
-                                            <div class="search-area col-lg-12 col-md-12 col-sm-12 text-left float-right py-3 purchase_return_entry_supplier_col">
+                                            <div
+                                                class="search-area col-lg-12 col-md-12 col-sm-12 text-left float-right py-3 purchase_return_entry_supplier_col">
                                                 {{-- start product select area --}}
                                                 <div wire:ignore.self class="row">
                                                     <div class="col-md-3">
@@ -70,12 +74,12 @@
 
                                                             @if (isset($products))
                                                                 @foreach ($products as $product)
-                                                                    <option class="text-left p-2"
-                                                                        value="{{ $product->id }}">
+                                                                    <option class="text-left p-2" value="{{ $product->id }}">
                                                                         {{ $product->name }} -
                                                                         {{ $product['qty'] }}
-                                                                        {{ isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty']  : 0 }}
-                                                                        {{trans_choice($product->type, (isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty'] : 0) )}} -
+                                                                        {{ isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty'] : 0 }}
+                                                                        {{trans_choice($product->type, (isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty'] : 0))}}
+                                                                        -
                                                                         {{ $product->purchase_rate }}/=
                                                                     </option>
                                                                 @endforeach
@@ -88,16 +92,26 @@
 
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <table class="table table-bordered table-sales-entry"
-                                                    cellspacing="0" width="100%">
+                                                <table class="table table-bordered table-sales-entry" cellspacing="0"
+                                                    width="100%">
                                                     <thead>
                                                         <tr class="text-center">
-                                                            <th class="all smaller" style="width: 70px; min-width: 70px; text-align: center">Code</th>
+                                                            <th class="all smaller"
+                                                                style="width: 70px; min-width: 70px; text-align: center">
+                                                                Code</th>
                                                             <th class="all bigger" style="width: 100%">Name</th>
-                                                            <th class="all" style="width: 90px; min-width: 90px; text-align: center">Quantity</th>
-                                                            <th class="all" style="width: 90px; min-width: 90px; text-align: center">Prev Stock</th>
-                                                            <th class="all" style="width: 90px; min-width: 90px;; text-align: center">Rate</th>
-                                                            <th class="all bigger" style="width: 90px; min-width: 90px;; text-align: center">Sub Total</th>
+                                                            <th class="all"
+                                                                style="width: 90px; min-width: 90px; text-align: center">
+                                                                Quantity</th>
+                                                            <th class="all"
+                                                                style="width: 90px; min-width: 90px; text-align: center">
+                                                                Prev Stock</th>
+                                                            <th class="all"
+                                                                style="width: 90px; min-width: 90px;; text-align: center">
+                                                                Rate</th>
+                                                            <th class="all bigger"
+                                                                style="width: 90px; min-width: 90px;; text-align: center">
+                                                                Sub Total</th>
                                                             <th class="all" style="width: 100px">Action</th>
                                                         </tr>
                                                     </thead>
@@ -125,7 +139,8 @@
                                                                         <div class="d-flex flex-column align-items-start">
                                                                             <span>{{ $product->options->code }}</span>
                                                                             @if($product->options->barcode)
-                                                                                <svg class="barcode-render" data-barcode="{{ $product->options->barcode }}"
+                                                                                <svg class="barcode-render"
+                                                                                    data-barcode="{{ $product->options->barcode }}"
                                                                                     style="height: 25px; margin-top: 4px; max-width: 100%;"></svg>
                                                                             @endif
                                                                         </div>
@@ -140,27 +155,26 @@
 
                                                                     {{-- Quantity --}}
                                                                     <td>
-                                                                        <div
-                                                                            class="input-group justify-content-center">
-                                                                            <input type="text"
-                                                                                wire:model="quantities"
+                                                                        <div class="input-group justify-content-center">
+                                                                            <input type="text" wire:model="quantities"
                                                                                 wire:change="updateQuantity({{ $id }}, $event.target.value || 0)"
-                                                                                value="{{ $product->qty }}"class="form-control sales-entry-qty">
+                                                                                value="{{ $product->qty }}"
+                                                                                class="form-control sales-entry-qty">
                                                                         </div>
                                                                     </td>
 
                                                                     {{-- Stock --}}
                                                                     <td>
                                                                         <div class="text-center">
-                                                                            <span>{{ $product->options->stock }} {{trans_choice($product->options->type, $product->options->stock)}}</span>
+                                                                            <span>{{ $product->options->stock }}
+                                                                                {{trans_choice($product->options->type, $product->options->stock)}}</span>
                                                                         </div>
                                                                     </td>
 
                                                                     {{-- Rate --}}
                                                                     <td>
                                                                         <div class="input-group">
-                                                                            <input type="text"
-                                                                                wire:model="update_price"
+                                                                            <input type="text" wire:model="update_price"
                                                                                 wire:change="updatePrice({{ $id }}, $event.target.value || 0)"
                                                                                 value="{{ $product->price }}"
                                                                                 class="form-control">
@@ -169,10 +183,8 @@
 
                                                                     {{-- Sub Total --}}
                                                                     <td class="sub-total">
-                                                                        <div
-                                                                            class="input-group justify-content-center">
-                                                                            <input type="text"
-                                                                                @disabled(true)
+                                                                        <div class="input-group justify-content-center">
+                                                                            <input type="text" @disabled(true)
                                                                                 value="{{ $product->price * $product->qty }}/-"
                                                                                 class="form-control">
                                                                         </div>
@@ -180,8 +192,7 @@
 
                                                                     {{-- Action --}}
                                                                     <td>
-                                                                        <div
-                                                                            class="input-group justify-content-center">
+                                                                        <div class="input-group justify-content-center">
                                                                             <button type="button"
                                                                                 class="btn btn-danger btn-sm m-0"
                                                                                 wire:click="itemRemove('{{ $product->rowId }}')"><i
@@ -199,7 +210,7 @@
                                                         {{-- Footer --}}
                                                         <tr class="text-left">
                                                             <td>
-                                                                 <div class="d-flex justify-content-start">
+                                                                <div class="d-flex justify-content-start">
                                                                     <span>
                                                                         {{ $items }}</span>
                                                                 </div>
@@ -207,9 +218,10 @@
                                                             <td></td>
                                                             <td>
                                                                 <div>
-                                                                    @if( isset($summary['qty']) && $summary['qty'] > 0)
+                                                                    @if(isset($summary['qty']) && $summary['qty'] > 0)
                                                                         @foreach ($summary['qty'] as $key => $value)
-                                                                            <span class="d-inline-block"><strong>{{ $value }}</strong></span>
+                                                                            <span
+                                                                                class="d-inline-block"><strong>{{ $value }}</strong></span>
                                                                         @endforeach
                                                                     @endif
                                                                 </div>
@@ -231,7 +243,8 @@
                                                 <div class="justify-content-center d-flex" style="gap: 10px">
                                                     <button type="button" wire:click="cancel"
                                                         class="btn btn-danger btn-md">Cancel</button>
-                                                    <input type="submit" @if ($items == 0) disabled @endif  value="Checkout" class="btn btn-primary btn-md">
+                                                    <input type="submit" @if ($items == 0) disabled @endif
+                                                        value="Checkout" class="btn btn-primary btn-md">
                                                 </div>
                                             </div>
                                         </div>
@@ -262,8 +275,8 @@
                                                     class="form-control">
                                                     <option value="0">All Brand</option>
                                                     @foreach ($brands as $brand)
-                                                        <option value="{{ $brand->id }}">{{ $brand->name }}
-                                                        </option>
+                                                    <option value="{{ $brand->id }}">{{ $brand->name }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -278,38 +291,40 @@
 
                                     <div class="row pt-4">
                                         @if (isset($products))
-                                            @foreach ($products as $product)
-                                                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                                                    <div class="thumbnail" wire:click.prevent="sessionStore({{ $product->product->id }})">
-                                                        <div class="image view view-first">
+                                        @foreach ($products as $product)
+                                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                                            <div class="thumbnail"
+                                                wire:click.prevent="sessionStore({{ $product->product->id }})">
+                                                <div class="image view view-first">
 
-                                                            @if (empty($product->product->photo))
-                                                                <p my-auto>Opps No Image Found!</p>
-                                                            @else
-                                                                <img style="width: 100%; display: block;"
-                                                                    src="{{ asset($product->product->photo) }}"
-                                                                    alt="image" />
-                                                            @endif
-                                                            <form
-                                                                enctype="multipart/form-data">
-                                                                @csrf
-                                                                <div class="mask">
-                                                                    <p class="m-0">
-                                                                        <span>৳.{{ $product->product->price_rate }}/=</span>
-                                                                        <span class="badge-info text-light">Qty: {{ $product->product_quantity }} {{ trans_choice('labels.bag', $product->product_quantity) }}</span>
-                                                                    </p>
-                                                                </div>
-                                                            </form>
+                                                    @if (empty($product->product->photo))
+                                                    <p my-auto>Opps No Image Found!</p>
+                                                    @else
+                                                    <img style="width: 100%; display: block;"
+                                                        src="{{ asset($product->product->photo) }}" alt="image" />
+                                                    @endif
+                                                    <form enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="mask">
+                                                            <p class="m-0">
+                                                                <span>৳.{{ $product->product->price_rate }}/=</span>
+                                                                <span class="badge-info text-light">Qty: {{
+                                                                    $product->product_quantity }} {{
+                                                                    trans_choice('labels.bag',
+                                                                    $product->product_quantity) }}</span>
+                                                            </p>
                                                         </div>
-                                                        <div class="caption">{{ $product->product->name }}</div>
-                                                    </div>
+                                                    </form>
                                                 </div>
-                                            @endforeach
-                                        @else
-                                            <div class="col-md-12">
-                                                <h4 class="m-auto py-5 text-danger">Please select a customer and store then
-                                                    add your necessary product from here</h4>
+                                                <div class="caption">{{ $product->product->name }}</div>
                                             </div>
+                                        </div>
+                                        @endforeach
+                                        @else
+                                        <div class="col-md-12">
+                                            <h4 class="m-auto py-5 text-danger">Please select a customer and store then
+                                                add your necessary product from here</h4>
+                                        </div>
                                         @endif
                                     </div>
                                 </div>
@@ -320,12 +335,53 @@
             </div>
         </div>
     </div>
+
+    {{-- Stock List Section --}}
+    <div class="x_panel mt-3">
+        <div class="x_title p-3">
+            <div class="header-title d-flex align-items-center gap-2">
+                <h2>Stock List</h2>
+            </div>
+        </div>
+        <div class="x_content p-3">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            <th style="width: 50px">SL</th>
+                            <th>Product Name</th>
+                            <th>Store</th>
+                            <th>Quantity</th>
+                            <th>Purchase Price</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($stock_list as $key => $stock)
+                            <tr class="text-center">
+                                <td>{{ $key + 1 }}</td>
+                                <td class="text-left">{{ $stock->product->name ?? 'N/A' }}</td>
+                                <td>{{ $stock->store->name ?? 'N/A' }}</td>
+                                <td>{{ $stock->product_quantity }}</td>
+                                <td>{{ $stock->purchase_price }}/=</td>
+                                <td>{{ $stock->created_at ? $stock->created_at->format('d-m-Y') : 'N/A' }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">No Stock Data Found!</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 @push('scripts')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            $(document).on('dataUpdated', function(){
+            $(document).on('dataUpdated', function () {
                 const timeout = setTimeout(() => {
                     $('#product_store_id').select2();
                     $('#product-search').select2();
@@ -333,13 +389,13 @@
                 }, 10);
             });
 
-            $('#product_store_id').on('change', function(e) {
+            $('#product_store_id').on('change', function (e) {
 
                 var data = $('#product_store_id').select2("val");
                 @this.set('product_store_id', data);
             });
 
-            $('#product-search').on('change', function(e) {
+            $('#product-search').on('change', function (e) {
                 @this.sessionStore(e.target.value);
             });
         });

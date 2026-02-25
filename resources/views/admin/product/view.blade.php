@@ -98,18 +98,6 @@
                                     <td>{{$product->alert_quantity}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Purchase Value</th>
-                                    <td>{{formatAmount($item_stock * $product->purchase_rate)}}/-</td>
-                                </tr>
-                                <tr>
-                                    <th>Sale Value</th>
-                                    <td>{{formatAmount($item_stock * $product->price_rate)}}/-</td>
-                                </tr>
-                                <tr>
-                                    <th>MRP</th>
-                                    <td>{{formatAmount($item_stock * $product->mrp_rate)}}/-</td>
-                                </tr>
-                                <tr>
                                     <th>Remarks</th>
                                     <td>{{$product->remarks}}</td>
                                 </tr>
