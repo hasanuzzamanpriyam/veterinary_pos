@@ -87,6 +87,20 @@ class Checkout extends Component
                 }
             }
 
+            // Insert alternative products if selected
+            if (isset($product_data['alternative_product_ids']) && count($product_data['alternative_product_ids']) > 0) {
+                $alternative_records = [];
+                foreach ($product_data['alternative_product_ids'] as $alt_id) {
+                    $alternative_records[] = [
+                        'product_id' => $product,
+                        'alternative_product_id' => $alt_id,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+                \Illuminate\Support\Facades\DB::table('product_alternatives')->insert($alternative_records);
+            }
+
             session()->forget('product_data');
 
             $alert = array('msg' => 'Product Successfully Inserted', 'alert-type' => 'success');

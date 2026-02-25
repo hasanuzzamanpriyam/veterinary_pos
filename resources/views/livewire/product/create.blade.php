@@ -204,8 +204,46 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="item mb-2">
+                            <div class="d-flex align-items-start col-md-4 p-0">
+                                <label class="col-form-label add_product_lebel px-2 py-2 w-100"
+                                    for="alternative_product_ids">Alternative Products <span class=""></span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <div class="d-flex justify-content-center align-items-start flex-column">
+                                    <div class="w-100" x-data="{ search: '' }">
+                                        <input type="text" x-model="search" class="form-control mb-2"
+                                            placeholder="Search alternative products...">
+
+                                        <div class="border rounded p-2"
+                                            style="max-height: 200px; overflow-y: auto; background: #fff;">
+                                            @foreach($all_products as $product)
+                                                <div class="form-check"
+                                                    x-show="search === '' || '{{ strtolower(addslashes($product->name)) }}'.includes(search.toLowerCase()) || '{{ strtolower(addslashes($product->code ?? '')) }}'.includes(search.toLowerCase())">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        wire:model="alternative_product_ids" value="{{ $product->id }}"
+                                                        id="alt_product_{{ $product->id }}">
+                                                    <label class="form-check-label" for="alt_product_{{ $product->id }}">
+                                                        {{ $product->name }} @if($product->code) ({{ $product->code }})
+                                                        @endif
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                            @if(count($all_products) == 0)
+                                                <div class="text-muted text-center py-2"><small>No products
+                                                        available</small></div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    @error('alternative_product_ids')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
+                        
 
                         <div class="item">
                             <div class="d-flex align-items-start col-md-4 p-0">
@@ -236,7 +274,7 @@
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100">
-                                         <input type="text" id="sku" name="sku" wire:model="sku" class="form-control">
+                                        <input type="text" id="sku" name="sku" wire:model="sku" class="form-control">
                                     </div>
                                     @error('sku')
                                         <span class="text-danger">{{$message}}</span>
@@ -263,7 +301,7 @@
                             </div>
                         </div>
 
-                        
+
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-2 py-2 w-100"

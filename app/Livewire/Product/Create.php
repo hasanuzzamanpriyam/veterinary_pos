@@ -22,6 +22,8 @@ class Create extends Component
     public $units;
     public $brands;
     public $sizes;
+    public $all_products;
+    public $alternative_product_ids = [];
     public $name;
     public $brand_id;
     public $group_id;
@@ -48,6 +50,7 @@ class Create extends Component
         // $this->units = Unit::get();
         $this->brands = Brand::get();
         $this->sizes = Size::get();
+        $this->all_products = \App\Models\Product::orderBy('name', 'asc')->get();
     }
 
     public function rules()
@@ -69,6 +72,8 @@ class Create extends Component
             'production_date' => 'nullable|date',
             'remarks' => 'nullable|max:255',
             'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
+            'alternative_product_ids' => 'nullable|array',
+            'alternative_product_ids.*' => 'exists:products,id',
         ];
     }
 
@@ -104,6 +109,7 @@ class Create extends Component
             'barcode' => $validated_data['barcode'],
             'production_date' => $validated_data['production_date'],
             'remarks' => $validated_data['remarks'],
+            'alternative_product_ids' => $this->alternative_product_ids,
             'photo' => !empty($filename) ? '/storage/' . $filename : '',
         ];
 
@@ -140,6 +146,7 @@ class Create extends Component
             $this->barcode = isset($product['barcode']) ? $product['barcode'] : null; //$product['barcode'];
             $this->production_date = isset($product['production_date']) ? $product['production_date'] : null;
             $this->remarks = isset($product['remarks']) ? $product['remarks'] : null; //$product['remarks'];
+            $this->alternative_product_ids = isset($product['alternative_product_ids']) ? $product['alternative_product_ids'] : [];
             // $this->photo = isset($product['photo']) ? $product['photo'] : null; //$product['photo'];
         }
         return view('livewire.product.create', get_defined_vars())
