@@ -180,7 +180,7 @@
                                                     ksort($gtotal_stock['qty']);
                                                 @endphp
                                                 @foreach ($gtotal_stock['qty'] as $key => $value)
-                                                    <div><strong>{{ formatAmount($value) }}</strong></div>
+                                                    <div><strong>{{ formatAmount($value) }} {{ ucfirst($key) }}</strong></div>
                                                 @endforeach
                                             @endif
                                         </div>
