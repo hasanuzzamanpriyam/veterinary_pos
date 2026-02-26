@@ -25,9 +25,14 @@ class ProductStockAdjustments extends Model
         return $this->belongsTo( Warehouse::class, 'warehouse_id');
     }
 
-    public function store()
+    public function sourceStore()
     {
-        return $this->belongsTo( Store::class, 'product_store_id');
+        return $this->belongsTo( Store::class, 'source_store_id');
+    }
+
+    public function destinationStore()
+    {
+        return $this->belongsTo( Store::class, 'destination_store_id');
     }
 
 

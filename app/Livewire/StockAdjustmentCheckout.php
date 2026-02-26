@@ -77,6 +77,17 @@ class StockAdjustmentCheckout extends Component
                         $totalMovedQuantity += $quantityToTransfer;
                     }
                 }
+                
+                // Log the stock adjustment history
+                \App\Models\ProductStockAdjustments::create([
+                    'product_id' => $productId,
+                    'source_store_id' => $sourceStoreId,
+                    'destination_store_id' => $destinationStoreId,
+                    'quantity' => $totalMovedQuantity,
+                    'date' => now()->toDateString(),
+                    'remarks' => $this->store_data['remarks'] ?? null,
+                ]);
+
                 if ($totalMovedQuantity < $quantityToMove) {
                     echo "Only $totalMovedQuantity units were available to move out of $quantityToMove requested.\n";
                 }

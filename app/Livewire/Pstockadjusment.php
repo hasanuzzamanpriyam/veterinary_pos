@@ -11,9 +11,15 @@ use App\Models\Store;
 use App\Models\Warehouse;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Pstockadjusment extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
+    public $showList = false;
+    public $searchList = '';
 
 
 
@@ -162,6 +168,12 @@ class Pstockadjusment extends Component
         return redirect()->route('live.pstockadjustment.checkout');
     }
 
+    public function toggleList()
+    {
+        $this->showList = !$this->showList;
+        $this->resetPage(); // Reset pagination when toggling
+    }
+
     public function render()
     {
         if ($this->source_store_id || $this->destination_store_id || Cart::instance('stock_adjust')->count() > 0) {
@@ -178,6 +190,20 @@ class Pstockadjusment extends Component
                     'price' => $items->last()->purchase_price
                 ];
             });
+        }
+
+        $adjustments = collect();
+        if ($this->showList) {
+            $query = \App\Models\ProductStockAdjustments::with(['product', 'sourceStore', 'destinationStore']);
+            
+            if ($this->searchList) {
+                $query->whereHas('product', function($q) {
+                    $q->where('name', 'like', '%' . $this->searchList . '%');
+                })->orWhere('date', 'like', '%' . $this->searchList . '%')
+                  ->orWhere('remarks', 'like', '%' . $this->searchList . '%');
+            }
+            
+            $adjustments = $query->orderBy('id', 'desc')->paginate(10);
         }
 
         return view('livewire.pstockadjusment', get_defined_vars())
