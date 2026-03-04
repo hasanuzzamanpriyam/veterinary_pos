@@ -157,7 +157,7 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="size">Size <span
+                                <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="size">Size<span
                                         class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
@@ -179,7 +179,7 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="type">Type <span
+                                <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="type">Mode <span
                                         class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
@@ -192,7 +192,7 @@
                                             'pcs' => 'Pc',
                                         ))
                                         <select name="type" id="type" wire:model="type" class="form-control">
-                                            <option value="">Select Type</option>
+                                            <option value="">Select Mode</option>
                                             @foreach($types as $key => $type)
                                                 <option value="{{$key}}">{{$type}}</option>
                                             @endforeach
@@ -243,7 +243,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        
+
 
                         <div class="item">
                             <div class="d-flex align-items-start col-md-4 p-0">
