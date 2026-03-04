@@ -72,7 +72,6 @@ class Index extends Component
     //Increment cart product
     public function updateQuantity($id, $quantities)
     {
-
         foreach (Cart::instance('purchase')->content() as $item) {
             if ($item->id == $id) {
                 $item->qty = $quantities;

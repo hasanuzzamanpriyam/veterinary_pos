@@ -42,7 +42,7 @@
                                 </tr>
                             @endif
                             <tr>
-                                <th>Brand</th>
+                                <th>Company</th>
                                 <td>{{$brands->find($product['brand_id'])->name ?? ''}}</td>
                             </tr>
                             <tr>
@@ -57,14 +57,15 @@
                                 <th>Type</th>
                                 <td>{{ucfirst($product['type'])}}</td>
                             </tr>
+                                                        <tr>
+                                <th>Size</th>
+                                <td>{{$sizes->find($product['size_id'])->description ?? ''}}</td>
+                            </tr>
                         </table>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12">
                         <table class="product-data table table-striped">
-                            <tr>
-                                <th>Size</th>
-                                <td>{{$sizes->find($product['size_id'])->description ?? ''}}</td>
-                            </tr>
+
                             <tr>
                                 <th>SKU</th>
                                 <td>{{$product['sku'] ?? ''}}</td>

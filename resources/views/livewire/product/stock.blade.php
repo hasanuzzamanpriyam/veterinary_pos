@@ -88,7 +88,7 @@
                                 <tr>
                                     <th class="all">Code</th>
                                     <th class="all">Name</th>
-                                    <th class="all">Brand</th>
+                                    <th class="all">Company</th>
                                     <th class="all">Category</th>
                                     <th class="all">Group</th>
                                     <th class="all">Size</th>

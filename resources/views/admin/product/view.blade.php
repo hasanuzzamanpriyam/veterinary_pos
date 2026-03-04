@@ -51,7 +51,7 @@
                                 @if(empty($product->brand_id))
                                 @else
                                     <tr>
-                                        <th>Brand</th>
+                                        <th>Company</th>
                                         <td>{{$product->brand->name}}</td>
                                     </tr>
                                 @endif
@@ -73,13 +73,7 @@
                                     <th>Type</th>
                                     <td>{{$product->type}}</td>
                                 </tr>
-                                @if(empty($product->size_id))
-                                @else
-                                    <tr>
-                                        <th>Size</th>
-                                        <td>{{$product->size->description}}</td>
-                                    </tr>
-                                @endif
+                                
                             </table>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12">
@@ -88,7 +82,13 @@
                             @endphp
 
                             <table class="product-data table table-striped">
-
+@if(empty($product->size_id))
+                                @else
+                                    <tr>
+                                        <th>Size</th>
+                                        <td>{{$product->size->description}}</td>
+                                    </tr>
+                                @endif
                                 <tr>
                                     <th>Available Stock</th>
                                     <td>{{$item_stock}}</td>
