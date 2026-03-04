@@ -19,7 +19,6 @@
             @endif
             <div class="row purchase_entry_form_row">
                 <div class="col-lg-8 col-md-7 col-sm-12">
-
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-6">
                             <div class="row justify-content-end">
@@ -41,7 +40,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>{{--end supplier select area --}}
+                                </div>{{--end supplier select area--}}
                             </div>
                         </div>
                     </div>
@@ -106,7 +105,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label   class="py-1 border purchase_entry_lebel" for="prepare">Gari Number</label>
+                                    <label   class="py-1 border purchase_entry_lebel" for="prepare">Vehicle Number</label>
                                     <input type="text" name="transport_no" wire:model="transport_no" id="transport_no" class="form-control">
                                 </div>
                             </div>
@@ -142,7 +141,7 @@
                                                             @endphp
                                                             <option value="{{ $product->id }}">
                                                                     {{$product->name}} -
-                                                                    {{$line_stock_qty}} {{trans_choice( 'labels.' . $product->type, $line_stock_qty )}} -
+                                                                    {{$line_stock_qty}} {{trans_choice($product->type, $line_stock_qty )}} -
                                                                     {{$product->purchase_rate}}/=
                                                             </option>
                                                         @endforeach
@@ -240,7 +239,7 @@
                                                                 @disabled(true)
                                                                 value="{{ $qty - $dis_qty }}"
                                                                 class="form-control">
-                                                            <span>{{ trans_choice('labels.' . strtolower($product->options->type), ($qty - $dis_qty)) }}</span>
+                                                            <span>{{ trans_choice(strtolower($product->options->type), ($qty - $dis_qty)) }}</span>
                                                         </div>
                                                     </td>
 
@@ -297,7 +296,7 @@
                                                 <div>
                                                     @if( isset($summary['qty']) && $summary['qty'] > 0)
                                                         @foreach ($summary['qty'] as $key => $value)
-                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -306,7 +305,7 @@
                                                 <div>
                                                     @if( isset($summary['discount']) && $summary['discount'] > 0)
                                                         @foreach ($summary['discount'] as $key => $value)
-                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -315,7 +314,7 @@
                                                 <div>
                                                     @if( isset($summary['total']) && $summary['total'] > 0)
                                                         @foreach ($summary['total'] as $key => $value)
-                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
                                                         @endforeach
                                                     @endif
                                                 </div>

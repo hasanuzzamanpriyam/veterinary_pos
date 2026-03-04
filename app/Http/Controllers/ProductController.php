@@ -20,6 +20,7 @@ use App\Models\CustomerTransactionDetails;
 use App\Models\SupplierTransactionDetails;
 use App\Models\PriceGroupProduct;
 use App\Models\ProductOffer;
+use App\Models\ProductType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -88,6 +89,7 @@ class ProductController extends Controller
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
             'type' => $request->type,
+            'product_type_id' => $request->product_type_id,
             'size_id' => $request->size_id,
             'unit_id' => $request->unit_id,
             'barcode' => $request->barcode,
@@ -114,6 +116,7 @@ class ProductController extends Controller
         $categories = Category::get();
         $brands = Brand::get();
         $sizes = Size::get();
+        $product_types = ProductType::get();
 
         return view('admin.product.edit', get_defined_vars());
     }
@@ -153,11 +156,18 @@ class ProductController extends Controller
         }
 
         // Build update array - use request value if provided, otherwise keep existing
+        $product_type_id = !empty($request->product_type_id) ? $request->product_type_id : $existingProduct->product_type_id;
+        $type_name = "";
+        if (!empty($product_type_id)) {
+            $type_name = ProductType::find($product_type_id)->name ?? "";
+        }
+
         Product::where('id', $request->id)->update([
             'name' => !empty($request->name) ? $request->name : $existingProduct->name,
             'brand_id' => !empty($request->brand_id) ? $request->brand_id : $existingProduct->brand_id,
             'category_id' => !empty($request->category_id) ? $request->category_id : $existingProduct->category_id,
-            'type' => !empty($request->type) ? $request->type : $existingProduct->type,
+            'product_type_id' => $product_type_id,
+            'type' => !empty($type_name) ? $type_name : $existingProduct->type,
             'size_id' => !empty($request->size_id) ? $request->size_id : $existingProduct->size_id,
             'barcode' => !empty($request->barcode) ? $request->barcode : $existingProduct->barcode,
             'group_id' => !empty($request->group_id) ? $request->group_id : $existingProduct->group_id,

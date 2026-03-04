@@ -375,6 +375,7 @@
                             @can('size-manage')
                                 <li><a href="{{ route('size.index') }}">Size</a></li>
                             @endcan
+                            <li><a href="{{ route('product_type.index') }}">Product Type</a></li>
                         </ul>
                     </li>
                 @endrole
