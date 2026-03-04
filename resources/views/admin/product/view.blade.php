@@ -118,62 +118,61 @@
             </div>
         </div>
         <h3 class="text-center">Stock Details</h3>
-        @if ($store_data->isEmpty())
-            <div class="alert text-danger text-center">
-                <strong>There is no stock!</strong>
-            </div>
-        @else
-            <table id="stock-table" class="product-data table table-striped">
-                <thead>
+        <div class="table-responsive">
+            <table id="stock-table" class="product-data table table-striped table-bordered mt-3">
+                <thead class="thead-dark">
                     <tr>
-                        <th>SL</th>
-                        <th>Store/Warehouse Name</th>
+                        <th class="text-center">SL</th>
+                        <th class="text-center">Purchase Date</th>
+                        <th class="text-center">Store</th>
                         <th class="text-center">Quantity</th>
-                        <th class="text-right">Expire Date</th>
-                        <th class="text-right">Purchase Value</th>
-                        <th class="text-right">Sale Value</th>
+                        <th class="text-center">Purchase Rate</th>
+                        <th class="text-center">Purchase Value</th>
+                        <th class="text-center">Sales Rate</th>
+                        <th class="text-center">Sales Value</th>
+                        <th class="text-center">Production Date</th>
+                        <th class="text-center">Expire Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $summary = [];
-                    @endphp
-                    @foreach($store_data as $key => $value)
-
-                        @if ($value['qty'] == 0)
-                            @continue
-                        @endif
-                        @php
-                            $summary['qty'] = $summary['qty'] ?? 0;
-                            $summary['qty'] += $value['qty'];
-                            $summary['purchase_tk'] = $summary['purchase_tk'] ?? 0;
-                            $summary['purchase_tk'] += $value['price'];
-                            $summary['sale_tk'] = $summary['sale_tk'] ?? 0;
-                            $summary['sale_tk'] += $value['sale_value'];
-
-                        @endphp
-
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$value['name']}}</td>
-                            <td class="text-center">{{formatAmount($value['qty'])}}
-                                {{trans_choice($product->type, $value['qty'])}}</td>
-                            <td class="text-right">{{ $product['alert_expire_date'] }}</td>
-                            <td class="text-right">{{formatAmount($value['price'])}}/=</td>
-                            <td class="text-right">{{formatAmount($value['sale_value'])}}/=</td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">2024-01-15</td>
+                        <td class="text-center">Main Store</td>
+                        <td class="text-center">100 Pcs</td>
+                        <td class="text-right">500.00</td>
+                        <td class="text-right">50,000.00</td>
+                        <td class="text-right">650.00</td>
+                        <td class="text-right">65,000.00</td>
+                        <td class="text-center">2023-12-01</td>
+                        <td class="text-center">2025-12-01</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td class="text-center">2024-02-10</td>
+                        <td class="text-center">Warehouse A</td>
+                        <td class="text-center">50 Pcs</td>
+                        <td class="text-right">510.00</td>
+                        <td class="text-right">25,500.00</td>
+                        <td class="text-right">660.00</td>
+                        <td class="text-right">33,000.00</td>
+                        <td class="text-center">2024-01-05</td>
+                        <td class="text-center">2026-01-05</td>
+                    </tr>
                 </tbody>
                 <tfoot>
-                    <td></td>
-                    <td></td>
-                    <td class="text-center"><b>{{formatAmount($summary['qty'] ?? 0) }}
-                            {{trans_choice($product->type, $summary['qty'] ?? 0)}}</b></td>
-                    <td></td>
-                    <td class="text-right"><b>{{formatAmount($summary['purchase_tk'] ?? 0)}}/=</b></td>
-                    <td class="text-right"><b>{{formatAmount($summary['sale_tk'] ?? 0)}}/=</b></td>
+                    <tr class="font-weight-bold">
+                        <td colspan="3" class="text-right">Total:</td>
+                        <td class="text-center">150 Pcs</td>
+                        <td></td>
+                        <td class="text-right">75,500.00</td>
+                        <td></td>
+                        <td class="text-right">98,000.00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tfoot>
             </table>
-        @endif
+        </div>
     </div>
 @endsection
