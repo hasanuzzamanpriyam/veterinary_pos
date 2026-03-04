@@ -250,13 +250,13 @@ class Index extends Component
                 $this->searches = 0;
             }
             $products_grid = Product::where('name', 'Like', "%{$this->search}%")
-                ->orWhere('code', 'Like', "%{$this->search}%")
+                ->orWhere('name', 'Like', "%{$this->search}%")
                 ->limit(18)
-                ->orderBy('code', 'asc')
+                ->orderBy('name', 'asc')
                 ->get();
         }
         $products = Product::latest()
-            ->orderBy('code', 'asc')
+            ->orderBy('name', 'asc')
             ->get();
 
         $all_stocks = ProductStore::get();

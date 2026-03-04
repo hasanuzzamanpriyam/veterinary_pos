@@ -99,7 +99,6 @@ class ProductController extends Controller
             'status' => $request->status == true ? '1':'0',
             'remarks' => $request->remarks,
             'photo' => $photo_path,
-
         ]);
 
         $alert = array('msg' => 'Product Successfully Inserted', 'alert-type' => 'success');
@@ -248,7 +247,6 @@ class ProductController extends Controller
     {
         $products = Product::latest()->get();
         return view('admin.product.gallery', get_defined_vars());
-
     }
 
     public function search(Request $request){
