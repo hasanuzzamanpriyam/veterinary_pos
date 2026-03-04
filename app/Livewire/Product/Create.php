@@ -110,7 +110,7 @@ class Create extends Component
             'production_date' => $validated_data['production_date'],
             'remarks' => $validated_data['remarks'],
             'alternative_product_ids' => $this->alternative_product_ids,
-            'photo' => !empty($filename) ? '/storage/' . $filename : '',
+            'photo' => !empty($filename) ? 'storage/' . $filename : '',
         ];
 
         session()->put('product_data', $product);

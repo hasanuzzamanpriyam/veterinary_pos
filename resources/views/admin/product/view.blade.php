@@ -37,7 +37,17 @@
                                 @if(empty($product->photo))
                                     <h4>No Image Found!</h4>
                                 @else
-                                    <img src="{{asset($product->photo)}}" class="img-thumbnail img-responsive" alt="Logo"
+                                    @php
+                                        $photoPath = $product->photo;
+                                        if (strpos($photoPath, public_path()) === 0) {
+                                            $photoPath = str_replace(public_path(), '', $photoPath);
+                                        } elseif (strpos($photoPath, base_path()) === 0) {
+                                            $photoPath = str_replace(base_path() . '/public', '', $photoPath);
+                                        }
+                                        $photoPath = str_replace('\\', '/', $photoPath);
+                                        $photoUrl = asset(ltrim($photoPath, '/'));
+                                    @endphp
+                                    <img src="{{ $photoUrl }}" class="img-thumbnail img-responsive" alt="Logo"
                                         width="250" height="320">
                                 @endif
                             </div>

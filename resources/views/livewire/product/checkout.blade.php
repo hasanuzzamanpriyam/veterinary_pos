@@ -24,8 +24,8 @@
                             @if(empty($product['photo']))
                                 <h4>No Image Found!</h4>
                             @else
-                                <img src="{{asset($product['photo'])}}" class="img-thumbnail img-responsive" alt="Logo"
-                                    width="250" height="320">
+                                <img src="{{asset(ltrim($product['photo'], '/'))}}" class="img-thumbnail img-responsive"
+                                    alt="Logo" width="250" height="320">
                             @endif
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 <th>Type</th>
                                 <td>{{ucfirst($product['type'])}}</td>
                             </tr>
-                                                        <tr>
+                            <tr>
                                 <th>Size</th>
                                 <td>{{$sizes->find($product['size_id'])->description ?? ''}}</td>
                             </tr>

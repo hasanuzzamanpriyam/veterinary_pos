@@ -1,0 +1,348 @@
+================================================================================
+COMPREHENSIVE TABLE ANALYSIS REPORT - FINAL VERSION
+Laravel Project: Firozent
+================================================================================
+
+EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+Total Tables in Migrations: 59
+Total Models: 43
+Tables with Models: 46
+Tables without Models: 13
+Models with ZERO References: 2
+Potentially Unused Tables (safe to remove): 2
+
+================================================================================
+PART 1: ALL TABLES DEFINED IN MIGRATIONS WITH FILE PATHS
+================================================================================
+
+[Table Name] -> [Migration File]
+--------------------------------------------------------------------------------
+
+CORE BUSINESS TABLES:
+bank_transaction -> database/migrations/2024_07_18_045748_create_bank_transaction_table.php
+banks -> database/migrations/2023_11_26_161147_create_banks_table.php
+brands -> database/migrations/2023_11_23_045953_create_brands_table.php
+cash_managers -> database/migrations/2025_04_28_165820_create-cash-manager-table.php
+cash_offers -> database/migrations/2025_05_21_152054_create_cash_offers_table.php
+cash_transactions -> database/migrations/2025_04_23_145705_create_cash_transactions_table.php
+categories -> database/migrations/2023_11_22_103638_create_categories_table.php
+contact_messages -> database/migrations/2026_01_26_113051_create_contact_messages_table.php
+customer_follow_updates -> database/migrations/2024_01_01_065859_create_customer_follow_updates_table.php
+customer_ledgers -> database/migrations/2024_04_23_053050_create_customer_ledger_table.php
+customer_transaction_details -> database/migrations/2024_09_21_104814_create_customer_transaction_details_table.php
+customer_types -> database/migrations/2024_06_10_064650_create_customer_types_table.php
+customers -> database/migrations/2023_11_19_103051_create_customers_table.php
+designations -> database/migrations/2024_07_03_065730_create_designations_table.php
+employee_ledgers -> database/migrations/2025_02_17_162645_create_employee_ledgers_table.php
+employees -> database/migrations/2023_11_23_064948_create_employees_table.php
+expense_categories -> database/migrations/2023_11_29_053615_create_expense_categories_table.php
+expenses -> database/migrations/2024_08_08_053709_create_expenses_table.php
+monthly_bonus_counts -> database/migrations/2024_01_09_070032_create_monthly_bonus_counts_table.php
+monthly_bonuses -> database/migrations/2024_01_12_111707_create_monthly_bonuses_table.php
+payment_gateways -> database/migrations/2024_08_29_105211_create_payment_gateways_table.php
+price_group_products -> database/migrations/2024_01_16_062505_create_price_group_products_table.php
+price_groups -> database/migrations/2023_11_23_112111_create_price_groups_table.php
+product_alternatives -> database/migrations/2026_02_24_102851_create_product_alternatives_table.php
+product_groups -> database/migrations/2023_11_23_104617_create_product_groups_table.php
+product_offers -> database/migrations/2023_11_25_085852_create_product_offers_table.php
+product_stock_adjustment -> database/migrations/2024_07_10_041822_create_product_stock_adjustment_table.php
+product_stock_adjustments -> database/migrations/2026_02_26_103610_create_product_stock_adjustments_table.php
+product_stores -> database/migrations/2024_01_13_061502_create_product_stores_table.php
+products -> database/migrations/2023_11_25_085851_create_products_table.php
+quotations -> database/migrations/2024_01_08_082418_create_quotations_table.php
+sessions -> database/migrations/2023_11_18_092358_create_sessions_table.php
+settings -> database/migrations/2026_01_24_124921_create_settings_table.php
+sizes -> database/migrations/2023_11_25_124052_create_sizes_table.php
+stacks -> database/migrations/2023_12_05_121448_create_stacks_table.php
+stores -> database/migrations/2024_01_17_042602_create_stores_table.php
+sub_categories -> database/migrations/2023_11_25_091320_create_sub_categories_table.php
+supplier_bonuses -> database/migrations/2025_05_20_162637_create_supplier_bonuses_table.php
+supplier_follow_updates -> database/migrations/2024_01_02_091145_create_supplier_follow_updates_table.php
+supplier_ledgers -> database/migrations/2024_06_01_063500_create_supplier_ledger_table.php
+supplier_transaction_details -> database/migrations/2024_10_23_103447_create_supplier_transaction_details_table.php
+suppliers -> database/migrations/2023_11_21_125018_create_suppliers_table.php
+units -> database/migrations/2023_11_23_052521_create_units_table.php
+users -> database/migrations/2014_10_12_000000_create_users_table.php
+warehouses -> database/migrations/2023_11_23_054636_create_warehouses_table.php
+yearly_bonus_counts -> database/migrations/2024_01_15_051219_create_yearly_bonus_counts_table.php
+yearly_bonuses -> database/migrations/2024_01_15_041632_create_yearly_bonuses_table.php
+
+LARAVEL SYSTEM TABLES:
+failed_jobs -> database/migrations/2019_08_19_000000_create_failed_jobs_table.php
+password_reset_tokens -> database/migrations/2014_10_12_100000_create_password_reset_tokens_table.php
+personal_access_tokens -> database/migrations/2019_12_14_000001_create_personal_access_tokens_table.php
+
+LARAVEL JETSTREAM TABLES:
+team_invitations -> database/migrations/2020_05_21_300000_create_team_invitations_table.php
+team_user -> database/migrations/2020_05_21_200000_create_team_user_table.php
+teams -> database/migrations/2020_05_21_100000_create_teams_table.php
+
+SPATIE PERMISSION PACKAGE TABLES:
+permissions -> database/migrations/2025_12_14_100827_create_permission_tables.php
+roles -> database/migrations/2025_12_14_100827_create_permission_tables.php
+model_has_permissions -> database/migrations/2025_12_14_100827_create_permission_tables.php
+model_has_roles -> database/migrations/2025_12_14_100827_create_permission_tables.php
+role_has_permissions -> database/migrations/2025_12_14_100827_create_permission_tables.php
+
+
+================================================================================
+PART 2: ALL MODELS WITH TABLE NAMES AND USAGE
+================================================================================
+
+[Model Class] -> [Table Name] -> [References] -> [Status]
+--------------------------------------------------------------------------------
+
+Bank -> banks -> 28 -> USED
+Brand -> brands -> 17 -> USED
+CashManager -> cash_managers -> 10 -> USED
+CashOffer -> cash_offers -> 5 -> USED
+CashTransactions -> cash_transactions -> 6 -> USED
+Category -> categories -> 26 -> USED
+ContactMessage -> contact_messages -> 7 -> USED
+CustomerFollowUpdate -> customer_follow_updates -> 10 -> USED
+CustomerLedger -> customer_ledgers -> 93 -> HEAVILY USED
+CustomerTransactionDetails -> customer_transaction_details -> 51 -> HEAVILY USED
+CustomerTypes -> customer_types -> 9 -> USED
+Employee -> employees -> 27 -> USED
+EmployeeLedger -> employee_ledgers -> 18 -> USED
+Expense -> expenses -> 80 -> HEAVILY USED
+ExpenseCategory -> expense_categories -> 9 -> USED
+MonthlyBonus -> monthly_bonuses -> 0 -> *** NOT USED ***
+MonthlyBonusCount -> monthly_bonus_counts -> 13 -> USED
+PaymentGateway -> payment_gateways -> 4 -> USED
+PriceGroup -> price_groups -> 9 -> USED
+PriceGroupProduct -> price_group_products -> 6 -> USED
+Product -> products -> 37 -> USED
+ProductGroup -> product_groups -> 9 -> USED
+ProductOffer -> product_offers -> 5 -> USED
+ProductStockAdjustments -> product_stock_adjustments -> 2 -> MINIMALLY USED
+ProductStore -> product_stores -> 32 -> USED
+Quotation -> quotations -> 7 -> USED
+Setting -> settings -> 5 -> USED
+Size -> sizes -> 9 -> USED
+Store -> stores -> 60 -> HEAVILY USED
+SubCategory -> sub_categories -> 5 -> USED
+Supplier -> suppliers -> 67 -> HEAVILY USED
+SupplierBonus -> supplier_bonuses -> 14 -> USED
+SupplierFollowUpdate -> supplier_follow_updates -> 10 -> USED
+SupplierLedger -> supplier_ledgers -> 76 -> HEAVILY USED
+SupplierTransactionDetails -> supplier_transaction_details -> 48 -> USED
+Unit -> units -> 8 -> USED
+Warehouse -> warehouses -> 17 -> USED
+YearlyBonus -> yearly_bonuses -> 0 -> *** NOT USED ***
+YearlyBonusCount -> yearly_bonus_counts -> 11 -> USED
+customer -> customers -> 59 -> HEAVILY USED
+User -> users -> 15 -> USED
+Team -> teams -> 4 -> MINIMALLY USED
+TeamInvitation -> team_invitations -> 1 -> MINIMALLY USED
+Transaction -> bank_transaction -> 18 -> USED
+
+TOTAL MODELS: 43
+USED MODELS: 41
+UNUSED MODELS: 2 (MonthlyBonus, YearlyBonus)
+
+
+================================================================================
+PART 3: TABLES WITHOUT MODELS
+================================================================================
+
+[Table Name] -> [Package/System] -> [Status]
+--------------------------------------------------------------------------------
+
+failed_jobs -> Laravel System -> REQUIRED (queue system)
+password_reset_tokens -> Laravel System -> REQUIRED (auth)
+personal_access_tokens -> Laravel System -> REQUIRED (Sanctum)
+permissions -> Spatie Package -> REQUIRED
+roles -> Spatie Package -> REQUIRED
+model_has_permissions -> Spatie Package -> REQUIRED
+model_has_roles -> Spatie Package -> REQUIRED
+role_has_permissions -> Spatie Package -> REQUIRED
+team_user -> Laravel Jetstream -> REQUIRED (pivot table)
+sessions -> Laravel System -> REQUIRED (session management)
+stacks -> None -> UNUSED (no model, no references)
+product_stock_adjustment (singular) -> None -> UNUSED (duplicate of product_stock_adjustments)
+product_alternatives -> None -> UNUSED (new table, no model yet)
+
+TOTAL TABLES WITHOUT MODELS: 13
+
+
+================================================================================
+PART 4: DETAILED ANALYSIS OF UNUSED/PROBLEMATIC TABLES
+================================================================================
+
+1. stacks table
+   - Migration: 2023_12_05_121448_create_stacks_table.php
+   - Has Model: NO (Stack model file does NOT exist)
+   - References Found:
+     * app/Http/Controllers/ProductController.php: imports Stack model but doesn't use it
+     * app/Http/Controllers/ProductStockController.php: imports Stack model but doesn't use it
+     * app/Http/Controllers/WarehouseController.php: imports Stack model but doesn't use it
+     * resources/views/admin/product/stack.blade.php: UI references
+   - Analysis: The model is imported in controllers but never used. The table exists but has no active model.
+   - Recommendation: SAFE TO REMOVE (verify no data is needed first)
+
+2. product_stock_adjustment (singular) table
+   - Migration: 2024_07_10_041822_create_product_stock_adjustment_table.php
+   - Has Model: NO
+   - Note: There's a similar table "product_stock_adjustments" (plural) that IS used
+   - References Found: Only in route names (not actual table usage)
+   - Analysis: Appears to be an old/duplicate table. The plural version is actively used.
+   - Recommendation: SAFE TO REMOVE after verifying with product_stock_adjustments table
+
+3. product_alternatives table
+   - Migration: 2026_02_24_102851_create_product_alternatives_table.php
+   - Has Model: NO
+   - References Found: None in code (only 1 false positive in initial search)
+   - Analysis: Very recent migration (Feb 2026), likely a planned feature that wasn't implemented
+   - Recommendation: INVESTIGATE - may be a planned feature or abandoned
+
+4. monthly_bonuses table (with MonthlyBonus model)
+   - Migration: 2024_01_12_111707_create_monthly_bonuses_table.php
+   - Has Model: YES (MonthlyBonus)
+   - Model References: 0
+   - Related Table: monthly_bonus_counts IS used (13 references)
+   - Analysis: The model exists but is never used. The counts table is used instead.
+   - Recommendation: Can be removed if monthly_bonus_counts has replaced it (verify data migration)
+
+5. yearly_bonuses table (with YearlyBonus model)
+   - Migration: 2024_01_15_041632_create_yearly_bonuses_table.php
+   - Has Model: YES (YearlyBonus)
+   - Model References: 0 (imported in 1 Livewire but never used)
+   - Related Table: yearly_bonus_counts IS used (11 references)
+   - Analysis: Similar to monthly_bonuses - model exists but counts table is used
+   - Recommendation: Can be removed if yearly_bonus_counts has replaced it (verify data migration)
+
+6. designations table (with Designations model)
+   - Migration: 2024_07_03_065730_create_designations_table.php
+   - Has Model: YES (Designations)
+   - Model References: 8 (5 in DesignationController, 3 in EmployeeController)
+   - Analysis: This table IS ACTIVELY USED (initial analysis was incorrect)
+   - Status: ACTIVE - KEEP
+
+
+================================================================================
+PART 5: CODE QUALITY ISSUES FOUND
+================================================================================
+
+1. ORPHANED IMPORTS
+   The following models are imported but never used:
+   - Stack model imported in ProductController.php (line 11)
+   - Stack model imported in ProductStockController.php (line 12)
+   - Stack model imported in WarehouseController.php (line 12)
+   - Stack model imported in ProductStockAdjustmentController.php (line 12)
+   - YearlyBonus model imported in app/Livewire/Bonus/Yearly/Index.php (line 9)
+   
+   Recommendation: Remove these unused imports to clean up the code.
+
+2. NAMING CONFLICT
+   - Model: customer (lowercase 'c') -> Table: customers
+   - This violates Laravel's naming conventions (should be Customer)
+   - Recommendation: Rename model to Customer to follow Laravel conventions
+
+
+================================================================================
+PART 6: FINAL RECOMMENDATIONS
+================================================================================
+
+TABLES THAT CAN BE REMOVED (SAFE):
+--------------------------------------------------------------------------------
+
+1. stacks
+   - No model exists
+   - No actual usage (only orphaned imports)
+   - Safe to remove
+
+2. product_stock_adjustment (singular)
+   - Duplicate of product_stock_adjustments (plural)
+   - Plural version is actively used
+   - Safe to remove after verifying data
+
+TABLES THAT SHOULD BE INVESTIGATED:
+--------------------------------------------------------------------------------
+
+3. monthly_bonuses
+   - Has model but 0 references
+   - Related table monthly_bonus_counts IS used
+   - Verify if counts table has replaced this table
+   - Check if any data exists before removing
+
+4. yearly_bonuses
+   - Has model but 0 references
+   - Related table yearly_bonus_counts IS used
+   - Similar situation to monthly_bonuses
+   - Check if any data exists before removing
+
+5. product_alternatives
+   - Very recent table (Feb 2026)
+   - No model exists
+   - Might be a planned feature
+   - Confirm with development team before removing
+
+CODE CLEANUP RECOMMENDED:
+--------------------------------------------------------------------------------
+
+- Remove unused Stack model imports from 4 controller files
+- Remove unused YearlyBonus import from Livewire component
+- Rename 'customer' model to 'Customer' to follow Laravel conventions
+
+
+================================================================================
+SUMMARY STATISTICS
+================================================================================
+
+Total Tables: 59
+- Business Tables: 49
+- Laravel System Tables: 5
+- Package Tables: 5
+
+Models: 43
+- Actively Used: 41
+- Unused: 2 (MonthlyBonus, YearlyBonus)
+
+Tables Without Models: 13
+- System/Package Tables: 10 (KEEP)
+- Potentially Unused: 3 (stacks, product_stock_adjustment, product_alternatives)
+
+Models Without References: 2
+- MonthlyBonus (but related monthly_bonus_counts IS used)
+- YearlyBonus (but related yearly_bonus_counts IS used)
+
+Tables Recommended for Removal: 2
+- stacks (safe)
+- product_stock_adjustment (safe - verify with plural version)
+
+Tables Requiring Investigation: 3
+- monthly_bonuses (verify if counts table replaced it)
+- yearly_bonuses (verify if counts table replaced it)
+- product_alternatives (confirm if planned feature)
+
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. BACKUP DATABASE before making any changes
+
+2. Investigate tables marked for "Investigation"
+   - Check if monthly_bonuses/yearly_bonuses tables contain data
+   - Confirm with team about product_alternatives
+
+3. Remove orphaned model imports
+   - Remove Stack model imports from 4 controllers
+   - Remove YearlyBonus import from Livewire component
+
+4. Consider safe removal of identified unused tables
+   - stacks (after backup)
+   - product_stock_adjustment (after verifying with product_stock_adjustments)
+
+5. Consider code improvements
+   - Rename 'customer' model to 'Customer'
+   - Create missing Stack model if it's needed (or remove all references)
+
+6. Document any table removal decisions for future reference
+
+
+================================================================================
+END OF REPORT
+================================================================================
