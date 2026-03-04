@@ -29,9 +29,11 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')
-        ->with(['brand','category','productGroup','size'])
-        ->get();
+        $products = Product::leftJoin('brands', 'products.brand_id', '=', 'brands.id')
+            ->select('products.*')
+            ->with(['brand', 'category', 'productGroup', 'size'])
+            ->orderBy('brands.name', 'asc')
+            ->get();
 
         // Attach active offer and computed sale price with offer to each product to avoid querying in the view
         foreach ($products as $product) {
@@ -46,7 +48,7 @@ class ProductController extends Controller
         });
         $stock_list = $mergedProducts;
 
-        return view('admin.product.index',get_defined_vars());
+        return view('admin.product.index', get_defined_vars());
     }
 
     public function create()
@@ -55,32 +57,33 @@ class ProductController extends Controller
     }
 
 
-    public function checkout(){
+    public function checkout()
+    {
         return view('admin.product.checkout');
     }
 
     public function store(Request $request)
     {
         $validator = $request->validate([
-            'name' => [ 'max:255'],
+            'name' => ['max:255'],
             'group_id' => ['max:11'],
             'purchase_rate' => ['max:20'],
             'price_rate' => ['max:20'],
             'mrp_rate' => ['max:20'],
             // 'opening_stock' => ['max:10'],
             'alert_quantity' => ['max:10'],
-            'photo' => ['image','mimes:jpeg,png,jpg,gif,svg','max:1000'],
+            'photo' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1000'],
 
         ]);
         // dd($validator);
 
-        if(!empty($request->photo)) {
+        if (!empty($request->photo)) {
             $photo_path = 'storage/' . $request->photo->store('/images/product', 'public');
         } else {
             $photo_path = "";
         }
 
-      $product = Product::insertGetId([
+        $product = Product::insertGetId([
             'name' => $validator['name'],
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
@@ -94,38 +97,38 @@ class ProductController extends Controller
             'mrp_rate' => $validator['mrp_rate'],
             'alert_quantity' => $validator['alert_quantity'],
             'warehouse_id' => $request->warehouse_id,
-            'status' => $request->status == true ? '1':'0',
+            'status' => $request->status == true ? '1' : '0',
             'remarks' => $request->remarks,
             'photo' => $photo_path,
         ]);
 
         $alert = array('msg' => 'Product Successfully Inserted', 'alert-type' => 'success');
-        return redirect()->route('product.view', $product )->with($alert);
+        return redirect()->route('product.view', $product)->with($alert);
     }
 
 
     public function edit($id)
     {
         $product_groups = ProductGroup::get();
-        $product = Product::where('id',$id)->first();
+        $product = Product::where('id', $id)->first();
         $categories = Category::get();
         $brands = Brand::get();
         $sizes = Size::get();
 
-        return view('admin.product.edit',get_defined_vars());
+        return view('admin.product.edit', get_defined_vars());
     }
 
     public function update(Request $request)
     {
 
         $request->validate([
-            'name' => [ 'max:255'],
+            'name' => ['max:255'],
             'group_id' => ['max:11'],
             'purchase_rate' => ['max:20'],
             'price_rate' => ['max:20'],
             'mrp_rate' => ['max:20'],
             'alert_quantity' => ['max:10'],
-            'photo' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
+            'photo' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
 
         ]);
 
@@ -212,8 +215,8 @@ class ProductController extends Controller
 
     public function view($id)
     {
-        $product = Product::where('id',$id)->first();
-        $stock_data = ProductStore::where('product_id',$id)->get();
+        $product = Product::where('id', $id)->first();
+        $stock_data = ProductStore::where('product_id', $id)->get();
         // dump($stock_data);
         $store_data = $stock_data->groupBy('product_store_id')->map(function ($items) use ($product) {
             // dd($items);
@@ -238,7 +241,7 @@ class ProductController extends Controller
             ];
         });
         // dd( $stock);
-        return view('admin.product.view',compact('product', 'stock_data', 'store_data', 'stock'));
+        return view('admin.product.view', compact('product', 'stock_data', 'store_data', 'stock'));
     }
 
     public function gallery()
@@ -247,7 +250,8 @@ class ProductController extends Controller
         return view('admin.product.gallery', get_defined_vars());
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
 
     }
 
