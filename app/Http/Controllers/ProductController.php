@@ -75,9 +75,7 @@ class ProductController extends Controller
         // dd($validator);
 
         if(!empty($request->photo)) {
-            $photo = $request->photo;
-            $photoName = uniqid().'.'.$photo->getClientOriginalExtension();
-            $photo_path = $photo->move('images/product/',$photoName);
+            $photo_path = 'storage/' . $request->photo->store('/images/product', 'public');
         } else {
             $photo_path = "";
         }
