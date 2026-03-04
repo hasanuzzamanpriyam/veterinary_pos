@@ -251,7 +251,7 @@ class ProductController extends Controller
             ];
         });
         // dd( $stock);
-        return view('admin.product.view', compact('product', 'stock_data', 'store_data', 'stock'));
+        return view('admin.product.view',compact('product', 'stock_data', 'store_data', 'stock'));
     }
 
     public function gallery()

@@ -135,39 +135,49 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center">1</td>
-                        <td class="text-center">2024-01-15</td>
-                        <td class="text-center">Main Store</td>
-                        <td class="text-center">100 Pcs</td>
-                        <td class="text-right">500.00</td>
-                        <td class="text-right">50,000.00</td>
-                        <td class="text-right">650.00</td>
-                        <td class="text-right">65,000.00</td>
-                        <td class="text-center">2023-12-01</td>
-                        <td class="text-center">2025-12-01</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">2</td>
-                        <td class="text-center">2024-02-10</td>
-                        <td class="text-center">Warehouse A</td>
-                        <td class="text-center">50 Pcs</td>
-                        <td class="text-right">510.00</td>
-                        <td class="text-right">25,500.00</td>
-                        <td class="text-right">660.00</td>
-                        <td class="text-right">33,000.00</td>
-                        <td class="text-center">2024-01-05</td>
-                        <td class="text-center">2026-01-05</td>
-                    </tr>
+                    @php
+                        $summary = [
+                            'qty' => 0,
+                            'purchase_tk' => 0,
+                            'sale_tk' => 0,
+                        ];
+                    @endphp
+                    @forelse($store_data as $key => $stockEntry)
+                        @php
+                            $qty = floatval($stockEntry->product_quantity);
+                            $purchase_value = $qty * floatval($product->purchase_rate);
+                            $sale_value = $qty * floatval($product->price_rate);
+
+                            $summary['qty'] += $qty;
+                            $summary['purchase_tk'] += $purchase_value;
+                            $summary['sale_tk'] += $sale_value;
+                        @endphp
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ \Carbon\Carbon::parse($stockEntry->created_at)->format('d-m-Y') }}</td>
+                            <td class="text-center">{{ $stockEntry->store->name ?? 'N/A' }}</td>
+                            <td class="text-center">{{ formatAmount($qty) }} {{ trans_choice($product->type, $qty) }}</td>
+                            <td class="text-right">{{ formatAmount($product->purchase_rate) }}</td>
+                            <td class="text-right">{{ formatAmount($purchase_value) }}</td>
+                            <td class="text-right">{{ formatAmount($product->price_rate) }}</td>
+                            <td class="text-right">{{ formatAmount($sale_value) }}</td>
+                            <td class="text-center">{{ $product->production_date ? \Carbon\Carbon::parse($product->production_date)->format('d-m-Y') : 'N/A' }}</td>
+                            <td class="text-center">{{ $product->alert_expire_date ? \Carbon\Carbon::parse($product->alert_expire_date)->format('d-m-Y') : 'N/A' }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="10" class="text-center"><b>There is no stock available!</b></td>
+                        </tr>
+                    @endforelse
                 </tbody>
                 <tfoot>
                     <tr class="font-weight-bold">
                         <td colspan="3" class="text-right">Total:</td>
-                        <td class="text-center">150 Pcs</td>
+                        <td class="text-center">{{ formatAmount($summary['qty']) }} {{ trans_choice($product->type, $summary['qty']) }}</td>
                         <td></td>
-                        <td class="text-right">75,500.00</td>
+                        <td class="text-right">{{ formatAmount($summary['purchase_tk']) }}</td>
                         <td></td>
-                        <td class="text-right">98,000.00</td>
+                        <td class="text-right">{{ formatAmount($summary['sale_tk']) }}</td>
                         <td></td>
                         <td></td>
                     </tr>
