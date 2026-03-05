@@ -5,8 +5,12 @@ $app = require_once __DIR__.'/bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 
-$filename1 = 'foo.jpg';
-$path1 = 'storage/' . $filename1;
-echo 'Path 1: ' . asset($path1) . "\n";
-echo 'Path 1 with leading slash: ' . asset('/' . $path1) . "\n";
-echo 'Path 1 with multiple slashes: ' . asset('//storage//images/product/foo.jpg') . "\n";
+$storeData = \App\Models\ProductStore::with('store')->first();
+echo "Product Store with relations:\n";
+print_r($storeData->toArray());
+
+$supplierDetails = \App\Models\SupplierTransactionDetails::first();
+if ($supplierDetails) {
+    echo "\nSupplierTransactionDetails schema:\n";
+    print_r($supplierDetails->toArray());
+}

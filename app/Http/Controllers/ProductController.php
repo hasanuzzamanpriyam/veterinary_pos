@@ -213,21 +213,11 @@ class ProductController extends Controller
     public function view($id)
     {
         $product = Product::where('id',$id)->first();
-        $stock_data = ProductStore::where('product_id',$id)->get();
-        // dump($stock_data);
-        $store_data = $stock_data->groupBy('product_store_id')->map(function ($items) use ($product) {
-            // dd($items);
-            return [
-                'name' => $items->first()->store->name,
-                'qty' => $items->sum('product_quantity'),
-                'weight' => (floatval($product->size->name ?? 0) * floatval($items->sum('product_quantity'))) / 1000,
-                'price' => $items->sum('product_quantity') * $product->purchase_rate,
-                'sale_value' => $items->sum('product_quantity') * $product->price_rate
-            ];
-        });
-        // dd($store_data);
+        $store_data = ProductStore::with('store')->where('product_id', $id)
+            ->where('product_quantity', '>', 0)
+            ->orderBy('created_at', 'asc')->get();
 
-        $stock = $stock_data->groupBy('product_id')->map(function ($items) use ($product) {
+        $stock = ProductStore::where('product_id', $id)->get()->groupBy('product_id')->map(function ($items) use ($product) {
             // dump($items);
             return [
                 'qty' => $items->sum('product_quantity'),
@@ -238,7 +228,7 @@ class ProductController extends Controller
             ];
         });
         // dd( $stock);
-        return view('admin.product.view',compact('product', 'stock_data', 'store_data', 'stock'));
+        return view('admin.product.view',compact('product', 'store_data', 'stock'));
     }
 
     public function gallery()
