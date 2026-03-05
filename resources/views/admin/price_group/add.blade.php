@@ -67,8 +67,6 @@ Product Add to Price Group
                             </thead>
                             <tbody>
 
-
-
                                 @foreach ($products as $product)
                                 <tr>
                                     <td><input type="checkbox" name="product_id[]" value="{{$product->id}}" class="form-control btn btn-primary"></td>
@@ -99,10 +97,6 @@ Product Add to Price Group
                             </tbody>
 
                         </table>
-
-
-
-
                     </div>
                 </div>
 

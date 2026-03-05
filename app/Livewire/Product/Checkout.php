@@ -55,6 +55,7 @@ class Checkout extends Component
                 'name' => $product_data['name'],
                 'brand_id' => $product_data['brand_id'],
                 'category_id' => $product_data['category_id'],
+                'product_type_id' => $product_data['product_type_id'] ?? null,
                 'type' => $product_data['type'],
                 'size_id' => $product_data['size_id'],
                 'sku' => $product_data['sku'],

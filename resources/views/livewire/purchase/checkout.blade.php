@@ -146,11 +146,11 @@
                                                         </div>
                                                     </td>
                                                     <td>{{$product->name}}</td>
-                                                    <td>{{$product->qty}} {{trans_choice('labels.'. $product->options->type, $product->qty)}}</td>
+                                                    <td>{{$product->qty}} {{trans_choice($product->options->type, $product->qty)}}</td>
                                                     @if($product_discounts > 0)
-                                                    <td>{{$product->options->discount}} {{trans_choice('labels.'. $product->options->type, $product->options->discount)}}</td>
+                                                    <td>{{$product->options->discount}} {{trans_choice($product->options->type, $product->options->discount)}}</td>
                                                     @endif
-                                                    <td>{{$product->qty - $product->options->discount}} {{trans_choice('labels.'. $product->options->type, ( $product->qty - $product->options->discount ))}}</td>
+                                                    <td>{{$product->qty - $product->options->discount}} {{trans_choice($product->options->type, ( $product->qty - $product->options->discount ))}}</td>
                                                     <td class="text-right">{{$product->price}}/=</td>
                                                     <td class="text-right">{{($product->qty-$product->options->discount)*$product->price}}/=</td>
                                                 </tr>
@@ -178,7 +178,7 @@
                                                 <div>
                                                     @if( isset($summary['qty']) && $summary['qty'] > 0)
                                                         @foreach ($summary['qty'] as $key => $value)
-                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -188,7 +188,7 @@
                                                 <div>
                                                     @if( isset($summary['discount']) && $summary['discount'] > 0)
                                                         @foreach ($summary['discount'] as $key => $value)
-                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -198,7 +198,7 @@
                                                 <div>
                                                     @if( isset($summary['total']) && $summary['total'] > 0)
                                                         @foreach ($summary['total'] as $key => $value)
-                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
                                                         @endforeach
                                                     @endif
                                                 </div>

@@ -95,7 +95,7 @@ Purchase Return View
                                 <tr>
                                     <td class="text-center p-1">{{$product->product_code}}</td>
                                     <td class="text-left p-1">{{$product->product_name}}</td>
-                                    <td class="text-center p-1">{{$product->quantity}} {{trans_choice('labels.'.$product->product->type, $product->quantity)}}</td>
+                                    <td class="text-center p-1">{{$product->quantity}} {{trans_choice($product->product->type, $product->quantity)}}</td>
                                     <td class="text-right p-1">{{formatAmount($product->unit_price)}}/=</td>
                                     <td class="text-right p-1">{{formatAmount($product->total_price)}}/=</td>
                                 </tr>

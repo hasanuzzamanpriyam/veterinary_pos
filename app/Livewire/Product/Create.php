@@ -8,6 +8,7 @@ use App\Models\ProductGroup;
 use App\Models\Size;
 use App\Models\Unit;
 use App\Models\Warehouse;
+use App\Models\ProductType;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -22,12 +23,14 @@ class Create extends Component
     public $units;
     public $brands;
     public $sizes;
+    public $product_types;
     public $all_products;
     public $alternative_product_ids = [];
     public $name;
     public $brand_id;
     public $group_id;
     public $size_id;
+    public $product_type_id;
     public $type;
     public $unit_id;
     public $alert_quantity;
@@ -50,6 +53,7 @@ class Create extends Component
         // $this->units = Unit::get();
         $this->brands = Brand::get();
         $this->sizes = Size::get();
+        $this->product_types = ProductType::get();
         $this->all_products = \App\Models\Product::orderBy('name', 'asc')->get();
     }
 
@@ -60,7 +64,7 @@ class Create extends Component
             'brand_id' => 'required',
             'group_id' => 'required',
             'size_id' => 'required',
-            'type' => 'required',
+            'product_type_id' => 'required',
             'purchase_rate' => 'required',
             'mrp_rate' => 'required',
             'price_rate' => 'required',
@@ -98,7 +102,8 @@ class Create extends Component
             'brand_id' => $validated_data['brand_id'],
             'group_id' => $validated_data['group_id'],
             'size_id' => $validated_data['size_id'],
-            'type' => $validated_data['type'],
+            'product_type_id' => $validated_data['product_type_id'],
+            'type' => ProductType::find($validated_data['product_type_id'])->name ?? '',
             'purchase_rate' => $validated_data['purchase_rate'],
             'mrp_rate' => $validated_data['mrp_rate'],
             'price_rate' => $validated_data['price_rate'],
@@ -134,6 +139,7 @@ class Create extends Component
             $this->brand_id = isset($product['brand_id']) ? $product['brand_id'] : null;
             $this->group_id = isset($product['group_id']) ? $product['group_id'] : null;
             $this->size_id = isset($product['size_id']) ? $product['size_id'] : null; //$product['size_id'];
+            $this->product_type_id = isset($product['product_type_id']) ? $product['product_type_id'] : null;
             $this->type = isset($product['type']) ? $product['type'] : null; // $$product['type'];
             $this->unit_id = isset($product['unit_id']) ? $product['unit_id'] : null; //$product['unit_id'];
             $this->purchase_rate = isset($product['purchase_rate']) ? $product['purchase_rate'] : null; //$product['purchase_rate'];

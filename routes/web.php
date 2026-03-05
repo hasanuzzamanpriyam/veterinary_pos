@@ -41,6 +41,7 @@ use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentGatewayController;
 use App\Http\Controllers\ProductStockAdjustmentController;
+use App\Http\Controllers\ProductTypeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
@@ -534,6 +535,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('delete/{id}', [ProductGroupController::class, 'delete'])->name('product_group.delete');
     });
 
+    Route::prefix('product_type')->group(function () {
+        Route::get('/', [ProductTypeController::class, 'index'])->name('product_type.index');
+        Route::get('create', [ProductTypeController::class, 'create'])->name('product_type.create');
+        Route::post('/', [ProductTypeController::class, 'store'])->name('product_type.store');
+        Route::get('edit/{id}', [ProductTypeController::class, 'edit'])->name('product_type.edit');
+        Route::post('update/{id}', [ProductTypeController::class, 'update'])->name('product_type.update');
+        Route::get('delete/{id}', [ProductTypeController::class, 'destroy'])->name('product_type.delete');
+    });
+
     Route::prefix('employee')->group(function () {
         Route::get('/', App\Livewire\Employee\ListAll::class)->name('employee.index');
         // Route::get('/', [EmployeeController::class, 'index'])->name('employee.index');
@@ -646,7 +656,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('create', App\Livewire\BonusCount\Monthly\Index::class)->name('bonus.create');
         Route::get('/live/edit/{id}', App\Livewire\BonusCount\Monthly\Edit::class)->name('live.bonus.edit');
         Route::get('delete/{id}', [MonthlyBonusCountController::class, 'delete'])->name('bonus.delete');
-        Route::get('get-supplier',  [MonthlyBonusCountController::class, 'supplierSearch'])->name('supplier.search');
+        Route::get('get-supplier', [MonthlyBonusCountController::class, 'supplierSearch'])->name('supplier.search');
 
         //yearly bonus count route
         // Route::get('yearly', [YearlyBonusCountController::class, 'index'])->name('yearly.bonus.index');
@@ -659,7 +669,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('yearly/edit/{id}', [YearlyBonusCountController::class, 'edit'])->name('yearly.bonus.edit');
         Route::post('yearly/update', [YearlyBonusCountController::class, 'update'])->name('yearly.bonus.update');
         Route::get('yearly/delete/{id}', [YearlyBonusCountController::class, 'delete'])->name('yearly.bonus.delete');
-        Route::get('yearly/get-supplier',  [YearlyBonusCountController::class, 'supplierSearch'])->name('yearly.supplier.search');
+        Route::get('yearly/get-supplier', [YearlyBonusCountController::class, 'supplierSearch'])->name('yearly.supplier.search');
 
 
         Route::get('monthly/list', App\Livewire\Bonus\Monthly\Index::class)->name('monthly.bonus.index');
