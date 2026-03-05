@@ -142,7 +142,7 @@
                             'sale_tk' => 0,
                         ];
                     @endphp
-                    @forelse($store_data as $key => $stockEntry)
+                    @forelse($stock_data as $key => $stockEntry)
                         @php
                             $qty = floatval($stockEntry->product_quantity);
                             $purchase_value = $qty * floatval($product->purchase_rate);
