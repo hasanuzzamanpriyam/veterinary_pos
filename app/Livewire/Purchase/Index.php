@@ -36,6 +36,9 @@ class Index extends Component
     public $warehouse_name;
     public $supplier_remarks;
     public $showSidebar = false;
+    public $purchase_date;
+    public $production_date;
+    public $expire_date;
 
 
 
@@ -43,7 +46,7 @@ class Index extends Component
     {
         return
             [
-                'date' => ['nullable'],
+                'purchase_date' => ['nullable'],
                 'warehouse_id' => ['required'],
                 'product_store_id' => ['required'],
                 'transport_no' => ['nullable'],
@@ -64,17 +67,12 @@ class Index extends Component
         session()->put('showSidebar', $this->showSidebar);
     }
 
-    public function updatedDate($date){
-        $this->full_date = date('Y-m-d', strtotime(date('Y-m-d', strtotime($date))));
-        $this->date = $date;
-    }
-
     //Update quantity directly (now used as read-only or internal update)
     public function updateQuantity($id, $quantities)
     {
         foreach (Cart::instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                $item->qty = (float)$quantities;
+                $item->qty = (float) $quantities;
             }
         }
     }
@@ -84,7 +82,7 @@ class Index extends Component
     {
         foreach (Cart::instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                $item->qty = (float)$purchaseQty + (float)$item->options->discount;
+                $item->qty = (float) $purchaseQty + (float) $item->options->discount;
             }
         }
     }
@@ -94,9 +92,9 @@ class Index extends Component
     {
         foreach (Cart::instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                $purchaseQty = (float)$item->qty - (float)$item->options->discount;
-                $item->options->discount = (float)$discounts;
-                $item->qty = $purchaseQty + (float)$discounts;
+                $purchaseQty = (float) $item->qty - (float) $item->options->discount;
+                $item->options->discount = (float) $discounts;
+                $item->qty = $purchaseQty + (float) $discounts;
             }
         }
     }
@@ -129,7 +127,7 @@ class Index extends Component
     {
         $products = Product::where('id', $id)->first();
         Cart::instance('purchase')->add([
-            'id' =>  $products->id,
+            'id' => $products->id,
             'name' => $products->name,
             'qty' => 1,
             'price' => $products->purchase_rate,
@@ -138,7 +136,8 @@ class Index extends Component
                 'discount' => 0,
                 'weight' => $products->size->name,
                 'brand_id' => $products->brand_id,
-                'type' => $products->type
+                'type' => $products->type,
+                'code' => $products->code
             ]
         ]);
     }
@@ -171,9 +170,9 @@ class Index extends Component
                 'supplier_id' => $this->supplier_id,
                 'supplier_name' => $this->supplier_name,
                 'address' => $this->address,
-                'mobile' =>  $this->mobile,
+                'mobile' => $this->mobile,
                 'balance' => $this->balance,
-                'date' => $this->full_date,
+                'date' => $this->purchase_date ? date('Y-m-d', strtotime($this->purchase_date)) : $this->full_date,
                 'warehouse_id' => $validateData['warehouse_id'],
                 'product_store_id' => $validateData['product_store_id'],
                 'product_store_name' => $store_name,
@@ -181,9 +180,12 @@ class Index extends Component
                 'supplier_remarks' => $this->supplier_remarks,
                 'transport_no' => $validateData['transport_no'],
                 'delivery_man' => $validateData['delivery_man'],
+                'purchase_date' => $this->purchase_date ?: $this->full_date,
+                'production_date' => $this->production_date,
+                'expire_date' => $this->expire_date,
             ];
 
-            session()->put('supplier',  $supplier);
+            session()->put('supplier', $supplier);
         } else {
 
             if (!$supplier) {
@@ -192,9 +194,9 @@ class Index extends Component
                         'supplier_id' => $this->supplier_id,
                         'supplier_name' => $this->supplier_name,
                         'address' => $this->address,
-                        'mobile' =>  $this->mobile,
+                        'mobile' => $this->mobile,
                         'balance' => $this->balance,
-                        'date' => $this->full_date,
+                        'date' => $this->purchase_date ? date('Y-m-d', strtotime($this->purchase_date)) : $this->full_date,
                         'warehouse_id' => $validateData['warehouse_id'],
                         'product_store_id' => $validateData['product_store_id'],
                         'product_store_name' => $store_name,
@@ -205,7 +207,7 @@ class Index extends Component
                     ]
                 ];
 
-                session()->put('supplier',  $supplier);
+                session()->put('supplier', $supplier);
             }
         }
         return redirect()->route('live.purchase.checkout');
@@ -217,7 +219,8 @@ class Index extends Component
         $this->brand_id = $value;
     }
 
-    public function get_previous_balance($supplier_id, $date){
+    public function get_previous_balance($supplier_id, $date)
+    {
         session()->flash('balance');
         $data = SupplierLedger::where('supplier_id', $supplier_id)->where('date', '<=', $date)->orderBy('date', 'desc')->orderBy('id', 'desc')->first();
         return $data->balance ?? 0;

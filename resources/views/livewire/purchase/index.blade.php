@@ -68,18 +68,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="form-group ">
-                                    <label class="border py-1 purchase_entry_lebel" for="date">Date</label>
-                                    <div class="input-group date" id="purchase_date_picker">
-                                        <input name="date" type="text" class="form-control" placeholder="dd-mm-yyyy">
-                                        <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label  class="py-1 border purchase_entry_lebel" for="warehouse_id">Warehouse</label>
                                     <select type="text" wire:model="warehouse_id" wire:change="warehouseSearch($event.target.value)"  name="warehouse_id"  class="form-control">
@@ -90,7 +79,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label class="py-1 border purchase_entry_lebel" for="product_store_id">Store Name</label>
                                     <select type="text" wire:model="product_store_id"  name="product_store_id"  class="form-control">
@@ -119,6 +108,41 @@
                                 <div class="form-group">
                                     <label  class="py-1 border purchase_entry_lebel" for="supplier_remarks">Remarks</label>
                                     <input type="text" name="supplier_remarks" wire:model.defer="supplier_remarks"  class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="border py-1 purchase_entry_lebel" for="purchase_date">Purchase Date</label>
+                                    <div class="input-group date" id="purchase_date_picker_main">
+                                        <input name="purchase_date" type="text" class="form-control" placeholder="dd-mm-yyyy" wire:model.defer="purchase_date">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="border py-1 purchase_entry_lebel" for="production_date">Production Date</label>
+                                    <div class="input-group date" id="production_date_picker_main">
+                                        <input name="production_date" type="text" class="form-control" placeholder="dd-mm-yyyy" wire:model.defer="production_date">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="border py-1 purchase_entry_lebel" for="expire_date">Expire Date</label>
+                                    <div class="input-group date" id="expire_date_picker_main">
+                                        <input name="expire_date" type="text" class="form-control" placeholder="dd-mm-yyyy" wire:model.defer="expire_date">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -270,7 +294,8 @@
                                                             <button type="button"
                                                                 class="btn btn-danger btn-sm m-0"
                                                                 wire:click="itemRemove('{{ $product->rowId }}')"><i
-                                                                    class="fa fa-trash"></i></button>
+                                                                    class="fa fa-trash"></i>
+                                                            </button>
                                                         </div>
                                                     </td>
 
@@ -448,15 +473,39 @@
            //@this.set('product_search', data);
        });
 
-       $('#purchase_date_picker').datepicker({
-            format: 'dd-mm-yyyy',
-            autoclose: true,
-            todayHighlight: true
+        // Re-initialize datepickers after Livewire updates
+        Livewire.on('refresh', function() {
+            initDatePickers();
         });
 
-        $('#purchase_date_picker input[name=date]').on('change', function(e) {
-            @this.set('date', e.target.value);
-        })
+        function initDatePickers() {
+            // Main Form Datepickers
+            $('#purchase_date_picker_main').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function(e) {
+                @this.set('purchase_date', e.format());
+            });
+
+            $('#production_date_picker_main').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function(e) {
+                @this.set('production_date', e.format());
+            });
+
+            $('#expire_date_picker_main').datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function(e) {
+                @this.set('expire_date', e.format());
+            });
+        }
+
+        initDatePickers();
     });
 
     </script>

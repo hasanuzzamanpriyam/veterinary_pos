@@ -128,6 +128,8 @@
                         <th class="text-center">Purchase Value</th>
                         <th class="text-center">Sales Rate</th>
                         <th class="text-center">Sales Value</th>
+                        <th class="text-center">Production Date</th>
+                        <th class="text-center">Expire Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -157,6 +159,8 @@
                             <td class="text-right">{{ formatAmount($purchase_value) }}</td>
                             <td class="text-right">{{ formatAmount($product->price_rate) }}</td>
                             <td class="text-right">{{ formatAmount($sale_value) }}</td>
+                            <td class="text-center">{{ $stockEntry->production_date ? \Carbon\Carbon::parse($stockEntry->production_date)->format('d-m-Y') : 'N/A' }}</td>
+                            <td class="text-center">{{ $stockEntry->expire_date ? \Carbon\Carbon::parse($stockEntry->expire_date)->format('d-m-Y') : 'N/A' }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -165,7 +169,6 @@
                     @endforelse
                 </tbody>
                 <tfoot>
-                    <tr class="font-weight-bold">
                         <td colspan="3" class="text-right">Total:</td>
                         <td class="text-center">{{ formatAmount($summary['qty']) }}
                             {{ trans_choice($product->type, $summary['qty']) }}</td>

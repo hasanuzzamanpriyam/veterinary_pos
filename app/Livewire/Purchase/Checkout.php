@@ -53,16 +53,16 @@ class Checkout extends Component
     public function rules()
     {
         return [
-            'carring'           => ['nullable', 'numeric'],
-            'other_charge'      => ['nullable', 'numeric'],
-            'payment_by'        => ['nullable'],
-            'bank_title'        => ['nullable'],
-            'payment'           => ['nullable', 'numeric'],
-            'balance'           => ['nullable', 'numeric'],
-            'transport_no'      => ['nullable'],
-            'delivery_man'      => ['nullable'],
-            'payment_remarks'   => ['nullable'],
-            'total_vat'         => ['nullable', 'numeric'],
+            'carring' => ['nullable', 'numeric'],
+            'other_charge' => ['nullable', 'numeric'],
+            'payment_by' => ['nullable'],
+            'bank_title' => ['nullable'],
+            'payment' => ['nullable', 'numeric'],
+            'balance' => ['nullable', 'numeric'],
+            'transport_no' => ['nullable'],
+            'delivery_man' => ['nullable'],
+            'payment_remarks' => ['nullable'],
+            'total_vat' => ['nullable', 'numeric'],
         ];
     }
 
@@ -111,9 +111,9 @@ class Checkout extends Component
 
         if (Cart::instance('purchase')->count() > 0) {
             foreach (Cart::instance('purchase')->content() as $product) {
-                $this->total_qty += (float)$product->qty;
-                $this->product_discount += (float)$product->options->discount;
-                $this->total_amount_after_discount += ((float)$product->qty - (float)$product->options->discount) * (float)$product->price;
+                $this->total_qty += (float) $product->qty;
+                $this->product_discount += (float) $product->options->discount;
+                $this->total_amount_after_discount += ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
             }
         }
 
@@ -130,29 +130,32 @@ class Checkout extends Component
                     ->get();
 
                 $invoice = SupplierLedger::insertGetId([
-                    'supplier_id'       => $supplier['supplier_id'],
-                    'warehouse_id'      => $supplier['warehouse_id'],
-                    'product_store_id'  => $supplier['product_store_id'],
-                    'type'              => 'purchase',
-                    'payment_by'        => $validateData['payment_by'],
-                    'bank_title'        => $validateData['bank_title'],
-                    'delivery_man'      => $supplier['delivery_man'],
-                    'transport_no'      => $supplier['transport_no'],
+                    'supplier_id' => $supplier['supplier_id'],
+                    'warehouse_id' => $supplier['warehouse_id'],
+                    'product_store_id' => $supplier['product_store_id'],
+                    'type' => 'purchase',
+                    'payment_by' => $validateData['payment_by'],
+                    'bank_title' => $validateData['bank_title'],
+                    'delivery_man' => $supplier['delivery_man'],
+                    'transport_no' => $supplier['transport_no'],
 
-                    'total_qty'         => $this->total_qty,
-                    'product_discount'  => $this->product_discount,
-                    'balance'           => $this->balance,
-                    'vat'               => $this->total_vat,
-                    'carring'           => $validateData['carring'] ?? 0,
-                    'price_discount'    => $this->total_discount,
-                    'total_price'       => $this->total_amount_after_discount,
-                    'other_charge'      => $validateData['other_charge'] ?? 0,
-                    'payment'           => $validateData['payment'] ?? 0,
-                    'payment_remarks'   => $validateData['payment_remarks'],
-                    'supplier_remarks'  => $supplier['supplier_remarks'],
-                    'date'              => $date,
-                    'created_at'        => now(),
-                    'updated_at'        => now()
+                    'total_qty' => $this->total_qty,
+                    'product_discount' => $this->product_discount,
+                    'balance' => $this->balance,
+                    'vat' => $this->total_vat,
+                    'carring' => $validateData['carring'] ?? 0,
+                    'price_discount' => $this->total_discount,
+                    'total_price' => $this->total_amount_after_discount,
+                    'other_charge' => $validateData['other_charge'] ?? 0,
+                    'payment' => $validateData['payment'] ?? 0,
+                    'payment_remarks' => $validateData['payment_remarks'],
+                    'supplier_remarks' => $supplier['supplier_remarks'],
+                    'date' => $date,
+                    'purchase_date' => (!empty($supplier['purchase_date'])) ? date('Y-m-d', strtotime($supplier['purchase_date'])) : null,
+                    'production_date' => (!empty($supplier['production_date'])) ? date('Y-m-d', strtotime($supplier['production_date'])) : null,
+                    'expire_date' => (!empty($supplier['expire_date'])) ? date('Y-m-d', strtotime($supplier['expire_date'])) : null,
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ]);
 
                 $toatl_rows_remain = count($rowsBeforeInsert);
@@ -170,53 +173,62 @@ class Checkout extends Component
 
                 //update supplier info
                 Supplier::where('id', $supplier['supplier_id'])->update([
-                    'company_name'  => $supplier['supplier_name'],
-                    'address'       => $supplier['address'],
-                    'mobile'        => $supplier['mobile'],
+                    'company_name' => $supplier['supplier_name'],
+                    'address' => $supplier['address'],
+                    'mobile' => $supplier['mobile'],
                 ]);
 
                 // update supplier balance
                 Supplier::where('id', $supplier['supplier_id'])->update([
-                    'balance'      => $final_balance
+                    'balance' => $final_balance
                 ]);
 
                 if (Cart::instance('purchase')->count() > 0) {
                     foreach (Cart::instance('purchase')->content() as $product) {
+                        $production_date = (!empty($supplier['production_date'])) ? date('Y-m-d', strtotime($supplier['production_date'])) : null;
+                        $expire_date = (!empty($supplier['expire_date'])) ? date('Y-m-d', strtotime($supplier['expire_date'])) : null;
+
                         SupplierTransactionDetails::insert(
                             [
-                                'supplier_id'       => $supplier['supplier_id'],
-                                'transaction_id'    => $invoice,
-                                'warehouse_id'      => $supplier['warehouse_id'],
-                                'product_store_id'  => $supplier['product_store_id'],
-                                'product_id'        => $product->id,
-                                'product_name'      => $product->name,
-                                'quantity'          => (float)$product->qty,
-                                'discount_qty'      => (float)$product->options->discount,
-                                'weight'            => $product->options->weight,
-                                'unit_price'        => (float)$product->price,
-                                'total_price'       => ((float)$product->qty - (float)$product->options->discount) * (float)$product->price,
-                                'transaction_type'  => 'purchase',
-                                'date'              => $date,
-                                'created_at'        => now(),
-                                'updated_at'        => now()
+                                'supplier_id' => $supplier['supplier_id'],
+                                'transaction_id' => $invoice,
+                                'warehouse_id' => $supplier['warehouse_id'],
+                                'product_store_id' => $supplier['product_store_id'],
+                                'product_id' => $product->id,
+                                'product_name' => $product->name,
+                                'quantity' => (float) $product->qty,
+                                'discount_qty' => (float) $product->options->discount,
+                                'weight' => $product->options->weight,
+                                'unit_price' => (float) $product->price,
+                                'total_price' => ((float) $product->qty - (float) $product->options->discount) * (float) $product->price,
+                                'transaction_type' => 'purchase',
+                                'date' => $date,
+                                'production_date' => $production_date,
+                                'expire_date' => $expire_date,
+                                'created_at' => now(),
+                                'updated_at' => now()
                             ]
                         );
 
                         $product_store = ProductStore::where([
-                            'product_id'        => $product->id,
-                            'product_store_id'  => $supplier['product_store_id']
+                            'product_id' => $product->id,
+                            'product_store_id' => $supplier['product_store_id'],
+                            'production_date' => $production_date,
+                            'expire_date' => $expire_date,
                         ])->first();
 
                         if ($product_store) {
                             $product_store->increment('product_quantity', $product->qty);
                         } else {
                             ProductStore::create([
-                                'product_id'        => $product->id,
-                                'brand_id'          => $product->options->brand_id,
-                                'product_store_id'  => $supplier['product_store_id'],
-                                'product_name'      => $product->name,
-                                'product_quantity'  => $product->qty,
-                                'purchase_price'    => $product->price,
+                                'product_id' => $product->id,
+                                'brand_id' => $product->options->brand_id,
+                                'product_store_id' => $supplier['product_store_id'],
+                                'product_name' => $product->name,
+                                'product_quantity' => $product->qty,
+                                'purchase_price' => $product->price,
+                                'production_date' => $production_date,
+                                'expire_date' => $expire_date,
                             ]);
                         }
                     }
@@ -232,8 +244,8 @@ class Checkout extends Component
         session()->flash('supplier');
 
         $notification = array(
-            'msg'           => 'Order Successfully Submited!',
-            'alert-type'    => 'info'
+            'msg' => 'Order Successfully Submited!',
+            'alert-type' => 'info'
         );
 
         return redirect()->route('purchase.view', $inv)->with($notification);
@@ -268,7 +280,7 @@ class Checkout extends Component
 
         $total_amount = 0;
         foreach (Cart::instance('purchase')->content() as $product) {
-            $total_amount += ((float)$product->qty - (float)$product->options->discount) * (float)$product->price;
+            $total_amount += ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
         }
 
 
