@@ -133,7 +133,10 @@
                                                             -
                                                         @endif
                                                         {{ $product->product_name}}
-                                                        {{'('}}{{ $product->product->size->description}}{{')'}} -
+                                                        @if($product->product->size)
+                                                            {{'('}}{{ $product->product->size->description}}{{')'}}
+                                                        @endif
+                                                        -
                                                         {{ formatAmount((float) $product->quantity - (float) $product->discount_qty)}}
                                                         +
                                                         {{ formatAmount((float) $product->discount_qty)}} =

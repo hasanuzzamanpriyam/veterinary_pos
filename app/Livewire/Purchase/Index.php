@@ -112,6 +112,38 @@ class Index extends Component
     }
 
 
+    // Update expire date for a cart item
+    public function updateExpireDate($rowId, $expireDate)
+    {
+        $cart = Cart::instance('purchase')->content();
+        foreach ($cart as $item) {
+            if ($item->rowId == $rowId) {
+                Cart::instance('purchase')->update($rowId, [
+                    'options' => array_merge($item->options->toArray(), [
+                        'expire_date' => $expireDate,
+                    ]),
+                ]);
+                break;
+            }
+        }
+    }
+
+    // Update production date for a cart item
+    public function updateProductionDate($rowId, $productionDate)
+    {
+        $cart = Cart::instance('purchase')->content();
+        foreach ($cart as $item) {
+            if ($item->rowId == $rowId) {
+                Cart::instance('purchase')->update($rowId, [
+                    'options' => array_merge($item->options->toArray(), [
+                        'production_date' => $productionDate,
+                    ]),
+                ]);
+                break;
+            }
+        }
+    }
+
     //remove product from cart
     public function itemRemove($rowId)
     {

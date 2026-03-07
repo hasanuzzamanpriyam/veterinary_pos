@@ -123,28 +123,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="form-group ">
-                                    <label class="border py-1 purchase_entry_lebel" for="production_date">Production Date</label>
-                                    <div class="input-group date" id="production_date_picker_main">
-                                        <input name="production_date" type="text" class="form-control" placeholder="dd-mm-yyyy" wire:model.defer="production_date">
-                                        <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="form-group ">
-                                    <label class="border py-1 purchase_entry_lebel" for="expire_date">Expire Date</label>
-                                    <div class="input-group date" id="expire_date_picker_main">
-                                        <input name="expire_date" type="text" class="form-control" placeholder="dd-mm-yyyy" wire:model.defer="expire_date">
-                                        <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-th"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <!--End supplier area-->
 
@@ -193,6 +171,10 @@
                                                 style="width: 92px; min-width: 92px; text-align: center">Quantity</th>
                                             <th class="all"
                                                 style="width: 90px; min-width: 90px;; text-align: center">Rate</th>
+                                            <th class="all"
+                                                style="width: 110px; min-width: 110px;; text-align: center">Prod. Date</th>
+                                            <th class="all"
+                                                style="width: 110px; min-width: 110px;; text-align: center">Exp. Date</th>
                                             <th class="all bigger"
                                                 style="width: 90px; min-width: 90px;; text-align: center">Sub Total</th>
                                             <th class="all" style="width: 100px">Action</th>
@@ -226,7 +208,7 @@
                                                     $summary['discount'][$type] += $dis_qty;
                                                     $summary['total'][$type] += $qty - $dis_qty;
                                                 @endphp
-                                                <tr class="text-center sales-entry">
+                                                <tr class="text-center sales-entry" wire:key="cart-item-{{ $product->rowId }}">
                                                     <td>
                                                         <div class="d-flex flex-column align-items-start">
                                                             <span>{{ $product->options->code }}</span>
@@ -275,6 +257,24 @@
                                                                 wire:change="updatePrice({{ $id }}, $event.target.value || 0)"
                                                                 value="{{ $product->price }}"
                                                                 class="form-control">
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="input-group justify-content-center">
+                                                            <input type="date"
+                                                                wire:change="updateProductionDate('{{ $product->rowId }}', $event.target.value)"
+                                                                value="{{ $product->options->production_date }}"
+                                                                class="form-control p-1" style="font-size: 11px">
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="input-group justify-content-center">
+                                                            <input type="date"
+                                                                wire:change="updateExpireDate('{{ $product->rowId }}', $event.target.value)"
+                                                                value="{{ $product->options->expire_date }}"
+                                                                class="form-control p-1" style="font-size: 11px">
                                                         </div>
                                                     </td>
 
@@ -344,7 +344,7 @@
                                                     @endif
                                                 </div>
                                             </td>
-                                            <td colspan="2">
+                                            <td colspan="4">
                                                 <div class="d-flex justify-content-end">
                                                     <span><strong>TK:</strong>
                                                         {{ $total_amount }}/=</span>
@@ -488,21 +488,7 @@
                 @this.set('purchase_date', e.format());
             });
 
-            $('#production_date_picker_main').datepicker({
-                format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: true
-            }).on('changeDate', function(e) {
-                @this.set('production_date', e.format());
-            });
 
-            $('#expire_date_picker_main').datepicker({
-                format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: true
-            }).on('changeDate', function(e) {
-                @this.set('expire_date', e.format());
-            });
         }
 
         initDatePickers();

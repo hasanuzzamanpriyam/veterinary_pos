@@ -87,14 +87,14 @@
                                             @if(empty($product->group_id))
                                                 <td></td>
                                             @else
-                                                <td class="text-left">{{$product->productGroup->name}}</td>
+                                                <td class="text-left">{{$product->productGroup->name ?? 'none'}}</td>
                                             @endif
 
                                             {{-- Size --}}
                                             @if(empty($product->size_id))
                                                 <td></td>
                                             @else
-                                                <td>{{$product->size->name}}</td>
+                                                <td>{{$product->size->name ?? 0}}</td>
                                             @endif
 
                                             {{-- Type --}}

@@ -152,8 +152,6 @@ class Checkout extends Component
                     'supplier_remarks' => $supplier['supplier_remarks'],
                     'date' => $date,
                     'purchase_date' => (!empty($supplier['purchase_date'])) ? date('Y-m-d', strtotime($supplier['purchase_date'])) : null,
-                    'production_date' => (!empty($supplier['production_date'])) ? date('Y-m-d', strtotime($supplier['production_date'])) : null,
-                    'expire_date' => (!empty($supplier['expire_date'])) ? date('Y-m-d', strtotime($supplier['expire_date'])) : null,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);
@@ -185,8 +183,10 @@ class Checkout extends Component
 
                 if (Cart::instance('purchase')->count() > 0) {
                     foreach (Cart::instance('purchase')->content() as $product) {
-                        $production_date = (!empty($supplier['production_date'])) ? date('Y-m-d', strtotime($supplier['production_date'])) : null;
-                        $expire_date = (!empty($supplier['expire_date'])) ? date('Y-m-d', strtotime($supplier['expire_date'])) : null;
+                        $raw_production_date = $product->options->production_date ?? $supplier['production_date'] ?? null;
+                        $raw_expire_date = $product->options->expire_date ?? $supplier['expire_date'] ?? null;
+                        $production_date = (!empty($raw_production_date)) ? date('Y-m-d', strtotime($raw_production_date)) : null;
+                        $expire_date = (!empty($raw_expire_date)) ? date('Y-m-d', strtotime($raw_expire_date)) : null;
 
                         SupplierTransactionDetails::insert(
                             [
