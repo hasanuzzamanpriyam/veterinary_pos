@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,111 +9,113 @@
 </head>
 
 
-    <!-- Latest compiled and minified CSS -->
+<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 <style>
+    body,
+    html {
+        font-family: sans-serif, Arial, Helvetica;
+        border-collapse: collapse;
+        width: 100%;
+        font-weight: 300;
+        font-style: normal;
+    }
 
+    h5,
+    h4,
+    h3 {
+        text-align: center;
+    }
 
-body,html {
-  font-family: sans-serif,Arial, Helvetica;
-  border-collapse: collapse;
-  width: 100%;
-  font-weight: 300;
-font-style: normal;
-}
-h5, h4, h3{
-    text-align: center;
-}
-.table td, .table th
-{
-border: 1px solid #000;
-padding: 8px;
-}
+    .table td,
+    .table th {
+        border: 1px solid #000;
+        padding: 8px;
+    }
 
-.table th
-{
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
-}
-.address-area,.address-table
-{
-    margin: 10px auto;
-    width: 100%;
-}
+    .table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
+    }
 
-.product-list-area{
-    width:68%;
-    float: left;
-}
-.calculation-area{
-    width:30%;
-    float: right;
-}
+    .address-area,
+    .address-table {
+        margin: 10px auto;
+        width: 100%;
+    }
 
-.billing-table td, .table th
-{
-border: 1px solid #000;
-padding: 8px;
-}
+    .product-list-area {
+        width: 68%;
+        float: left;
+    }
 
-.billing-table th
-{
-  padding-top: 6px;
-  padding-bottom: 6px;
-  text-align: left;
-  background-color: #ececf6;
-  color: rgb(0, 0, 0);
-}
-.in-word-area h6{
-    font-size: 12px;
-}
-.in-word-area h6
-{
-   border-bottom: 1px dotted;
+    .calculation-area {
+        width: 30%;
+        float: right;
+    }
 
-}
-.bottom-area
-{
-    width: 100%;
-    margin-top: 45px;
+    .billing-table td,
+    .table th {
+        border: 1px solid #000;
+        padding: 8px;
+    }
 
-}
-.bottom-area
-{
-    width: 100%;
-    margin-top: 35px;
+    .billing-table th {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        text-align: left;
+        background-color: #ececf6;
+        color: rgb(0, 0, 0);
+    }
 
-}
-.customer-signature-area
-{
-    width:30%;
-    float: left;
-}
+    .in-word-area h6 {
+        font-size: 12px;
+    }
 
-.customer-signature-area
-{
-    display: inline;
-    border-top: 1px solid #000;
-}
+    .in-word-area h6 {
+        border-bottom: 1px dotted;
 
-.thanks-area
-{
-    width:40%;
-    float: left;
-}
+    }
 
-.supplier-signature-area{
-    width:30%;
-    float: left;
-}
-.supplier-signature-area
-{
-    border-top: 1px solid #000;
-}
+    .bottom-area {
+        width: 100%;
+        margin-top: 45px;
+
+    }
+
+    .bottom-area {
+        width: 100%;
+        margin-top: 35px;
+
+    }
+
+    .customer-signature-area {
+        width: 30%;
+        float: left;
+    }
+
+    .customer-signature-area {
+        display: inline;
+        border-top: 1px solid #000;
+    }
+
+    .thanks-area {
+        width: 40%;
+        float: left;
+    }
+
+    .supplier-signature-area {
+        width: 30%;
+        float: left;
+    }
+
+    .supplier-signature-area {
+        border-top: 1px solid #000;
+    }
 </style>
 
 <body>
@@ -141,8 +144,8 @@ padding: 8px;
                     <tbody>
                         <tr>
                             <td>{{date('d-m-Y', strtotime($supplier_info->date))}}</td>
-                            <td>{{$supplier_info->supplier->company_name}}</td>
-                            <td>{{$supplier_info->supplier->address}}</td>
+                            <td>{{optional($supplier_info->supplier)->company_name}}</td>
+                            <td>{{optional($supplier_info->supplier)->address}}</td>
 
                         </tr>
                     </tbody>
@@ -157,13 +160,13 @@ padding: 8px;
                     <tbody>
                         <tr>
                             <td>{{$supplier_info->invoice_no}}</td>
-                            <td>{{$supplier_info->warehouse->name}}</td>
+                            <td>{{optional($supplier_info->warehouse)->name}}</td>
                             <td>{{$supplier_info->transport_no}} : {{$supplier_info->delivery_man}}</td>
 
                         </tr>
                     </tbody>
                 </table>
-             </div>
+            </div>
 
             <div class="product-area">
                 <div class="product-list-area">
@@ -189,22 +192,25 @@ padding: 8px;
                                 $type = 0;
                             @endphp
                             @forelse ($products as $product)
-                            @php
-                            $quantity += $product->product_quantity;
-                            $discount += $product->product_discount;
-                            $purchase_qty += $product->product_quantity-$product->product_discount;
-                            $total += $product->sub_total;
-                            $type = $product->product->type;
-                            @endphp
-                            <tr>
-                                <td  class="text-center p-0">{{$product->product_code}}</td>
-                                <td  class="text-center p-0">{{$product->product_name}}</td>
-                                <td class="text-right p-0">{{$product->product_quantity}} {{$product->product->type}}</td>
-                                <td class="text-right p-0">{{$product->product_discount}} {{$product->product->type}}</td>
-                                <td class="text-right p-0">{{$product->product_quantity-$product->product_discount}} {{$product->product->type}} </td>
-                                <td class="text-right p-0">{{$product->product_price}}/=</td>
-                                <td class="text-right p-0">{{$product->sub_total}}/=</td>
-                            </tr>
+                                @php
+                                    $quantity += $product->product_quantity;
+                                    $discount += $product->product_discount;
+                                    $purchase_qty += $product->product_quantity - $product->product_discount;
+                                    $total += $product->sub_total;
+                                    $type = $product->product->type;
+                                @endphp
+                                <tr>
+                                    <td class="text-center p-0">{{$product->product_code}}</td>
+                                    <td class="text-center p-0">{{$product->product_name}}</td>
+                                    <td class="text-right p-0">{{$product->product_quantity}} {{$product->product->type}}
+                                    </td>
+                                    <td class="text-right p-0">{{$product->product_discount}} {{$product->product->type}}
+                                    </td>
+                                    <td class="text-right p-0">{{$product->product_quantity - $product->product_discount}}
+                                        {{$product->product->type}} </td>
+                                    <td class="text-right p-0">{{$product->product_price}}/=</td>
+                                    <td class="text-right p-0">{{$product->sub_total}}/=</td>
+                                </tr>
                             @empty
                                 <tr>
                                     <td colspan="6">
@@ -224,15 +230,44 @@ padding: 8px;
                 <div class="calculation-area">
                     <h4 class="text-center text-dark">Billing Info</h4>
                     <table class="table billing-table table-bordered">
-                        <tr><th>Total Price</th><td>:{{$supplier_info->total_price}}/=</td></tr>
-                        <tr><th>Discount</th><td>:{{$supplier_info->price_discount ?? 0}}/=</td></tr>
-                        <tr><th>Vat</th><td>:{{$supplier_info->vat ?? 0}}/=</td></tr>
-                        <tr><th>Carring</th><td>:{{$supplier_info->carring ?? 0}}/=</td></tr>
-                        <tr><th>Others</th><td>:{{$supplier_info->other_charge ?? 0}}/=</td></tr>
-                        <tr><th>Previous Due</th><td>:{{$supplier_info->old_due ?? 0}}/=</td></tr>
-                        <tr><th>Grand Total</th><td>:{{$supplier_info->old_due+$supplier_info->total_price-($supplier_info->price_discount+$supplier_info->vat+$supplier_info->carring+$supplier_info->other_charge)}}/=</td></tr>
-                        <tr><th>Payment Amount</th><td>:{{$supplier_info->payment ?? 0}}/=</td></tr>
-                        <tr><th>Current Due</th><td>:{{$total = $supplier_info->total_price+$supplier_info->old_due-($supplier_info->price_discount+$supplier_info->vat+$supplier_info->carring+$supplier_info->other_charge+$supplier_info->payment)}}/=</td></tr>
+                        <tr>
+                            <th>Total Price</th>
+                            <td>:{{$supplier_info->total_price}}/=</td>
+                        </tr>
+                        <tr>
+                            <th>Discount</th>
+                            <td>:{{$supplier_info->price_discount ?? 0}}/=</td>
+                        </tr>
+                        <tr>
+                            <th>Vat</th>
+                            <td>:{{$supplier_info->vat ?? 0}}/=</td>
+                        </tr>
+                        <tr>
+                            <th>Carring</th>
+                            <td>:{{$supplier_info->carring ?? 0}}/=</td>
+                        </tr>
+                        <tr>
+                            <th>Others</th>
+                            <td>:{{$supplier_info->other_charge ?? 0}}/=</td>
+                        </tr>
+                        <tr>
+                            <th>Previous Due</th>
+                            <td>:{{$supplier_info->old_due ?? 0}}/=</td>
+                        </tr>
+                        <tr>
+                            <th>Grand Total</th>
+                            <td>:{{$supplier_info->old_due + $supplier_info->total_price - ($supplier_info->price_discount + $supplier_info->vat + $supplier_info->carring + $supplier_info->other_charge)}}/=
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Payment Amount</th>
+                            <td>:{{$supplier_info->payment ?? 0}}/=</td>
+                        </tr>
+                        <tr>
+                            <th>Current Due</th>
+                            <td>:{{$total = $supplier_info->total_price + $supplier_info->old_due - ($supplier_info->price_discount + $supplier_info->vat + $supplier_info->carring + $supplier_info->other_charge + $supplier_info->payment)}}/=
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -259,4 +294,5 @@ padding: 8px;
         </div>
     </div>
 </body>
+
 </html>

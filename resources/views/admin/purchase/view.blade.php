@@ -42,9 +42,9 @@
                                 <tbody>
                                     <tr>
                                         <td>{{date('d-m-Y', strtotime($supplier_info->date))}}</td>
-                                        <td>{{$supplier_info->supplier->company_name}}</td>
-                                        <td>{{$supplier_info->supplier->address}}</td>
-                                        <td>{{$supplier_info->supplier->mobile}}</td>
+                                        <td>{{optional($supplier_info->supplier)->company_name}}</td>
+                                        <td>{{optional($supplier_info->supplier)->address}}</td>
+                                        <td>{{optional($supplier_info->supplier)->mobile}}</td>
 
                                     </tr>
                                 </tbody>
@@ -61,7 +61,7 @@
                                 <tbody>
 
                                     <tr>
-                                        <td>{{$supplier_info->warehouse->name}}</td>
+                                        <td>{{optional($supplier_info->warehouse)->name}}</td>
                                         <td>{{$supplier_info->transport_no}}</td>
                                         <td>{{$supplier_info->delivery_man}}</td>
                                         <td>{{$supplier_info->supplier_remarks}}</td>

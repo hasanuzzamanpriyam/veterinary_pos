@@ -204,10 +204,12 @@
                                         <td class="text-left p-0 comon_column">{{date('d-m-Y',
                                             strtotime($supplier_info->date))}}</td>
                                         <td class="text-left p-0 comon_column">
-                                            {{$supplier_info->supplier->company_name}}</td>
-                                        <td class="text-left p-0 comon_column">{{$supplier_info->supplier->address}}
+                                            {{optional($supplier_info->supplier)->company_name}}</td>
+                                        <td class="text-left p-0 comon_column">
+                                            {{optional($supplier_info->supplier)->address}}
                                         </td>
-                                        <td class="text-left p-0 comon_column">{{$supplier_info->supplier->mobile}}</td>
+                                        <td class="text-left p-0 comon_column">
+                                            {{optional($supplier_info->supplier)->mobile}}</td>
 
                                     </tr>
                                 </tbody>
@@ -224,7 +226,8 @@
                                 <tbody>
 
                                     <tr>
-                                        <td class="text-left p-0 comon_column">{{$supplier_info->warehouse->name}}</td>
+                                        <td class="text-left p-0 comon_column">
+                                            {{optional($supplier_info->warehouse)->name}}</td>
                                         <td class="text-left p-0 comon_column">{{$supplier_info->transport_no}}</td>
                                         <td class="text-left p-0 comon_column">{{$supplier_info->delivery_man}}</td>
                                         <td class="text-left p-0 comon_column">{{$supplier_info->supplier_remarks}}</td>

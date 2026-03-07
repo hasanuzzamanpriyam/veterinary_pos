@@ -40,9 +40,9 @@ Purchase Return View
                             <tbody>
                                 <tr>
                                     <td>{{date('d-m-Y', strtotime($supplier_info->date))}}</td>
-                                    <td>{{$supplier_info->supplier->company_name}}</td>
-                                    <td>{{$supplier_info->supplier->address}}</td>
-                                    <td>{{$supplier_info->supplier->mobile ?? $supplier_info->supplier->phone ?? ''}}</td>
+                                    <td>{{optional($supplier_info->supplier)->company_name}}</td>
+                                    <td>{{optional($supplier_info->supplier)->address}}</td>
+                                    <td>{{optional($supplier_info->supplier)->mobile ?? optional($supplier_info->supplier)->phone ?? ''}}</td>
                                 </tr>
                             </tbody>
                             <thead>
@@ -56,8 +56,8 @@ Purchase Return View
 
                             <tbody>
                                 <tr>
-                                    <td>{{$supplier_info->store->name}}</td>
-                                    <td>{{$supplier_info->warehouse->name}}</td>
+                                    <td>{{optional($supplier_info->store)->name}}</td>
+                                    <td>{{optional($supplier_info->warehouse)->name}}</td>
                                     <td>{{$supplier_info->transport_no}}{{$supplier_info->delivery_man ? ", " . $supplier_info->delivery_man : ''}}</td>
                                     <td>{{$supplier_info->supplier_remarks}}</td>
                                 </tr>

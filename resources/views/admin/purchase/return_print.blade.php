@@ -203,11 +203,13 @@
                                         <td class="text-left p-0 comon_column">{{date('d-m-Y',
                                             strtotime($supplier_ledger->date))}}</td>
                                         <td class="text-left p-0 comon_column">
-                                            {{$supplier_ledger->supplier->company_name}}</td>
-                                        <td class="text-left p-0 comon_column">{{$supplier_ledger->supplier->address}}
+                                            {{optional($supplier_ledger->supplier)->company_name}}</td>
+                                        <td class="text-left p-0 comon_column">
+                                            {{optional($supplier_ledger->supplier)->address}}
                                         </td>
-                                        <td class="text-left p-0 comon_column">{{$supplier_ledger->supplier->mobile ??
-                                            $supplier_ledger->supplier->phone ?? ''}}</td>
+                                        <td class="text-left p-0 comon_column">
+                                            {{optional($supplier_ledger->supplier)->mobile ??
+                                            optional($supplier_ledger->supplier)->phone ?? ''}}</td>
 
                                     </tr>
                                 </tbody>
@@ -222,8 +224,10 @@
 
                                 <tbody>
                                     <tr>
-                                        <td class="text-left p-0 comon_column">{{$supplier_ledger->store->name}}</td>
-                                        <td class="text-left p-0 comon_column">{{$supplier_ledger->warehouse->name}}
+                                        <td class="text-left p-0 comon_column">
+                                            {{optional($supplier_ledger->store)->name}}</td>
+                                        <td class="text-left p-0 comon_column">
+                                            {{optional($supplier_ledger->warehouse)->name}}
                                         </td>
                                         <td class="text-left p-0 comon_column">
                                             {{$supplier_ledger->transport_no}}{{$supplier_ledger->delivery_man ? ", " .
