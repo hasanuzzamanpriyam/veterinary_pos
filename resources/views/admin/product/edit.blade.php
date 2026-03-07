@@ -159,26 +159,6 @@
 
                             <div class="item form-group">
                                 <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                    for="production_date">Production Date<span class=""></span>
-                                </label>
-                                <div class="col-md-8 col-sm-8">
-                                    <input type="date" id="production_date" name="production_date"
-                                        value="{{$product->production_date}}" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="item form-group">
-                                <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
-                                    for="alert_expire_date">Expire Date<span class=""></span>
-                                </label>
-                                <div class="col-md-8 col-sm-8">
-                                    <input type="date" id="alert_expire_date" name="alert_expire_date"
-                                        value="{{$product->alert_expire_date}}" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="item form-group">
-                                <label class="col-form-label col-md-4 col-sm-4 label-align sp_update_title"
                                     for="purchase_rate">Purchase Rate<span class=""></span>
                                 </label>
                                 <div class="col-md-8 col-sm-8">

@@ -74,10 +74,7 @@
                                 <th>Alert Quantity</th>
                                 <td>{{$product['alert_quantity'] ?? ''}}</td>
                             </tr>
-                            <tr>
-                                <th>Alert Expire Date</th>
-                                <td>{{$product['alert_expire_date'] ?? ''}}</td>
-                            </tr>
+
                             <tr>
                                 <th>TP Rate</th>
                                 <td>{{$product['purchase_rate'] ? $product['purchase_rate'] : 0}}/=</td>

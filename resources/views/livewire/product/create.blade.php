@@ -299,43 +299,6 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                    for="production_date">Production Date <span class=""></span></label>
-                            </div>
-                            <div class="col-md-8 col-sm-8">
-                                <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
-                                        <input type="date" id="production_date" name="production_date"
-                                            wire:model="production_date" class="form-control">
-                                    </div>
-                                    @error('production_date')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-2">
-                            <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                    for="alert_expire_date">Expire Date <span class=""></span></label>
-                            </div>
-                            <div class="col-md-8 col-sm-8">
-                                <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
-                                        <input type="date" id="alert_expire_date" name="alert_expire_date"
-                                            wire:model="alert_expire_date" class="form-control">
-                                    </div>
-                                    @error('alert_expire_date')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="item mb-2">
-                            <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="purches_rate">TP
                                     Rate <span class=""></span></label>
                             </div>

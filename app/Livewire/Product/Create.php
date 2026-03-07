@@ -40,9 +40,7 @@ class Create extends Component
     public $category_id;
     public $barcode;
     public $sku;
-    public $alert_expire_date;
     public $remarks;
-    public $production_date;
     public $photo;
 
     public function mount()
@@ -71,9 +69,7 @@ class Create extends Component
             'alert_quantity' => 'required',
             'category_id' => 'nullable',
             'sku' => 'nullable',
-            'alert_expire_date' => 'nullable',
             'barcode' => 'nullable',
-            'production_date' => 'nullable|date',
             'remarks' => 'nullable|max:255',
             'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
             'alternative_product_ids' => 'nullable|array',
@@ -110,9 +106,7 @@ class Create extends Component
             'alert_quantity' => $validated_data['alert_quantity'],
             'category_id' => $validated_data['category_id'],
             'sku' => $validated_data['sku'],
-            'alert_expire_date' => $validated_data['alert_expire_date'],
             'barcode' => $validated_data['barcode'],
-            'production_date' => $validated_data['production_date'],
             'remarks' => $validated_data['remarks'],
             'alternative_product_ids' => $this->alternative_product_ids,
             'photo' => !empty($filename) ? 'storage/' . $filename : '',
@@ -148,9 +142,7 @@ class Create extends Component
             $this->alert_quantity = isset($product['alert_quantity']) ? $product['alert_quantity'] : null; //$product['alert_quantity'];
             $this->category_id = isset($product['category_id']) ? $product['category_id'] : null; //$product['category_id'];
             $this->sku = isset($product['sku']) ? $product['sku'] : null;
-            $this->alert_expire_date = isset($product['alert_expire_date']) ? $product['alert_expire_date'] : null;
             $this->barcode = isset($product['barcode']) ? $product['barcode'] : null; //$product['barcode'];
-            $this->production_date = isset($product['production_date']) ? $product['production_date'] : null;
             $this->remarks = isset($product['remarks']) ? $product['remarks'] : null; //$product['remarks'];
             $this->alternative_product_ids = isset($product['alternative_product_ids']) ? $product['alternative_product_ids'] : [];
             // $this->photo = isset($product['photo']) ? $product['photo'] : null; //$product['photo'];

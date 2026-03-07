@@ -24,9 +24,7 @@
                                 <a href="{{route('product.index')}}" class="btn btn-md btn-primary float-right"> <i
                                         class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
                 {{-- @dump($product) --}}
@@ -47,8 +45,8 @@
                                         $photoPath = str_replace('\\', '/', $photoPath);
                                         $photoUrl = asset(ltrim($photoPath, '/'));
                                     @endphp
-                                    <img src="{{ $photoUrl }}" class="img-thumbnail img-responsive" alt="Logo"
-                                        width="250" height="320">
+                                    <img src="{{ $photoUrl }}" class="img-thumbnail img-responsive" alt="Logo" width="250"
+                                        height="320">
                                 @endif
                             </div>
                         </div>
@@ -83,7 +81,7 @@
                                     <th>Type</th>
                                     <td>{{$product->type}}</td>
                                 </tr>
-                                
+
                             </table>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12">
@@ -92,7 +90,7 @@
                             @endphp
 
                             <table class="product-data table table-striped">
-@if(empty($product->size_id))
+                                @if(empty($product->size_id))
                                 @else
                                     <tr>
                                         <th>Size</th>
@@ -130,8 +128,6 @@
                         <th class="text-center">Purchase Value</th>
                         <th class="text-center">Sales Rate</th>
                         <th class="text-center">Sales Value</th>
-                        <th class="text-center">Production Date</th>
-                        <th class="text-center">Expire Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -161,8 +157,6 @@
                             <td class="text-right">{{ formatAmount($purchase_value) }}</td>
                             <td class="text-right">{{ formatAmount($product->price_rate) }}</td>
                             <td class="text-right">{{ formatAmount($sale_value) }}</td>
-                            <td class="text-center">{{ $product->production_date ? \Carbon\Carbon::parse($product->production_date)->format('d-m-Y') : 'N/A' }}</td>
-                            <td class="text-center">{{ $product->alert_expire_date ? \Carbon\Carbon::parse($product->alert_expire_date)->format('d-m-Y') : 'N/A' }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -173,7 +167,8 @@
                 <tfoot>
                     <tr class="font-weight-bold">
                         <td colspan="3" class="text-right">Total:</td>
-                        <td class="text-center">{{ formatAmount($summary['qty']) }} {{ trans_choice($product->type, $summary['qty']) }}</td>
+                        <td class="text-center">{{ formatAmount($summary['qty']) }}
+                            {{ trans_choice($product->type, $summary['qty']) }}</td>
                         <td></td>
                         <td class="text-right">{{ formatAmount($summary['purchase_tk']) }}</td>
                         <td></td>
