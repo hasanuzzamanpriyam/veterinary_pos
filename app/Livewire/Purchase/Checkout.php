@@ -111,9 +111,9 @@ class Checkout extends Component
 
         if (Cart::instance('purchase')->count() > 0) {
             foreach (Cart::instance('purchase')->content() as $product) {
-                $this->total_qty += $product->qty;
-                $this->product_discount += $product->options->discount;
-                $this->total_amount_after_discount += ($product->qty - $product->options->discount) * $product->price;
+                $this->total_qty += (float)$product->qty;
+                $this->product_discount += (float)$product->options->discount;
+                $this->total_amount_after_discount += ((float)$product->qty - (float)$product->options->discount) * (float)$product->price;
             }
         }
 
@@ -190,11 +190,11 @@ class Checkout extends Component
                                 'product_store_id'  => $supplier['product_store_id'],
                                 'product_id'        => $product->id,
                                 'product_name'      => $product->name,
-                                'quantity'          => $product->qty,
-                                'discount_qty'      => $product->options->discount,
+                                'quantity'          => (float)$product->qty,
+                                'discount_qty'      => (float)$product->options->discount,
                                 'weight'            => $product->options->weight,
-                                'unit_price'        => $product->price,
-                                'total_price'       => ($product->qty - $product->options->discount) * $product->price,
+                                'unit_price'        => (float)$product->price,
+                                'total_price'       => ((float)$product->qty - (float)$product->options->discount) * (float)$product->price,
                                 'transaction_type'  => 'purchase',
                                 'date'              => $date,
                                 'created_at'        => now(),
@@ -268,7 +268,7 @@ class Checkout extends Component
 
         $total_amount = 0;
         foreach (Cart::instance('purchase')->content() as $product) {
-            $total_amount += ($product->qty - $product->options->discount) * $product->price;
+            $total_amount += ((float)$product->qty - (float)$product->options->discount) * (float)$product->price;
         }
 
 

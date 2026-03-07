@@ -162,10 +162,11 @@
                                                 style="width: 70px; min-width: 70px; text-align: center">Code</th>
                                             <th class="all bigger" style="width: 100%">Name</th>
                                             <th class="all"
-                                                style="width: 92px; min-width: 92px; text-align: center">Quantity</th>
+                                                style="width: 125px;min-width: 125px;">Purchase(Q)</th>
                                             <th class="all"
                                                 style="width: 70px; min-width: 70px; text-align: center">Discount</th>
-                                            <th class="all" style="width: 125px;min-width: 125px;">Purchase(Q)</th>
+                                            <th class="all"
+                                                style="width: 92px; min-width: 92px; text-align: center">Quantity</th>
                                             <th class="all"
                                                 style="width: 90px; min-width: 90px;; text-align: center">Rate</th>
                                             <th class="all bigger"
@@ -216,12 +217,13 @@
                                                             <span>{{ $product->name }}</span>
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <div class="input-group justify-content-center">
+                                                    <td class="purchase-qty">
+                                                        <div class="d-flex justify-content-center flex-row gap-2">
                                                             <input type="text"
-                                                                wire:model="quantities"
-                                                                wire:change="updateQuantity({{$id}}, $event.target.value)"
-                                                                value="{{$qty}}"class="form-control purchase-entry-qty">
+                                                                wire:model="purchase_quantities"
+                                                                wire:change="updatePurchaseQty({{$id}}, $event.target.value)"
+                                                                value="{{ $qty - $dis_qty }}"
+                                                                class="form-control">
                                                         </div>
                                                     </td>
                                                     <td>
@@ -233,13 +235,11 @@
                                                         </div>
                                                     </td>
 
-                                                    <td class="purchase-qty">
-                                                        <div class="d-flex justify-content-center flex-row gap-2">
+                                                    <td>
+                                                        <div class="input-group justify-content-center">
                                                             <input type="text"
                                                                 @disabled(true)
-                                                                value="{{ $qty - $dis_qty }}"
-                                                                class="form-control">
-                                                            <span>{{ trans_choice(strtolower($product->options->type), ($qty - $dis_qty)) }}</span>
+                                                                value="{{$qty}}" class="form-control purchase-entry-qty">
                                                         </div>
                                                     </td>
 
@@ -294,8 +294,8 @@
                                             <td></td>
                                             <td>
                                                 <div>
-                                                    @if( isset($summary['qty']) && $summary['qty'] > 0)
-                                                        @foreach ($summary['qty'] as $key => $value)
+                                                    @if( isset($summary['total']) && $summary['total'] > 0)
+                                                        @foreach ($summary['total'] as $key => $value)
                                                             <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
                                                         @endforeach
                                                     @endif
@@ -312,8 +312,8 @@
                                             </td>
                                             <td>
                                                 <div>
-                                                    @if( isset($summary['total']) && $summary['total'] > 0)
-                                                        @foreach ($summary['total'] as $key => $value)
+                                                    @if( isset($summary['qty']) && $summary['qty'] > 0)
+                                                        @foreach ($summary['qty'] as $key => $value)
                                                             <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
                                                         @endforeach
                                                     @endif

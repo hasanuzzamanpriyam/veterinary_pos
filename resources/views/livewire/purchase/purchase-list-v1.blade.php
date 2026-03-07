@@ -36,7 +36,8 @@
                                         <input type="submit" value="Search" class="form-control btn btn-success btn-sm">
                                     </div>
                                     <div class="form-group">
-                                        <button type="reset" wire:click="searchReset" class="form-control btn btn-danger btn-sm">Reset</button>
+                                        <button type="reset" wire:click="searchReset"
+                                            class="form-control btn btn-danger btn-sm">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +45,8 @@
 
                     </div>
                     <div class="table-responsive">
-                        <table id="purchaseList" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                        <table id="purchaseList" class="table table-striped table-bordered nowrap" cellspacing="0"
+                            width="100%">
 
                             <thead>
                                 <tr>
@@ -56,6 +58,8 @@
                                     <th class="all">Delivery Info</th>
                                     <th class="all">Particular</th>
                                     <th class="all">Purchase Qty</th>
+                                    <th class="all">Dis. Qty</th>
+                                    <th class="all">Total Qty</th>
                                     <th class="all">Weight</th>
                                     <th class="all">Purchase Tk</th>
                                     <th class="all">Actions</th>
@@ -63,94 +67,144 @@
                             </thead>
                             <tbody>
                                 @php
-                                $g_total_summary = [];
+                                    $g_total_summary = [];
                                 @endphp
                                 @foreach($supplier_ledger as $purchase)
-                                @php
-                                $qty_summary = ['weight' => 0];
-                                $filtered_products = $products->get($purchase->id, collect());
-                                $g_total_summary['total'] = $g_total_summary['total'] ?? 0;
-                                $g_total_summary['total'] += $purchase->total_price;
-                                @endphp
-                                <tr>
-                                    {{-- Date --}}
-                                    <td class="text-left">{{date('d-m-Y', strtotime($purchase->date))}}</td>
+                                    @php
+                                        $qty_summary = ['weight' => 0];
+                                        $filtered_products = is_array($products) ? collect($products[$purchase->id] ?? []) : $products->get($purchase->id, collect());
+                                        $g_total_summary['total'] = $g_total_summary['total'] ?? 0;
+                                        $g_total_summary['total'] += $purchase->total_price;
+                                    @endphp
+                                    <tr>
+                                        {{-- Date --}}
+                                        <td class="text-left">{{date('d-m-Y', strtotime($purchase->date))}}</td>
 
-                                    {{-- Invoice --}}
-                                    <td class="text-left">{{$purchase->id}}</td>
+                                        {{-- Invoice --}}
+                                        <td class="text-left">{{$purchase->id}}</td>
 
-                                    {{-- Supplier Name --}}
-                                    <td class="text-left">{{$purchase->supplier->company_name ?? ''}}</td>
+                                        {{-- Supplier Name --}}
+                                        <td class="text-left">{{$purchase->supplier->company_name ?? ''}}</td>
 
-                                    {{-- Address --}}
-                                    <td class="text-left">{{$purchase->supplier->address ?? ''}}</td>
+                                        {{-- Address --}}
+                                        <td class="text-left">{{$purchase->supplier->address ?? ''}}</td>
 
-                                    {{-- Mobile --}}
-                                    <td class="text-left">{{($purchase->supplier->phone ?? $purchase->supplier->mobile ?? '')}}</td>
+                                        {{-- Mobile --}}
+                                        <td class="text-left">
+                                            {{($purchase->supplier->phone ?? $purchase->supplier->mobile ?? '')}}
+                                        </td>
 
-                                    {{-- Delivery Info --}}
-                                    <td class="text-left">{{$purchase->warehouse->name ?? ''}}{{$purchase->transport_no ? ', ' . $purchase->transport_no : ''}}</td>
+                                        {{-- Delivery Info --}}
+                                        <td class="text-left">
+                                            {{$purchase->warehouse->name ?? ''}}{{$purchase->transport_no ? ', ' . $purchase->transport_no : ''}}
+                                        </td>
 
-                                    {{-- Particular --}}
-                                    <td class="text-left">
-                                        @foreach ($filtered_products as $product)
-                                        @php
-                                        $type = $product->product->type;
-                                        $qty_summary['purchase'][$type] = $qty_summary['purchase'][$type] ?? 0;
-                                        $qty_summary['purchase'][$type] += ($product->quantity - $product->discount_qty);
-                                        $qty_summary['weight'] = $qty_summary['weight'] ?? 0;
-                                        $qty_summary['weight'] += ($product->quantity - $product->discount_qty) * $product->weight;
-                                        @endphp
-                                        <p class="mb-0 text-left">
-                                            @if($product->product->barcode)
-                                                <svg class="barcode-render" data-barcode="{{ $product->product->barcode }}"
-                                                    style="height: 20px; vertical-align: middle; display: inline-block;"></svg> -
+                                        {{-- Particular --}}
+                                        <td class="text-left">
+                                            @foreach ($filtered_products as $product)
+                                                @if($product->product)
+                                                    @php
+                                                        $type = $product->product->type;
+                                                        $qty_summary['purchase'][$type] = $qty_summary['purchase'][$type] ?? 0;
+                                                        $qty_summary['purchase'][$type] += ((float) $product->quantity - (float) $product->discount_qty);
+                                                        $qty_summary['discount'][$type] = $qty_summary['discount'][$type] ?? 0;
+                                                        $qty_summary['discount'][$type] += (float) $product->discount_qty;
+                                                        $qty_summary['total'][$type] = $qty_summary['total'][$type] ?? 0;
+                                                        $qty_summary['total'][$type] += (float) $product->quantity;
+                                                        $qty_summary['weight'] = $qty_summary['weight'] ?? 0;
+                                                        $qty_summary['weight'] += ((float) $product->quantity - (float) $product->discount_qty) * (float) $product->weight;
+                                                    @endphp
+                                                @endif
+                                                <p class="mb-0 text-left">
+                                                    @if($product->product)
+                                                        @if($product->product->barcode)
+                                                            <svg class="barcode-render" data-barcode="{{ $product->product->barcode }}"
+                                                                style="height: 20px; vertical-align: middle; display: inline-block;"></svg>
+                                                            -
+                                                        @endif
+                                                        {{ $product->product_name}}
+                                                        {{'('}}{{ $product->product->size->description}}{{')'}} -
+                                                        {{ formatAmount((float) $product->quantity - (float) $product->discount_qty)}}
+                                                        +
+                                                        {{ formatAmount((float) $product->discount_qty)}} =
+                                                        {{ formatAmount((float) $product->quantity)}}
+                                                        {{ trans_choice($product->product->type, (float) ($product->quantity))}}{{' @ '}}{{ formatAmount($product->unit_price) }}/=
+                                                        {{ formatAmount($product->total_price)}}/=
+                                                    @else
+                                                        {{ $product->product_name}} (Product Deleted) -
+                                                        {{ formatAmount($product->quantity)}} @
+                                                        {{ formatAmount($product->unit_price) }}/=
+                                                    @endif
+                                                </p>
+                                            @endforeach
+                                        </td>
+
+                                        {{-- Purchase Qty --}}
+                                        <td class="text-center">
+                                            @if(isset($qty_summary['purchase']))
+                                                @foreach ($qty_summary['purchase'] as $type => $qty)
+                                                    @php
+                                                        $g_total_summary['purchase'][$type] = $g_total_summary['purchase'][$type] ?? 0;
+                                                        $g_total_summary['purchase'][$type] += $qty;
+                                                    @endphp
+                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}
+                                                @endforeach
                                             @endif
-                                            {{ $product->product_name}} {{'('}}{{ $product->product->size->description}}{{')'}} -
-                                            {{ formatAmount($product->quantity - $product->discount_qty)}} {{ trans_choice('labels.'.$type, ($product->quantity - $product->discount_qty))}}{{' @ '}}{{ formatAmount($product->unit_price) }}/=
-                                            {{ formatAmount($product->total_price)}}/=
-                                        </p>
-                                        @endforeach
-                                    </td>
+                                        </td>
+                                        {{-- Dis Qty --}}
+                                        <td class="text-center">
+                                            @if(isset($qty_summary['discount']))
+                                                @foreach ($qty_summary['discount'] as $type => $qty)
+                                                    @php
+                                                        $g_total_summary['discount'][$type] = $g_total_summary['discount'][$type] ?? 0;
+                                                        $g_total_summary['discount'][$type] += $qty;
+                                                    @endphp
+                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        {{-- Total Qty --}}
+                                        <td class="text-center">
+                                            @if(isset($qty_summary['total']))
+                                                @foreach ($qty_summary['total'] as $type => $qty)
+                                                    @php
+                                                        $g_total_summary['total_qty'][$type] = $g_total_summary['total_qty'][$type] ?? 0;
+                                                        $g_total_summary['total_qty'][$type] += $qty;
+                                                    @endphp
+                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}
+                                                @endforeach
+                                            @endif
+                                        </td>
 
-                                    {{-- Purchase Qty --}}
-                                    <td class="text-center">
-                                        @if(isset($qty_summary['purchase']))
-                                        @foreach ($qty_summary['purchase'] as $type => $qty)
-                                        @php
-                                        $g_total_summary['purchase'][$type] = $g_total_summary['purchase'][$type] ?? 0;
-                                        $g_total_summary['purchase'][$type] += $qty;
-                                        @endphp
-                                        {{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
-                                        @endforeach
-                                        @endif
-                                    </td>
+                                        {{-- Weight --}}
+                                        <td>
+                                            @php
+                                                $g_total_summary['weight'] = $g_total_summary['weight'] ?? 0;
+                                                $g_total_summary['weight'] += $qty_summary['weight'];
+                                            @endphp
+                                            {{isset($qty_summary['weight']) && $qty_summary['weight'] > 0 ? $qty_summary['weight'] / 1000 : 0}}
+                                        </td>
 
-                                    {{-- Weight --}}
-                                    <td>
-                                        @php
-                                        $g_total_summary['weight'] = $g_total_summary['weight'] ?? 0;
-                                        $g_total_summary['weight'] += $qty_summary['weight'];
-                                        @endphp
-                                        {{isset($qty_summary['weight']) && $qty_summary['weight'] > 0 ? $qty_summary['weight']/1000 : 0}}
-                                    </td>
+                                        {{-- Purchase Tk --}}
+                                        <td class="text-right">{{formatAmount($purchase->total_price)}}/=</td>
 
-                                    {{-- Purchase Tk --}}
-                                    <td class="text-right">{{formatAmount($purchase->total_price)}}/=</td>
-
-                                    {{-- Actions --}}
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle py-0 px-2"
-                                                data-toggle="dropdown">
-                                                <i class="fa fa-list"></i> <span class="caret"></span></button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="{{route('purchase.delete', $purchase->id)}}" class="btn btn-danger" id="delete"><i class="fa fa-trash"></i></a></li>
-                                                <li><a href="{{route('purchase.view', $purchase->id)}}" class="btn btn-info"><i class="fa fa-eye"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        {{-- Actions --}}
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button"
+                                                    class="btn btn-primary btn-sm dropdown-toggle py-0 px-2"
+                                                    data-toggle="dropdown">
+                                                    <i class="fa fa-list"></i> <span class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="{{route('purchase.delete', $purchase->id)}}"
+                                                            class="btn btn-danger" id="delete"><i
+                                                                class="fa fa-trash"></i></a></li>
+                                                    <li><a href="{{route('purchase.view', $purchase->id)}}"
+                                                            class="btn btn-info"><i class="fa fa-eye"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
@@ -163,22 +217,47 @@
                                 <th></th>
                                 <th class="text-center">
                                     @php
-                                    if(isset($g_total_summary['purchase'])) {
-                                    ksort($g_total_summary['purchase']);
-                                    }
+                                        if (isset($g_total_summary['purchase'])) {
+                                            ksort($g_total_summary['purchase']);
+                                        }
                                     @endphp
                                     @foreach (($g_total_summary['purchase'] ?? []) as $type => $qty)
-                                    <span style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</span>
+                                        <span
+                                            style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}</span>
                                     @endforeach
                                 </th>
-                                <th class="text-center" style="white-space: nowrap;">{{formatAmount(($g_total_summary['weight'] ?? 0)/1000)}}</th>
+                                <th class="text-center">
+                                    @php
+                                        if (isset($g_total_summary['discount'])) {
+                                            ksort($g_total_summary['discount']);
+                                        }
+                                    @endphp
+                                    @foreach (($g_total_summary['discount'] ?? []) as $type => $qty)
+                                        <span
+                                            style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}</span>
+                                    @endforeach
+                                </th>
+                                <th class="text-center">
+                                    @php
+                                        if (isset($g_total_summary['total_qty'])) {
+                                            ksort($g_total_summary['total_qty']);
+                                        }
+                                    @endphp
+                                    @foreach (($g_total_summary['total_qty'] ?? []) as $type => $qty)
+                                        <span
+                                            style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}</span>
+                                    @endforeach
+                                </th>
+                                <th class="text-center" style="white-space: nowrap;">
+                                    {{formatAmount(($g_total_summary['weight'] ?? 0) / 1000)}}
+                                </th>
                                 <th class="text-right">{{formatAmount($g_total_summary['total'])}}/=</th>
                                 <th></th>
                             </tfoot>
                         </table>
                     </div>
                     @if (method_exists($supplier_ledger, 'links'))
-                    {{ $supplier_ledger->links() }}
+                        {{ $supplier_ledger->links() }}
                     @endif
                 </div>
             </div>

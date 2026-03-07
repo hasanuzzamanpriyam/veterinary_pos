@@ -69,29 +69,36 @@ class Index extends Component
         $this->date = $date;
     }
 
-    //Increment cart product
+    //Update quantity directly (now used as read-only or internal update)
     public function updateQuantity($id, $quantities)
     {
         foreach (Cart::instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                $item->qty = $quantities;
+                $item->qty = (float)$quantities;
             }
         }
-
-        // $this->dispatch('refresh');
     }
 
-    //Increment cart product
-    public function updateDiscount($id, $discounts)
+    //Update quantity based on Purchase(Q)
+    public function updatePurchaseQty($id, $purchaseQty)
     {
-
         foreach (Cart::instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                $item->options->discount = $discounts;
+                $item->qty = (float)$purchaseQty + (float)$item->options->discount;
             }
         }
+    }
 
-        //$this->dispatch('refresh');
+    //Update discount and recalculate quantity to keep Purchase(Q) constant
+    public function updateDiscount($id, $discounts)
+    {
+        foreach (Cart::instance('purchase')->content() as $item) {
+            if ($item->id == $id) {
+                $purchaseQty = (float)$item->qty - (float)$item->options->discount;
+                $item->options->discount = (float)$discounts;
+                $item->qty = $purchaseQty + (float)$discounts;
+            }
+        }
     }
 
     //Increment cart product
