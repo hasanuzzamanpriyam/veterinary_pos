@@ -170,14 +170,9 @@
                                             <th class="all"
                                                 style="width: 92px; min-width: 92px; text-align: center">Quantity</th>
                                             <th class="all"
-                                                style="width: 90px; min-width: 90px;; text-align: center">Rate</th>
-                                            <th class="all"
-                                                style="width: 110px; min-width: 110px;; text-align: center">Prod. Date</th>
-                                            <th class="all"
-                                                style="width: 110px; min-width: 110px;; text-align: center">Exp. Date</th>
+                                                style="width: 90px; min-width: 90px; text-align: center">Rate</th>
                                             <th class="all bigger"
-                                                style="width: 90px; min-width: 90px;; text-align: center">Sub Total</th>
-                                            <th class="all" style="width: 100px">Action</th>
+                                                style="width: 90px; min-width: 90px; text-align: center">Sub Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -251,7 +246,6 @@
 
                                                     <td class="text-right">
                                                         <div class="input-group">
-
                                                             <input type="text"
                                                                 wire:model="update_price"
                                                                 wire:change="updatePrice({{ $id }}, $event.target.value || 0)"
@@ -260,45 +254,42 @@
                                                         </div>
                                                     </td>
 
-                                                    <td>
-                                                        <div class="input-group justify-content-center">
-                                                            <input type="date"
-                                                                wire:change="updateProductionDate('{{ $product->rowId }}', $event.target.value)"
-                                                                value="{{ $product->options->production_date }}"
-                                                                class="form-control p-1" style="font-size: 11px">
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-                                                        <div class="input-group justify-content-center">
-                                                            <input type="date"
-                                                                wire:change="updateExpireDate('{{ $product->rowId }}', $event.target.value)"
-                                                                value="{{ $product->options->expire_date }}"
-                                                                class="form-control p-1" style="font-size: 11px">
-                                                        </div>
-                                                    </td>
-
                                                     <td class="sub-total">
-                                                        <div
-                                                            class="input-group justify-content-center">
+                                                        <div class="input-group justify-content-center">
                                                             <input type="text"
                                                                 @disabled(true)
                                                                 value="{{ $product->price * ($qty - $dis_qty) }}/-"
                                                                 class="form-control">
                                                         </div>
                                                     </td>
-
-                                                    <td>
-                                                        <div
-                                                            class="input-group justify-content-center">
-                                                            <button type="button"
-                                                                class="btn btn-danger btn-sm m-0"
-                                                                wire:click="itemRemove('{{ $product->rowId }}')"><i
-                                                                    class="fa fa-trash"></i>
-                                                            </button>
+                                                </tr>
+                                                {{-- Second row: Production Date, Expire Date, Action --}}
+                                                <tr class="text-center" wire:key="cart-item-dates-{{ $product->rowId }}" style="background-color: #f9f9f9;">
+                                                    <td colspan="3" class="text-left" style="padding: 4px 8px;">
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <label class="mb-0 text-nowrap" style="font-size:12px; font-weight:600;">Prod. Date:</label>
+                                                            <input type="date"
+                                                                wire:change="updateProductionDate('{{ $product->rowId }}', $event.target.value)"
+                                                                value="{{ $product->options->production_date }}"
+                                                                class="form-control p-1" style="font-size: 12px; max-width: 160px;">
                                                         </div>
                                                     </td>
-
+                                                    <td colspan="3" class="text-left" style="padding: 4px 8px;">
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <label class="mb-0 text-nowrap" style="font-size:12px; font-weight:600;">Exp. Date:</label>
+                                                            <input type="date"
+                                                                wire:change="updateExpireDate('{{ $product->rowId }}', $event.target.value)"
+                                                                value="{{ $product->options->expire_date }}"
+                                                                class="form-control p-1" style="font-size: 12px; max-width: 160px;">
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-right" style="padding: 4px 8px;">
+                                                        <button type="button"
+                                                            class="btn btn-danger btn-sm"
+                                                            wire:click="itemRemove('{{ $product->rowId }}')">
+                                                            <i class="fa fa-trash"></i> Remove
+                                                        </button>
+                                                    </td>
                                                 </tr>
 
                                             @empty
@@ -344,13 +335,12 @@
                                                     @endif
                                                 </div>
                                             </td>
-                                            <td colspan="4">
+                                            <td colspan="2">
                                                 <div class="d-flex justify-content-end">
                                                     <span><strong>TK:</strong>
                                                         {{ $total_amount }}/=</span>
                                                 </div>
                                             </td>
-                                            <td></td>
 
                                         </tr>
                                     </tbody>
