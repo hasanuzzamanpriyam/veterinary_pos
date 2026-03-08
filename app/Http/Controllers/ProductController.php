@@ -181,7 +181,6 @@ class ProductController extends Controller
 
         $alert = array('msg' => 'Product Successfully Updated', 'alert-type' => 'info');
         return redirect()->route('product.view', $request->id)->with($alert);
-
     }
 
     public function delete($id)
@@ -215,7 +214,6 @@ class ProductController extends Controller
 
             $alert = array('msg' => 'Product Successfully Deleted', 'alert-type' => 'success');
             return redirect()->route('product.index')->with($alert);
-
         } catch (\Exception $e) {
             DB::rollBack();
             $alert = array('msg' => 'Error deleting product: ' . $e->getMessage(), 'alert-type' => 'danger');
@@ -250,8 +248,11 @@ class ProductController extends Controller
                 'sale_value' => $items->sum('product_quantity') * $product->price_rate
             ];
         });
+
+        $stock_history = SupplierTransactionDetails::with('store')->where('product_id', $id)->where('transaction_type', 'purchase')->orderBy('date', 'desc')->get();
+
         // dd( $stock);
-        return view('admin.product.view',compact('product', 'stock_data', 'store_data', 'stock'));
+        return view('admin.product.view', compact('product', 'stock_data', 'store_data', 'stock', 'stock_history'));
     }
 
     public function gallery()
@@ -260,9 +261,5 @@ class ProductController extends Controller
         return view('admin.product.gallery', get_defined_vars());
     }
 
-    public function search(Request $request)
-    {
-
-    }
-
+    public function search(Request $request) {}
 }

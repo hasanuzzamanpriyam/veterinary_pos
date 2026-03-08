@@ -13,16 +13,21 @@ class SupplierTransactionDetails extends Model
     protected $fillable = ['transaction_id', 'product_id', 'quantity', 'unit_price', 'discount', 'total_amount'];
     public function warehouse()
     {
-        return $this->belongsTo( Warehouse::class, 'warehouse_id', 'id');
+        return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
     }
 
     public function supplier()
     {
-        return $this->belongsTo( Supplier::class, 'supplier_id', 'id');
+        return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
 
     public function product()
     {
-        return $this->belongsTo( Product::class, 'product_id', 'id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class, 'product_store_id', 'id');
     }
 }

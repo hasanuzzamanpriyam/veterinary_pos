@@ -140,9 +140,9 @@
                             'sale_tk' => 0,
                         ];
                     @endphp
-                    @forelse($stock_data as $key => $stockEntry)
+                    @forelse($stock_history as $key => $stockEntry)
                         @php
-                            $qty = floatval($stockEntry->product_quantity);
+                            $qty = floatval($stockEntry->quantity);
                             $purchase_value = $qty * floatval($product->purchase_rate);
                             $sale_value = $qty * floatval($product->price_rate);
 
@@ -152,7 +152,7 @@
                         @endphp
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td class="text-center">{{ \Carbon\Carbon::parse($stockEntry->created_at)->format('d-m-Y') }}</td>
+                            <td class="text-center">{{ $stockEntry->date ? \Carbon\Carbon::parse($stockEntry->date)->format('d-m-Y') : \Carbon\Carbon::parse($stockEntry->created_at)->format('d-m-Y') }}</td>
                             <td class="text-center">{{ $stockEntry->store->name ?? 'N/A' }}</td>
                             <td class="text-center">{{ formatAmount($qty) }} {{ trans_choice($product->type, $qty) }}</td>
                             <td class="text-right">{{ formatAmount($product->purchase_rate) }}</td>
