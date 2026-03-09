@@ -82,7 +82,12 @@ class Index extends Component
     {
         foreach (Cart::instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                $item->qty = (float) $purchaseQty + (float) $item->options->discount;
+                $newQty = (float) $purchaseQty + (float) $item->options->discount;
+                Cart::instance('purchase')->update($item->rowId, [
+                    'qty' => $newQty,
+                    'options' => $item->options->toArray(),
+                ]);
+                break;
             }
         }
     }
@@ -93,8 +98,14 @@ class Index extends Component
         foreach (Cart::instance('purchase')->content() as $item) {
             if ($item->id == $id) {
                 $purchaseQty = (float) $item->qty - (float) $item->options->discount;
-                $item->options->discount = (float) $discounts;
-                $item->qty = $purchaseQty + (float) $discounts;
+                $newDiscount = (float) $discounts;
+                $newQty = $purchaseQty + $newDiscount;
+                $newOptions = array_merge($item->options->toArray(), ['discount' => $newDiscount]);
+                Cart::instance('purchase')->update($item->rowId, [
+                    'qty' => $newQty,
+                    'options' => $newOptions,
+                ]);
+                break;
             }
         }
     }
@@ -104,13 +115,15 @@ class Index extends Component
     {
         foreach (Cart::instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                $item->price = $update_price;
+                Cart::instance('purchase')->update($item->rowId, [
+                    'price' => (float) $update_price,
+                    'qty' => $item->qty,
+                    'options' => $item->options->toArray(),
+                ]);
+                break;
             }
         }
-
-        //$this->dispatch('refresh');
     }
-
 
     // Update expire date for a cart item
     public function updateExpireDate($rowId, $expireDate)

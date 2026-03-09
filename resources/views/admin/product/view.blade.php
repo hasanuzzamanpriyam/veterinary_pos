@@ -143,7 +143,8 @@
                     @forelse($stock_history as $key => $stockEntry)
                         @php
                             $qty = floatval($stockEntry->quantity);
-                            $purchase_value = $qty * floatval($product->purchase_rate);
+                            $purchase_value = floatval($stockEntry->total_price);
+                            $purchase_rate = $qty > 0 ? $purchase_value / $qty : 0;
                             $sale_value = $qty * floatval($product->price_rate);
 
                             $summary['qty'] += $qty;
@@ -155,7 +156,7 @@
                             <td class="text-center">{{ $stockEntry->date ? \Carbon\Carbon::parse($stockEntry->date)->format('d-m-Y') : \Carbon\Carbon::parse($stockEntry->created_at)->format('d-m-Y') }}</td>
                             <td class="text-center">{{ $stockEntry->store->name ?? 'N/A' }}</td>
                             <td class="text-center">{{ formatAmount($qty) }} {{ trans_choice($product->type, $qty) }}</td>
-                            <td class="text-right">{{ formatAmount($product->purchase_rate) }}</td>
+                            <td class="text-right">{{ formatAmount($purchase_rate) }}</td>
                             <td class="text-right">{{ formatAmount($purchase_value) }}</td>
                             <td class="text-right">{{ formatAmount($product->price_rate) }}</td>
                             <td class="text-right">{{ formatAmount($sale_value) }}</td>

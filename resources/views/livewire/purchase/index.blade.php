@@ -125,7 +125,6 @@
                             </div>
 
                             <!--End supplier area-->
-
                             <!--Start Search Product area-->
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="row justify-content-end">
@@ -221,7 +220,6 @@
                                                     <td class="purchase-qty">
                                                         <div class="d-flex justify-content-center flex-row gap-2">
                                                             <input type="text"
-                                                                wire:model="purchase_quantities"
                                                                 wire:change="updatePurchaseQty({{$id}}, $event.target.value)"
                                                                 value="{{ $qty - $dis_qty }}"
                                                                 class="form-control">
@@ -230,7 +228,6 @@
                                                     <td>
                                                         <div class="input-group justify-content-center">
                                                             <input type="number"
-                                                            wire:model="discounts"
                                                             wire:change="updateDiscount({{$id}}, $event.target.value)"
                                                             value="{{$dis_qty}}" class="form-control">
                                                         </div>
@@ -247,7 +244,6 @@
                                                     <td class="text-right">
                                                         <div class="input-group">
                                                             <input type="text"
-                                                                wire:model="update_price"
                                                                 wire:change="updatePrice({{ $id }}, $event.target.value || 0)"
                                                                 value="{{ $product->price }}"
                                                                 class="form-control">
