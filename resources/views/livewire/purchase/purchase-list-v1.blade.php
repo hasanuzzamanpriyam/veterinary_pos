@@ -254,7 +254,7 @@
                                 <th class="text-center" style="white-space: nowrap;">
                                     {{formatAmount(($g_total_summary['weight'] ?? 0) / 1000)}}
                                 </th>
-                                <th class="text-right">{{formatAmount($g_total_summary['total'])}}/=</th>
+                                <th class="text-right">{{formatAmount($g_total_summary['total'] ?? 0)}}/=</th>
                                 <th></th>
                             </tfoot>
                         </table>
