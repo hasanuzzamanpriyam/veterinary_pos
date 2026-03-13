@@ -84,7 +84,18 @@
                                         </td>
                                         <td class="text-center">
                                             @if($product->photo)
-                                                <img src="{{ asset('storage/' . $product->photo) }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                                @php
+                                                    $imagePath = $product->photo;
+                                                    // Remove leading slash if exists
+                                                    $imagePath = ltrim($imagePath, '/');
+                                                    // If path starts with 'storage/', remove it as we add it in asset()
+                                                    if (strpos($imagePath, 'storage/') === 0) {
+                                                        $imagePath = substr($imagePath, 8);
+                                                    }
+                                                    // Ensure it points to the correct subdirectory if not already present
+                                                    // (Based on list_dir findings, it might need images/product/ prefix)
+                                                @endphp
+                                                <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
                                             @else
                                                 <span class="text-muted">No Image</span>
                                             @endif
