@@ -30,7 +30,7 @@
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th class="all">S.N.</th>
+                                        <th class="all">Serial</th>
                                         <th class="all">Code</th>
                                         <th class="all">Name</th>
                                         <th class="all">Company</th>
@@ -69,7 +69,7 @@
                                             {{-- Name --}}
                                             <td class="text-left">{{$product->name}}</td>
 
-{{-- Brand --}}
+                                            {{-- Brand --}}
                                             @if(empty($product->brand_id))
                                                 <td></td>
                                             @else
@@ -104,7 +104,7 @@
                                             <td>{{$stock_qty}}</td>
 
 
-                                            {{-- Purches Rate --}}
+                                            {{-- Purchese Rate --}}
                                             @if(empty($product->purchase_rate))
                                                 <td></td>
                                             @else
@@ -124,7 +124,8 @@
                                             @else
                                                 <td class="text-right">{{formatAmount($product->price_rate)}}/-</td>
                                             @endif
-{{-- Action --}}
+
+                                            {{-- Action --}}
                                             <td>
                                                 <div class="btn-group btn-group-vertical customer_diplay_list">
                                                     <button type="button"
