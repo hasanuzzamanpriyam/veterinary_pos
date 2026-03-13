@@ -4,7 +4,7 @@ namespace App\Livewire\Quotation;
 
 use Livewire\Component;
 use App\Models\Product;
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\Quotation;
 
 class Index extends Component

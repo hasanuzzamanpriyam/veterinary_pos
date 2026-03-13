@@ -70,7 +70,7 @@ class Index extends Component
     //Update quantity directly (now used as read-only or internal update)
     public function updateQuantity($id, $quantities)
     {
-        foreach (Cart::instance('purchase')->content() as $item) {
+        foreach (app('cart')->instance('purchase')->content() as $item) {
             if ($item->id == $id) {
                 $item->qty = (float) $quantities;
             }
@@ -80,10 +80,10 @@ class Index extends Component
     //Update quantity based on Purchase(Q)
     public function updatePurchaseQty($id, $purchaseQty)
     {
-        foreach (Cart::instance('purchase')->content() as $item) {
+        foreach (app('cart')->instance('purchase')->content() as $item) {
             if ($item->id == $id) {
                 $newQty = (float) $purchaseQty + (float) $item->options->discount;
-                Cart::instance('purchase')->update($item->rowId, [
+                app('cart')->instance('purchase')->update($item->rowId, [
                     'qty' => $newQty,
                     'options' => $item->options->toArray(),
                 ]);
@@ -95,13 +95,13 @@ class Index extends Component
     //Update discount and recalculate quantity to keep Purchase(Q) constant
     public function updateDiscount($id, $discounts)
     {
-        foreach (Cart::instance('purchase')->content() as $item) {
+        foreach (app('cart')->instance('purchase')->content() as $item) {
             if ($item->id == $id) {
                 $purchaseQty = (float) $item->qty - (float) $item->options->discount;
                 $newDiscount = (float) $discounts;
                 $newQty = $purchaseQty + $newDiscount;
                 $newOptions = array_merge($item->options->toArray(), ['discount' => $newDiscount]);
-                Cart::instance('purchase')->update($item->rowId, [
+                app('cart')->instance('purchase')->update($item->rowId, [
                     'qty' => $newQty,
                     'options' => $newOptions,
                 ]);
@@ -113,9 +113,9 @@ class Index extends Component
     //Increment cart product
     public function updatePrice($id, $update_price)
     {
-        foreach (Cart::instance('purchase')->content() as $item) {
+        foreach (app('cart')->instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                Cart::instance('purchase')->update($item->rowId, [
+                app('cart')->instance('purchase')->update($item->rowId, [
                     'price' => (float) $update_price,
                     'qty' => $item->qty,
                     'options' => $item->options->toArray(),
@@ -128,10 +128,10 @@ class Index extends Component
     // Update expire date for a cart item
     public function updateExpireDate($rowId, $expireDate)
     {
-        $cart = Cart::instance('purchase')->content();
+        $cart = app('cart')->instance('purchase')->content();
         foreach ($cart as $item) {
             if ($item->rowId == $rowId) {
-                Cart::instance('purchase')->update($rowId, [
+                app('cart')->instance('purchase')->update($rowId, [
                     'options' => array_merge($item->options->toArray(), [
                         'expire_date' => $expireDate,
                     ]),
@@ -144,10 +144,10 @@ class Index extends Component
     // Update production date for a cart item
     public function updateProductionDate($rowId, $productionDate)
     {
-        $cart = Cart::instance('purchase')->content();
+        $cart = app('cart')->instance('purchase')->content();
         foreach ($cart as $item) {
             if ($item->rowId == $rowId) {
-                Cart::instance('purchase')->update($rowId, [
+                app('cart')->instance('purchase')->update($rowId, [
                     'options' => array_merge($item->options->toArray(), [
                         'production_date' => $productionDate,
                     ]),
@@ -161,9 +161,9 @@ class Index extends Component
     public function itemRemove($rowId)
     {
 
-        $cart = Cart::instance('purchase')->content()->where('rowId', $rowId);
+        $cart = app('cart')->instance('purchase')->content()->where('rowId', $rowId);
         if ($cart->isNotEmpty()) {
-            Cart::instance('purchase')->remove($rowId);
+            app('cart')->instance('purchase')->remove($rowId);
         }
     }
 
@@ -171,7 +171,7 @@ class Index extends Component
     public function sessionStore($id)
     {
         $products = Product::where('id', $id)->first();
-        Cart::instance('purchase')->add([
+        app('cart')->instance('purchase')->add([
             'id' => $products->id,
             'name' => $products->name,
             'qty' => 1,
@@ -190,7 +190,7 @@ class Index extends Component
     //cancel order
     public function cancel()
     {
-        Cart::instance('purchase')->destroy();
+        app('cart')->instance('purchase')->destroy();
         session()->flash('supplier');
         session()->flash('pre_due');
         session()->flash('adv_pay');
@@ -338,3 +338,4 @@ class Index extends Component
             ->section('main-content');
     }
 }
+

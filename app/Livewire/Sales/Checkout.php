@@ -4,7 +4,7 @@ namespace App\Livewire\Sales;
 
 use App\Models\Bank;
 use App\Models\Brand;
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\CustomerLedger;
 use App\Models\CustomerTransactionDetails;
 use App\Models\Warehouse;
@@ -89,7 +89,7 @@ class Checkout extends Component
     // calceal order
     public function cancel()
     {
-        Cart::instance('sales')->destroy();
+        app('cart')->instance('sales')->destroy();
         session()->flash('customer');
         session()->flash('sales_old_due');
         session()->flash('sales_adv_pay');
@@ -122,14 +122,14 @@ class Checkout extends Component
     public function salesStore()
     {
 
-        // dd(Cart::instance('sales')->content());
+        // dd(app('cart')->instance('sales')->content());
 
         $validateData = $this->validate();
         // dd(Session::get('customer'));
         $date = null;
 
-        if (Cart::instance('sales')->count() > 0) {
-            foreach (Cart::instance('sales')->content() as $product) {
+        if (app('cart')->instance('sales')->count() > 0) {
+            foreach (app('cart')->instance('sales')->content() as $product) {
                 $this->total_qty += $product->qty;
                 $this->product_discount += $product->options->discount;
                 $this->total_amount_after_discount += ($product->qty - $product->options->discount) * $product->price;
@@ -198,8 +198,8 @@ class Checkout extends Component
                         'mobile' => $value['mobile'],
                     ]);
 
-                    if (Cart::instance('sales')->count() > 0) {
-                        foreach (Cart::instance('sales')->content() as $product) {
+                    if (app('cart')->instance('sales')->count() > 0) {
+                        foreach (app('cart')->instance('sales')->content() as $product) {
                             foreach (Session::get('customer') as $value) {
 
                                 CustomerTransactionDetails::insert([
@@ -241,7 +241,7 @@ class Checkout extends Component
         }
 
         // clear all session in selse cart
-        Cart::instance('sales')->destroy();
+        app('cart')->instance('sales')->destroy();
         session()->flash('customer');
         session()->flash('balance');
 
@@ -286,7 +286,7 @@ class Checkout extends Component
 
 
         $total_amount = 0;
-        foreach (Cart::instance('sales')->content() as $product) {
+        foreach (app('cart')->instance('sales')->content() as $product) {
             $total_amount += ($product->qty - $product->options->discount) * $product->price;
 
             //   dd($total_amount);
@@ -354,3 +354,4 @@ class Checkout extends Component
             ->section('main-content');
     }
 }
+

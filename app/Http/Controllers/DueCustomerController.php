@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\PriceGroup;
 use App\Models\CustomerLedger;
 use App\Models\CustomerTypes;

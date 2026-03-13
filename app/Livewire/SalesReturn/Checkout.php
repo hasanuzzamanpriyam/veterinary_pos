@@ -2,7 +2,7 @@
 
 namespace App\Livewire\SalesReturn;
 
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\CustomerLedger;
 use App\Models\CustomerTransactionDetails;
 use App\Models\ProductStore;
@@ -56,7 +56,7 @@ class Checkout extends Component
     // calceal order
     public function cancel()
     {
-        Cart::instance('sales_return')->destroy();
+        app('cart')->instance('sales_return')->destroy();
         session()->flash('return_customer');
 
         return redirect()->route('live.sales.return.create');
@@ -79,8 +79,8 @@ class Checkout extends Component
         if (session()->has('return_customer')) {
 
             // check if return qty is less than or equal sales qty
-            if (Cart::instance('sales_return')->count() > 0) {
-                foreach (Cart::instance('sales_return')->content() as $product) {
+            if (app('cart')->instance('sales_return')->count() > 0) {
+                foreach (app('cart')->instance('sales_return')->content() as $product) {
                     $productQty = $product->qty;
                     $transactionId = $product->options->transaction_id;
 
@@ -99,15 +99,15 @@ class Checkout extends Component
 
             // dd($error_count);
             if ($error_count > 0) {
-                Cart::instance('sales_return')->destroy();
+                app('cart')->instance('sales_return')->destroy();
                 $notification = array('msg' => 'Return quantity must be less than or equal to sales quantity', 'alert-type' => 'error');
                 return redirect()->route('live.sales.return.create')->with($notification);
             }
 
 
 
-            if (Cart::instance('sales_return')->count() > 0) {
-                foreach (Cart::instance('sales_return')->content() as $product) {
+            if (app('cart')->instance('sales_return')->count() > 0) {
+                foreach (app('cart')->instance('sales_return')->content() as $product) {
                     $this->total_qty += $product->qty;
                 }
             }
@@ -115,7 +115,7 @@ class Checkout extends Component
             if( session()->has('return_customer') ){
                 $value = Session::get('return_customer');
 
-                $cart_total = Cart::instance('sales_return')->total() - Cart::instance('sales_return')->tax();
+                $cart_total = app('cart')->instance('sales_return')->total() - app('cart')->instance('sales_return')->tax();
                 $inv = DB::transaction(function() use ($value, $cart_total, $validateData) {
                     $final_balance = $this->current_due;
 
@@ -168,9 +168,9 @@ class Checkout extends Component
 
 
                     //check sales
-                    if (Cart::instance('sales_return')->count() > 0 && $invoice) {
+                    if (app('cart')->instance('sales_return')->count() > 0 && $invoice) {
 
-                        foreach (Cart::instance('sales_return')->content() as $product) {
+                        foreach (app('cart')->instance('sales_return')->content() as $product) {
 
                             CustomerTransactionDetails::where('id', $product->options->transaction_id)->increment('return_qty', $product->qty);
 
@@ -212,7 +212,7 @@ class Checkout extends Component
         // dd("sss");
 
         // clear all session in selse cart
-        Cart::instance('sales_return')->destroy();
+        app('cart')->instance('sales_return')->destroy();
         session()->flash('return_customer');
 
         $notification = array('msg' => 'Sales Return Successfully Submited!', 'alert-type' => 'info');
@@ -223,7 +223,7 @@ class Checkout extends Component
     {
         $customer = Session::get('return_customer');
         // dd($customer);
-        $sales_return = Cart::instance('sales_return')->content();
+        $sales_return = app('cart')->instance('sales_return')->content();
         $totalPrice = 0;
 
         // Iterate over the cart content and calculate the total price
@@ -256,3 +256,4 @@ class Checkout extends Component
             ->section('main-content');
     }
 }
+

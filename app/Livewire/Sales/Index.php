@@ -3,7 +3,7 @@
 namespace App\Livewire\Sales;
 
 use App\Models\Brand;
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\CustomerLedger;
 use App\Models\PriceGroupProduct;
 use App\Models\Product;
@@ -86,7 +86,7 @@ class Index extends Component
         $this->error_count = 0;
 
         // $result =  $this->products[$id]['qty'] ?? 0;
-        foreach (Cart::instance('sales')->content() as $item) {
+        foreach (app('cart')->instance('sales')->content() as $item) {
 
             if ($item->id == $id) {
                 $item->qty = $quantities;
@@ -104,7 +104,7 @@ class Index extends Component
     public function updateDiscount($id, $discounts)
     {
 
-        foreach (Cart::instance('sales')->content() as $item) {
+        foreach (app('cart')->instance('sales')->content() as $item) {
             if ($item->id == $id) {
                 $item->options->discount = $discounts;
             }
@@ -115,7 +115,7 @@ class Index extends Component
     //Increment cart product
     public function updatePrice($id, $update_price)
     {
-        foreach (Cart::instance('sales')->content() as $item) {
+        foreach (app('cart')->instance('sales')->content() as $item) {
             if ($item->id == $id) {
                 $item->price = $update_price;
             }
@@ -127,9 +127,9 @@ class Index extends Component
     public function itemRemove($rowId)
     {
 
-        $cart = Cart::instance('sales')->content()->where('rowId', $rowId);
+        $cart = app('cart')->instance('sales')->content()->where('rowId', $rowId);
         if ($cart->isNotEmpty()) {
-            Cart::remove($rowId);
+            app('cart')->instance('sales')->remove($rowId);
         }
     }
 
@@ -152,7 +152,7 @@ class Index extends Component
 
         $price_group_rate = PriceGroupProduct::where('price_group_id', $this->price_group_id)->where('product_id', $id)->value('price_group_rate');
 
-        Cart::instance('sales')->add([
+        app('cart')->instance('sales')->add([
             'id' =>  $products->product_id,
             'name' => $products->product_name,
             'qty' => 1,
@@ -177,7 +177,7 @@ class Index extends Component
     //canceal order
     public function canceal()
     {
-        Cart::instance('sales')->destroy();
+        app('cart')->instance('sales')->destroy();
         session()->flash('customer');
         session()->flash('balance');
         return redirect()->route('live.sales.create');
@@ -342,3 +342,4 @@ class Index extends Component
             ->section('main-content');
     }
 }
+

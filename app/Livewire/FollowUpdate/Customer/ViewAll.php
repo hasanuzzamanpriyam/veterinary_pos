@@ -2,7 +2,7 @@
 
 namespace App\Livewire\FollowUpdate\Customer;
 
-use App\Models\customer;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Livewire\Component;
 

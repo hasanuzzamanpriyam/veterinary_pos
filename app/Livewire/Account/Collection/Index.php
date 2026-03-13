@@ -4,7 +4,7 @@ namespace App\Livewire\Account\Collection;
 
 use App\Models\Bank;
 use App\Models\CustomerLedger;
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\CustomerFollowUpdate;
 use App\Models\PaymentGateway;
 use Illuminate\Support\Facades\DB;

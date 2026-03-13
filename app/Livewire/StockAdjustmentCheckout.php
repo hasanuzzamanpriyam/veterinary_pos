@@ -21,7 +21,7 @@ class StockAdjustmentCheckout extends Component
 
     public function cancel()
     {
-        Cart::instance('stock_adjust')->destroy();
+        app('cart')->instance('stock_adjust')->destroy();
         session()->flash('store_stock_adjust');
         return redirect()->route('live.pstockadjustment');
     }
@@ -33,8 +33,8 @@ class StockAdjustmentCheckout extends Component
     }
 
     public function stockStore(){
-        if (Cart::instance('stock_adjust')->count() > 0) {
-            foreach (Cart::instance('stock_adjust')->content() as $product) {
+        if (app('cart')->instance('stock_adjust')->count() > 0) {
+            foreach (app('cart')->instance('stock_adjust')->content() as $product) {
                 // dd($product);
 
                 $productId = $product->id; // Product ID
@@ -94,7 +94,7 @@ class StockAdjustmentCheckout extends Component
 
             }
 
-            Cart::instance('stock_adjust')->destroy();
+            app('cart')->instance('stock_adjust')->destroy();
             session()->flash('store_stock_adjust');
 
             $notification = array('msg' => 'Stock adjustment successful!', 'alert-type' => 'success');
@@ -105,8 +105,8 @@ class StockAdjustmentCheckout extends Component
     public function render()
     {
 
-        if (Cart::instance('stock_adjust')->count() > 0) {
-            $this->products = json_decode(Cart::instance('stock_adjust')->content());
+        if (app('cart')->instance('stock_adjust')->count() > 0) {
+            $this->products = json_decode(app('cart')->instance('stock_adjust')->content());
         }
         // dd($this->products);
         return view('livewire.stock-adjustment-checkout')
@@ -114,3 +114,4 @@ class StockAdjustmentCheckout extends Component
         ->section('main-content');;
     }
 }
+

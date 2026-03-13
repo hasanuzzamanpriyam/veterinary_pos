@@ -55,7 +55,7 @@ class Checkout extends Component
     // calceal order
     public function cancel()
     {
-        Cart::instance('purchase_return')->destroy();
+        app('cart')->instance('purchase_return')->destroy();
         session()->flash('return_supplier');
         session()->flash('supplier_balance');
         session()->flash('purchase_invoice_no');
@@ -70,8 +70,8 @@ class Checkout extends Component
         $error_count = 0;
         $inv = 0;
 
-        if (Cart::instance('purchase_return')->count() > 0) {
-            foreach (Cart::instance('purchase_return')->content() as $product) {
+        if (app('cart')->instance('purchase_return')->count() > 0) {
+            foreach (app('cart')->instance('purchase_return')->content() as $product) {
                 // $this->total_qty += $product->qty;
                 $productQty = $product->qty;
                 $transactionId = $product->options->transaction_id;
@@ -91,13 +91,13 @@ class Checkout extends Component
         }
 
         if ($error_count > 0) {
-            Cart::instance('purchase_return')->destroy();
+            app('cart')->instance('purchase_return')->destroy();
             $notification = array('msg' => 'Return quantity must be less than or equal to purchase quantity', 'alert-type' => 'error');
             return redirect()->route('live.purchase.return.create')->with($notification);
         }
 
-        if (Cart::instance('purchase_return')->count() > 0) {
-            foreach (Cart::instance('purchase_return')->content() as $product) {
+        if (app('cart')->instance('purchase_return')->count() > 0) {
+            foreach (app('cart')->instance('purchase_return')->content() as $product) {
                 $this->total_qty += $product->qty;
             }
         }
@@ -105,7 +105,7 @@ class Checkout extends Component
 
         if ($this->supplier_info) {
             $value = $this->supplier_info;
-            $cart_total = Cart::instance('purchase_return')->total() - Cart::instance('purchase_return')->tax();
+            $cart_total = app('cart')->instance('purchase_return')->total() - app('cart')->instance('purchase_return')->tax();
             $inv = DB::transaction(function() use ($value, $cart_total, $validateData) {
                 $final_balance = $value['balance'] - $cart_total - $this->carring - $this->other_charge;
 
@@ -153,9 +153,9 @@ class Checkout extends Component
                     'balance'      => $final_balance
                 ]);
 
-                if (Cart::instance('purchase_return')->count() > 0 && $invoice) {
+                if (app('cart')->instance('purchase_return')->count() > 0 && $invoice) {
 
-                    foreach (Cart::instance('purchase_return')->content() as $product) {
+                    foreach (app('cart')->instance('purchase_return')->content() as $product) {
 
                         SupplierTransactionDetails::where('id', $product->options->transaction_id)->decrement('return_qty', $product->qty);
 
@@ -195,7 +195,7 @@ class Checkout extends Component
         }
 
         // clear all session
-        Cart::instance('purchase_return')->destroy();
+        app('cart')->instance('purchase_return')->destroy();
         session()->flash('return_supplier');
         session()->flash('supplier_balance');
         session()->flash('purchase_invoice_no');
@@ -206,8 +206,8 @@ class Checkout extends Component
 
     public function render()
     {
-        $this->total_price = Cart::instance('purchase_return')->total();
-        $this->return_amount = Cart::instance('purchase_return')->total();
+        $this->total_price = app('cart')->instance('purchase_return')->total();
+        $this->return_amount = app('cart')->instance('purchase_return')->total();
 
         if ($this->carring) {
             $this->return_amount += $this->carring;
@@ -228,3 +228,4 @@ class Checkout extends Component
             ->section('main-content');
     }
 }
+

@@ -45,7 +45,7 @@ class ManageProductStock extends Component
     //Increment cart product
     public function updateQuantity($id, $quantities)
     {
-        foreach (Cart::instance('manage_stock')->content() as $item) {
+        foreach (app('cart')->instance('manage_stock')->content() as $item) {
             if ($item->id == $id) {
                 $item->qty = $quantities;
                 // $item->options->stock += $quantities;
@@ -56,7 +56,7 @@ class ManageProductStock extends Component
     //Increment cart product
     public function updatePrice($id, $update_price)
     {
-        foreach (Cart::instance('manage_stock')->content() as $item) {
+        foreach (app('cart')->instance('manage_stock')->content() as $item) {
             if ($item->id == $id) {
                 $item->price = $update_price;
             }
@@ -68,9 +68,9 @@ class ManageProductStock extends Component
     public function itemRemove($rowId)
     {
 
-        $cart = Cart::instance('manage_stock')->content()->where('rowId', $rowId);
+        $cart = app('cart')->instance('manage_stock')->content()->where('rowId', $rowId);
         if ($cart->isNotEmpty()) {
-            Cart::remove($rowId);
+            app('cart')->remove($rowId);
         }
     }
 
@@ -79,7 +79,7 @@ class ManageProductStock extends Component
     {
         $product = Product::where('id', $id)->first();
         $product_stock = $this->product_stores[$id]['qty'] ?? 0;
-        Cart::instance('manage_stock')->add([
+        app('cart')->instance('manage_stock')->add([
             'id' => $product->id,
             'name' => $product->name,
             'qty' => 1,
@@ -120,7 +120,7 @@ class ManageProductStock extends Component
     //canceal order
     public function cancel()
     {
-        Cart::instance('manage_stock')->destroy();
+        app('cart')->instance('manage_stock')->destroy();
         session()->flash('product_store_data');
         return redirect()->route('product.stock.manage');
     }
@@ -180,3 +180,4 @@ class ManageProductStock extends Component
             ->section('main-content');
     }
 }
+

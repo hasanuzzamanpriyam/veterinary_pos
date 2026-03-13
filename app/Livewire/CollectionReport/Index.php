@@ -3,7 +3,7 @@
 namespace App\Livewire\CollectionReport;
 
 use App\Models\Collection;
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\CustomerLedger;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;

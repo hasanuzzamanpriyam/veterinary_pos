@@ -19,4 +19,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-log
+/log
+*.log
+.DS_Store
+Thumbs.db
