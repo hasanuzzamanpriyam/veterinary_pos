@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Customer\Transaction;
 
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\CustomerLedger;
 use App\Models\CustomerTransactionDetails;
 use Carbon\Carbon;

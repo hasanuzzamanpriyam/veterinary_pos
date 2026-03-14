@@ -125,10 +125,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
             ->sum(\Illuminate\Support\Facades\DB::raw('product_stores.product_quantity * products.purchase_rate'));
 
         // Due Customer: Total ids (count)
-        $totalDueCustomerCount = App\Models\customer::where('balance', '>', 0)->count();
+        $totalDueCustomerCount = App\Models\Customer::where('balance', '>', 0)->count();
 
         // Due Customer Amount: Total Balance
-        $totalDueCustomerAmount = App\Models\customer::where('balance', '>', 0)->sum('balance');
+        $totalDueCustomerAmount = App\Models\Customer::where('balance', '>', 0)->sum('balance');
 
         // Due Supplier: Total ids (count)
         $totalDueSupplierCount = App\Models\Supplier::where('balance', '>', 0)->count();
@@ -387,7 +387,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     // Product route
     Route::prefix('product')->group(function () {
-        Route::get('/', [ProductController::class, 'index'])->name('product.index');
+        Route::get('/', App\Livewire\Product\ProductList::class)->name('product.index');
         Route::post('/', [ProductController::class, 'store'])->name('product.store');
         Route::get('stock', App\Livewire\Product\Stock::class)->name('product.stock');
 
@@ -718,61 +718,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     });
 
     //Clear route cache
-    Route::get('/route-clear', function () {
-        Artisan::call('route:clear');
-        return 'Routes cache cleared';
-    });
-    Route::get('/route-cache', function () {
-        Artisan::call('route:cache');
-        return 'Routes cached';
-    });
+    // Route::get('/route-clear', function () {
+    //     Artisan::call('route:clear');
+    //     return 'Routes cache cleared';
+    // });
 
-    //Clear config cache
-    Route::get('/config-clear', function () {
-        Artisan::call('config:clear');
-        return 'Routes cache cleared';
-    });
-    Route::get('/config-cache', function () {
-        Artisan::call('config:cache');
-        return 'Config cached';
-    });
-
-    // Clear view cache
-    Route::get('/view-clear', function () {
-        Artisan::call('view:clear');
-        return 'View cache cleared';
-    });
-    Route::get('/view-cache', function () {
-        Artisan::call('view:cache');
-        return 'View cached';
-    });
-
-    // Event cache
-    Route::get('/event-clear', function () {
-        Artisan::call('event:clear');
-        return 'Event cleared';
-    });
-    Route::get('/event-cache', function () {
-        Artisan::call('event:cache');
-        return 'Event cached';
-    });
-
-    // Clear application cache
-    Route::get('/clear-cache', function () {
-        Artisan::call('cache:clear');
-        return 'Application cache cleared';
-    });
-
-    // Clear cache using reoptimized class
-    Route::get('/optimize-clear', function () {
-        Artisan::call('optimize:clear');
-        return 'All cache cleared';
-    });
-
-    Route::get('/migrate', function () {
-        Artisan::call('migrate', ['--force' => true]);
-        return response()->json(['message' => 'Migrations executed successfully']);
-    });
 });
 
 

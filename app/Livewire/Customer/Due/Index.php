@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Customer\Due;
 
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\CustomerLedger;
 use Livewire\Component;
 

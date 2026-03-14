@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Brand;
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\PriceGroupProduct;
 use App\Models\Product;
 use App\Models\ProductStore;

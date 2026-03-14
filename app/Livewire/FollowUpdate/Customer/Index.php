@@ -2,7 +2,7 @@
 
 namespace App\Livewire\FollowUpdate\Customer;
 
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\CustomerFollowUpdate;
 use Carbon\Carbon;
 use Livewire\Component;

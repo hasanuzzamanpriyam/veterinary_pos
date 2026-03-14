@@ -4,7 +4,7 @@ namespace App\Livewire\Sales;
 
 use App\Models\Bank;
 use App\Models\Brand;
-use App\Models\customer;
+use App\Models\Customer;
 use App\Models\CustomerLedger;
 use App\Models\CustomerTransactionDetails;
 use App\Models\Warehouse;
