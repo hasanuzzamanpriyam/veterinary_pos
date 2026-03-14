@@ -284,9 +284,26 @@ class ProductController extends Controller
         return view('admin.product.view', compact('product', 'stock_data', 'store_data', 'stock', 'stock_history', 'alternative_products'));
     }
 
-    public function gallery()
+    public function gallery(Request $request)
     {
-        $products = Product::latest()->get();
+        $query = Product::with(['brand', 'category'])->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhereHas('brand', function ($b) use ($search) {
+                      $b->where('name', 'like', '%' . $search . '%');
+                  })
+                  ->orWhereHas('category', function ($c) use ($search) {
+                      $c->where('name', 'like', '%' . $search . '%');
+                  });
+            });
+        }
+
+        $products = $query->paginate(24);
+        $products->appends($request->all());
+
         return view('admin.product.gallery', get_defined_vars());
     }
 
