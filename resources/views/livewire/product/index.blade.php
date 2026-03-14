@@ -43,8 +43,9 @@
                                 <tr>
                                     <th class="all">S.N.</th>
                                     <th class="all">Code</th>
+                                    <th class="all">image</th>
                                     <th class="all">Name</th>
-                                    <th class="all">Brand</th>
+                                    <th class="all">Company</th>
                                     <th class="all">Category</th>
                                     <th class="all">Group</th>
                                     <th class="all">Size</th>
@@ -57,6 +58,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $barcodeGenerator = new Picqer\Barcode\BarcodeGeneratorSVG();
+                                @endphp
                                 @forelse($products as $product)
                                     @php
                                         $stock_qty = isset($stockList[$product->id]) ? $stockList[$product->id]['qty'] : 0;
@@ -64,11 +68,25 @@
                                     <tr>
                                         <td>{{ $loop->iteration + ($products->currentPage() - 1) * $products->perPage() }}</td>
                                         
-                                        <td>
+                                        <td class="text-center">
                                             @if($product->barcode)
-                                                <svg class="barcode-render" data-barcode="{{ $product->barcode }}"
-                                                    style="height: 25px; margin-top: 4px; max-width: 100%;">
-                                                </svg>
+                                                <div class="d-inline-block bg-white border rounded pt-2 pb-1 px-2 text-center" style="min-width: 90px;">
+                                                    <div style="height: 30px; display: flex; align-items: center; justify-content: center;">
+                                                        {!! $barcodeGenerator->getBarcode($product->barcode, $barcodeGenerator::TYPE_CODE_128, 1.5, 30, 'black') !!}
+                                                    </div>
+                                                    <div class="mt-1" style="font-size: 13px; font-family: monospace; letter-spacing: 2px;">
+                                                        {{ $product->barcode }}
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <span class="text-muted">No Barcode</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if($product->photo)
+                                                <img src="{{ asset('storage/' . $product->photo) }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                            @else
+                                                <span class="text-muted">No Image</span>
                                             @endif
                                         </td>
 
@@ -145,14 +163,6 @@
 
 @push('scripts')
 <script>
-    document.addEventListener('livewire:initialized', () => {
-        @this.on('hook:after', () => {
-            renderBarcodes();
-        });
-    });
-    
-    document.addEventListener('livewire:updated', () => {
-        renderBarcodes();
-    });
+    // Barcode rendering is handled by Alpine.js x-init on each row
 </script>
 @endpush
