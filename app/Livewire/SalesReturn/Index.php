@@ -52,7 +52,7 @@ class Index extends Component
     {
         $sales_data = CustomerTransactionDetails::where('transaction_id', $invoice)->where('product_id', $id)->first();
 
-        foreach (Cart::instance('sales_return')->content() as $item) {
+        foreach (app('cart')->instance('sales_return')->content() as $item) {
 
             if ($quantities <= $sales_data->quantity) {
                 if ($item->id == $id) {
@@ -75,7 +75,7 @@ class Index extends Component
     //Increment cart product
     public function updateDiscount($id, $discounts)
     {
-        foreach (Cart::instance('sales_return')->content() as $item) {
+        foreach (app('cart')->instance('sales_return')->content() as $item) {
             if ($item->id == $id) {
                 $item->options->discount = $discounts;
             }
@@ -85,7 +85,7 @@ class Index extends Component
     //Increment cart product
     public function updatePrice($id, $update_price)
     {
-        foreach (Cart::instance('sales_return')->content() as $item) {
+        foreach (app('cart')->instance('sales_return')->content() as $item) {
             if ($item->id == $id) {
                 $item->price = $update_price;
             }
@@ -96,9 +96,9 @@ class Index extends Component
     //remove product from cart
     public function itemRemove($rowId)
     {
-        $cart = Cart::instance('sales_return')->content()->where('rowId', $rowId);
+        $cart = app('cart')->instance('sales_return')->content()->where('rowId', $rowId);
         if ($cart->isNotEmpty()) {
-            Cart::remove($rowId);
+            app('cart')->remove($rowId);
         }
     }
 
@@ -124,7 +124,7 @@ class Index extends Component
         }
 
         if($sales->quantity > 0){
-            Cart::instance('sales_return')->add([
+            app('cart')->instance('sales_return')->add([
                 'id' =>  $sales->product_id,
                 'name' => $sales->product_name,
                 'qty' => 1,
@@ -145,7 +145,7 @@ class Index extends Component
     //cancel order
     public function cancel()
     {
-        Cart::instance('sales_return')->destroy();
+        app('cart')->instance('sales_return')->destroy();
         session()->flash('return_customer');
         return redirect()->route('live.sales.return.create');
     }
@@ -279,3 +279,4 @@ class Index extends Component
             ->section('main-content');
     }
 }
+

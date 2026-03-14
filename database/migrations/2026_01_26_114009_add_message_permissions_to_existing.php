@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        \DB::table('permissions')->insert([
+        DB::table('permissions')->insert([
             ['name' => 'message-view', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'message-delete', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'message-reply', 'guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
@@ -44,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        \DB::table('permissions')->whereIn('name', ['message-view', 'message-delete', 'message-reply'])->delete();
+        DB::table('permissions')->whereIn('name', ['message-view', 'message-delete', 'message-reply'])->delete();
     }
 };

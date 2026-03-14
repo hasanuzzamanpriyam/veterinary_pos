@@ -50,7 +50,7 @@ class StockCheckout extends Component
             return redirect()->route('product.stock.manage');
         }
         $this->product_store_data = session()->get('product_store_data');
-        if (Cart::instance('manage_stock')->count() == 0) {
+        if (app('cart')->instance('manage_stock')->count() == 0) {
             return redirect()->route('product.stock.manage');
         }
     }
@@ -64,7 +64,7 @@ class StockCheckout extends Component
     // calceal order
     public function cancel()
     {
-        Cart::instance('manage_stock')->destroy();
+        app('cart')->instance('manage_stock')->destroy();
         session()->flash('product_store_data');
         return redirect()->route('product.stock.manage');
     }
@@ -95,8 +95,8 @@ class StockCheckout extends Component
     public function stockStore()
     {
         $product_store_id = session()->get('product_store_data')['id'];
-        if (Cart::instance('manage_stock')->count() > 0) {
-            foreach (Cart::instance('manage_stock')->content() as $product) {
+        if (app('cart')->instance('manage_stock')->count() > 0) {
+            foreach (app('cart')->instance('manage_stock')->content() as $product) {
                 $this->total_qty += $product->qty;
                 $this->total_amount += $product->qty * $product->price;
                 ProductStore::create([
@@ -111,7 +111,7 @@ class StockCheckout extends Component
         }
 
         // clear all session in selse cart
-        Cart::instance('manage_stock')->destroy();
+        app('cart')->instance('manage_stock')->destroy();
         session()->flash('product_store_data');
 
         $notification = array('msg' => 'Stock updated successfully!', 'alert-type' => 'info');
@@ -150,7 +150,7 @@ class StockCheckout extends Component
     public function render()
     {
         $this->product_store_data = Session::get('product_store_data');
-        $this->products = json_decode(Cart::instance('manage_stock')->content());
+        $this->products = json_decode(app('cart')->instance('manage_stock')->content());
 
         $total_amount = 0;
         foreach ($this->products as $product) {
@@ -161,3 +161,4 @@ class StockCheckout extends Component
         return view('livewire.stock-checkout')->extends('layouts.admin')->section('main-content');
     }
 }
+

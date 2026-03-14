@@ -85,7 +85,7 @@ class Pstockadjusment extends Component
 
     public function updateQuantity($id, $quantities)
     {
-        foreach (Cart::instance('stock_adjust')->content() as $item) {
+        foreach (app('cart')->instance('stock_adjust')->content() as $item) {
             if ($item->id == $id) {
                 $item->qty = $quantities;
             }
@@ -94,7 +94,7 @@ class Pstockadjusment extends Component
 
     public function updatePrice($id, $update_price)
     {
-        foreach (Cart::instance('stock_adjust')->content() as $item) {
+        foreach (app('cart')->instance('stock_adjust')->content() as $item) {
             if ($item->id == $id) {
                 $item->price = $update_price;
             }
@@ -104,16 +104,16 @@ class Pstockadjusment extends Component
     public function itemRemove($rowId)
     {
 
-        $cart = Cart::instance('stock_adjust')->content()->where('rowId', $rowId);
+        $cart = app('cart')->instance('stock_adjust')->content()->where('rowId', $rowId);
         if ($cart->isNotEmpty()) {
-            Cart::remove($rowId);
+            app('cart')->remove($rowId);
         }
     }
 
     public function sessionStore($id)
     {
         $product = Product::where('id', $id)->first();
-        Cart::instance('stock_adjust')->add([
+        app('cart')->instance('stock_adjust')->add([
             'id' => $product->id,
             'name' => $product->name,
             'qty' => 1,
@@ -176,7 +176,7 @@ class Pstockadjusment extends Component
 
     public function render()
     {
-        if ($this->source_store_id || $this->destination_store_id || Cart::instance('stock_adjust')->count() > 0) {
+        if ($this->source_store_id || $this->destination_store_id || app('cart')->instance('stock_adjust')->count() > 0) {
             $this->dispatch('dataUpdated');
         }
         $stores = Store::where('status', 1)->get();
@@ -211,3 +211,4 @@ class Pstockadjusment extends Component
             ->section('main-content');
     }
 }
+

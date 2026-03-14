@@ -78,7 +78,7 @@ class Checkout extends Component
     // calceal order
     public function cancel()
     {
-        Cart::instance('purchase')->destroy();
+        app('cart')->instance('purchase')->destroy();
         session()->flash('supplier');
         session()->flash('pre_due');
         session()->flash('adv_pay');
@@ -109,8 +109,8 @@ class Checkout extends Component
         // dd($validateData);
 
 
-        if (Cart::instance('purchase')->count() > 0) {
-            foreach (Cart::instance('purchase')->content() as $product) {
+        if (app('cart')->instance('purchase')->count() > 0) {
+            foreach (app('cart')->instance('purchase')->content() as $product) {
                 $this->total_qty += (float) $product->qty;
                 $this->product_discount += (float) $product->options->discount;
                 $this->total_amount_after_discount += ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
@@ -181,8 +181,8 @@ class Checkout extends Component
                     'balance' => $final_balance
                 ]);
 
-                if (Cart::instance('purchase')->count() > 0) {
-                    foreach (Cart::instance('purchase')->content() as $product) {
+                if (app('cart')->instance('purchase')->count() > 0) {
+                    foreach (app('cart')->instance('purchase')->content() as $product) {
                         $raw_production_date = $product->options->production_date ?? $supplier['production_date'] ?? null;
                         $raw_expire_date = $product->options->expire_date ?? $supplier['expire_date'] ?? null;
                         $production_date = (!empty($raw_production_date)) ? date('Y-m-d', strtotime($raw_production_date)) : null;
@@ -240,7 +240,7 @@ class Checkout extends Component
 
 
         // clear all session
-        Cart::instance('purchase')->destroy();
+        app('cart')->instance('purchase')->destroy();
         session()->flash('supplier');
 
         $notification = array(
@@ -279,7 +279,7 @@ class Checkout extends Component
         $this->prev_balance = $this->supplier['balance'] ?? 0;
 
         $total_amount = 0;
-        foreach (Cart::instance('purchase')->content() as $product) {
+        foreach (app('cart')->instance('purchase')->content() as $product) {
             $total_amount += ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
         }
 
@@ -320,3 +320,4 @@ class Checkout extends Component
             ->section('main-content');
     }
 }
+

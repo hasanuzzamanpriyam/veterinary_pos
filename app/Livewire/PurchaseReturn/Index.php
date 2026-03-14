@@ -58,7 +58,7 @@ class Index extends Component
     {
         $purchase_data = SupplierTransactionDetails::where('transaction_id', $invoice_no)->where('product_id', $id)->first();
         // dd($purchase_data->quantity, $quantities);
-        foreach (Cart::instance('purchase_return')->content() as $item) {
+        foreach (app('cart')->instance('purchase_return')->content() as $item) {
             if ($quantities <= $purchase_data->quantity ) {
                 if ($item->id == $id) {
                     $item->qty = $quantities;
@@ -80,7 +80,7 @@ class Index extends Component
     //Increment cart product
     public function updateDiscount($id, $discounts)
     {
-        foreach (Cart::instance('purchase_return')->content() as $item) {
+        foreach (app('cart')->instance('purchase_return')->content() as $item) {
             if ($item->id == $id) {
                 $item->options->discount = $discounts;
             }
@@ -90,7 +90,7 @@ class Index extends Component
     //Increment cart product
     public function updatePrice($id, $update_price)
     {
-        foreach (Cart::instance('purchase_return')->content() as $item) {
+        foreach (app('cart')->instance('purchase_return')->content() as $item) {
             if ($item->id == $id) {
                 $item->price = $update_price;
             }
@@ -101,9 +101,9 @@ class Index extends Component
     //remove product from cart
     public function itemRemove($rowId)
     {
-        $cart = Cart::instance('purchase_return')->content()->where('rowId', $rowId);
+        $cart = app('cart')->instance('purchase_return')->content()->where('rowId', $rowId);
         if ($cart->isNotEmpty()) {
-            Cart::remove($rowId);
+            app('cart')->remove($rowId);
         }
     }
 
@@ -124,7 +124,7 @@ class Index extends Component
     {
         $products = ProductStore::where('product_id', $id)->first();
         $purchase = SupplierTransactionDetails::where('supplier_id', $this->supplier_search)->where('transaction_id', $this->purchase_invoice_no)->where('product_id', $id)->first();
-        Cart::instance('purchase_return')->add([
+        app('cart')->instance('purchase_return')->add([
             'id' =>  $products->product_id,
             'name' => $products->product_name,
             'qty' => 1,
@@ -145,7 +145,7 @@ class Index extends Component
     //cancel order
     public function cancel()
     {
-        Cart::instance('purchase_return')->destroy();
+        app('cart')->instance('purchase_return')->destroy();
         session()->flash('return_supplier');
         session()->flash('supplier_balance');
         session()->flash('purchase_invoice_no');
@@ -262,3 +262,4 @@ class Index extends Component
             ->section('main-content');
     }
 }
+
