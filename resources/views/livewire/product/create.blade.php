@@ -180,14 +180,14 @@
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                    for="product_type_id">Product Type <span class=""></span></label>
+                                    for="product_type_id">Product Mode <span class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
                                     <div class="w-100" wire:ignore>
                                         <select name="product_type_id" id="product_type_id" wire:model="product_type_id"
                                             class="form-control">
-                                            <option value="">Select Product Type</option>
+                                            <option value="">Select Product Mode</option>
                                             @foreach($product_types as $ptype)
                                                 <option value="{{$ptype->id}}">{{$ptype->name}}</option>
                                             @endforeach

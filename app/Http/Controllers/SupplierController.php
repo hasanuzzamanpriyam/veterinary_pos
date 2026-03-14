@@ -160,7 +160,7 @@ class SupplierController extends Controller
         self::recheck($request->id);
 
         $alert = array('msg' => 'Supplier Successfully Updated', 'alert-type' => 'info');
-        return redirect()->route('supplier.view', $request->id)->with($alert);
+        return redirect()->route('supplier.view', ['id' => $request->id])->with($alert);
 
     }
 

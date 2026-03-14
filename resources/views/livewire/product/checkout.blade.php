@@ -54,7 +54,7 @@
                                 <td>{{$product_groups->find($product['group_id'])->name ?? ''}}</td>
                             </tr>
                             <tr>
-                                <th>Type</th>
+                                <th>Mode</th>
                                 <td>{{ucfirst($product['type'])}}</td>
                             </tr>
                             <tr>
