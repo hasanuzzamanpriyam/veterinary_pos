@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
+                                    <div class="w-100" wire:ignore>
                                         <select name="brand_id" id="brand_id" wire:model="brand_id"
                                             class="form-control">
                                             <option value="">Select Option</option>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
+                                    <div class="w-100" wire:ignore>
                                         <select name="category_id" id="category_id" wire:model="category_id"
                                             class="form-control">
                                             <option value="">No Category</option>
@@ -139,7 +139,7 @@
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
+                                    <div class="w-100" wire:ignore>
                                         <select name="group_id" id="group_id" wire:model="group_id"
                                             class="form-control">
                                             <option value="">Select Option</option>
@@ -162,7 +162,7 @@
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
+                                    <div class="w-100" wire:ignore>
                                         <select name="size_id" id="size_id" wire:model="size_id" class="form-control">
                                             <option value="">Select Option</option>
                                             @foreach($sizes as $size)
@@ -184,7 +184,7 @@
                             </div>
                             <div class="col-md-8 col-sm-8">
                                 <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100">
+                                    <div class="w-100" wire:ignore>
                                         <select name="product_type_id" id="product_type_id" wire:model="product_type_id"
                                             class="form-control">
                                             <option value="">Select Product Type</option>
@@ -379,3 +379,25 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        var selects = [
+            { id: '#brand_id', model: 'brand_id' },
+            { id: '#category_id', model: 'category_id' },
+            { id: '#group_id', model: 'group_id' },
+            { id: '#size_id', model: 'size_id' },
+            { id: '#product_type_id', model: 'product_type_id' }
+        ];
+
+        selects.forEach(function(item) {
+            $(item.id).select2({
+                width: '100%'
+            }).on('change', function (e) {
+                @this.set(item.model, e.target.value);
+            });
+        });
+    });
+</script>
+@endpush

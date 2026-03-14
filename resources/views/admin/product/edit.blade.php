@@ -330,4 +330,13 @@
             }
         });
     </script>
+    @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#brand_id, #category_id, #group_id, #size_id, #product_type_id').select2({
+                width: '100%'
+            });
+        });
+    </script>
+    @endpush
 @endsection

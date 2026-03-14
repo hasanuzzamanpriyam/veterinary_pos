@@ -70,7 +70,7 @@ class ManageProductStock extends Component
 
         $cart = app('cart')->instance('manage_stock')->content()->where('rowId', $rowId);
         if ($cart->isNotEmpty()) {
-            app('cart')->remove($rowId);
+            app('cart')->instance('manage_stock')->remove($rowId);
         }
     }
 

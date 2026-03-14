@@ -1,164 +1,146 @@
-<div class="col-md-12 col-sm-12 ">
+<div class="col-md-12 col-sm-12">
     <div class="x_panel">
-        <div class="x_title p-3">
-            <div class="header-title d-flex align-items-center gap-2">
+        <div class="x_title">
+            <div class="d-flex align-items-center justify-content-between">
                 <h2>Stock Checkout</h2>
-                <a href="#" wire:click="cancel()" class="mr-auto ml-3 cursor-pointer"><i class="fa fa-close"></i></a>
+                <a href="#" wire:click="cancel()" class="btn btn-sm btn-outline-secondary">
+                    <i class="fa fa-times"></i> Close
+                </a>
             </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="x_content p-3">
+
+        <div class="x_content">
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    <ul>
+                    <ul class="mb-0">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
             @endif
-            <form wire:submit.prevent="stockStore()" enctype="multipart/form-data" data-parsley-validate
-                        class="form-horizontal form-label-left">
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12">
 
-                        @csrf
-                        <!--Start supplier area-->
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <h5 class="x_title text-center text-dark">Store Info</h5>
-                                @if ($product_store_data)
-                                    <table class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>id</th>
-                                                <th>Store/Warehouse Name</th>
-                                                <th>Address</th>
-                                                <th>Mobile</th>
+            <form wire:submit.prevent="stockStore()" enctype="multipart/form-data" data-parsley-validate>
+                @csrf
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 mx-auto">
+                        <!-- Store Info Card -->
+                        @if ($product_store_data)
+                            <div class="card border-0 shadow-sm mb-4">
+                                <div class="card-header bg-white py-3">
+                                    <h5 class="mb-0">Store Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm table-borderless mb-0">
+                                        <tr>
+                                            <th style="width: 120px;">ID</th>
+                                            <td>{{ $product_store_data['id'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ $product_store_data['name'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{{ $product_store_data['address'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Mobile</th>
+                                            <td>{{ $product_store_data['mobile'] }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+
+                        <!-- Products Card -->
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white py-3">
+                                <h5 class="mb-0">Products to Checkout</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover mb-0">
+                                        <thead class="thead-light">
+                                            <tr class="text-center">
+                                                <th>Code</th>
+                                                <th>Name</th>
+                                                <th>Quantity</th>
+                                                <th>Prev Stock</th>
+                                                <th>Price Rate</th>
+                                                <th>Sub Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>{{ $product_store_data['id'] }}</td>
-                                                <td>{{ $product_store_data['name'] }}</td>
-                                                <td>{{ $product_store_data['address'] }}</td>
-                                                <td>{{ $product_store_data['mobile'] }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <!--End supplier area-->
-                            {{-- Start Purchase Total Amount Area --}}
-
-
-
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <h5 class="x_title text-center text-dark">Products Info</h5>
-                                <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th class="all">Code</th>
-                                            <th class="all">Name</th>
-                                            <th class="all">Quantity</th>
-                                            <th class="all">Prev Stock</th>
-                                            <th class="all">Price Rate</th>
-                                            <th class="all">Sub Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                            $type = 0;
-                                            $total_amount = 0;
-                                            $total_sales = 0;
-                                            $total_discounts = 0;
-                                            $total_qty = 0;
-                                            $items = 0;
-                                        @endphp
-                                        {{-- @dump($products) --}}
-                                        @forelse ($products as $product)
                                             @php
-                                                $type = $product->options->type;
-                                                $total_qty += $product->qty;
-                                                $items++;
-                                                $summary['qty'][$type] = $summary['qty'][$type] ?? 0;
-                                                $summary['qty'][$type] += $product->qty;
+                                                $total_qty = 0;
+                                                $items = 0;
+                                                $summaryQty = [];
                                             @endphp
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex flex-column align-items-start">
+
+                                            @forelse ($products as $product)
+                                                @php
+                                                    $total_qty += $product->qty;
+                                                    $items++;
+                                                    $summaryQty[$product->options->type] = ($summaryQty[$product->options->type] ?? 0) + $product->qty;
+                                                @endphp
+                                                <tr>
+                                                    <td class="align-middle text-center">
                                                         @if($product->options->barcode)
                                                             <svg class="barcode-render" data-barcode="{{ $product->options->barcode }}"
-                                                                style="height: 25px; margin-top: 4px; max-width: 100%;"></svg>
+                                                                 style="height: 25px; max-width: 100%;"></svg>
                                                         @endif
-                                                    </div>
-                                                </td>
-                                                <td>{{ $product->name }}</td>
-                                                <td class="text-center">
-                                                    {{ $product->qty }} {{ trans_choice($product->options->type, $product->qty) }}
-                                                </td>
-
-                                                <td class="text-center">
-                                                    <span>{{ $product->options->stock }} {{trans_choice($product->options->type, $product->options->stock)}}</span>
-                                                </td>
-                                                <td class="text-right">{{ $product->price }}/=</td>
-                                                <td class="text-right">{{ $product->qty * $product->price }}/=</td>
-                                            </tr>
-                                        @empty
+                                                    </td>
+                                                    <td class="align-middle">{{ $product->name }}</td>
+                                                    <td class="align-middle text-center">
+                                                        {{ $product->qty }} {{ trans_choice($product->options->type, $product->qty) }}
+                                                    </td>
+                                                    <td class="align-middle text-center">
+                                                        {{ $product->options->stock }} {{ trans_choice($product->options->type, $product->options->stock) }}
+                                                    </td>
+                                                    <td class="align-middle text-right">{{ $product->price }}/=</td>
+                                                    <td class="align-middle text-right">{{ $product->qty * $product->price }}/=</td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="6" class="text-center py-4">No products found.</td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                        <tfoot class="bg-light">
                                             <tr>
-                                                <td>No Product Found!</td>
+                                                <td><strong>Items:</strong> {{ $items }}</td>
+                                                <td></td>
+                                                <td>
+                                                    @foreach ($summaryQty as $type => $qty)
+                                                        <span class="badge badge-info mr-1">{{ $qty }} {{ $type }}</span>
+                                                    @endforeach
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="text-right"><strong>{{ $grand_total }}/=</strong></td>
                                             </tr>
-                                        @endforelse
-
-                                    </tbody>
-                                    <tfoot>
-                                        <tr class="font-weight-bold">
-                                            <td>
-                                                <div class="d-flex justify-content-start">
-                                                    <span><strong>{{trans_choice('labels.items', $items)}}:</strong>
-                                                        {{ $items }}</span>
-                                                </div>
-                                            </td>
-                                            <td></td>
-                                            <td>
-                                                <div>
-                                                    @if( isset($summary['qty']) && $summary['qty'] > 0)
-                                                        @foreach ($summary['qty'] as $key => $value)
-                                                            <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice(strtolower($key), $value)}}</span></span>
-                                                        @endforeach
-                                                    @endif
-                                                </div>
-                                            </td>
-
-                                            <td></td>
-                                            <td></td>
-                                            <td colspan="1" class="text-right">{{ $grand_total }}/=</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             </div>
-                            {{-- End Purchase Total Amount Area --}}
                         </div>
 
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12">
-                    <div class="row">
-                        <div class="ln_solid"></div>
-                        <div class="form-group col-md-12">
-                            <div class="input-group justify-content-center d-flex" style="gap: 10px">
-                                <button type="button" wire:click="back" class="btn btn-primary btn-md">Back</button>
-                                <button type="button" wire:click="cancel" class="btn btn-danger btn-md">Cancel</button>
-                                <input type="submit" value="Add Stock" class="btn btn-success btn-md">
-                            </div>
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-center mt-3">
+                            <button type="button" wire:click="back" class="btn btn-primary mr-2">
+                                <i class="fa fa-arrow-left"></i> Back
+                            </button>
+                            <button type="button" wire:click="cancel" class="btn btn-danger mr-2">
+                                <i class="fa fa-times"></i> Cancel
+                            </button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-plus"></i> Add Stock
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12"></div>
-            </div>
             </form>
         </div>
     </div>
