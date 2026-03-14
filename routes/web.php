@@ -399,6 +399,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('update', [ProductController::class, 'update'])->name('product.update');
         Route::get('delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
         Route::get('gallery', [ProductController::class, 'gallery'])->name('product.gallery');
+        Route::get('download/{format}', [ProductController::class, 'exportProducts'])->name('product.download');
 
         Route::get('stock-manage', App\Livewire\ManageProductStock::class)->name('product.stock.manage');
         Route::get('stock-checkout', App\Livewire\StockCheckout::class)->name('product.stock.checkout');

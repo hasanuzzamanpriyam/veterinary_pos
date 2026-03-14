@@ -25,6 +25,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductController extends Controller
 {
@@ -117,6 +120,11 @@ class ProductController extends Controller
         $brands = Brand::get();
         $sizes = Size::get();
         $product_types = ProductType::get();
+        $all_products = Product::where('id', '!=', $id)->orderBy('name', 'asc')->get();
+        $existing_alternative_ids = DB::table('product_alternatives')
+            ->where('product_id', $id)
+            ->pluck('alternative_product_id')
+            ->toArray();
 
         return view('admin.product.edit', get_defined_vars());
     }
@@ -178,6 +186,21 @@ class ProductController extends Controller
             'remarks' => !empty($request->remarks) ? $request->remarks : $existingProduct->remarks,
             'photo' => $photo_path,
         ]);
+
+        // Sync alternative products
+        DB::table('product_alternatives')->where('product_id', $request->id)->delete();
+        if ($request->has('alternative_product_ids') && is_array($request->alternative_product_ids)) {
+            $alternative_records = [];
+            foreach ($request->alternative_product_ids as $alt_id) {
+                $alternative_records[] = [
+                    'product_id' => $request->id,
+                    'alternative_product_id' => $alt_id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+            DB::table('product_alternatives')->insert($alternative_records);
+        }
 
         $alert = array('msg' => 'Product Successfully Updated', 'alert-type' => 'info');
         return redirect()->route('product.view', $request->id)->with($alert);
@@ -261,5 +284,35 @@ class ProductController extends Controller
         return view('admin.product.gallery', get_defined_vars());
     }
 
-    public function search(Request $request) {}
+    public function search(Request $request)
+    {
+    }
+
+    public function exportProducts(Request $request, $format)
+    {
+        $products = Product::leftJoin('brands', 'products.brand_id', '=', 'brands.id')
+            ->select('products.*')
+            ->with(['brand', 'category', 'productGroup', 'size', 'productType'])
+            ->orderBy('brands.name', 'asc')
+            ->orderBy('products.name', 'asc')
+            ->get();
+
+        $stocks = ProductStore::get();
+        $stockList = $stocks->groupBy('product_id')->map(function ($items) {
+            return ['qty' => $items->sum('product_quantity')];
+        });
+
+        if ($format == 'excel') {
+            return Excel::download(new ProductsExport($products, $stockList), 'product-list.xlsx');
+        } elseif ($format == 'pdf') {
+            $pdf = Pdf::loadView('admin.product.export.pdf', [
+                'products' => $products,
+                'stockList' => $stockList
+            ]);
+            $pdf->setPaper('a4', 'landscape');
+            return $pdf->stream('product-list.pdf');
+        }
+
+        return redirect()->back()->with(['msg' => 'Invalid format', 'alert-type' => 'error']);
+    }
 }

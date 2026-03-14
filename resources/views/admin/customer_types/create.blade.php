@@ -40,7 +40,6 @@ Customer Types Add
                             </div>
                         </div>
 
-
                         <div class="item form-group">
                             <label class="col-form-label col-md-5 col-sm-5 label-align add_customer_type_lebel" for="description">Description<span class=""></span>
                             </label>
@@ -48,7 +47,6 @@ Customer Types Add
                                 <textarea type="text" name="description" id="description" cols="10" rows="1"  class="form-control"></textarea>
                             </div>
                         </div>
-
 
                         <div class="item form-group">
                             <label class="col-form-label col-md-5 col-sm-5 label-align add_customer_type_lebel" for="remarks">Remarks<span class=""></span>

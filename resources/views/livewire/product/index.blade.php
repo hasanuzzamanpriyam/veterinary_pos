@@ -5,9 +5,17 @@
         <div class="x_title p-3">
             <div class="header-title d-flex align-items-center justify-content-between gap-2">
                 <h2 class="mr-auto">Product List</h2>
-                <a href="{{ route('live.product.create') }}" class="btn btn-md btn-primary">
-                    <i class="fa fa-plus" aria-hidden="true"></i> Add Product
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('product.download', 'excel') }}" class="btn btn-md btn-success">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel
+                    </a>
+                    <a href="{{ route('product.download', 'pdf') }}" class="btn btn-md btn-danger" target="_blank">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF
+                    </a>
+                    <a href="{{ route('live.product.create') }}" class="btn btn-md btn-primary">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add Product
+                    </a>
+                </div>
             </div>
         </div>
         <div class="x_content p-3">

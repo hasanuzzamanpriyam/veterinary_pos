@@ -74,10 +74,12 @@ input.input-field {
 } */
 
 label {
-    background: #2A3F54;
-    color: #fff;
+    background: transparent;
+    color: #444;
     text-align: left !important;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
 .follow-lebel {
@@ -514,10 +516,11 @@ h2.update_unit_title {
 }
 
 label {
-    background: #81307e;
-    color: #fff;
+    background: transparent;
+    color: #444;
     text-align: left !important;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 @media (min-width: 768px) {
@@ -1990,62 +1993,82 @@ label.add_customer_lebel {
 
 /*Add guarantor Start*/
 label.add_guarantor_lebel {
-    background: linear-gradient(90deg, rgba(242,143,40,1) 50%, rgba(241,82,0,1) 100%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #f28f28;
 }
 /*Add guarantor end*/
 
 /*Add supplier Start*/
 label.add_supplier_lebel {
-    background: linear-gradient(90deg, rgba(0, 28, 94, 1) 50%, rgba(207, 48, 54, 1) 100%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #cf3036;
 }
 /*Add supplier end*/
 
 /*Add prodcut Start*/
 label.add_product_lebel {
-    background: linear-gradient(90deg, rgba(24, 62, 117, 1) 22%, rgba(237, 72, 72, 1) 78%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #183e75;
 }
 /*Add product end*/
 
 /*Add category Start*/
 label.add_category_lebel {
-    background: linear-gradient(90deg, rgba(227, 75, 98, 1) 22%, rgba(255, 235, 148, 1) 78%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #e34b62;
 }
 /*Add product end*/
 
 /*Add customer_type Start*/
 label.add_customer_type_lebel {
-    background: linear-gradient(90deg, rgba(89, 69, 151, 1) 22%, rgba(162, 236, 145, 1) 78%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #594597;
 }
 /*Add  customer_type end*/
 
 
 /*Add brand Start*/
 label.add_brand_lebel {
-    background: linear-gradient(90deg, rgba(8, 23, 178, 1) 22%, rgba(209, 94, 6, 1) 78%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #0817b2;
 }
 /*Add  brand end*/
 
 /*Add priceGroup Start*/
 label.add_price_group_lebel {
-    background: linear-gradient(90deg, rgba(127, 6, 202, 1) 22%, rgba(255, 202, 66, 1) 78%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #7f06ca;
 }
 /*Add  priceGroup end*/
 
 /*Add bank Start*/
 label.add_bank_lebel {
-    background: linear-gradient(90deg, rgba(39, 29, 103, 1) 22%, rgba(230, 81, 98, 1) 78%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #271d67;
 }
 /*Add  bank  end*/
 
 /*Add warehouse Start*/
 label.add_warehouse_lebel {
-    background: linear-gradient(90deg, rgba(111, 0, 71, 1) 22%, rgba(217, 184, 95, 1) 78%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #6f0047;
 }
 /*Add  warehouse  end*/
 
 /*Add productGroup Start*/
 label.add_product_group_lebel {
-    background: linear-gradient(90deg, rgba(7, 55, 99, 1) 22%, rgba(255, 205, 154, 1) 78%);
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #073763;
 }
 /*Add  productGroup  end*/
 
@@ -2325,6 +2348,39 @@ table .text-wrap strong {
     100% {
         transform: scale(1);
     }
+}
+
+/* Professional Minimalist Form Styling */
+.form-control {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 8px 12px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: none;
+    height: auto;
+}
+
+.form-control:focus {
+    border-color: #183e75;
+    box-shadow: 0 0 0 0.2rem rgba(24, 62, 117, 0.1);
+    outline: none;
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8.825L1.175 4 2.225 2.95 6 6.725 9.775 2.95 10.825 4 6 8.825z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+}
+
+.add_product_lebel {
+    display: block;
+    padding: 10px 15px !important;
+    font-size: 13px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 0 4px 4px 0;
 }
 
 /* FullScreen button icon transition */
