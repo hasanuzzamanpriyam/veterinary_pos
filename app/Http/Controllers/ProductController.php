@@ -273,9 +273,15 @@ class ProductController extends Controller
         });
 
         $stock_history = SupplierTransactionDetails::with('store')->where('product_id', $id)->where('transaction_type', 'purchase')->orderBy('date', 'desc')->get();
+        
+        $alternative_products = Product::whereIn('id', function($query) use ($id) {
+            $query->select('alternative_product_id')
+                ->from('product_alternatives')
+                ->where('product_id', $id);
+        })->with(['brand', 'category'])->get();
 
         // dd( $stock);
-        return view('admin.product.view', compact('product', 'stock_data', 'store_data', 'stock', 'stock_history'));
+        return view('admin.product.view', compact('product', 'stock_data', 'store_data', 'stock', 'stock_history', 'alternative_products'));
     }
 
     public function gallery()

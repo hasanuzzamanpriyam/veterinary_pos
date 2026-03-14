@@ -115,6 +115,42 @@
                 </div>
             </div>
         </div>
+
+
+        <h3 class="text-center mt-4">Alternative Product List</h3>
+        <div class="table-responsive">
+            <table class="product-data table table-striped table-bordered mt-3">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="text-center">SL</th>
+                        <th class="text-center">Product Name</th>
+                        <th class="text-center">Company</th>
+                        <th class="text-center">Category</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($alternative_products as $alt_product)
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $alt_product->name }}</td>
+                            <td class="text-center">{{ $alt_product->brand->name ?? 'N/A' }}</td>
+                            <td class="text-center">{{ $alt_product->category->name ?? 'N/A' }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('product.view', $alt_product->id) }}" class="btn btn-sm btn-info">
+                                    <i class="fa fa-eye"></i> View
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center"><b>No alternative products found!</b></td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
         <h3 class="text-center">Stock Details</h3>
         <div class="table-responsive">
             <table id="stock-table" class="product-data table table-striped table-bordered mt-3">
@@ -183,5 +219,6 @@
                 </tfoot>
             </table>
         </div>
+
     </div>
 @endsection

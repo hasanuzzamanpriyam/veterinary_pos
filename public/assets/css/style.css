@@ -1961,12 +1961,14 @@ label.sales_entry_lebel {
 /*purchase return entry label color*/
 label.purchase_entry_lebel {
     background: linear-gradient(90deg, rgba(0, 0, 128, 1) 38%, rgba(182, 105, 63, 0.9836309523809523) 100%);
+    color: #ffffff;
 }
 /*purchase return entry label end*/
 
 /*collection lebel start*/
 label.collection_entry_lebel {
     background: linear-gradient(90deg, rgba(84, 0, 138, 1) 21%, rgba(254, 71, 71, 1) 50%, rgba(244, 161, 47, 1) 100%);
+    color: #ffffff;
 }
 
 
@@ -1988,13 +1990,14 @@ label.add_store_lebel {
 /*Add customer Start*/
 label.add_customer_lebel {
     background: linear-gradient(90deg, rgba(30, 54, 100, 1) 50%, rgba(250, 195, 6, 1) 100%);
+    color: #ffffff;
 }
 /*Add customer end*/
 
 /*Add guarantor Start*/
 label.add_guarantor_lebel {
-    background: #f8f9fa;
-    color: #333;
+    background: linear-gradient(90deg, rgba(84, 0, 138, 1) 21%, rgba(254, 71, 71, 1) 100%);
+    color: #ffffff;
     border-left: 3px solid #f28f28;
 }
 /*Add guarantor end*/

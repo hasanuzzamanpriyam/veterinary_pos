@@ -14,7 +14,6 @@ Customer Types Add
                 <h2>Add Customer Types</h2>
                 <a href="#" class="mr-auto ml-3 cursor-pointer" onclick="history.back()"><i class="fa fa-close"></i></a>
             </div>
-
         </div>
         <div class="x_content p-3">
             <br />
@@ -31,7 +30,6 @@ Customer Types Add
                 @csrf
                 <div class="row m-auto">
                     <div class="col-12">
-
                         <div class="item form-group">
                             <label class="col-form-label col-md-5 col-sm-5 label-align add_customer_type_lebel" for="name">Customer Types Name <span class=""></span>
                             </label>
@@ -39,7 +37,6 @@ Customer Types Add
                                 <input type="text" id="name" name="name"  class="form-control">
                             </div>
                         </div>
-
                         <div class="item form-group">
                             <label class="col-form-label col-md-5 col-sm-5 label-align add_customer_type_lebel" for="description">Description<span class=""></span>
                             </label>
@@ -47,7 +44,6 @@ Customer Types Add
                                 <textarea type="text" name="description" id="description" cols="10" rows="1"  class="form-control"></textarea>
                             </div>
                         </div>
-
                         <div class="item form-group">
                             <label class="col-form-label col-md-5 col-sm-5 label-align add_customer_type_lebel" for="remarks">Remarks<span class=""></span>
                             </label>
@@ -55,10 +51,8 @@ Customer Types Add
                                 <textarea type="text" name="remarks" id="remarks" cols="10" rows="1"  class="form-control"></textarea>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
                 <div class="ln_solid"></div>
                 <div class="item form-group">
                     <div class="col-md-12 col-sm-12 text-center">
@@ -71,6 +65,4 @@ Customer Types Add
         </div>
     </div>
 </div>
-
-
 @endsection
