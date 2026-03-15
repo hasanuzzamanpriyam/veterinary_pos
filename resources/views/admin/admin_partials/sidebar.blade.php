@@ -45,7 +45,7 @@
                             @can('customer-statement')
                                 <li><a href="{{ route('customer.transactions.statement') }}">Statement</a></li>
                             @endcan
-                            <li><a href="{{ route('customer.gallary') }}"> <i class="fa fa-users"></i> Customer Gallary</a></li>
+                            <li><a href="{{ route('customer.gallary') }}"> Customer Gallary</a></li>
                         </ul>
                     </li>
                 @endcan
@@ -382,7 +382,7 @@
 
             </ul>
         @else
-            <h6> hi employee</h6>
+            <h6> Wait for assign role</h6>
         @endrole
 
     </div>
