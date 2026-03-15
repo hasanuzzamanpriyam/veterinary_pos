@@ -380,7 +380,7 @@
                     </li>
                 @endrole
 
-            </ul>
+            </ul> <br> <br>
         @else
             <h6> Wait for assign role</h6>
         @endrole
