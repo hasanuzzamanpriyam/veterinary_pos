@@ -146,19 +146,6 @@ label {
     text-align: center;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.left_col .scroll-view::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.left_col .scroll-view {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    height: 100vh;
-    overflow-y: scroll;
-}
-
 @media print {
     .print-button {
         display: none;
@@ -175,29 +162,7 @@ body .container.body .right_col {
     overflow-x: hidden;
 }
 
-.left_col {
-    background: #002253;
-}
-
-.sidebar-footer a {
-    background: #002253;
-}
-
-.navbar.nav_title {
-    background: #002253;
-}
-
-.sidebar-footer.hidden-small {
-    background: #002253;
-}
-
-
-.nav.side-menu>li.active>a {
-    background: linear-gradient(#0052c8, #d70303), #bcd51e;
-}
-
-
-/*right col section end*/
+/* right col section end */
 
 /*menu section*/
 .toggle {
@@ -211,26 +176,21 @@ body .container.body .right_col {
 
 /*menu section end*/
 
-
-
 /*Dashbord sidebar nav menu start*/
 .nav.side-menu>li>a {
     text-align: left;
-
 }
 
 ul.nav.child_menu {
     text-align: left;
 }
-
-/*Dashbord sidebar nav menu start*/
+/*Dashbord sidebar nav menu end*/
 
 /*add custom form start*/
 form#demo-form2 {
     max-width: 800px;
     margin: 0 auto;
 }
-
 
 /*customer photo upload start*/
 .item.customer_photo_group {
@@ -244,10 +204,7 @@ form#demo-form2 {
 .dropify-wrapper .dropify-message span.file-icon {
     font-size: 15px !important;
 }
-
 /*customer photo upload end*/
-
-
 
 /*add custom form end*/
 
@@ -258,10 +215,8 @@ h2.add_customer_title {
 }
 
 .container-fluid {
-
     padding-right: 0px !important;
     padding-left: 0px !important;
-
 }
 
 .nav_menu {
@@ -293,17 +248,13 @@ table.dataTable tbody>tr>td.customer_name_td {
     text-align: left !important;
 }
 
-
 table.dataTable thead>tr>th.customer_address_th {
-
     padding-right: 60px !important
 }
-
 
 table.dataTable tbody>tr>td.customer_address_td {
     text-align: left !important
 }
-
 
 table.dataTable tbody>tr>td.customer_mobile_td {
     padding-right: 21px;
@@ -320,13 +271,10 @@ table.dataTable tbody>tr>td.customer_type_td {
 }
 
 /*customer list table th bg color    */
-
 table.dataTable thead>tr>th {
     background: #bfa1ff;
     color: #1e0202
 }
-
-/*customer list table th bg color    */
 
 /*update customer title start*/
 h2.update_customer_title {
@@ -336,17 +284,12 @@ h2.update_customer_title {
     border-radius: 2px;
 }
 
-/*update customer title end*/
-
 /*customer back button on view page*/
 div.back_button.mb-2 a.customer_view_back_btn {
     cursor: pointer;
     z-index: 5555 !important;
     position: relative;
 }
-
-/*customer back button on view page end*/
-
 
 /*customer ledger section start*/
 h2.customer_ledger_title {
@@ -356,8 +299,6 @@ h2.customer_ledger_title {
     border-radius: 2px;
 }
 
-/*customer ledger section end*/
-
 h2.customer_statement_title {
     padding: 10px;
     background: #580ef9;
@@ -366,7 +307,6 @@ h2.customer_statement_title {
 }
 
 /*customer section end*/
-
 
 /*supplier section start*/
 .supplier_ledger_title {
@@ -393,9 +333,6 @@ h2.product_gallery_title_two {
     border-radius: 2px;
 }
 
-/*product gallery  ebd*/
-
-
 /*Sales report section start*/
 h2.sales_report_title {
     padding: 10px;
@@ -405,19 +342,12 @@ h2.sales_report_title {
     border-radius: 2px;
 }
 
-/*Sales report section end*/
-
 /*sales return list section start*/
 h2.sales_return_list_btn {
     float: right;
 }
 
-/*sales return list section end*/
-
-
-
 /*datatable setting toolbox icon section */
-
 .panel_toolbox {
     float: left !important;
     padding-left: 13px;
@@ -483,7 +413,6 @@ table.table-bordered.table-sales-entry .purchase-qty span {
     min-width: 42px;
 }
 
-
 /* .x_title h2 {
     border-radius: 2px;
     background: #81307e;
@@ -492,11 +421,7 @@ table.table-bordered.table-sales-entry .purchase-qty span {
     color: white;
 } */
 
-
-/*datatable setting toolbox icon section end*/
-
 /*unit list table sesction*/
-
 h2.unit_buttin {
     float: right;
 }
@@ -524,24 +449,17 @@ label {
 }
 
 @media (min-width: 768px) {
-
     .col-12.align-items-center.justify-self-center {
         margin-left: 351px !important;
     }
 }
 
-/*unit list table sesction end*/
-
 /*template title section   */
-
 .x_title h2 {
     color: #444fe7;
 }
 
-/*template title section end*/
-
 /*table action dropdown button section*/
-
 ul.dropdown-menu.show {
     left: unset !important;
     right: 47px;
@@ -569,10 +487,7 @@ ul.dropdown-menu.show li a {
     text-align: right;
 }
 
-/*table action dropdown button section end*/
-
 /*product section start*/
-
 h2.add_product_title {
     background: #2affb2;
     padding: 10px;
@@ -589,8 +504,6 @@ h2.update_product_title {
     border-radius: 2px;
     color: white;
 }
-
-/*update product title end*/
 
 /*product section end*/
 
@@ -614,17 +527,12 @@ h2.supplier_update_title {
     color: #fff !important;
 }
 
-/*Supplier update title end*/
-
 /**supplier single view back button start**/
-
 div.back_button.mb-2 a.supplier_view_back_btn {
     cursor: pointer;
     z-index: 5555 !important;
     position: relative;
 }
-
-/**supplier single view back button end**/
 
 /*supplier section end*/
 
@@ -641,14 +549,10 @@ h2.purchase_entry_title {
     padding: 10px;
 }
 
-/*purchase entry form label end*/
-
 /*add new purchase entry button start*/
 h2.add_purchase_btn {
     float: right;
 }
-
-/*add new purchase entry button end*/
 
 /*purchase entry return title start*/
 h2.purchase_return_entry_title {
@@ -658,18 +562,12 @@ h2.purchase_return_entry_title {
     border-radius: 2px;
 }
 
-/*purchase entry return title end*/
-
 /*purchase entry form label start*/
-
 form.form-horizontal.form-label-left.purchase_return_entry_form label {
     padding: 10px;
 }
 
-/*purchase entry form label end*/
-
 /*return purchase list button start*/
-
 h2.add_new_purchase_button {
     float: right !important;
 }
@@ -688,21 +586,15 @@ form.form-horizontal.form-label-left.sales_entry_form label {
     padding: 7px;
 }
 
-/*sales entry form label end*/
-
 /*Add new sales entry button start*/
 h2.sales_order_btn {
     float: right;
 }
 
-/*Add new sales entry button end*/
 /*sales back button on view page*/
-
 .sale_back_list_button {
     float: right !important;
 }
-
-/*sales back button on view page end*/
 
 /*sales return entry title start*/
 h2.sales_return_entry_title {
@@ -712,23 +604,13 @@ h2.sales_return_entry_title {
     border-radius: 2px;
 }
 
-/*sales return entry title end*/
-
 /*sales return entry from label start*/
 form.sales_return_entry_form label {
     padding: 10px;
 }
 
-/*sales return entry from label end*/
-
-
-
-/*sales order section start*/
-
 /* Account section start */
-
 /*collection title start*/
-
 h2.collection_title {
     padding: 10px !important;
     background: #1712f3 !important;
@@ -736,37 +618,16 @@ h2.collection_title {
     border-radius: 2px;
 }
 
-/*collection title end*/
-
-/*collection add part start*/
-
-/* .customer-search-area {
-    float: right;
-} */
-
-
-/* .select2-container .select2-selection--single .select2-selection__rendered{
-    padding-left: 82px !important;
-    padding-right: 82px !important;
-} */
-
 form.collection_from label {
     padding: 10px;
 }
 
-
-/*collection add part end*/
-
 /*colloection list start*/
-
 h2.collection_add_button {
     float: right;
 }
 
-/*colloection list end*/
-
 /*collection update title start*/
-
 h2.update_collection_title {
     background: #089db5;
     color: white;
@@ -774,15 +635,11 @@ h2.update_collection_title {
     border-radius: 2px;
 }
 
-/*collection update title end*/
-
 /*collection update from label start*/
-
 form.update_form_area label {
     padding: 2px 6px;
 }
 
-/*collection update from label end*/
 h2.collection_info_title {
     display: inline-block;
     padding: 10px;
@@ -791,8 +648,6 @@ h2.collection_info_title {
     border-radius: 2px;
 }
 
-
-
 /*add payment section start*/
 h2.add_payment_title {
     background: #082cb5;
@@ -800,17 +655,6 @@ h2.add_payment_title {
     padding: 10px;
     border-radius: 2px;
 }
-
-
-/*add payment section end*/
-
-/*add payment select two section start*/
-
-/* .supplier-search-area {
-    float: right;
-} */
-
-/*add payment select two section end*/
 
 /*add payment button start*/
 h2.add_payments_button {
@@ -823,14 +667,7 @@ h2.payments_update_title {
     padding: 10px;
     border-radius: 2px;
 }
-
-/*add payment button start*/
-
-
-
-
 /* Account section end */
-
 
 /*employee section start*/
 h2.add_employee_title {
@@ -857,25 +694,15 @@ a.btn.btn-md.btn-primary.float-right.employee_back_button {
     z-index: 5555 !important;
     position: relative;
 }
-
-/*back button on view page end*/
 /*employee section end*/
 
 /*bonus section start*/
-
 h2.monthly_bonus_title {
     padding: 10px;
     background: #6818ff;
     color: white;
     border-radius: 2px;
 }
-
-/* h2.add_bonus_count_title{
-    padding: 10px;
-    background: #6818ff;
-    color: white;
-    border-radius: 2px;
-} */
 
 h2.add_bonus_count_btn {
     float: right;
@@ -912,7 +739,6 @@ h2.yearly_bonus_title {
     color: white !important;
     border-radius: 2px;
 }
-
 /*bonus section end*/
 
 /*follow up date section start*/
@@ -957,8 +783,6 @@ h2.u_supplier_follow_update_title {
     border-radius: 2px;
 }
 
-/*supplier update title end*/
-
 h2.supplier_update_info_title {
     display: inline-block;
     padding: 10px;
@@ -970,8 +794,6 @@ h2.supplier_update_info_title {
 h2.supplier_follow_up_to_date_btn {
     float: right;
 }
-
-
 /*follow up date section end*/
 
 /*Quotation section start*/
@@ -980,7 +802,6 @@ h2.customer_quotation_btn {
 }
 
 h2.customer_qotation_view_title {
-
     padding: 10px;
     display: inline-block;
     color: #007bff;
@@ -993,7 +814,6 @@ table.quoation_customer_info tbody th {
 
 h2.add_quotation_title {
     padding: 10px;
-
     color: #007bff;
     border-radius: 2px;
 }
@@ -1007,11 +827,9 @@ h2.update_quoation {
 .collection-form-area label {
     width: 100%;
 }
-
 /*Quotation section end*/
 
 /*Report anylistic section start*/
-
 h2.purchase_report_title {
     padding: 10px;
     background: #8700ff;
@@ -1060,8 +878,6 @@ h2.yearly_summary_report {
     color: white;
     border-radius: 2px;
 }
-
-
 /*Report anylistic section end*/
 
 /*Expense section start*/
@@ -1082,8 +898,6 @@ form.add_salary_expense_form {
 h2.salary_expense_list_add_btn {
     float: right;
 }
-
-/*add salary expense form end*/
 
 /*update salary expense form start*/
 h2.update_salary_expense_title {
@@ -1107,15 +921,10 @@ h2.add_bank_expense_title {
     border-radius: 2px;
 }
 
-/*bank expense  end*/
-
 /*bank expense list start*/
-
 h2.bank_expense_list_btn {
     float: right;
 }
-
-/*bank expense list end*/
 
 /* update bank expense form start*/
 h2.update_bank_expense_title {
@@ -1124,8 +933,6 @@ h2.update_bank_expense_title {
     color: white;
     border-radius: 2px;
 }
-
-/* update bank expense form end*/
 
 /*labur expense start*/
 h2.add_labur_expense_title {
@@ -1146,8 +953,6 @@ h2.update_labour_expense_title {
     border-radius: 2px;
 }
 
-/*labur expense end*/
-
 /*carring expense start*/
 h2.add_carring_title {
     padding: 10px;
@@ -1167,10 +972,7 @@ h2.update_carring_title {
     border-radius: 2px;
 }
 
-/**/
-/*carring expense end*/
 /*dokan expense start*/
-
 h2.add_dokan_expense_title {
     padding: 10px;
     background: #6d20ff;
@@ -1188,8 +990,6 @@ h2.update_dokan_title {
     color: white;
     border-radius: 2px;
 }
-
-/*dokan expense end*/
 /*Expense section end*/
 
 /*store section start*/
@@ -1210,7 +1010,6 @@ h2.add_store_title {
     color: white !important;
     border-radius: 2px;
 }
-
 /*store section end*/
 
 /*category section start*/
@@ -1231,7 +1030,6 @@ h2.add_category_title {
     color: white !important;
     border-radius: 2px;
 }
-
 /*category section end*/
 
 /*subcategory section start*/
@@ -1252,7 +1050,6 @@ h2.update_subcategory_title {
     color: white;
     border-radius: 2px;
 }
-
 /*subcategory section end*/
 
 /*brand section start*/
@@ -1269,7 +1066,6 @@ h2.update_brand_title {
     padding: 10px;
     border-radius: 2px;
 }
-
 /*brand section end*/
 
 /*price group section start*/
@@ -1297,7 +1093,6 @@ h2.add_price_g_title {
     color: white;
     border-radius: 2px;
 }
-
 /*price group section end*/
 
 /*bank section start*/
@@ -1318,7 +1113,6 @@ h2.update_bank_from_title {
     color: white;
     border-radius: 2px;
 }
-
 /*bank section end*/
 
 /*warehouse section start*/
@@ -1339,7 +1133,6 @@ h2.add_warehouse_title {
     color: white !important;
     border-radius: 2px;
 }
-
 /*warehouse section end*/
 
 /*product group section start*/
@@ -1352,7 +1145,6 @@ h2.update_product_group_title {
     background: blue;
     color: white;
 }
-
 /*product group section end*/
 
 /*Size section start*/
@@ -1373,7 +1165,6 @@ h2.update_size_title {
     color: white;
     border-radius: 2px;
 }
-
 /*Size section end*/
 
 /*purchase entry form strat */
@@ -1381,7 +1172,6 @@ h2.update_size_title {
     margin-top: -34px;
 }
 
-/*purchase entry form end*/
 .cart-total th {
     text-align: left;
 }
@@ -1460,10 +1250,7 @@ label.entry-lebel {
     margin-bottom: 5px;
 }
 
-/*purchase return entry form end*/
-
 /*sales entry form strat*/
-
 form.form-horizontal.form-label-left.sales_entry_form label,
 form.form-horizontal.form-label-left.purchase_return_entry_form label,
 form.form-horizontal.form-label-left.purchase_entry_form label,
@@ -1475,14 +1262,9 @@ form.fz-entry-form label {
     text-align: right;
 }
 
-/* .fz-entry-form .form-control {
-    height: calc(1.27em + 0.7rem + 2px);
-} */
-
 form.sales_return_entry_form label {
     min-width: 200px;
 }
-
 /*sales entry form end*/
 
 /*account section start*/
@@ -1490,26 +1272,21 @@ form.collection_from label {
     min-width: 100%;
 }
 
-
 div.collection-form-area .col-lg-2 .form-group label {
     min-width: 100%;
 }
-
 /*account section end*/
 
 /*follow up date section start*/
 .customer-search-area .form-group label {
     width: 100%
 }
-
 /*follow up date section end*/
 
 /*Qouate section start*/
-
 .collection-form-area .col-lg-4.col-md-4.col-sm-12 .form-group label {
     min-width: 50% !important;
 }
-
 /*Qouate section end*/
 
 /*add customer due start*/
@@ -1530,9 +1307,6 @@ h2.add_customer_due_title {
 .customer_due_add {
     width: 50%;
 }
-
-
-
 /*add customer due end*/
 
 /*supplier due start*/
@@ -1547,31 +1321,26 @@ h2.supplier_due_btn {
     border-radius: 2px;
     display: inline-block;
 }
-
 /*supplier due end*/
 
 /*category table section start */
-
 table.category_list_table th,
 table.category_list_table td {
     text-align: left;
     padding-left: 7px !important;
 }
-
 /*category table section end*/
 
 /*follow up date section start*/
 label.py-1.border.follow_update_select_update_label {
     min-width: 50%;
 }
-
 /*follow up date section end*/
 
 /*payment list table section start*/
 td.payment_list_tb_total {
     text-align: end !important;
 }
-
 /*payment list table section end*/
 
 /*Sales order section start*/
@@ -1581,34 +1350,27 @@ table.table.table-striped.table-bordered tr.sales-entry input[type=number] {
     border: 1px solid #737373;
     border-radius: 2px
 }
-
 /*Sales order section end*/
 
 /*customer statement table start*/
 .dataTables_wrapper {
     overflow-x: auto;
 }
-
 /*customer statement table end*/
 
 /*purchase list table start */
 .card-box.purchase-list.table-responsive {
     overflow-x: unset;
 }
-
 /*purchase list table end*/
 
 /*slaes list table start*/
 .card-box.table-responsive.sales_list_table {
     overflow-x: unset;
 }
-
 /*slaes list table end*/
 
-
-
 /*calan view start*/
-
 ul.invoice_header_left {
     padding-left: 0px;
 }
@@ -1618,7 +1380,6 @@ ul.invoice_header_left li.bill_to span {
     padding-bottom: 3px;
     display: block;
 }
-
 
 ul.invoice_header_left li {
     list-style: none;
@@ -1655,11 +1416,6 @@ ul.invoice_header_right li {
     font-size: 16px;
 }
 
-/* .supplier-signature-area h4:before {
-    width: 128px;
-    margin-left: 97px;
-} */
-
 .product-list-area table tbody tr td.comon_column {
     width: 70px;
 }
@@ -1677,34 +1433,13 @@ table.calculation_below_table tbody tr td {
     border: 1px solid #dee2e6;
 }
 
-
 table.calculation_below_table tbody tr td {
     text-align: right;
     padding: 2px 11px;
 }
-
 /*calan view end*/
 
-/*print section start*/
-/*
-@media print {
-
-    body * {
-        display: none;
-    }
-
-
-    .x_content {
-        display: block !important;
-    }
-}
-
-*/
-
-/*print section end*/
-
 /*table sales entry secton start*/
-
 table.table.table-striped.table-bordered tr.sales-entry input[type=number] {
     text-align: center;
 }
@@ -1725,10 +1460,7 @@ table.fz-sales-entry input.form-control[type="number"] {
 table.table-sales-entry .sub-total input.form-control {
     text-align: right;
 }
-
 /*table sales entry secton end*/
-
-
 
 /*collection invoice start*/
 a.btn.btn-info.collection-invoice-print-b {
@@ -1764,11 +1496,9 @@ a.btn.btn-info.btn-link {
 a.btn.btn-info.btn-link:hover {
     color: #0124ab;
 }
-
 /*invoie section end*/
 
-
-/* Sidebar */
+/* Sidebar general */
 .nav-sm .nav.side-menu li a span.label {
     display: none;
 }
@@ -1815,20 +1545,16 @@ a.btn.btn-info.btn-link:hover {
     padding: 2px 8px;
 }
 
-
-
 /*contact us section */
 .description h4 {
     padding-left: 32px;
 }
-
 /*contact us section end*/
 
 /*customer ledger table start*/
 .due-list-area.mt-4 table.table.table-striped.table-bordered tbody tr td {
     vertical-align: middle !important;
 }
-
 /*customer ledger table end*/
 
 /*add store section*/
@@ -1836,7 +1562,6 @@ form#demo-form2 .item {
     display: flex;
     justify-content: center;
 }
-
 /*add store section end*/
 
 /*sales return table start*/
@@ -1857,14 +1582,12 @@ td.return-qty {
 }
 
 form.sales_return_entry_form label {
-    /* min-width: 200px; */
     width: 100%;
 }
 
 form.fz-entry-form label {
     padding: 0px 10px;
 }
-
 
 td.calculation-text-right {
     text-align: right;
@@ -1877,25 +1600,19 @@ td.calculation-text-right {
     font-size: 12px !important;
     padding: 10px;
 }
-
 /*sales return table end*/
 
 /*product gallery section*/
-
 h3.product_gallery_title {
     font-size: 16px;
 }
-
 /*product gallery section end*/
 
 /*sale report section start*/
 .supplier-search-area label {
     width: 100%;
 }
-
 /*sale report section end*/
-
-
 
 /*price group update price rate start*/
 .x_title h2.update-price-title {
@@ -1914,14 +1631,12 @@ h3.product_gallery_title {
 form.update-price-rate-from {
     max-width: 100% !important;
 }
-
 /*price group update price rate end*/
 
 /*add payment section start*/
 a.add-payment-close {
     padding-top: 10px;
 }
-
 /*add payment section end*/
 
 /*search invoice by id start*/
@@ -1929,7 +1644,6 @@ a.add-payment-close {
     width: 100%;
     padding: 4px;
 }
-
 /*search invoice by id end*/
 
 .select2-container {
@@ -1940,12 +1654,10 @@ li.select2-results__option {
     white-space: nowrap;
 }
 
-
 /*change page heading start*/
 .x_title h2 {
     background: #007bff;
     color: #ffffff;
-    /* font-weight: 800; */
     padding: 10px;
     border-radius: 3px;
 }
@@ -1955,7 +1667,6 @@ li.select2-results__option {
 label.sales_entry_lebel {
     background: linear-gradient(90deg, rgba(150,1,159,1) 39%, rgba(232,178,68,1) 100%);
 }
-
 /*slaes entry lebel color change end*/
 
 /*purchase return entry label color*/
@@ -1970,10 +1681,7 @@ label.collection_entry_lebel {
     background: linear-gradient(90deg, rgba(84, 0, 138, 1) 21%, rgba(254, 71, 71, 1) 50%, rgba(244, 161, 47, 1) 100%);
     color: #ffffff;
 }
-
-
 /*collection lebel end*/
-
 
 /*Add payment Start*/
 label.add_payment_lebel {
@@ -2034,7 +1742,6 @@ label.add_customer_type_lebel {
 }
 /*Add  customer_type end*/
 
-
 /*Add brand Start*/
 label.add_brand_lebel {
     background: #f8f9fa;
@@ -2085,7 +1792,6 @@ label.add_size_lebel {
 label.add_unit_lebel {
     background: linear-gradient(90deg, rgb(33 94 135) 22%, rgb(255 154 154) 78%);
 }
-
 /*Add  unit  end*/
 
 /*follow on date section start*/
@@ -2114,7 +1820,6 @@ h5.text-center.single_p_title {
 label.sp_update_title {
     background: linear-gradient(90deg, rgba(24, 62, 117, 1) 22%, rgba(237, 72, 72, 1) 78%);
 }
-
 /*product update form label end*/
 
 /* product gallery title start*/
@@ -2156,8 +1861,6 @@ label.supplier_label {
     font-size: 14px;
     padding: 5px;
 }
-/*supplier edit page start*/
-/*supplier edit page end*/
 
 /*payment invoice section start*/
 .payment_print_title {
@@ -2201,7 +1904,6 @@ table.payment_print_cal_table tbody tr:last-child td{
 }
 /*payment invoice section end*/
 
-
 /*collection print section start*/
 .collection_print_title {
     font-size: 15px;
@@ -2229,10 +1931,7 @@ table.collection_cal_table tbody tr td{
 .collection_cal_table .in-word-area h4 {
     font-size: 12px !important;
 }
-
-
 /*collection print section end*/
-
 
 table.table-sales-entry .sales-entry-qty-wrapper {
     flex-wrap: nowrap;
@@ -2251,14 +1950,12 @@ table.table-sales-entry .sales-entry-qty-wrapper span {
     border: none;
     border-bottom: 1px solid #ddd;
 }
-.gap-2
-{
+.gap-2 {
     gap: 10px;
 }
 .gap-3 {
     gap: 20px;
 }
-
 
 .fz-form {
     background: #ddd;
@@ -2277,8 +1974,7 @@ table.customer-data th {
     text-align: left;
     width: 30%;
 }
-table.customer-data td
- {
+table.customer-data td {
     text-align: left;
     width: 70%;
 }
@@ -2389,4 +2085,159 @@ select.form-control {
 /* FullScreen button icon transition */
 #fullscreen-btn .glyphicon {
     transition: all 0.3s ease;
+}
+
+/* ==================== */
+/* Modern Elegant Sidebar (fixed) */
+/* ==================== */
+
+/* Remove old scrollbar hiding – we now show a custom one */
+.left_col .scroll-view {
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+/* Custom scrollbar for the scrollable area */
+.left_col .scroll-view::-webkit-scrollbar {
+    width: 5px;
+}
+.left_col .scroll-view::-webkit-scrollbar-track {
+    background: transparent;
+}
+.left_col .scroll-view::-webkit-scrollbar-thumb {
+    background: #00367c;
+    border-radius: 3px;
+}
+.left_col .scroll-view::-webkit-scrollbar-thumb:hover {
+    background: #0052c8;
+}
+
+/* Sidebar background */
+.left_col {
+    background: #002253 !important;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+/* Title area */
+.nav_title {
+    background: #002253 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+}
+.site_title {
+    color: #f8fafc !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Main menu items */
+.nav.side-menu > li > a {
+    background: transparent;
+    color: #e2e8f0 !important;
+    font-weight: 500;
+    border-right: 3px solid transparent;
+    transition: all 0.3s ease;
+    padding: 13px 15px;
+    text-shadow: none !important;
+}
+
+.nav.side-menu > li > a:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #ffffff !important;
+    border-right: 3px solid #0052c8;
+}
+
+.nav.side-menu > li.active > a {
+    background: linear-gradient(90deg, rgba(0,82,200,0.2) 0%, transparent 100%) !important;
+    color: #ffffff !important;
+    border-right: 3px solid #0052c8;
+    box-shadow: none !important;
+}
+
+/* Icons */
+.nav.side-menu > li > a > i {
+    font-size: 1.1rem;
+    width: 30px;
+    text-align: center;
+    color: #93c5fd;
+    transition: color 0.3s ease;
+}
+.nav.side-menu > li > a:hover > i,
+.nav.side-menu > li.active > a > i {
+    color: #ffffff !important;
+}
+
+/* Dropdown chevron */
+.nav.side-menu > li > a .fa-chevron-down {
+    font-size: 0.75em;
+    transition: transform 0.3s ease;
+}
+.nav.side-menu > li.active > a .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+/* Child menu (sub‑menu) */
+.nav.child_menu {
+    background: #00183b !important;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2) !important;
+    border: none !important;
+    padding: 5px 0 !important;
+    margin: 0 !important;
+}
+
+.nav.child_menu > li > a {
+    color: #cbd5e1 !important;
+    font-weight: 400;
+    padding: 9px 15px 9px 45px !important;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+/* Sub‑menu bullet */
+.nav.child_menu > li > a::before {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #64748b;
+    transition: all 0.2s ease;
+}
+
+.nav.child_menu > li > a:hover,
+.nav.child_menu > li.active > a {
+    color: #fff !important;
+    background: transparent !important;
+}
+
+.nav.child_menu > li > a:hover::before,
+.nav.child_menu > li.active > a::before {
+    background: #0052c8;
+    box-shadow: 0 0 5px #0052c8;
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+    background: #002253 !important;
+    border-top: 1px solid rgba(255,255,255,0.05) !important;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 0;
+}
+.sidebar-footer a {
+    background: transparent !important;
+    color: #cbd5e1 !important;
+    padding: 10px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+.sidebar-footer a:hover {
+    background: rgba(255,255,255,0.05) !important;
+    color: #0052c8 !important;
+}
+.sidebar-footer a .glyphicon {
+    font-size: 14px;
+    line-height: normal;
 }
