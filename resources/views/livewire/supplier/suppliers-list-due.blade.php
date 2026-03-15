@@ -57,11 +57,10 @@
                                     <th class="text-left">Address</th>
                                     <th class="text-left">Phone</th>
                                     <th class="all">Ledger</th>
-                                    <th class="all" style="max-width: 100px">Pur. Qty</th>
-                                    <th class="all">Weight</th>
+                                    <th class="all" style="max-width: 100px">Purchase Qty</th>
                                     <th class="all">Total (TK)</th>
                                     <th class="all">Payment</th>
-                                    <th class="all">Balance</th>
+                                    <th class="all">Due Balance</th>
                                     <th class="all">Action</th>
                                 </tr>
                             </thead>
@@ -135,13 +134,10 @@
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_purchase_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                                    <span>{{ number_format($value) }} {{ trans_choice($key, $value) }}</span>
                                                 @endif
                                             @endforeach
                                         </td>
-
-                                        {{-- M/T --}}
-                                        <td>{{$totalWeight ? $totalWeight / 1000 : ''}}</td>
 
                                         {{-- Total TK --}}
                                        <td class="text-right">{{ $total_tk ? number_format($total_tk) . '/=' : '' }}</td>
@@ -195,7 +191,7 @@
                                     <td class="text-wrap" style="max-width: 100px">
                                         @if (isset($g_total_summary['purchase_qty']) && $g_total_summary['purchase_qty'] > 0)
                                             @foreach ($g_total_summary['purchase_qty'] as $type => $qty)
-                                                <strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong>
+                                                <strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice($type, $qty) : ''}}</strong>
                                             @endforeach
                                         @endif
                                     </td>

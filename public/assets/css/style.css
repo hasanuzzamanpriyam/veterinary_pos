@@ -1958,10 +1958,16 @@ label.sales_entry_lebel {
 
 /*slaes entry lebel color change end*/
 
-/*purchase return entry label color*/
+/*purchase entry entry label redesign*/
 label.purchase_entry_lebel {
-    background: linear-gradient(90deg, rgba(0, 0, 128, 1) 38%, rgba(182, 105, 63, 0.9836309523809523) 100%);
-    color: #ffffff;
+    background: transparent !important;
+    color: #444 !important;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+    display: inline-block;
 }
 /*purchase return entry label end*/
 

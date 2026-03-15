@@ -53,29 +53,23 @@
                         <table id="datatable-responsiveer" class="table table-striped table-bordered dt-responsive nowrap" cellpadding="0" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                <th class="all">ID</th>
-                                <th class="text-left">Company Name</th>
-                                <th class="text-left">Address</th>
-                                <th class="text-left">Phone</th>
-                                <th class="all">Ledger</th>
-                                <th class="all">Credit Limit</th>
-                                <th class="all" style="max-width: 100px">Quantity</th>
-                                <th class="all" style="max-width: 100px">Dis. Qty</th>
-                                <th class="all" style="max-width: 100px">Return Qty</th>
-                                <th class="all" style="max-width: 100px">Pur. Qty</th>
-                                <th class="all">Weight</th>
-                                <th class="all">Pur. (TK)</th>
-                                <th class="all">Return</th>
-                                <th class="all">Dis. (TK)</th>
-                                <th class="all">Total (TK)</th>
-                                <th class="all">VAT</th>
-                                <th class="all">Carring</th>
-                                <th class="all">Others</th>
-                                <th class="all">Payment</th>
-                                <th class="all">Total Payment</th>
-                                <th class="all">Old Due</th>
-                                <th class="all">Balance</th>
-                                <th class="all">Action</th>
+                                    <th class="text-left">Company Name</th>
+                                    <th class="text-left">Address</th>
+                                    <th class="text-left">Mobile</th>
+                                    <th class="all">Ledger</th>
+                                    <th class="all">Credit Limit</th>
+                                    <th class="all" style="max-width: 100px">Quantity</th>
+                                    <th class="all" style="max-width: 100px">Dis. Qty</th>
+                                    <th class="all" style="max-width: 100px">Return Qty</th>
+                                    <th class="all" style="max-width: 100px">Pur. Qty</th>
+                                    <th class="all">Pur. (TK)</th>
+                                    <th class="all">Dis. (TK)</th>
+                                    <th class="all">Return</th>
+                                    <th class="all">VAT</th>
+                                    <th class="all">Total (TK)</th>
+                                    <th class="all">Payment</th>
+                                    <th class="all">Balance</th>
+                                    <th class="all">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,93 +154,76 @@
                                         $iteration = ($currentPage - 1) * $perPage + $loop->iteration;
                                     @endphp
                                     <tr>
-                                        <td>{{$iteration}}</td>
-
+                                        {{-- 1. Company Name --}}
                                         <td class="text-left">{{$supplier->company_name}}</td>
+                                        {{-- 2. Address --}}
                                         <td class="text-left">{{$supplier->address}}</td>
+                                        {{-- 3. Phone --}}
                                         <td class="text-left">{{$supplier->mobile}}</td>
+                                        {{-- 4. Ledger --}}
                                         <td>{{$supplier->ledger_page}}</td>
 
-                                        @if(empty($supplier->credit_limit))
-                                        <td></td>
-                                        @else
-                                        <td class="text-right">{{number_format($supplier->credit_limit)}}/=</td>
-                                        @endif
+                                        {{-- 5. Credit Limit --}}
+                                        <td class="text-right">{{ !empty($supplier->credit_limit) ? number_format($supplier->credit_limit) . '/=' : '' }}</td>
 
-                                        {{-- Quantity --}}
+                                        {{-- 6. Quantity --}}
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                                    <div>{{ number_format($value) }} {{ trans_choice($key, $value) }}</div>
                                                 @endif
                                             @endforeach
                                         </td>
 
-                                        {{-- Dis. Qty --}}
+                                        {{-- 7. Dis. Qty --}}
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_purchase_discount_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                                    <div>{{ number_format($value) }} {{ trans_choice($key, $value) }}</div>
                                                 @endif
                                             @endforeach
                                         </td>
 
-                                        {{-- Return Qty --}}
+                                        {{-- 8. Return Qty --}}
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_return_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                                    <div>{{ number_format($value) }} {{ trans_choice($key, $value) }}</div>
                                                 @endif
                                             @endforeach
                                         </td>
 
-                                        {{-- Pur. Qty --}}
+                                        {{-- 9. Pur. Qty --}}
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_purchase_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                                    <div>{{ number_format($value) }} {{ trans_choice($key, $value) }}</div>
                                                 @endif
                                             @endforeach
                                         </td>
 
-                                        {{-- Weight --}}
-                                        <td>{{$totalWeight ? $totalWeight / 1000 : ''}}</td>
+                                        {{-- 10. Pur. (TK) --}}
+                                        <td class="text-right">{{ $total_purchases ? number_format($total_purchases) . '/=' : '' }}</td>
 
-                                       {{-- Pur. (TK) --}}
-                                       <td class="text-right">{{ $total_purchases ? number_format($total_purchases) . '/=' : '' }}</td>
+                                        {{-- 11. Dis. (TK) --}}
+                                        <td class="text-right">{{ $total_discount ? number_format($total_discount) . '/=' : '' }}</td>
 
-                                       {{-- Return --}}
-                                       <td class="text-right">{{ $total_return ? number_format($total_return) . '/=' : '' }}</td>
+                                        {{-- 12. Return --}}
+                                        <td class="text-right">{{ $total_return ? number_format($total_return) . '/=' : '' }}</td>
 
-                                       {{-- Dis. (TK) --}}
-                                       <td class="text-right">{{ $total_discount ? number_format($total_discount) . '/=' : '' }}</td>
+                                        {{-- 13. VAT --}}
+                                        <td class="text-right">{{ $total_vat ? number_format($total_vat) . '/=' : '' }}</td>
 
-                                       {{-- Total TK --}}
-                                       <td class="text-right">{{ $total_tk ? number_format($total_tk) . '/=' : '' }}</td>
+                                        {{-- 14. Total TK --}}
+                                        <td class="text-right">{{ $total_tk ? number_format($total_tk) . '/=' : '' }}</td>
 
-                                       {{-- VAT --}}
-                                       <td class="text-right">{{ $total_vat ? number_format($total_vat) . '/=' : '' }}</td>
+                                        {{-- 15. Payment --}}
+                                        <td class="text-right">{{ $total_payment ? number_format($total_payment) . '/=' : '' }}</td>
 
-                                       {{-- Carring --}}
-                                       <td class="text-right">{{ $total_carring ? number_format($total_carring) . '/=' : '' }}</td>
+                                        {{-- 16. Balance --}}
+                                        <td class="text-right">{{ $balance ? number_format($balance) . '/=' : '' }}</td>
 
-                                       {{-- Others --}}
-                                       <td class="text-right">{{ $total_others ? number_format($total_others) . '/=' : '' }}</td>
-
-                                       {{-- Payment --}}
-                                       <td class="text-right">{{ $total_payment ? number_format($total_payment) . '/=' : '' }}</td>
-
-                                       {{-- Total Payment --}}
-                                       <td class="text-right">{{ $total_G_payment ? number_format($total_G_payment) . '/=' : '' }}</td>
-
-                                       {{-- Old Due --}}
-                                       <td class="text-right">{{ $prev_due ? number_format($prev_due) . '/=' : '' }}</td>
-
-
-                                       {{-- Balance --}}
-                                       <td class="text-right">{{ $balance ? number_format($balance) . '/=' : '' }}</td>
-
-                                        {{-- Action --}}
+                                        {{-- 17. Action --}}
                                         <td>
                                             <div class="btn-group btn-group-vertical customer_diplay_list">
                                                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle py-0 px-2"
@@ -286,72 +263,67 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    {{-- Quantity --}}
+                                    {{-- 6. Quantity --}}
                                     <td class="text-wrap" style="max-width: 100px">
-                                        @if (isset($g_total_summary['qty']) && $g_total_summary['qty'] > 0)
+                                        @if (isset($g_total_summary['qty']) && count($g_total_summary['qty']) > 0)
                                             @foreach ($g_total_summary['qty'] as $type => $qty)
-                                                <strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong>
+                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice($type, $qty) : ''}}</strong></div>
                                             @endforeach
                                         @endif
                                     </td>
+                                    {{-- 7. Dis. Qty --}}
                                     <td class="text-wrap" style="max-width: 100px">
-                                        @if (isset($g_total_summary['dis_qty']) && $g_total_summary['dis_qty'] > 0)
+                                        @if (isset($g_total_summary['dis_qty']) && count($g_total_summary['dis_qty']) > 0)
                                             @foreach ($g_total_summary['dis_qty'] as $type => $qty)
-                                                <strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong>
+                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice($type, $qty) : ''}}</strong></div>
                                             @endforeach
                                         @endif
                                     </td>
+                                    {{-- 8. Return Qty --}}
                                     <td class="text-wrap" style="max-width: 100px">
-                                        @if (isset($g_total_summary['return_qty']) && $g_total_summary['return_qty'] > 0)
+                                        @if (isset($g_total_summary['return_qty']) && count($g_total_summary['return_qty']) > 0)
                                             @foreach ($g_total_summary['return_qty'] as $type => $qty)
-                                                <strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong>
+                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice($type, $qty) : ''}}</strong></div>
                                             @endforeach
                                         @endif
                                     </td>
+                                    {{-- 9. Pur. Qty --}}
                                     <td class="text-wrap" style="max-width: 100px">
-                                        @if (isset($g_total_summary['purchase_qty']) && $g_total_summary['purchase_qty'] > 0)
+                                        @if (isset($g_total_summary['purchase_qty']) && count($g_total_summary['purchase_qty']) > 0)
                                             @foreach ($g_total_summary['purchase_qty'] as $type => $qty)
-                                                <strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong>
+                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice($type, $qty) : ''}}</strong></div>
                                             @endforeach
                                         @endif
                                     </td>
-                                    <td class="text-right">
-                                        <strong>{{ isset($g_total_summary['weight']) && $g_total_summary['weight'] > 0 ? $g_total_summary['weight']/1000 : '' }}</strong>
-                                    </td>
+                                    {{-- 10. Pur. (TK) --}}
                                     <td class="text-right">
                                         <strong>{{ isset($g_total_summary['purchase_tk']) && $g_total_summary['purchase_tk'] > 0 ? number_format($g_total_summary['purchase_tk']) . '/=' : '' }}</strong>
                                     </td>
-                                    <td class="text-right">
-                                        <strong>{{ isset($g_total_summary['return_tk']) && $g_total_summary['return_tk'] > 0 ? number_format($g_total_summary['return_tk']) . '/=' : '' }}</strong>
-                                    </td>
+                                    {{-- 11. Dis. (TK) --}}
                                     <td class="text-right">
                                         <strong>{{ isset($g_total_summary['dis_tk']) && $g_total_summary['dis_tk'] > 0 ? number_format($g_total_summary['dis_tk']) . '/=' : '' }}</strong>
                                     </td>
+                                    {{-- 12. Return --}}
                                     <td class="text-right">
-                                        <strong>{{ isset($g_total_summary['total_tk']) && $g_total_summary['total_tk'] > 0 ? number_format($g_total_summary['total_tk']) . '/=' : '' }}</strong>
+                                        <strong>{{ isset($g_total_summary['return_tk']) && $g_total_summary['return_tk'] > 0 ? number_format($g_total_summary['return_tk']) . '/=' : '' }}</strong>
                                     </td>
+                                    {{-- 13. VAT --}}
                                     <td class="text-right">
                                         <strong>{{ isset($g_total_summary['vat']) && $g_total_summary['vat'] > 0 ? number_format($g_total_summary['vat']) . '/=' : '' }}</strong>
                                     </td>
+                                    {{-- 14. Total TK --}}
                                     <td class="text-right">
-                                        <strong>{{ isset($g_total_summary['carring']) && $g_total_summary['carring'] > 0 ? number_format($g_total_summary['carring']) . '/=' : '' }}</strong>
+                                        <strong>{{ isset($g_total_summary['total_tk']) && $g_total_summary['total_tk'] > 0 ? number_format($g_total_summary['total_tk']) . '/=' : '' }}</strong>
                                     </td>
-                                    <td class="text-right">
-                                        <strong>{{ isset($g_total_summary['others']) && $g_total_summary['others'] > 0 ? number_format($g_total_summary['others']) . '/=' : '' }}</strong>
-                                    </td>
+                                    {{-- 15. Payment --}}
                                     <td class="text-right">
                                         <strong>{{ isset($g_total_summary['total_payment_tk']) && $g_total_summary['total_payment_tk'] > 0 ? number_format($g_total_summary['total_payment_tk']) . '/=' : '' }}</strong>
                                     </td>
-                                    <td class="text-right">
-                                        <strong>{{ isset($g_total_summary['total_g_payment']) && $g_total_summary['total_g_payment'] > 0 ? number_format($g_total_summary['total_g_payment']) . '/=' : '' }}</strong>
-                                    </td>
-                                    <td class="text-right">
-                                        <strong>{{ isset($g_total_summary['prev_due_tk']) && $g_total_summary['prev_due_tk'] > 0 ? number_format($g_total_summary['prev_due_tk']) . '/=' : '' }}</strong>
-                                    </td>
+                                    {{-- 16. Balance --}}
                                     <td class="text-right">
                                         <strong>{{ isset($g_total_summary['balance']) && $g_total_summary['balance'] > 0 ? number_format($g_total_summary['balance']) . '/=' : '' }}</strong>
                                     </td>
+                                    {{-- 17. Action --}}
                                     <td></td>
                                 </tr>
                             </tfoot>

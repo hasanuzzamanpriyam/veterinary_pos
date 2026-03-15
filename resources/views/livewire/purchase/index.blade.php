@@ -22,23 +22,19 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-6">
                             <div class="row justify-content-end">
-                                <div class="search-area col-lg-12 col-md-12 col-sm-12 text-left py-3">
-                                    <div wire:ignore class="row">
-                                        <div class="col-md-4">
-                                            <label class="py-1 border entry-lebel purchase_entry_lebel" for="supplier_name">Supplier</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <select class="form-control" id="supplier-search">
-                                                <option value="">Select Supplier</option>
-                                                @foreach ($suppliers as $supplier)
-                                                    <option value="{{ $supplier->id }}">
-                                                            {{$supplier->company_name}}  -
-                                                            {{$supplier->address}} -
-                                                            {{$supplier->mobile}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                <div class="search-area col-lg-12 col-md-12 col-sm-12 text-left py-2">
+                                    <div wire:ignore>
+                                        <label class="purchase_entry_lebel mb-1" for="supplier-search">Supplier</label>
+                                        <select class="form-control" id="supplier-search">
+                                            <option value="">Select Supplier</option>
+                                            @foreach ($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}">
+                                                        {{$supplier->company_name}}  -
+                                                        {{$supplier->address}} -
+                                                        {{$supplier->mobile}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>{{--end supplier select area--}}
                             </div>
@@ -50,19 +46,19 @@
                             <!--Start supplier area-->
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label class="py-1 border purchase_entry_lebel" for="supplier_name">Supplier Name</label>
+                                    <label class="purchase_entry_lebel" for="supplier_name">Supplier Name</label>
                                     <input type="text"  name="supplier_name"   wire:model.defer="supplier_name"  class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label  class="py-1 border purchase_entry_lebel" for="transport_no">Address</label>
+                                    <label  class="purchase_entry_lebel" for="transport_no">Address</label>
                                     <textarea type="text" name="address" id="address"   wire:model.defer="address" class="form-control" cols="5" rows="1"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label  class="py-1 border purchase_entry_lebel" for="transport_no">Mobile</label>
+                                    <label  class="purchase_entry_lebel" for="transport_no">Mobile</label>
                                     <input type="text" name="mobile" id="mobile" wire:model.defer="mobile"   class="form-control">
                                 </div>
                             </div>
@@ -70,7 +66,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label  class="py-1 border purchase_entry_lebel" for="warehouse_id">Warehouse</label>
+                                    <label  class="purchase_entry_lebel" for="warehouse_id">Warehouse</label>
                                     <select type="text" wire:model="warehouse_id" wire:change="warehouseSearch($event.target.value)"  name="warehouse_id"  class="form-control">
                                         <option value="">Select Option</option>
                                         @foreach($warehouses as $warehouse)
@@ -81,7 +77,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label class="py-1 border purchase_entry_lebel" for="product_store_id">Store Name</label>
+                                    <label class="purchase_entry_lebel" for="product_store_id">Store Name</label>
                                     <select type="text" wire:model="product_store_id"  name="product_store_id"  class="form-control">
                                         <option value="">Select Option</option>
                                         @foreach($stores as $store)
@@ -94,19 +90,19 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label   class="py-1 border purchase_entry_lebel" for="prepare">Vehicle Number</label>
+                                    <label   class="purchase_entry_lebel" for="prepare">Vehicle Number</label>
                                     <input type="text" name="transport_no" wire:model="transport_no" id="transport_no" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label  class="py-1 border purchase_entry_lebel" for="delivery_man">Delivery Man</label>
+                                    <label  class="purchase_entry_lebel" for="delivery_man">Delivery Man</label>
                                     <input type="text" name="delivery_man" id="delivery_man" wire:model="delivery_man" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
-                                    <label  class="py-1 border purchase_entry_lebel" for="supplier_remarks">Remarks</label>
+                                    <label  class="purchase_entry_lebel" for="supplier_remarks">Remarks</label>
                                     <input type="text" name="supplier_remarks" wire:model.defer="supplier_remarks"  class="form-control">
                                 </div>
                             </div>
@@ -114,7 +110,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group ">
-                                    <label class="border py-1 purchase_entry_lebel" for="purchase_date">Purchase Date</label>
+                                    <label class="purchase_entry_lebel" for="purchase_date">Purchase Date</label>
                                     <div class="input-group date" id="purchase_date_picker_main">
                                         <input name="purchase_date" type="text" class="form-control" placeholder="dd-mm-yyyy" wire:model.defer="purchase_date">
                                         <div class="input-group-addon">
@@ -128,26 +124,22 @@
                             <!--Start Search Product area-->
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="row justify-content-end">
-                                    <div class="search-area col-lg-12 col-md-12 col-sm-12 text-left py-3">  {{-- start product select area --}}
-                                        <div wire:ignore class="row">
-                                            <div class="col-md-4">
-                                                <label class="py-1 border purchase_entry_lebel" for="supplier_name">Product</label>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <select class="form-control text-center " id="product-search">
-                                                    <option value="">Select Products</option>
-                                                        @foreach ($products as $product)
-                                                            @php
-                                                                $line_stock_qty = isset($store_stocks[$product->id]) ? $store_stocks[$product->id]['qty'] : 0;
-                                                            @endphp
-                                                            <option value="{{ $product->id }}">
-                                                                    {{$product->name}} -
-                                                                    {{$line_stock_qty}} {{trans_choice($product->type, $line_stock_qty )}} -
-                                                                    {{$product->purchase_rate}}/=
-                                                            </option>
-                                                        @endforeach
-                                                </select>
-                                            </div>
+                                    <div class="search-area col-lg-12 col-md-12 col-sm-12 text-left py-2">  {{-- start product select area --}}
+                                        <div wire:ignore>
+                                            <label class="purchase_entry_lebel mb-1" for="product-search">Product</label>
+                                            <select class="form-control text-center " id="product-search">
+                                                <option value="">Select Products</option>
+                                                    @foreach ($products as $product)
+                                                        @php
+                                                            $line_stock_qty = isset($store_stocks[$product->id]) ? $store_stocks[$product->id]['qty'] : 0;
+                                                        @endphp
+                                                        <option value="{{ $product->id }}">
+                                                                {{$product->name}} -
+                                                                {{$line_stock_qty}} {{trans_choice($product->type, $line_stock_qty )}} -
+                                                                {{$product->purchase_rate}}/=
+                                                        </option>
+                                                    @endforeach
+                                            </select>
                                         </div>
                                     </div>{{--end product select area --}}
                                 </div>
