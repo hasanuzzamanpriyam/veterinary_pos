@@ -34,12 +34,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="product_store_id" class="font-weight-bold">Store/Warehouse</label>
-                                            <select wire:model="product_store_id" id="product_store_id"
-                                                    wire:change="productSearch($event.target.value)"
-                                                    class="form-control">
+                                            <select id="product_store_id" class="form-control">
                                                 <option value="">Select Store/Warehouse</option>
                                                 @foreach ($stores as $store)
-                                                    <option value="{{ $store->id }}">
+                                                    <option value="{{ $store->id }}" {{ $product_store_id == $store->id ? 'selected' : '' }}>
                                                         {{ $store->name }} — {{ $store->address }} — {{ $store->mobile }}
                                                     </option>
                                                 @endforeach
@@ -214,21 +212,31 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function () {
+        document.addEventListener('livewire:initialized', () => {
+            // Initial Select2 load
+            $('#product_store_id').select2({ width: '100%' });
+            $('#product-search').select2({ width: '100%' });
+
             // Reinitialize Select2 after Livewire updates
-            $(document).on('dataUpdated', function () {
+            window.addEventListener('dataUpdated', function () {
                 setTimeout(() => {
-                    $('#product_store_id').select2();
-                    $('#product-search').select2();
+                    $('#product_store_id').select2({ width: '100%' });
+                    $('#product-search').select2({ width: '100%' });
                 }, 10);
             });
 
-            $('#product_store_id').on('change', function (e) {
-                @this.set('product_store_id', $('#product_store_id').select2("val"));
+            // Use delegated events to survive DOM replacements
+            $(document).on('change', '#product_store_id', function (e) {
+                @this.set('product_store_id', $(this).val());
             });
 
-            $('#product-search').on('change', function (e) {
-                @this.sessionStore(e.target.value);
+            $(document).on('change', '#product-search', function (e) {
+                let val = $(this).val();
+                if (val) {
+                    @this.sessionStore(val);
+                    // Optionally clear the selection so you can pick it again later
+                    $(this).val('').trigger('change.select2'); 
+                }
             });
         });
     </script>
