@@ -83,7 +83,7 @@ class Stock extends Component
 
             return [
                 'product_id' => $items->first()->product_id,
-                'code' => $items->first()->product->code ?? '',
+                'code' => $items->first()->product->sku ?? '',
                 'barcode' => $items->first()->product_code ?? $items->first()->product->barcode ?? '',
                 'product_name' => $items->first()->product_name, // add more fields as needed
                 'qty' => $items->sum('product_quantity'),

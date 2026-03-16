@@ -57,7 +57,7 @@
                                     <th class="all">Category</th>
                                     <th class="all">Group</th>
                                     <th class="all">Size</th>
-                                    <th class="all">Type</th>
+                                    <th class="all">Mode</th>
                                     <th class="all">Stock</th>
                                     <th class="all">TP Rate</th>
                                     <th class="all">MRP Rate</th>
