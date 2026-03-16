@@ -53,13 +53,13 @@
                 {{-- SUPPLIER SECTION --}}
                 @can('supplier-view')
                     <li>
-                        <a><i class="fa fa-truck"></i> <span>Supplier</span> <span class="fa fa-chevron-down"></span></a>
+                        <a><i class="fa fa-truck"></i> <span>Company</span> <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             @can('supplier-create')
-                                <li><a href="{{ route('live.supplier.create') }}">Supplier Add</a></li>
+                                <li><a href="{{ route('live.supplier.create') }}">Company Add</a></li>
                             @endcan
-                            <li><a href="{{ route('supplier.index') }}">Supplier List</a></li>
-                            <li><a href="{{ route('supplier.index_dues') }}">Due Supplier List</a></li>
+                            <li><a href="{{ route('supplier.index') }}">Company List</a></li>
+                            <li><a href="{{ route('supplier.index_dues') }}">Due Company List</a></li>
                             @can('supplier-ledger')
                                 <li><a href="{{ route('supplier.transactions.ledger') }}">Ledger</a></li>
                             @endcan
