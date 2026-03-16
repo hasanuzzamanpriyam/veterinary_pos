@@ -319,17 +319,19 @@
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="x_panel product-thumb-gallery mb-0">
-                        <div class="x_title" style="padding: 0; border-bottom: 1px solid #E6E9ED;">
-                            <button type="button" 
-                                    class="btn btn-link w-100 text-left m-0 d-flex align-items-center" 
-                                    wire:click="toggleSidebar"
-                                    style="color: #ced5db; text-decoration: none; padding: 10px 15px; font-weight: 500; font-size: 14px; outline: none; box-shadow: none;">
-                                @if ($showSidebar)
-                                    <i class="fa fa-eye-slash mr-2" style="margin-right: 8px;"></i> Hide
-                                @else
-                                    <i class="fa fa-eye mr-2" style="margin-right: 8px;"></i> Show
-                                @endif
-                            </button>
+                        <div class="x_title" wire:click="toggleSidebar" style="padding: 0; border-bottom: 1px solid #E6E9ED; cursor: pointer; background-color: #f8f9fa; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#e2e6ea'" onmouseout="this.style.backgroundColor='#f8f9fa'">
+                            <div class="w-100 text-left m-0 d-flex justify-content-between align-items-center" style="color: #495057; padding: 12px 15px; font-weight: 600; font-size: 14px; user-select: none;">
+                                <div>
+                                    @if ($showSidebar)
+                                        <i class="fa fa-eye-slash mr-2"></i> Hide Product Gallery
+                                    @else
+                                        <i class="fa fa-eye mr-2"></i> Show Product Gallery
+                                    @endif
+                                </div>
+                                <div>
+                                    <i class="fa @if($showSidebar) fa-chevron-up @else fa-chevron-down @endif"></i>
+                                </div>
+                            </div>
                             <div class="clearfix"></div>
                         </div>
 
