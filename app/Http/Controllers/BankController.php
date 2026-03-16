@@ -42,7 +42,6 @@ class BankController extends Controller
     public function edit($id)
     {
         $bank = Bank::where('id',$id)->first();
-
         return view('admin.bank.edit',get_defined_vars());
     }
 
@@ -54,7 +53,6 @@ class BankController extends Controller
             'branch' => ['max:255'],
             'remarks' => ['max:555'],
             'ac_mode' => ['max:555']
-
         ]);
 
         Bank::where('id',$request->id)->update([
@@ -73,8 +71,6 @@ class BankController extends Controller
 
     public function delete($id)
     {
-
-
         Bank::where('id', $id)->delete();
         Transaction::where('bank_id', $id)->delete();
 
