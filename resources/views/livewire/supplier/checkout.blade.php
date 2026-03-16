@@ -1,77 +1,187 @@
 @section('page-title', 'Supplier Checkout')
 
-<div class="container">
-    <div class="customer-area">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12">
-                        <h5 class="text-center single_p_title">Supplier Create</h5>
-
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-12">
-                        <div class="back_button mb-2">
-                            <a href="{{route('live.supplier.create')}}" class="btn btn-md btn-primary float-right"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="text-dark text-center">Supplier Information</h2>
-                    </div>
-                    {{-- @dump($supplier) --}}
-                    <div class="col-lg-2 col-md-2 col-sm-12">
-                        <div class="logo text-center my-3">
-                            @if(empty($supplier['photo']))
-                            <h4>No Image Found!</h4>
-                            @else
-                            <img src="{{asset($supplier['photo'])}}" class="img-thumbnail img-responsive" alt="Logo" width="250" height="320">
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-sm-12">
-                        <table class="customer-data table table-striped table-sm">
-                                <tr><th>Company Name</th><td>{{$supplier['company_name']}}</td></tr>
-                                <tr><th>Owner Name</th><td>{{$supplier['owner_name']}}</td></tr>
-                                <tr><th>Officer Name</th><td>{{$supplier['officer_name']}}</td></tr>
-                                <tr><th>Address</th><td>{{$supplier['address']}}</td></tr>
-                                <tr><th>Mobile Number</th><td>{{$supplier['mobile']}}</td></tr>
-                                <tr><th>Officer Number</th><td>{{$supplier['phone']}}</td></tr>
-                                <tr><th>Email</th><td>{{$supplier['email']}}</td></tr>
-                                <tr><th>Ledger Page</th><td>{{$supplier['ledger_page']}}</td></tr>
-                            </table>
-                        </div>
-                        <div class="col-lg-5 col-md-5 col-sm-12">
-                            <table class="customer-data table table-striped table-sm">
-                                <tr><th>Dealer Code</th><td>{{$supplier['dealer_code']}}</td></tr>
-                                <tr><th>Dealer Area</th><td>{{$supplier['dealer_area']}}</td></tr>
-                                <tr><th>Security</th><td>{{$supplier['security']}}</td></tr>
-                                <tr><th>Credit Limit</th><td>{{$supplier['credit_limit']}}</td></tr>
-                                <tr><th>Adv.Payment</th><td>{{$supplier['advance_payment']}}</td></tr>
-                                <tr><th>Previous Due</th><td>{{$supplier['previous_due']}}</td></tr>
-                                <tr><th>Condition</th><td>{{$supplier['condition']}}</td></tr>
-                                <tr><th>Starting Date</th><td>{{$supplier['starting_date']}}</td></tr>
-                        </table>
+<div class="col-md-12 col-sm-12">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="x_panel">
+                <div class="x_title p-3">
+                    <div class="header-title d-flex align-items-center">
+                        <h2>Supplier Checkout</h2>
+                        <div class="ms-auto">
+    <a href="{{ route('live.supplier.create') }}" class="cursor-pointer me-2" title="Back to Edit">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="{{ route('supplier.index') }}" class="cursor-pointer" title="Close">
+        <i class="fa fa-close"></i>
+    </a>
+</div>
                     </div>
                 </div>
 
+                <div class="x_content p-3">
+                    {{-- No error summary needed on checkout --}}
 
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="item form-group">
-                            <div class="col-md-12 col-sm-12 text-center">
-                                <a href="{{route('supplier.index')}}" class="btn btn-danger" type="button">Cancel</a>
-                                <button class="btn btn-warning" type="reset" wire:click="clear">Reset</button>
-                                <button type="submit" class="btn btn-success" wire:click="submit()">Submit</button>
+                    {{-- Supplier information displayed in two columns like the add form --}}
+                    <div class="row">
+                        {{-- LEFT COLUMN --}}
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            {{-- Photo --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Photo</label>
+                                <div class="col-md-8 col-sm-8">
+                                    @if(empty($supplier['photo']))
+                                        <p class="form-control-plaintext">No Image Found!</p>
+                                    @else
+                                        <img src="{{ asset($supplier['photo']) }}" class="img-thumbnail img-responsive" alt="Logo" width="250" height="320">
+                                    @endif
+                                </div>
+                            </div>
+
+                            {{-- Company Name --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Company Name</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['company_name'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Owner Name --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Owner Name</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['owner_name'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Officer Name --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Officer Name</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['officer_name'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Address --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Address</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['address'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Mobile Number --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Mobile Number</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['mobile'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Officer Number (phone) --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Officer Number</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['phone'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Email --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Email</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['email'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Ledger Page --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Ledger Page</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['ledger_page'] ?? '' }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- RIGHT COLUMN --}}
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            {{-- Dealer Code --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Dealer Code</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['dealer_code'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Dealer Area --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Dealer Area</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['dealer_area'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Security --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Security</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['security'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Credit Limit --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Credit Limit</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['credit_limit'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Advance Payment --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Adv. Payment</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['advance_payment'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Previous Due --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Previous Due</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['previous_due'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Condition --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Condition</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['condition'] ?? '' }}</p>
+                                </div>
+                            </div>
+
+                            {{-- Starting Date --}}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-4 col-sm-4 label-align add_supplier_lebel">Starting Date</label>
+                                <div class="col-md-8 col-sm-8">
+                                    <p class="form-control-plaintext">{{ $supplier['starting_date'] ?? '' }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
+                    <div class="ln_solid"></div>
+
+                    {{-- Action buttons (same style as add form) --}}
+                    <div class="item form-group">
+                        <div class="col-md-12 col-sm-12 text-center">
+                            <a href="{{ route('supplier.index') }}" class="btn btn-danger" type="button">Cancel</a>
+                            <button class="btn btn-warning" type="reset" wire:click="clear">Reset</button>
+                            <button type="submit" class="btn btn-success" wire:click="submit()">Submit</button>
+                        </div>
+                    </div>
+                </div> {{-- end x_content --}}
+            </div> {{-- end x_panel --}}
         </div>
     </div>
 </div>
