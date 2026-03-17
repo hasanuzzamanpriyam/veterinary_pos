@@ -182,7 +182,8 @@ class Index extends Component
                 'weight' => $products->size->name,
                 'brand_id' => $products->brand_id,
                 'type' => $products->type,
-                'code' => $products->sku
+                'code' => $products->code,
+                'sort_index' => microtime(true)
             ]
         ]);
     }

@@ -151,7 +151,7 @@
                             <thead>
                                 <tr class="text-center">
                                     <th style="width: 70px;">Code</th>
-                                    <th>Name</th>
+                                    <th>Product Name</th>
                                     <th style="width: 95px;">Prod. Date</th>
                                     <th style="width: 95px;">Exp. Date</th>
                                     <th style="width: 110px;">Purchase(Q)</th>
@@ -173,7 +173,9 @@
                                 @endphp
 
                                 @if(Cart::instance('purchase')->content()->count() > 0)
-                                    @foreach (Cart::instance('purchase')->content() as $product)
+                                    @foreach (Cart::instance('purchase')->content()->sortBy(function($item) {
+                                        return $item->options->sort_index ?? 0;
+                                    }) as $product)
                                         @php
                                             $qty = $product->qty ?: 0;
                                             $dis_qty = $product->options->discount ?: 0;
@@ -190,70 +192,69 @@
                                             $summary['total'][$type] = ($summary['total'][$type] ?? 0) + ($qty - $dis_qty);
                                         @endphp
 
-                                        <tr class="text-center sales-entry" wire:key="cart-item-{{ $product->rowId }}">
-                                            <td>
+                                        <tr class="sales-entry" wire:key="cart-item-{{ $product->rowId }}">
+                                            <td class="text-left">
                                                 <div class="d-flex flex-column align-items-start">
-                                                    <span>{{ $product->options->code }}</span>
                                                     @if($product->options->barcode)
                                                         <svg class="barcode-render" data-barcode="{{ $product->options->barcode }}"
                                                              style="height: 25px; margin-top: 4px; max-width: 100%;"></svg>
                                                     @endif
                                                 </div>
                                             </td>
-                                            <td>
+                                            <td class="text-left">
                                                 <span>{{ $product->name }}</span>
                                             </td>
-                                            <td>
+                                            <td class="text-left">
                                                 <input type="text"
                                                        data-row-id="{{ $product->rowId }}"
                                                        data-type="production_date"
                                                        value="{{ $product->options->production_date ? date('d-m-Y', strtotime($product->options->production_date)) : '' }}"
-                                                       class="form-control p-1 table-datepicker text-center"
+                                                       class="form-control p-1 table-datepicker"
                                                        style="font-size: 12px; width: 100%; min-width: 95px;"
                                                        placeholder="dd-mm-yyyy"
                                                        readonly>
                                             </td>
-                                            <td>
+                                            <td class="text-left">
                                                 <input type="text"
                                                        data-row-id="{{ $product->rowId }}"
                                                        data-type="expire_date"
                                                        value="{{ $product->options->expire_date ? date('d-m-Y', strtotime($product->options->expire_date)) : '' }}"
-                                                       class="form-control p-1 table-datepicker text-center"
+                                                       class="form-control p-1 table-datepicker"
                                                        style="font-size: 12px; width: 100%; min-width: 95px;"
                                                        placeholder="dd-mm-yyyy"
                                                        readonly>
                                             </td>
-                                            <td class="purchase-qty">
+                                            <td class="text-left purchase-qty">
                                                 <input type="text"
                                                        wire:change="updatePurchaseQty({{$id}}, $event.target.value)"
                                                        value="{{ $qty - $dis_qty }}"
-                                                       class="form-control text-center">
+                                                       class="form-control">
                                             </td>
-                                            <td>
+                                            <td class="text-left">
                                                 <input type="number"
                                                        wire:change="updateDiscount({{$id}}, $event.target.value)"
                                                        value="{{ $dis_qty }}"
-                                                       class="form-control text-center">
+                                                       class="form-control">
                                             </td>
-                                            <td>
+                                            <td class="text-left">
                                                 <input type="text"
                                                        @disabled(true)
                                                        value="{{ $qty }}"
-                                                       class="form-control purchase-entry-qty text-center">
+                                                       class="form-control purchase-entry-qty">
                                             </td>
-                                            <td>
+                                            <td class="text-left">
                                                 <input type="text"
                                                        wire:change="updatePrice({{ $id }}, $event.target.value || 0)"
                                                        value="{{ $product->price }}"
-                                                       class="form-control text-center">
+                                                       class="form-control">
                                             </td>
-                                            <td class="sub-total">
+                                            <td class="text-left sub-total">
                                                 <input type="text"
                                                        @disabled(true)
                                                        value="{{ $product->price * ($qty - $dis_qty) }}/-"
-                                                       class="form-control text-center">
+                                                       class="form-control">
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <button type="button"
                                                         class="btn btn-danger btn-sm m-0"
                                                         wire:click="itemRemove('{{ $product->rowId }}')"

@@ -102,7 +102,7 @@
                                         <thead>
                                             <tr class="text-center">
                                                 <th class="all">Code</th>
-                                                <th class="all">Name</th>
+                                                <th class="all">Product Name</th>
                                                 <th class="all">Purchase (Qty)</th>
                                                 @if($product_discounts > 0)
                                                 <th class="all">Discount</th>
