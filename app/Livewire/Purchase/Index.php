@@ -182,7 +182,7 @@ class Index extends Component
                 'weight' => $products->size->name,
                 'brand_id' => $products->brand_id,
                 'type' => $products->type,
-                'code' => $products->code
+                'code' => $products->sku
             ]
         ]);
     }
@@ -290,16 +290,16 @@ class Index extends Component
         if (!empty($this->brand_id)) {
 
             $products_grid = Product::where('brand_id', $this->brand_id)
-                ->orderBy('code', 'asc')
+                ->orderBy('sku', 'asc')
                 ->get();
             if ($this->brand_id == '0') {
-                $products_grid = Product::latest()->orderBy('code', 'asc')->limit(18)->get();
+                $products_grid = Product::latest()->orderBy('sku', 'asc')->limit(18)->get();
             }
         } else {
             if (!empty($this->new_search)) {
                 $this->searches = Product::where('name', 'Like', "%{$this->new_search}%")
-                    ->orWhere('code', 'Like', "%{$this->new_search}%")
-                    ->orderBy('code', 'asc')
+                    ->orWhere('sku', 'Like', "%{$this->new_search}%")
+                    ->orderBy('sku', 'asc')
                     ->limit(9)->get();
             } else {
                 $this->searches = 0;
@@ -318,7 +318,7 @@ class Index extends Component
         $store_stocks = $all_stocks->groupBy('product_id')->map(function ($items) {
             return [
                 'name' => $items->first()->product->name,
-                'code' => $items->first()->product->code,
+                'code' => $items->first()->product->sku,
                 'qty' => $items->sum('product_quantity'),
                 'type' => $items->first()->product->type,
                 'price' => $items->last()->purchase_price
