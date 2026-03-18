@@ -162,6 +162,7 @@
                         <th class="text-center">Quantity</th>
                         <th class="text-center">Purchase Rate</th>
                         <th class="text-center">Purchase Value</th>
+                        {{-- <th class="text-center">Net Amount</th> --}}
                         <th class="text-center">Sales Rate</th>
                         <th class="text-center">Sales Value</th>
                         <th class="text-center">Production Date</th>
@@ -173,6 +174,7 @@
                         $summary = [
                             'qty' => 0,
                             'purchase_tk' => 0,
+                            'net_amount' => 0,
                             'sale_tk' => 0,
                         ];
                     @endphp
@@ -180,11 +182,13 @@
                         @php
                             $qty = floatval($stockEntry->quantity);
                             $purchase_value = floatval($stockEntry->total_price);
-                            $purchase_rate = $qty > 0 ? $purchase_value / $qty : 0;
+                            $net_amount = floatval($stockEntry->net_amount ?? 0);
+                            $purchase_rate = $qty > 0 ? $net_amount / $qty : 0;
                             $sale_value = $qty * floatval($product->price_rate);
 
                             $summary['qty'] += $qty;
                             $summary['purchase_tk'] += $purchase_value;
+                            $summary['net_amount'] += $net_amount;
                             $summary['sale_tk'] += $sale_value;
                         @endphp
                         <tr>
@@ -193,7 +197,7 @@
                             <td class="text-center">{{ $stockEntry->store->name ?? 'N/A' }}</td>
                             <td class="text-center">{{ formatAmount($qty) }} {{ trans_choice($product->type, $qty) }}</td>
                             <td class="text-right">{{ formatAmount($purchase_rate) }}</td>
-                            <td class="text-right">{{ formatAmount($purchase_value) }}</td>
+                            <td class="text-right">{{ formatAmount($net_amount) }}</td>
                             <td class="text-right">{{ formatAmount($product->price_rate) }}</td>
                             <td class="text-right">{{ formatAmount($sale_value) }}</td>
                             <td class="text-center">{{ $stockEntry->production_date ? \Carbon\Carbon::parse($stockEntry->production_date)->format('d-m-Y') : 'N/A' }}</td>
@@ -210,7 +214,8 @@
                         <td class="text-center">{{ formatAmount($summary['qty']) }}
                             {{ trans_choice($product->type, $summary['qty']) }}</td>
                         <td></td>
-                        <td class="text-right">{{ formatAmount($summary['purchase_tk']) }}</td>
+                        {{-- <td class="text-right">{{ formatAmount($summary['purchase_tk']) }}</td> --}}
+                        <td class="text-right">{{ formatAmount($summary['net_amount']) }}</td>
                         <td></td>
                         <td class="text-right">{{ formatAmount($summary['sale_tk']) }}</td>
                         <td></td>

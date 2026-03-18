@@ -89,6 +89,9 @@
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th>Sub Total</th>
+                                        <th>Single Discount</th>
+                                        <th>Total Discount</th>
+                                        <th>Net Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,7 +101,9 @@
                                             'dis_qty' => [],
                                             'purchase_qty' => [],
                                             'price' => 0,
-                                            'sub_total' => 0
+                                            'sub_total' => 0,
+                                            'total_discount' => 0,
+                                            'net_amount' => 0,
                                         ];
                                     @endphp
                                     {{-- @dump($products) --}}
@@ -112,6 +117,8 @@
                                             $total_summary['purchase_qty'][$product->product->type] += ($product->quantity - $product->discount_qty);
                                             $total_summary['price'] += $product->unit_price;
                                             $total_summary['sub_total'] += $product->total_price;
+                                            $total_summary['total_discount'] += $product->total_discount ?? 0;
+                                            $total_summary['net_amount'] += $product->net_amount ?? 0;
                                         @endphp
 
                                         <tr>
@@ -129,6 +136,9 @@
                                                 {{ trans_choice($product->product->type, $product->quantity) }}</td>
                                             <td class="text-right p-1">{{formatAmount($product->unit_price)}}/=</td>
                                             <td class="text-right p-1">{{formatAmount($product->total_price)}}/=</td>
+                                            <td class="text-right p-1">{{formatAmount($product->single_discount ?? 0)}}</td>
+                                            <td class="text-right p-1">{{formatAmount($product->total_discount ?? 0)}}</td>
+                                            <td class="text-right p-1">{{formatAmount($product->net_amount ?? 0)}}</td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -169,6 +179,11 @@
                                             <th class="text-right p-1 comon_column"></th>
                                             <th class="text-right p-1 comon_column">
                                                 {{formatAmount($total_summary['sub_total'])}}/=</th>
+                                            <th class="text-right p-1 comon_column"></th>
+                                            <th class="text-right p-1 comon_column">
+                                                {{formatAmount($total_summary['total_discount'])}}</th>
+                                            <th class="text-right p-1 comon_column">
+                                                {{formatAmount($total_summary['net_amount'])}}</th>
                                         </tr>
                                     </tfoot>
                                 @endif

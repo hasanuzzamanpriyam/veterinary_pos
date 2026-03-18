@@ -109,6 +109,9 @@ class Checkout extends Component
         // dd($validateData);
 
 
+        // Default to 0; will be recalculated after the cart totals are summed
+        $single_discount = 0;
+
         if (app('cart')->instance('purchase')->count() > 0) {
             foreach (app('cart')->instance('purchase')->content() as $product) {
                 $this->total_qty += (float) $product->qty;
@@ -117,11 +120,14 @@ class Checkout extends Component
             }
         }
 
+        // Single discount = total price discount divided by total quantity
+        $single_discount = $this->total_qty > 0 ? ($this->total_discount / $this->total_qty) : 0;
+
         if ($this->supplier) {
             $supplier = $this->supplier;
             $final_balance = $supplier['balance'] + $this->total_tk - $this->grand_total;
             $date = $supplier['date'];
-            $inv = DB::transaction(function () use ($supplier, $date, $final_balance, $validateData) {
+            $inv = DB::transaction(function () use ($supplier, $date, $final_balance, $validateData, $single_discount) {
 
                 $rowsBeforeInsert = SupplierLedger::where('supplier_id', $supplier['supplier_id'])
                     ->where('date', '>', $date)
@@ -188,6 +194,10 @@ class Checkout extends Component
                         $production_date = (!empty($raw_production_date)) ? date('Y-m-d', strtotime($raw_production_date)) : null;
                         $expire_date = (!empty($raw_expire_date)) ? date('Y-m-d', strtotime($raw_expire_date)) : null;
 
+                        $row_total_discount = $single_discount * (float) $product->qty;
+                        $row_subtotal = ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
+                        $row_net_amount = $row_subtotal - $row_total_discount;
+
                         SupplierTransactionDetails::insert(
                             [
                                 'supplier_id' => $supplier['supplier_id'],
@@ -200,7 +210,10 @@ class Checkout extends Component
                                 'discount_qty' => (float) $product->options->discount,
                                 'weight' => $product->options->weight,
                                 'unit_price' => (float) $product->price,
-                                'total_price' => ((float) $product->qty - (float) $product->options->discount) * (float) $product->price,
+                                'total_price' => $row_subtotal,
+                                'single_discount' => $single_discount,
+                                'total_discount' => $row_total_discount,
+                                'net_amount' => $row_net_amount,
                                 'transaction_type' => 'purchase',
                                 'date' => $date,
                                 'production_date' => $production_date,
@@ -290,21 +303,21 @@ class Checkout extends Component
             if ($this->discount_status == 1) {
                 $this->total_discount = floatval($this->price_discount);
             } else {
-                $total = $this->total_tk;
-                $this->total_discount = $total * floatval($this->price_discount) / 100;
+                // percentage discount applied on total purchase amount
+                $this->total_discount = $total_amount * floatval($this->price_discount) / 100;
             }
         }
 
         $this->total_tk = $total_amount - $this->total_discount;
 
-        //vat discount calculation
+        //vat calculation
         if ($this->vat_status) {
 
             if ($this->vat_status == 1) {
                 $this->total_vat = floatval($this->vat_discount);
             } else {
-                $total = $this->grand_total;
-                $this->total_vat = $total * floatval($this->vat_discount) / 100;
+                // percentage VAT applied on total_tk (subtotal after discount)
+                $this->total_vat = $this->total_tk * floatval($this->vat_discount) / 100;
             }
         }
         $this->grand_total = $this->total_vat + floatval($this->carring) + floatval($this->other_charge) + $payment;
