@@ -13,6 +13,33 @@
         </div>
 
         <div class="x_content">
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fa fa-check-circle mr-2"></i> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+            @if (session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fa fa-exclamation-triangle mr-2"></i> {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+            @if (session()->has('info'))
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <i class="fa fa-info-circle mr-2"></i> {{ session('info') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul class="mb-0">
@@ -205,6 +232,7 @@
                     <thead class="thead-light">
                         <tr class="text-center">
                             <th>SL</th>
+                            <th>Date</th>
                             <th>Product Name</th>
                             <th>Company Name</th>
                             <th>Category</th>
@@ -212,13 +240,14 @@
                             <th>Quantity</th>
                             <th>Purchase Price</th>
                             <th>Sale Rate</th>
-                            <th>Date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($paginated_stock_list as $key => $stock)
                             <tr class="text-center">
                                 <td>{{ $paginated_stock_list->firstItem() + $key }}</td>
+                                <td>{{ $stock->created_at ? $stock->created_at->format('d-m-Y') : 'N/A' }}</td>
                                 <td class="text-left">{{ $stock->product->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->product->brand->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->product->category->name ?? 'N/A' }}</td>
@@ -226,11 +255,20 @@
                                 <td>{{ $stock->product_quantity }}</td>
                                 <td>{{ $stock->purchase_price }}/=</td>
                                 <td>{{ $stock->product->price_rate ?? 'N/A' }}{{ isset($stock->product->price_rate) ? '/=' : '' }}</td>
-                                <td>{{ $stock->created_at ? $stock->created_at->format('d-m-Y') : 'N/A' }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-xs" wire:click="editStock({{ $stock->id }})" title="Edit">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" 
+                                            onclick="confirm('Are you sure you want to delete this stock entry?') || event.stopImmediatePropagation()"
+                                            wire:click="deleteStock({{ $stock->id }})" title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center">No stock data found.</td>
+                                <td colspan="10" class="text-center">No stock data found.</td>
                             </tr>
                         @endforelse
                     </tbody>

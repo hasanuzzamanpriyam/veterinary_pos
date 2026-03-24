@@ -89,6 +89,52 @@ class ManageProductStock extends Component
         }
     }
 
+    // delete stock entry
+    public function deleteStock($id)
+    {
+        $stock = ProductStore::find($id);
+        if ($stock) {
+            $stock->delete();
+            session()->flash('success', 'Stock entry deleted successfully.');
+        } else {
+            session()->flash('error', 'Stock entry not found.');
+        }
+    }
+
+    // edit stock entry (load into cart)
+    public function editStock($id)
+    {
+        $stock = ProductStore::with('product.size')->find($id);
+        if ($stock && $stock->product) {
+            $this->product_store_id = $stock->product_store_id;
+            
+            // Add to cart (Note: You might want to clear the cart first if you only want to edit one record at a time)
+            // app('cart')->instance('manage_stock')->destroy(); 
+
+            app('cart')->instance('manage_stock')->add([
+                'id' => $stock->product_id,
+                'name' => $stock->product->name,
+                'qty' => $stock->product_quantity,
+                'price' => $stock->purchase_price,
+                'options' => [
+                    'barcode' => $stock->product->barcode,
+                    'brand_id' => $stock->product->brand_id,
+                    'code' => $stock->product->product_code, // Added product code
+                    'discount' => 0,
+                    'weight' => $stock->product->size->name ?? '',
+                    'stock' => 0, // Current stock can be updated if needed
+                    'type' => $stock->product->type
+                ]
+            ]);
+            
+            $this->dispatch('cartUpdated');
+            $this->dispatch('dataUpdated'); // Trigger Select2 reinit
+            session()->flash('success', 'Stock entry loaded into cart for editing.');
+        } else {
+            session()->flash('error', 'Stock entry or product not found.');
+        }
+    }
+
     // add product to sales cart
     public function sessionStore($id)
     {
