@@ -2593,3 +2593,10 @@ select.form-control {
 .nav.child_menu li.active {
     background-color: rgb(0 82 200 / 51%);
 }
+
+
+div#datatable-responsive_filter label {
+    padding-left: 4px;
+    font-weight: bold;
+    background: #81307e00;
+}

@@ -106,7 +106,7 @@ class Pstockadjusment extends Component
 
         $cart = app('cart')->instance('stock_adjust')->content()->where('rowId', $rowId);
         if ($cart->isNotEmpty()) {
-            app('cart')->remove($rowId);
+            app('cart')->instance('stock_adjust')->remove($rowId);
         }
     }
 

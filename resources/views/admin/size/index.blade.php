@@ -1,59 +1,74 @@
 @extends('layouts.admin')
 
-@section('page-title')
-Size List
-@endsection
+@section('page-title', 'Type List')
 
 @section('main-content')
-
 <div class="col-md-12 col-sm-12">
-    <div class="x_panel">
-        <div class="x_title p-3">
-
-            <div class="header-title d-flex align-items-center gap-2">
-                <h2 class="mr-auto">Size List</h2>
-                <a href="{{route('size.create')}}" class="btn btn-md btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add Size</a>
-            </div>
-
+    <div class="card">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Type List</h5>
+            <a href="{{ route('size.create') }}" class="btn btn-primary btn-sm">
+                <i class="fa fa-plus"></i> Add Type
+            </a>
         </div>
-        <div class="x_content p-3">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 ">
-                    <div class="card-box table-responsive">
-                        {{-- notification message --}}
-                        @if(session()->has('msg'))
-                            <div class="text-center alert alert-success">
-                                {{session()->get('msg')}}
-                            </div>
-                        @endif
-                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap category_list_table" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                <th class="all">S.N.</th>
-                                <th class="all">ID</th>
-                                <th class="all">Size</th>
-                                <th class="all">Description</th>
-                                <th class="all">Remarks</th>
-                                <th class="all">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($sizes as $size)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$size->id}}</td>
-                                        <td>{{$size->name}}</td>
-                                        <td class="text-wrap">{{$size->description}}</td>
-                                        <td class="text-wrap">{{$size->remarks}}</td>
-                                        <td> <a href="{{route('size.edit',$size->id)}}" class="btn btn-success"><i class="fa fa-edit" ></i></a> <a href="{{route('size.delete',$size->id)}}" class="btn btn-danger" id="delete"><i class="fa fa-trash" ></i></a></td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+
+        <div class="card-body">
+            @if(session()->has('msg'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session()->get('msg') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+            @endif
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover" id="datatable-responsive" width="100%">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>S.N.</th>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Remarks</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($sizes as $size)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $size->id }}</td>
+                                <td>{{ $size->name }}</td>
+                                <td class="text-wrap">{{ $size->description ?? '—' }}</td>
+                                <td class="text-wrap">{{ $size->remarks ?? '—' }}</td>
+                                <td class="d-flex gap-2">
+                                    <a href="{{ route('size.edit', $size->id) }}" class="btn btn-success btn-sm" data-toggle="tooltip" title="Edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="{{ route('size.delete', $size->id) }}" class="btn btn-danger btn-sm" id="delete" data-toggle="tooltip" title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">No types found.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    // Initialize tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+@endpush

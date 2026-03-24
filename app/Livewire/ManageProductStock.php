@@ -9,12 +9,17 @@ use App\Models\Store;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
-// use Livewire\WithPagination;
+use Livewire\WithPagination;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class ManageProductStock extends Component
 {
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
     public $search, $brand_id;
+    public $stockHistorySearch = '';
+    public $perPage = 10;
     public $date;
     public $product_store_id;
     public $price_group_id;
@@ -39,6 +44,16 @@ class ManageProductStock extends Component
     public function mount()
     {
         $this->date = now()->format('d-m-Y');
+    }
+
+    public function updatingStockHistorySearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage()
+    {
+        $this->resetPage();
     }
 
 
@@ -148,7 +163,21 @@ class ManageProductStock extends Component
             ->when(isset($this->product_store_id), function (Builder $query) {
                 $query->where('product_store_id', $this->product_store_id);
             })->orderBy('id', 'desc')->get();
-        // when('product_store_id', $this->product_store_id ?? '')->get();
+
+        $paginated_stock_list = ProductStore::query()
+            ->with(['product.brand', 'product.category', 'store'])
+            ->when(isset($this->product_store_id), function (Builder $query) {
+                $query->where('product_store_id', $this->product_store_id);
+            })
+            ->when($this->stockHistorySearch, function ($query) {
+                $query->whereHas('product', function ($q) {
+                    $q->where('name', 'like', '%' . $this->stockHistorySearch . '%');
+                })->orWhereHas('store', function ($q) {
+                    $q->where('name', 'like', '%' . $this->stockHistorySearch . '%');
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->paginate($this->perPage);
         $all_products = Product::latest()
             ->orderBy('name', 'asc')
             ->get();
@@ -180,4 +209,3 @@ class ManageProductStock extends Component
             ->section('main-content');
     }
 }
-

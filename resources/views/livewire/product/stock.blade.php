@@ -86,12 +86,13 @@
                         <table id="" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
+                                    <th class="all">SL</th>
                                     <th class="all">Code</th>
                                     <th class="all">Name</th>
                                     <th class="all">Company</th>
                                     <th class="all">Category</th>
                                     <th class="all">Group</th>
-                                    <th class="all">Size</th>
+                                    <th class="all">Type</th>
                                     <th class="all">Mode</th>
                                     <th class="all">Stock</th>
                                     <th class="all">Purchase Value</th>
@@ -129,6 +130,8 @@
                                             $gtotal_stock['qty'][$type] += $quantity;
                                         @endphp
                                         <tr>
+                                            <td>{{ $items + $stock_list->firstItem() - 1 }}</td>
+                                            
                                             <td>
                                                 <div class="d-flex flex-column align-items-start">
                                                     <span>{{ $stock['code'] }}</span>

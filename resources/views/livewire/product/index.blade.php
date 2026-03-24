@@ -30,11 +30,8 @@
                         @endif
 
                         <div class="mb-3 d-flex gap-3 align-items-center flex-wrap">
-                            <div class="search-box mr-auto">
-                                <input type="text" wire:model.live="search" class="form-control" 
-                                    placeholder="Search by name, barcode, brand, category, group, size..." style="min-width: 300px;">
-                            </div>
-                            <div class="per-page-select d-flex align-items-center gap-2">
+                            {{-- Show Section (Moved to the left and added mr-auto to push search to the right) --}}
+                            <div class="per-page-select d-flex align-items-center gap-2 mr-auto">
                                 <span class="text-muted">Show</span>
                                 <select wire:model.live="perPage" class="form-control" style="width: auto;">
                                     <option value="15">15</option>
@@ -43,6 +40,13 @@
                                     <option value="500">All</option>
                                 </select>
                             </div>
+
+                            {{-- Search Section (Moved to the right) --}}
+                            <div class="search-box">
+                                <input type="text" wire:model.live="search" class="form-control" 
+                                    placeholder="Search by name, barcode, brand, category, group, size..." style="min-width: 300px;">
+                            </div>
+                            <button wire:click="resetSearch" class="btn btn-md btn-primary">Reset</button> 
                         </div>
 
                         <table id="productListTable" class="table table-striped table-bordered dt-responsive nowrap"
@@ -56,7 +60,7 @@
                                     <th class="all">Company</th>
                                     <th class="all">Category</th>
                                     <th class="all">Group</th>
-                                    <th class="all">Size</th>
+                                    <th class="all">Type</th>
                                     <th class="all">Mode</th>
                                     <th class="all">Stock</th>
                                     <th class="all">TP Rate</th>

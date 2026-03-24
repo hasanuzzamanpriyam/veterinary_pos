@@ -169,42 +169,75 @@
         </div>
     </div>
 
-    <!-- Stock List Panel -->
+    <!-- Product Stock History Panel -->
     <div class="x_panel mt-4">
-        <div class="x_title">
-            <h2>Stock List</h2>
+        <div class="x_title" data-toggle="collapse" data-target="#stockHistoryCollapse" style="cursor: pointer;">
+            <h2>Product Stock History <small>(Click to toggle)</small></h2>
             <div class="clearfix"></div>
         </div>
-        <div class="x_content">
+        <div class="x_content collapse" id="stockHistoryCollapse" wire:ignore.self>
+            <div class="row mb-3 align-items-center">
+                <div class="col-md-3">
+                    <div class="d-flex align-items-center">
+                        <label for="perPage" class="mr-2 mb-0">Show:</label>
+                        <select id="perPage" wire:model.live="perPage" class="form-control" style="width: auto;">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span class="ml-2">Entries</span>
+                    </div>
+                </div>
+                <div class="col-md-5 ml-auto">
+                    <div class="input-group">
+                        <input type="text" wire:model.live="stockHistorySearch" class="form-control" placeholder="Search by Product or Store...">
+                        <div class="input-group-append">
+                            <button class="btn btn-danger" type="button" wire:click="$set('stockHistorySearch', '')">
+                                <i class="fa fa-times"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead class="thead-light">
                         <tr class="text-center">
-                            <th>#</th>
+                            <th>SL</th>
                             <th>Product Name</th>
+                            <th>Company Name</th>
+                            <th>Category</th>
                             <th>Store</th>
                             <th>Quantity</th>
                             <th>Purchase Price</th>
+                            <th>Sale Rate</th>
                             <th>Date</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($stock_list as $key => $stock)
+                        @forelse ($paginated_stock_list as $key => $stock)
                             <tr class="text-center">
-                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $paginated_stock_list->firstItem() + $key }}</td>
                                 <td class="text-left">{{ $stock->product->name ?? 'N/A' }}</td>
+                                <td>{{ $stock->product->brand->name ?? 'N/A' }}</td>
+                                <td>{{ $stock->product->category->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->store->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->product_quantity }}</td>
                                 <td>{{ $stock->purchase_price }}/=</td>
+                                <td>{{ $stock->product->selling_rate ?? 'N/A' }}{{ isset($stock->product->selling_rate) ? '/=' : '' }}</td>
                                 <td>{{ $stock->created_at ? $stock->created_at->format('d-m-Y') : 'N/A' }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">No stock data found.</td>
+                                <td colspan="9" class="text-center">No stock data found.</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+            <div class="mt-3 d-flex justify-content-end">
+                {{ $paginated_stock_list->links() }}
             </div>
         </div>
     </div>

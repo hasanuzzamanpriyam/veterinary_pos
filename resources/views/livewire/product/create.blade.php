@@ -20,6 +20,7 @@
 
                 @csrf
                 <div class="row m-auto">
+                    {{-- LEFT COLUMN --}}
                     <div class="col-lg-6 col-md-6 col-sm-12">
 
                         <div class="item mb-2" x-data="{
@@ -63,7 +64,6 @@
                                             placeholder="Enter barcode number">
                                     </div>
 
-                                    <!-- Barcode SVG (Only show when generated) -->
                                     <div class="mt-2 text-center w-100" x-show="hasBarcode" x-transition wire:ignore>
                                         <svg id="barcode_image"></svg>
                                     </div>
@@ -114,50 +114,7 @@
 
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                    for="category_id">Category <span class=""></span></label>
-                            </div>
-                            <div class="col-md-8 col-sm-8">
-                                <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100" wire:ignore>
-                                        <select name="category_id" id="category_id" wire:model="category_id"
-                                            class="form-control">
-                                            <option value="">No Category</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-2">
-                            <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="group_id">Product
-                                    Group <span class=""></span></label>
-                            </div>
-                            <div class="col-md-8 col-sm-8">
-                                <div class="d-flex justify-content-center align-items-start flex-column">
-                                    <div class="w-100" wire:ignore>
-                                        <select name="group_id" id="group_id" wire:model="group_id"
-                                            class="form-control">
-                                            <option value="">Select Option</option>
-                                            @foreach($product_groups as $product_group)
-                                                <option value="{{$product_group->id}}">{{$product_group->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('group_id')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-2">
-                            <div class="d-flex align-items-start col-md-4 p-0">
-                                <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="size">Size<span
+                                <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="size">Type<span
                                         class=""></span></label>
                             </div>
                             <div class="col-md-8 col-sm-8">
@@ -199,6 +156,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-2 py-2 w-100"
@@ -237,10 +195,56 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- RIGHT COLUMN --}}
                     <div class="col-lg-6 col-md-6 col-sm-12">
+                        
+                        {{-- Category (Moved here) --}}
+                        <div class="item mb-2">
+                            <div class="d-flex align-items-start col-md-4 p-0">
+                                <label class="col-form-label add_product_lebel px-2 py-2 w-100"
+                                    for="category_id">Category <span class=""></span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <div class="d-flex justify-content-center align-items-start flex-column">
+                                    <div class="w-100" wire:ignore>
+                                        <select name="category_id" id="category_id" wire:model="category_id"
+                                            class="form-control">
+                                            <option value="">No Category</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        {{-- Product Group (Moved here) --}}
+                        <div class="item mb-2">
+                            <div class="d-flex align-items-start col-md-4 p-0">
+                                <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="group_id">Product
+                                    Group <span class=""></span></label>
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <div class="d-flex justify-content-center align-items-start flex-column">
+                                    <div class="w-100" wire:ignore>
+                                        <select name="group_id" id="group_id" wire:model="group_id"
+                                            class="form-control">
+                                            <option value="">Select Option</option>
+                                            @foreach($product_groups as $product_group)
+                                                <option value="{{$product_group->id}}">{{$product_group->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('group_id')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="item">
+                        <div class="item mb-2">
                             <div class="d-flex align-items-start col-md-4 p-0">
                                 <label class="col-form-label add_product_lebel px-2 py-2" for="photo">Product Photo
                                     <span class=""></span></label>

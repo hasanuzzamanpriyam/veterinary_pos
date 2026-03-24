@@ -203,7 +203,7 @@ class ProductController extends Controller
         }
 
         $alert = array('msg' => 'Product Successfully Updated', 'alert-type' => 'info');
-        return redirect()->route('product.view', $request->id)->with($alert);
+        return redirect()->route('product.index')->with($alert);
     }
 
     public function delete($id)

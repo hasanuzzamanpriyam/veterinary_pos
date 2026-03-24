@@ -1,79 +1,81 @@
 @extends('layouts.admin')
 
-@section('page-title')
-Size Add
-@endsection
+@section('page-title', 'Add Type')
 
 @section('main-content')
-{{-- Image plugin css --}}
-<link rel="stylesheet" href="{{asset('assets/css/dropify.min.css')}}" />
-
-<div class="col-md-12 col-sm-12 ">
-    <div class="x_panel">
-        <div class="x_title p-3">
-            <div class="header-title d-flex align-items-center gap-2">
-                <h2>Add Size</h2>
-                <a href="#" class="mr-auto ml-3 cursor-pointer" onclick="history.back()"><i class="fa fa-close"></i></a>
-            </div>
-
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Add New Type</h5>
+            <a href="{{ route('size.index') }}" class="btn btn-secondary btn-sm">
+                <i class="fa fa-arrow-left"></i> Back to List
+            </a>
         </div>
-        <div class="x_content p-3">
-            <br />
+
+        <div class="card-body">
             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <strong>Please fix the following errors:</strong>
+                    <ul class="mb-0 mt-2">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
-            <form action="{{route('size.store')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+            <form action="{{ route('size.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="row m-auto">
-                    <div class="col-12">
 
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-5 col-sm-5 label-align add_size_lebel" for="name">Size Name <span class=""></span>
-                            </label>
-                            <div class="col-md-7 col-sm-7">
-                                <input type="text" id="name" name="name"  class="form-control">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="form-group row">
+                            <label for="name" class="col-md-3 col-form-label text-md-right">Type Name <span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Enter type name" required>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
-
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-5 col-sm-5 label-align add_size_lebel" for="description">Description<span class=""></span>
-                            </label>
-                            <div class="col-md-7 col-sm-7">
-                                <textarea type="text" name="description" id="description" cols="10" rows="1"  class="form-control"></textarea>
+                        <div class="form-group row">
+                            <label for="description" class="col-md-3 col-form-label text-md-right">Description</label>
+                            <div class="col-md-9">
+                                <textarea name="description" id="description" rows="3" class="form-control @error('description') is-invalid @enderror" placeholder="Optional description">{{ old('description') }}</textarea>
+                                @error('description')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
-
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-5 col-sm-5 label-align add_size_lebel" for="remarks">Remarks<span class=""></span>
-                            </label>
-                            <div class="col-md-7 col-sm-7">
-                                <textarea type="text" name="remarks" id="remarks" cols="10" rows="1"  class="form-control"></textarea>
+                        <div class="form-group row">
+                            <label for="remarks" class="col-md-3 col-form-label text-md-right">Remarks</label>
+                            <div class="col-md-9">
+                                <textarea name="remarks" id="remarks" rows="2" class="form-control @error('remarks') is-invalid @enderror" placeholder="Optional remarks">{{ old('remarks') }}</textarea>
+                                @error('remarks')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
-                    </div>
-                </div>
-
-                <div class="ln_solid"></div>
-                <div class="item form-group">
-                    <div class="col-md-12 col-sm-12 text-center">
-                        <a href="{{route('size.index')}}" class="btn btn-danger" type="button">Cancel</a>
-                        <button class="btn btn-warning" type="reset">Reset</button>
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <div class="form-group row">
+                            <div class="col-md-9 offset-md-3">
+                                <button type="reset" class="btn btn-warning">
+                                    <i class="fa fa-undo"></i> Reset
+                                </button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-save"></i> Save Type
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
 @endsection

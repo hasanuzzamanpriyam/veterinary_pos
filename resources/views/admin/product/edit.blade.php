@@ -32,7 +32,11 @@
                     @csrf
                     <input type="hidden" name="id" value="{{$product->id}}">
                     <div class="row m-auto">
+                        
+                        {{-- বাম দিকের কলাম (Left Column) --}}
                         <div class="col-lg-6 col-md-6 col-sm-12">
+                            
+                            {{-- Code / Barcode --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-3 py-2 w-100" for="barcode">
@@ -53,10 +57,11 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- Product Name --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
-                                    <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="name">Product Name
-                                    </label>
+                                    <label class="col-form-label add_product_lebel px-2 py-2 w-100" for="name">Product Name</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -67,11 +72,12 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- Company / Brand --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="brand_id">Company
-                                    </label>
+                                        for="brand_id">Company</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -87,51 +93,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="item mb-2">
-                                <div class="d-flex align-items-start col-md-4 p-0">
-                                    <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="category_id">Category<span class=""></span>
-                                    </label>
-                                </div>
-                                <div class="col-md-8 col-sm-8">
-                                    <div class="d-flex justify-content-center align-items-start flex-column">
-                                        <div class="w-100">
-                                            <select name="category_id" id="category_id" class="form-control">
-                                                <option value="">No Category</option>
-                                                @foreach($categories as $category)
-                                                    <option value="{{$category->id}}" @if($product->category_id == $category->id)
-                                                    selected="" @endif>{{$category->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item mb-2">
-                                <div class="d-flex align-items-start col-md-4 p-0">
-                                    <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="group_id">Product Group<span class=""></span>
-                                    </label>
-                                </div>
-                                <div class="col-md-8 col-sm-8">
-                                    <div class="d-flex justify-content-center align-items-start flex-column">
-                                        <div class="w-100">
-                                            <select name="group_id" id="group_id" class="form-control">
-                                                @foreach($product_groups as $product_group)
-                                                    <option value="{{$product_group->id}}" @if($product->group_id == $product_group->id)
-                                                    selected="" @endif>{{$product_group->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
+                            {{-- Type (Size) - Moved to Left --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="size_id">Size<span class=""></span>
-                                    </label>
+                                        for="size_id">Type</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -148,11 +115,12 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- Product Mode (Product Type) - Moved to Left --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="product_type_id">Product Mode<span class=""></span>
-                                    </label>
+                                        for="product_type_id">Product Mode</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -168,10 +136,12 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- Alternative Products --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="alternative_product_ids">Alternative Products <span class=""></span></label>
+                                        for="alternative_product_ids">Alternative Products</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -205,13 +175,56 @@
                             </div>
 
                         </div>
-                        {{-- @dump($product) --}}
+
+                        {{-- ডান দিকের কলাম (Right Column) --}}
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="item">
+                            
+                            {{-- Category --}}
+                            <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="photo">Product Photo <span class=""></span>
-                                    </label>
+                                        for="category_id">Category</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="d-flex justify-content-center align-items-start flex-column">
+                                        <div class="w-100">
+                                            <select name="category_id" id="category_id" class="form-control">
+                                                <option value="">No Category</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{$category->id}}" @if($product->category_id == $category->id)
+                                                    selected="" @endif>{{$category->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Product Group --}}
+                            <div class="item mb-2">
+                                <div class="d-flex align-items-start col-md-4 p-0">
+                                    <label class="col-form-label add_product_lebel px-2 py-2 w-100"
+                                        for="group_id">Product Group</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="d-flex justify-content-center align-items-start flex-column">
+                                        <div class="w-100">
+                                            <select name="group_id" id="group_id" class="form-control">
+                                                @foreach($product_groups as $product_group)
+                                                    <option value="{{$product_group->id}}" @if($product->group_id == $product_group->id)
+                                                    selected="" @endif>{{$product_group->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {{-- Product Photo --}}
+                            <div class="item mb-2">
+                                <div class="d-flex align-items-start col-md-4 p-0">
+                                    <label class="col-form-label add_product_lebel px-2 py-2 w-100"
+                                        for="photo">Product Photo</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -227,11 +240,11 @@
                                 </div>
                             </div>
 
+                            {{-- Alert Quantity --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="alert_quantity">Alert Quantity<span class=""></span>
-                                    </label>
+                                        for="alert_quantity">Alert Quantity</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -243,11 +256,11 @@
                                 </div>
                             </div>
 
+                            {{-- TP Rate --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="purchase_rate">TP Rate<span class=""></span>
-                                    </label>
+                                        for="purchase_rate">TP Rate</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -258,11 +271,12 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- MRP Rate --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="mrp_rate">MRP Rate<span class=""></span>
-                                    </label>
+                                        for="mrp_rate">MRP Rate</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -273,11 +287,12 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- Sale Rate --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="price_rate">Sale Rate<span class=""></span>
-                                    </label>
+                                        for="price_rate">Sale Rate</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -289,11 +304,11 @@
                                 </div>
                             </div>
 
+                            {{-- Remarks --}}
                             <div class="item mb-2">
                                 <div class="d-flex align-items-start col-md-4 p-0">
                                     <label class="col-form-label add_product_lebel px-2 py-2 w-100"
-                                        for="remarks">Remarks<span class=""></span>
-                                    </label>
+                                        for="remarks">Remarks</label>
                                 </div>
                                 <div class="col-md-8 col-sm-8">
                                     <div class="d-flex justify-content-center align-items-start flex-column">
@@ -304,8 +319,10 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+                    
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-12 col-sm-12 text-center">
@@ -322,7 +339,6 @@
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/dropify.min.js')}}"></script>
     <script type="text/javascript">
-
         $('.dropify').dropify({
             messages: {
                 'default': 'Drag and drop',

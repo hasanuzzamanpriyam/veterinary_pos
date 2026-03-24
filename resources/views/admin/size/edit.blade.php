@@ -1,78 +1,83 @@
 @extends('layouts.admin')
 
-@section('page-title')
-Size Update
-@endsection
+@section('page-title', 'Update Type')
 
 @section('main-content')
-{{-- Image plugin css --}}
-<link rel="stylesheet" href="{{asset('assets/css/dropify.min.css')}}" />
-<div class="col-md-12 col-sm-12 ">
-    <div class="x_panel">
-        <div class="x_title p-3">
-
-            <div class="header-title d-flex align-items-center gap-2">
-                <h2>Update Size</h2>
-                <a href="#" class="mr-auto ml-3 cursor-pointer" onclick="history.back()"><i class="fa fa-close"></i></a>
-            </div>
-
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Update Type</h5>
+            <a href="{{ route('size.index') }}" class="btn btn-secondary btn-sm">
+                <i class="fa fa-arrow-left"></i> Back to List
+            </a>
         </div>
-        <div class="x_content p-3">
-            <br />
+
+        <div class="card-body">
             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <strong>Please fix the following errors:</strong>
+                    <ul class="mb-0 mt-2">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
-            <form action="{{route('size.update')}}" method="post" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+            <form action="{{ route('size.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="row m-auto">
-                    <div class="col-12">
 
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="name">Size Name <span class=""></span>
-                            </label>
-                            <div class="col-md-4 col-sm-6">
-                                <input type="text" id="name" name="name" value="{{$size->name}}" class="form-control">
-                            </div>
-                            <input type="hidden" name="id" id="id" value="{{$size->id}}">
-                        </div>
+                <input type="hidden" name="id" value="{{ $size->id }}">
 
-
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="description">Description<span class=""></span>
-                            </label>
-                            <div class="col-md-4 col-sm-6">
-                                <textarea type="text" name="description" id="description" cols="10" rows="1"  class="form-control">{{$size->description}}</textarea>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="form-group row">
+                            <label for="name" class="col-md-3 col-form-label text-md-right">Type Name <span class="text-danger">*</span></label>
+                            <div class="col-md-9">
+                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $size->name) }}" required>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
-
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="remarks">Remarks<span class=""></span>
-                            </label>
-                            <div class="col-md-4 col-sm-6">
-                                <textarea type="text" name="remarks" id="remarks" cols="10" rows="1"  class="form-control">{{$size->remarks}}</textarea>
+                        <div class="form-group row">
+                            <label for="description" class="col-md-3 col-form-label text-md-right">Description</label>
+                            <div class="col-md-9">
+                                <textarea name="description" id="description" rows="3" class="form-control @error('description') is-invalid @enderror">{{ old('description', $size->description) }}</textarea>
+                                @error('description')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
-                    </div>
-                </div>
+                        <div class="form-group row">
+                            <label for="remarks" class="col-md-3 col-form-label text-md-right">Remarks</label>
+                            <div class="col-md-9">
+                                <textarea name="remarks" id="remarks" rows="2" class="form-control @error('remarks') is-invalid @enderror">{{ old('remarks', $size->remarks) }}</textarea>
+                                @error('remarks')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
-                <div class="ln_solid"></div>
-                <div class="item form-group">
-                    <div class="col-md-12 col-sm-12 text-center">
-                        <a href="{{route('size.index')}}" class="btn btn-danger" type="button">Cancel</a>
-                        <button type="submit" class="btn btn-success">Update</button>
+                        <div class="form-group row">
+                            <div class="col-md-9 offset-md-3">
+                                <a href="{{ route('size.index') }}" class="btn btn-danger">
+                                    <i class="fa fa-times"></i> Cancel
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-edit"></i> Update Type
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 @endsection

@@ -373,7 +373,7 @@
                                 <li><a href="{{ route('product_group.index') }}">Product Group</a></li>
                             @endcan
                             @can('size-manage')
-                                <li><a href="{{ route('size.index') }}">Size</a></li>
+                                <li><a href="{{ route('size.index') }}">Type</a></li>
                             @endcan
                             <li><a href="{{ route('product_type.index') }}">Product Mode</a></li>
                         </ul>

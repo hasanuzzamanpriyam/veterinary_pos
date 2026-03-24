@@ -26,6 +26,12 @@ class ProductList extends Component
         $this->resetPage();
     }
 
+    public function resetSearch()
+    {
+        $this->reset('search');
+        $this->resetPage();
+    }
+
     public function render()
     {
         $products = Product::leftJoin('brands', 'products.brand_id', '=', 'brands.id')

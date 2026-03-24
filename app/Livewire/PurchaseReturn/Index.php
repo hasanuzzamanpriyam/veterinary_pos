@@ -103,7 +103,7 @@ class Index extends Component
     {
         $cart = app('cart')->instance('purchase_return')->content()->where('rowId', $rowId);
         if ($cart->isNotEmpty()) {
-            app('cart')->remove($rowId);
+            app('cart')->instance('purchase_return')->remove($rowId);
         }
     }
 
