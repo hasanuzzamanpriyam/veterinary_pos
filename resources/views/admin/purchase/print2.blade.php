@@ -180,62 +180,52 @@
                 --}}
                 <img src="{{ asset('assets/images/firoz_header.jpg') }}" width="100%" height="120" alt="">
             </div>
-            <h5 class="text-center text-dark"><strong>Challan # {{ $supplier_info->id }}</strong></h5>
+            
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-xs-4">
+                    <table class="table table-bordered text-left" style="margin-bottom: 0;">
+                        <tbody>
+                            <tr><td style="padding: 4px 8px;"><strong>Firoz Enterprise</strong></td></tr>
+                            <tr><td style="padding: 4px 8px;">Parila Bazar, Paba, Rajshahi</td></tr>
+                            <tr><td style="padding: 4px 8px;">Mobile: 01712203045</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4">
+                    <table class="table table-bordered text-left" style="margin-bottom: 0;">
+                        <tbody>
+                            <tr><td style="padding: 4px 8px;"><strong>Invoice No: </strong>{{ $supplier_info->id }}</td></tr>
+                            <tr><td style="padding: 4px 8px;"><strong>Date: </strong>{{ date('d-m-Y', strtotime($supplier_info->date)) }}</td></tr>
+                            <tr><td style="padding: 4px 8px;"><strong>Transport: </strong>{{ $supplier_info->transport_no }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-4">
+                    <table class="table table-bordered text-left" style="margin-bottom: 0;">
+                        <tbody>
+                            <tr><td style="padding: 4px 8px;"><strong>{{ optional($supplier_info->supplier)->company_name }}</strong></td></tr>
+                            <tr><td style="padding: 4px 8px;">{{ optional($supplier_info->supplier)->address }}</td></tr>
+                            <tr><td style="padding: 4px 8px;">Mobile: {{ optional($supplier_info->supplier)->mobile }}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div><!---end header-area--->
 
-        <div class="body-area">
+        <div class="body-area" style="margin-top: 15px;">
             <div class="address-area">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="supplier-info-area">
-                            <!----- address information table -area----->
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Supplier Name</th>
-                                        <th>Address</th>
-                                        <th>Phone</th>
-
-                                    </tr>
-                                </thead>
+                        <div class="supplier-info-area" style="margin-bottom: 15px;">
+                            <table class="table table-bordered text-left" style="margin-bottom: 0;">
                                 <tbody>
                                     <tr>
-                                        <td class="text-left p-0 comon_column">{{date('d-m-Y',
-                                            strtotime($supplier_info->date))}}</td>
-                                        <td class="text-left p-0 comon_column">
-                                            {{optional($supplier_info->supplier)->company_name}}</td>
-                                        <td class="text-left p-0 comon_column">
-                                            {{optional($supplier_info->supplier)->address}}
-                                        </td>
-                                        <td class="text-left p-0 comon_column">
-                                            {{optional($supplier_info->supplier)->mobile}}</td>
-
-                                    </tr>
-                                </tbody>
-                                <thead>
-                                    <tr>
-                                        <th>Warehouse</th>
-                                        <th>Vehicle Number</th>
-                                        <th>Delivery Men</th>
-                                        <th>Remarks</th>
-
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <tr>
-                                        <td class="text-left p-0 comon_column">
-                                            {{optional($supplier_info->warehouse)->name}}</td>
-                                        <td class="text-left p-0 comon_column">{{$supplier_info->transport_no}}</td>
-                                        <td class="text-left p-0 comon_column">{{$supplier_info->delivery_man}}</td>
-                                        <td class="text-left p-0 comon_column">{{$supplier_info->supplier_remarks}}</td>
-
+                                        <td style="padding: 4px 8px;"><strong>Warehouse:</strong> {{ optional($supplier_info->warehouse)->name }}</td>
+                                        <td style="padding: 4px 8px;"><strong>Delivery Man:</strong> {{ $supplier_info->delivery_man }}</td>
+                                        <td style="padding: 4px 8px;"><strong>Remarks:</strong> {{ $supplier_info->supplier_remarks }}</td>
                                     </tr>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
