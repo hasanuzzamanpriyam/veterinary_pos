@@ -236,7 +236,7 @@
                             <th>Product Name</th>
                             <th>Company Name</th>
                             <th>Category</th>
-                            <th>Store</th>
+                            <!-- <th>Store</th> -->
                             <th>Quantity</th>
                             <th>Purchase Price</th>
                             <th>Sale Rate</th>
@@ -251,7 +251,7 @@
                                 <td class="text-left">{{ $stock->product->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->product->brand->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->product->category->name ?? 'N/A' }}</td>
-                                <td>{{ $stock->store->name ?? 'N/A' }}</td>
+                                <!-- <td>{{ $stock->store->name ?? 'N/A' }}</td> -->
                                 <td>{{ $stock->product_quantity }}</td>
                                 <td>{{ $stock->purchase_price }}/=</td>
                                 <td>{{ $stock->product->price_rate ?? 'N/A' }}{{ isset($stock->product->price_rate) ? '/=' : '' }}</td>
