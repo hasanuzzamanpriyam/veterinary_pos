@@ -225,7 +225,7 @@
                                 <td>{{ $stock->store->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->product_quantity }}</td>
                                 <td>{{ $stock->purchase_price }}/=</td>
-                                <td>{{ $stock->product->selling_rate ?? 'N/A' }}{{ isset($stock->product->selling_rate) ? '/=' : '' }}</td>
+                                <td>{{ $stock->product->price_rate ?? 'N/A' }}{{ isset($stock->product->price_rate) ? '/=' : '' }}</td>
                                 <td>{{ $stock->created_at ? $stock->created_at->format('d-m-Y') : 'N/A' }}</td>
                             </tr>
                         @empty
