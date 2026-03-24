@@ -233,6 +233,7 @@
                         <tr class="text-center">
                             <th>SL</th>
                             <th>Date</th>
+                            <th>Date</th>
                             <th>Product Name</th>
                             <th>Company Name</th>
                             <th>Category</th>
@@ -247,6 +248,7 @@
                         @forelse ($paginated_stock_list as $key => $stock)
                             <tr class="text-center">
                                 <td>{{ $paginated_stock_list->firstItem() + $key }}</td>
+                                <td>{{ $stock->created_at ? $stock->created_at->format('d-m-Y') : 'N/A' }}</td>
                                 <td>{{ $stock->created_at ? $stock->created_at->format('d-m-Y') : 'N/A' }}</td>
                                 <td class="text-left">{{ $stock->product->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->product->brand->name ?? 'N/A' }}</td>
