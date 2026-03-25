@@ -99,15 +99,15 @@
                                                 @php
                                                     $type = $product->product->type;
                                                     $qty_summary['total'][$type] = $qty_summary['total'][$type] ?? 0;
-                                                    $qty_summary['total'][$type] += $product->quantity;
+                                                    $qty_summary['total'][$type] += (float) ($product->quantity ?? 0);
                                                     $qty_summary['weight'] = $qty_summary['weight'] ?? 0;
-                                                    $qty_summary['weight'] += ($product->quantity - $product->discount_qty) * $product->weight;
+                                                    $qty_summary['weight'] += ((float) ($product->quantity ?? 0) - (float) ($product->discount_qty ?? 0)) * (float) ($product->weight ?? 0);
                                                 @endphp
                                                 <p class="mb-0 text-left">
                                                     {{ $product->product_code}} -
                                                     {{ $product->product_name}} {{'('}}{{ $product->product->size->description}}{{')'}} -
-                                                    {{ formatAmount($product->quantity - $product->discount_qty)}} {{ trans_choice('labels.'.$type, ($product->quantity - $product->discount_qty))}}{{' @ '}}{{ formatAmount($product->unit_price)}}/=
-                                                    {{ formatAmount($product->total_price)}}/=
+                                                    {{ formatAmount((float)($product->quantity ?? 0) - (float)($product->discount_qty ?? 0))}} {{ trans_choice('labels.'.$type, ((float)($product->quantity ?? 0) - (float)($product->discount_qty ?? 0)))}}{{' @ '}}{{ formatAmount($product->unit_price)}}/=
+                                                    {{ formatAmount((float)($product->total_price ?? 0))}}/=
                                                 </p>
                                             @endforeach
                                         </td>
@@ -132,7 +132,7 @@
 
                                         {{-- Total --}}
                                         @php
-                                            $total = $ledger->total_price - ($ledger->carring + $ledger->other_charge);
+                                            $total = (float)($ledger->total_price ?? 0) - ((float)($ledger->carring ?? 0) + (float)($ledger->other_charge ?? 0));
                                         @endphp
                                         <td  class="text-right">{{formatAmount($total)}}/=</td>
 
