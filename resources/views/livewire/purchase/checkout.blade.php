@@ -48,13 +48,24 @@
                         $summary = [];
                         $tfoot_total_discount = 0;
                         $tfoot_net_amount = 0;
+                        $total_line_value = 0;
+                        $total_line_discount = 0;
+                        $total_line_vat = 0;
                     @endphp
                     @forelse (Cart::instance('purchase')->content() as $product)
                         @php
                             $total_purchase += $product->qty - $product->options->discount;
                             $product_discounts += $product->options->discount;
                             $total_qty += $product->qty;
-                            $total_amount += ($product->qty - $product->options->discount) * $product->price;
+                            
+                            $line_val = ($product->qty - $product->options->discount) * $product->price;
+                            $line_dis = $product->options->item_discount ?: 0;
+                            $line_vat = $product->options->item_vat ?: 0;
+                            $total_line_value += $line_val;
+                            $total_line_discount += $line_dis;
+                            $total_line_vat += $line_vat;
+                            $total_amount += $line_val - $line_dis + $line_vat;
+
                             $type = $product->options->type;
                             $items++;
                             $summary['qty'][$type] = ($summary['qty'][$type] ?? 0) + $product->qty;
@@ -82,11 +93,10 @@
                                         @endif
                                         <th>Quantity</th>
                                         <th>Price Rate</th>
+                                        <th>Value</th>
+                                        <th>Discount</th>
+                                        <th>VAT</th>
                                         <th>Sub Total</th>
-                                        {{-- new table heads --}}
-                                        <th>Single Discount</th>
-                                        <th>Total Discount</th>
-                                        <th>Net Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,18 +115,16 @@
                                             @endif
                                             <td>{{ $product->qty }} {{ trans_choice($product->options->type, $product->qty) }}</td>
                                             <td class="text-right">{{ number_format($product->price, 2) }}/=</td>
-                                            <td class="text-right">{{ number_format(($product->qty - $product->options->discount) * $product->price, 2) }}/=</td>
-                                            
-                                            {{-- discount fields --}}
                                             @php
-                                                $row_total_discount = $single_discount * $product->qty;
-                                                $row_net_amount = (($product->qty - $product->options->discount) * $product->price) - $row_total_discount;
-                                                $tfoot_total_discount += $row_total_discount;
-                                                $tfoot_net_amount += $row_net_amount;
+                                                $line_val = ($product->qty - $product->options->discount) * $product->price;
+                                                $line_dis = $product->options->item_discount ?: 0;
+                                                $line_vat = $product->options->item_vat ?: 0;
+                                                $line_subtotal = $line_val - $line_dis + $line_vat;
                                             @endphp
-                                            <td class="text-right">{{ number_format($single_discount, 2) }}</td>
-                                            <td class="text-right">{{ number_format($row_total_discount, 2) }}</td>
-                                            <td class="text-right">{{ number_format($row_net_amount, 2) }}</td>
+                                            <td class="text-right">{{ number_format($line_val, 2) }}</td>
+                                            <td class="text-right">{{ number_format($line_dis, 2) }}</td>
+                                            <td class="text-right">{{ number_format($line_vat, 2) }}</td>
+                                            <td class="text-right">{{ number_format($line_subtotal, 2) }}/=</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -142,10 +150,10 @@
                                             @endforeach
                                         </td>
                                         <td></td>
+                                        <td class="text-right"><strong>{{ number_format($total_line_value, 2) }}</strong></td>
+                                        <td class="text-right"><strong>{{ number_format($total_line_discount, 2) }}</strong></td>
+                                        <td class="text-right"><strong>{{ number_format($total_line_vat, 2) }}</strong></td>
                                         <td class="text-right">{{ number_format($total_amount, 2) }}/=</td>
-                                        <td class="text-right">{{ number_format($single_discount, 2) }}</td>
-                                        <td class="text-right">{{ number_format($tfoot_total_discount, 2) }}</td>
-                                        <td class="text-right">{{ number_format($tfoot_net_amount, 2) }}</td>
                                     </tr>
                                 </tfoot>
                             </table>

@@ -125,6 +125,34 @@ class Index extends Component
         }
     }
 
+    // Update item discount (monetary)
+    public function updateItemDiscount($id, $discount)
+    {
+        foreach (app('cart')->instance('purchase')->content() as $item) {
+            if ($item->id == $id) {
+                $newOptions = array_merge($item->options->toArray(), ['item_discount' => (float) $discount]);
+                app('cart')->instance('purchase')->update($item->rowId, [
+                    'options' => $newOptions,
+                ]);
+                break;
+            }
+        }
+    }
+
+    // Update item VAT
+    public function updateItemVat($id, $vat)
+    {
+        foreach (app('cart')->instance('purchase')->content() as $item) {
+            if ($item->id == $id) {
+                $newOptions = array_merge($item->options->toArray(), ['item_vat' => (float) $vat]);
+                app('cart')->instance('purchase')->update($item->rowId, [
+                    'options' => $newOptions,
+                ]);
+                break;
+            }
+        }
+    }
+
     // Update expire date for a cart item
     public function updateExpireDate($rowId, $expireDate)
     {
@@ -179,6 +207,8 @@ class Index extends Component
             'options' => [
                 'barcode' => $products->barcode,
                 'discount' => 0,
+                'item_discount' => 0,
+                'item_vat' => 0,
                 'weight' => $products->size->name,
                 'brand_id' => $products->brand_id,
                 'type' => $products->type,

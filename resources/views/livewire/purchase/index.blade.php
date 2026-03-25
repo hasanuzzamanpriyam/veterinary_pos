@@ -1,5 +1,29 @@
 @section('page-title', 'Purchase Entry')
 
+<style>
+    .table-scroll-container {
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .table-sales-entry thead th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: #f8f9fa !important;
+        box-shadow: inset 0 -1px 0 #ddd;
+        white-space: nowrap;
+    }
+    .table-sales-entry tfoot td {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        background-color: #f8f9fa !important;
+        box-shadow: inset 0 1px 0 #ddd;
+        white-space: nowrap;
+    }
+</style>
+
 <div class="col-md-12 col-sm-12">
     <div class="x_panel">
         <div class="x_title p-3">
@@ -147,7 +171,8 @@
                 {{-- Cart Table --}}
                 <div class="row mt-3">
                     <div class="col-12">
-                        <table class="table table-bordered table-sales-entry" width="100%">
+                        <div class="table-scroll-container" style="max-height: 500px; overflow-y: auto; overflow-x: auto;">
+                            <table class="table table-bordered table-sales-entry mb-0" width="100%">
                             <thead>
                                 <tr class="text-center">
                                     <th style="width: 70px;">Code</th>
@@ -155,16 +180,22 @@
                                     <th style="width: 95px;">Prod. Date</th>
                                     <th style="width: 95px;">Exp. Date</th>
                                     <th style="width: 110px;">Purchase(Q)</th>
-                                    <th style="width: 70px;">Discount</th>
-                                    <th style="width: 92px;">Quantity</th>
+                                    <th style="width: 70px;">Discount(Q)</th>
+                                    <th style="width: 70px;">Quantity</th>
                                     <th style="width: 90px;">Rate</th>
-                                    <th style="width: 90px;">Sub Total</th>
+                                    <th style="width: 90px;">Value</th>
+                                    <th style="width: 90px;">Discount</th>
+                                    <th style="width: 90px;">VAT</th>
+                                    <th style="width: 100px;">Sub Total</th>
                                     <th style="width: 50px;"><i class="fa fa-trash"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php
                                     $total_amount = 0;
+                                    $total_item_value = 0;
+                                    $total_item_discount = 0;
+                                    $total_item_vat = 0;
                                     $total_qty = 0;
                                     $discount = 0;
                                     $items = 0;
@@ -183,7 +214,16 @@
                                             $discount += $dis_qty;
                                             $type = $product->options->type;
                                             $purchase_total += $qty - $dis_qty;
-                                            $total_amount += ($qty - $dis_qty) * $product->price;
+
+                                            $item_discount = $product->options->item_discount ?: 0;
+                                            $item_vat = $product->options->item_vat ?: 0;
+                                            $line_value = ($qty - $dis_qty) * $product->price;
+                                            
+                                            $total_item_value += $line_value;
+                                            $total_item_discount += $item_discount;
+                                            $total_item_vat += $item_vat;
+                                            $total_amount += $line_value - $item_discount + $item_vat;
+
                                             $items++;
                                             $id = $product->id;
 
@@ -248,10 +288,38 @@
                                                        value="{{ $product->price }}"
                                                        class="form-control">
                                             </td>
+                                            @php
+                                                $item_val = ($qty - $dis_qty) * $product->price;
+                                                $item_dis = $product->options->item_discount ?: 0;
+                                                $item_vat = $product->options->item_vat ?: 0;
+                                                $item_subtotal = $item_val - $item_dis + $item_vat;
+                                                
+                                                // Update totals for summary row
+                                                // Since we're in a loop, we need to adjust the outer $total_amount
+                                                // Currently $total_amount was calculated as $item_val. We need to subtract item_dis and add item_vat.
+                                                // Actually, let's just recalculate it here correctly.
+                                                // But wait, $total_amount is initialized outside.
+                                                // Let's change how $total_amount is calculated in the @php block above.
+                                            @endphp
+                                            <td class="text-left">
+                                                <input type="text" @disabled(true) value="{{ number_format($item_val, 2) }}" class="form-control">
+                                            </td>
+                                            <td class="text-left">
+                                                <input type="number"
+                                                       wire:change="updateItemDiscount({{ $id }}, $event.target.value)"
+                                                       value="{{ $item_dis }}"
+                                                       class="form-control">
+                                            </td>
+                                            <td class="text-left">
+                                                <input type="number"
+                                                       wire:change="updateItemVat({{ $id }}, $event.target.value)"
+                                                       value="{{ $item_vat }}"
+                                                       class="form-control">
+                                            </td>
                                             <td class="text-left sub-total">
                                                 <input type="text"
                                                        @disabled(true)
-                                                       value="{{ $product->price * ($qty - $dis_qty) }}/-"
+                                                       value="{{ number_format($item_subtotal, 2) }}/-"
                                                        class="form-control">
                                             </td>
                                             <td class="text-center">
@@ -266,10 +334,11 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="10" class="text-center">No products added</td>
+                                        <td colspan="13" class="text-center">No products added</td>
                                     </tr>
                                 @endif
-
+                            </tbody>
+                            <tfoot>
                                 {{-- Summary Row --}}
                                 <tr class="text-left">
                                     <td><strong>{{ trans_choice('labels.items', $items) }}:</strong> {{ $items }}</td>
@@ -297,11 +366,14 @@
                                             @endforeach
                                         @endif
                                     </td>
-                                    <td colspan="3" class="text-right">
-                                        <strong>TK:</strong> {{ $total_amount }}/=
-                                    </td>
-                                </tr>
-                            </tbody>
+                                     <td></td>
+                                     <td class="text-right"><strong>{{ number_format($total_item_value, 2) }}</strong></td>
+                                     <td class="text-right"><strong>{{ number_format($total_item_discount, 2) }}</strong></td>
+                                     <td class="text-right"><strong>{{ number_format($total_item_vat, 2) }}</strong></td>
+                                     <td class="text-right"><strong>TK:</strong> {{ number_format($total_amount, 2) }}/=</td>
+                                     <td></td>
+                                 </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
