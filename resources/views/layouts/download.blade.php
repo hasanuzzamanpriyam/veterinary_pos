@@ -16,7 +16,7 @@
     <link href="{{ asset('assets/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    @vite('resources/css/style.css')
     <style>
         body {
             overflow: auto;

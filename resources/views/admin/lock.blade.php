@@ -6,7 +6,7 @@
     <title>Screen Locked</title>
     <link href="{{ asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    @vite('resources/css/style.css')
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

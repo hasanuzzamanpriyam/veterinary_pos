@@ -51,7 +51,7 @@
     <link href="{{ asset('assets/build/css/custom.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    @vite('resources/css/style.css')
 
 
     <link href="{{ asset('assets/vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet" />

@@ -180,7 +180,7 @@
                 --}}
                 <img src="{{ asset('assets/images/firoz_header.jpg') }}" width="100%" height="120" alt="">
             </div>
-            <h5 class="text-center text-dark"><strong>Challan # {{ $supplier_ledger->id }}</strong></h5>
+            <h5 class="text-center text-dark"><strong>Invoice # {{ $supplier_ledger->id }}</strong></h5>
         </div><!---end header-area--->
 
         <div class="body-area">
