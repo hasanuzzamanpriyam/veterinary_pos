@@ -1,0 +1,1 @@
+id, sku, name, brand_id, type, product_type_id, size_id, barcode, category_id, subcategory_id, group_id, purchase_rate, price_rate, mrp_rate, alert_quantity, status, remarks, photo, created_at, updated_at
