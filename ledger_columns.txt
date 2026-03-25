@@ -1,0 +1,1 @@
+id, purchase_invoices, supplier_id, warehouse_id, product_store_id, type, payment_by, payment_remarks, bank_title, delivery_man, transport_no, total_qty, product_discount, balance, vat, carring, price_discount, total_price, other_charge, payment, supplier_remarks, date, purchase_date, deleted_at, created_at, updated_at, u_id, supplier_follow_updates_id

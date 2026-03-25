@@ -1,0 +1,1 @@
+id, expense_id, employee_id, type, payment_method, remarks, amount, date, created_at, updated_at

@@ -1,0 +1,1 @@
+id, supplier_id, transaction_id, warehouse_id, product_store_id, product_id, product_code, product_name, quantity, discount_qty, return_qty, weight, unit_price, value, discount, vat, total_price, single_discount, total_discount, net_amount, transaction_type, date, production_date, expire_date, deleted_at, created_at, updated_at

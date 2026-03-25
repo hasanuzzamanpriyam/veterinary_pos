@@ -71,7 +71,7 @@
                                 @endphp
                                 @foreach($expense_lists as $expense_item)
                                     @php
-                                        $total_amount = $expense_item->expense_type == 'salary_expense' ? $expense_item->amount + $expense_item->other_charge : $expense_item->amount;
+                                        $total_amount = $expense_item->expense_type == 'salary_expense' ? (float)$expense_item->amount + (float)$expense_item->other_charge : (float)$expense_item->amount;
                                         $total += $total_amount;
                                         $currentPage = method_exists($expense_lists, 'currentPage') ? $expense_lists->currentPage() : 1;
                                         $perPage = method_exists($expense_lists, 'perPage') ? $expense_lists->perPage() : $expense_lists->count(); // Fallback to total count
