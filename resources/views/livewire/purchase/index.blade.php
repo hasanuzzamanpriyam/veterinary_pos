@@ -72,19 +72,19 @@
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="purchase_entry_lebel" for="supplier_name">Company Name</label>
-                            <input type="text" name="supplier_name" wire:model.defer="supplier_name" class="form-control">
+                            <input type="text" name="supplier_name" wire:model="supplier_name" class="form-control">
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="purchase_entry_lebel" for="address">Address</label>
-                            <textarea name="address" id="address" wire:model.defer="address" class="form-control" rows="1"></textarea>
+                            <textarea name="address" id="address" wire:model="address" class="form-control" rows="1"></textarea>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="purchase_entry_lebel" for="mobile">Mobile</label>
-                            <input type="text" name="mobile" id="mobile" wire:model.defer="mobile" class="form-control">
+                            <input type="text" name="mobile" id="mobile" wire:model="mobile" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                         <div class="form-group">
                             <label class="purchase_entry_lebel" for="purchase_date">Purchase Date</label>
                             <div class="input-group date" id="purchase_date_picker_main">
-                                <input name="purchase_date" type="text" class="form-control" placeholder="dd-mm-yyyy" wire:model.defer="purchase_date">
+                                <input name="purchase_date" type="text" class="form-control" placeholder="dd-mm-yyyy" wire:model="purchase_date">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -141,7 +141,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label class="purchase_entry_lebel" for="supplier_remarks">Remarks</label>
-                            <input type="text" name="supplier_remarks" wire:model.defer="supplier_remarks" class="form-control">
+                            <input type="text" name="supplier_remarks" wire:model="supplier_remarks" class="form-control">
                         </div>
                     </div>
                 </div>

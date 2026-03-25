@@ -303,21 +303,31 @@ class Index extends Component
     }
 
 
+    public function updatedSupplierSearch($value)
+    {
+        if ($value) {
+            $supplier = Supplier::find($value);
+            if ($supplier) {
+                $this->supplier_name = $supplier->company_name;
+                $this->address = $supplier->address;
+                $this->mobile = $supplier->mobile;
+                $this->supplier_id = $supplier->id;
+                $this->balance = $this->get_previous_balance($supplier->id, $this->full_date);
+                session()->put('balance', $supplier->balance);
+            }
+        } else {
+            $this->supplier_name = '';
+            $this->address = '';
+            $this->mobile = '';
+            $this->supplier_id = '';
+            $this->balance = 0;
+            session()->forget('balance');
+        }
+    }
+
+
     public function render()
     {
-
-        if ($this->supplier_search) {
-            $suppliers = Supplier::find($this->supplier_search);
-            $this->supplier_name = $suppliers->company_name;
-            $this->balance = $this->get_previous_balance($suppliers->id, $this->full_date);
-
-            $this->address = $suppliers->address;
-            $this->mobile = $suppliers->mobile;
-            $this->supplier_id = $suppliers->id;
-            session()->put('balance', $suppliers->balance);
-        }
-
-
         if (!empty($this->brand_id)) {
 
             $products_grid = Product::where('brand_id', $this->brand_id)
@@ -369,4 +379,3 @@ class Index extends Component
             ->section('main-content');
     }
 }
-
