@@ -131,4 +131,18 @@ class PurchaseController extends Controller
     {
         return redirect()->route('purchase.index');
     }
+
+    public function purchaseInvoiceSearch()
+    {
+        return view('admin.purchase.invoice_search');
+    }
+
+    public function purchaseInvoiceSearched(Request $request)
+    {
+        $invoiceNumber = $request->input('purchase_invoices_no');
+        $supplier_info = SupplierLedger::where('id', $invoiceNumber)->first();
+        $products = SupplierTransactionDetails::where('transaction_id', $invoiceNumber)->get();
+
+        return view('admin.purchase.invoice_search', compact('products', 'supplier_info', 'invoiceNumber'));
+    }
 }

@@ -354,6 +354,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('update', [PurchaseController::class, 'update'])->name('purchase.update');
         Route::get('delete/{invoice}', [PurchaseController::class, 'delete'])->name('purchase.delete');
         Route::get('print/{id}', [PurchaseController::class, 'print'])->name('purchase.print');
+        Route::get('invoice/search', [PurchaseController::class, 'purchaseInvoiceSearch'])->name('purchase.invoice.search');
+        Route::get('invoice/searched', [PurchaseController::class, 'purchaseInvoiceSearched'])->name('purchase.invoice.searched');
 
         // Return
         Route::prefix('return')->group(function () {

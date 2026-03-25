@@ -116,7 +116,10 @@ class Checkout extends Component
             foreach (app('cart')->instance('purchase')->content() as $product) {
                 $this->total_qty += (float) $product->qty;
                 $this->product_discount += (float) $product->options->discount;
-                $this->total_amount_after_discount += ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
+                $line_value = ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
+                $line_discount = (float) ($product->options->item_discount ?? 0);
+                $line_vat = (float) ($product->options->item_vat ?? 0);
+                $this->total_amount_after_discount += $line_value - $line_discount + $line_vat;
             }
         }
 
@@ -196,7 +199,7 @@ class Checkout extends Component
 
                         $row_total_discount = $single_discount * (float) $product->qty;
                         $row_subtotal = ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
-                        $row_net_amount = $row_subtotal - $row_total_discount;
+                        $row_net_amount = $row_subtotal - $row_total_discount - (float)($product->options->item_discount ?? 0) + (float)($product->options->item_vat ?? 0);
 
                         SupplierTransactionDetails::insert(
                             [
@@ -211,6 +214,9 @@ class Checkout extends Component
                                 'weight' => $product->options->weight,
                                 'unit_price' => (float) $product->price,
                                 'total_price' => $row_subtotal,
+                                'value' => $row_subtotal,
+                                'discount' => $product->options->item_discount ?? 0,
+                                'vat' => $product->options->item_vat ?? 0,
                                 'single_discount' => $single_discount,
                                 'total_discount' => $row_total_discount,
                                 'net_amount' => $row_net_amount,
@@ -293,7 +299,10 @@ class Checkout extends Component
 
         $total_amount = 0;
         foreach (app('cart')->instance('purchase')->content() as $product) {
-            $total_amount += ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
+            $line_val = ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
+            $line_dis = (float) ($product->options->item_discount ?? 0);
+            $line_vat = (float) ($product->options->item_vat ?? 0);
+            $total_amount += $line_val - $line_dis + $line_vat;
         }
 
 

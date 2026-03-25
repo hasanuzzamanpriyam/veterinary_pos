@@ -116,7 +116,7 @@
                             @can('purchase-report')
                                 <li><a href="{{ route('purchase.report') }}">Purchase Report</a></li>
                             @endcan
-                            <li><a href="#">Purchase Invoice</a></li>
+                            <li><a href="{{ route('purchase.invoice.search') }}">Purchase Invoice</a></li>
                         </ul>
                     </li>
                 @endcan

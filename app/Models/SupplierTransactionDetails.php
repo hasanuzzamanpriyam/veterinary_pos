@@ -10,7 +10,7 @@ class SupplierTransactionDetails extends Model
     use HasFactory;
     protected $guarded = [];
 
-    protected $fillable = ['transaction_id', 'product_id', 'quantity', 'unit_price', 'discount', 'total_amount'];
+    protected $fillable = ['transaction_id', 'product_id', 'quantity', 'unit_price', 'discount', 'total_amount', 'value', 'vat'];
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
