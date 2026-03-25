@@ -2605,3 +2605,8 @@ div#datatable-responsive_filter label {
 .nav.child_menu .nav.child_menu>li>a {
     padding-left: 35px !important;
 }
+
+.active a span.fa {
+    text-align: right !important;
+    margin-right: -1px;
+}
