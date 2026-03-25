@@ -216,7 +216,7 @@
                                 <thead>
                                     <tr>
                                         <th>Warehouse</th>
-                                        <th>Gari Number</th>
+                                        <th>Vehicle Number</th>
                                         <th>Delivery Men</th>
                                         <th>Remarks</th>
 
@@ -253,12 +253,11 @@
                                     <tr>
                                         <th class="text-center">Code</th>
                                         <th>Product Name</th>
-                                        @if($supplier_info->product_discount > 0)
                                         <th class="text-center">Purchase (Qty)</th>
                                         @if($supplier_info->product_discount > 0)
                                         <th class="text-center">Dis.(Qty)</th>
-                                        <th class="text-center">Quantity</th>
                                         @endif
+                                        <th class="text-center">Quantity</th>
                                         <th class="text-right">Price</th>
                                         <th class="text-right">Sub Total</th>
                                     </tr>
@@ -292,7 +291,6 @@
 
                                         <td class="text-center p-1">{{$product->product_code}}</td>
                                         <td class="text-left p-1">{{$product->product_name}}</td>
-                                        @if($supplier_info->product_discount > 0)
                                         <td class="text-center p-1">{{$product->quantity-$product->discount_qty}} {{
                                             trans_choice($product->product->type,
                                             $product->quantity-$product->discount_qty) }} </td>
@@ -300,15 +298,15 @@
                                         <td class="text-center p-1">{{$product->discount_qty}} {{
                                             trans_choice($product->product->type, $product->discount_qty) }}
                                         </td>
+                                        @endif
                                         <td class="text-center p-1">{{$product->quantity}} {{
                                             trans_choice($product->product->type, $product->quantity) }}</td>
-                                        @endif
                                         <td class="text-right p-1">{{formatAmount($product->unit_price)}}/=</td>
                                         <td class="text-right p-1">{{formatAmount($product->total_price)}}/=</td>
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="6">
+                                        <td colspan="7">
                                             Not Found!
                                         </td>
                                     </tr>
@@ -334,6 +332,7 @@
                                             @endforeach
                                             @endif
                                         </th>
+                                        @endif
                                         <th class="text-center p-1 comon_column">
                                             @if ( count($total_summary['qty']) > 0)
                                             @foreach ($total_summary['qty'] as $key => $value)
@@ -341,7 +340,6 @@
                                             @endforeach
                                             @endif
                                         </th>
-                                        @endif
                                         <th class="text-right p-1 comon_column"></th>
                                         <th class="text-right p-1 comon_column">
                                             {{formatAmount($total_summary['sub_total'])}}/=</th>

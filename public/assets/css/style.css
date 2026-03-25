@@ -2600,3 +2600,8 @@ div#datatable-responsive_filter label {
     font-weight: bold;
     background: #81307e00;
 }
+
+
+.nav.child_menu .nav.child_menu>li>a {
+    padding-left: 35px !important;
+}

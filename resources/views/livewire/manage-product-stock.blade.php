@@ -205,28 +205,28 @@
                     <thead class="thead-light">
                         <tr class="text-center">
                             <th>SL</th>
+                            <th>Date</th>
                             <th>Product Name</th>
                             <th>Company Name</th>
                             <th>Category</th>
-                            <th>Store</th>
+                            {{-- <th>Store</th> --}}
                             <th>Quantity</th>
                             <th>Purchase Price</th>
                             <th>Sale Rate</th>
-                            <th>Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($paginated_stock_list as $key => $stock)
                             <tr class="text-center">
                                 <td>{{ $paginated_stock_list->firstItem() + $key }}</td>
+                                <td>{{ $stock->created_at ? $stock->created_at->format('d-m-Y') : 'N/A' }}</td>
                                 <td class="text-left">{{ $stock->product->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->product->brand->name ?? 'N/A' }}</td>
                                 <td>{{ $stock->product->category->name ?? 'N/A' }}</td>
-                                <td>{{ $stock->store->name ?? 'N/A' }}</td>
+                                {{-- <td>{{ $stock->store->name ?? 'N/A' }}</td> --}}
                                 <td>{{ $stock->product_quantity }}</td>
                                 <td>{{ $stock->purchase_price }}/=</td>
                                 <td>{{ $stock->product->price_rate ?? 'N/A' }}{{ isset($stock->product->price_rate) ? '/=' : '' }}</td>
-                                <td>{{ $stock->created_at ? $stock->created_at->format('d-m-Y') : 'N/A' }}</td>
                             </tr>
                         @empty
                             <tr>
