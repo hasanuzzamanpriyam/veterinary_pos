@@ -111,6 +111,8 @@ class Checkout extends Component
 
         // Default to 0; will be recalculated after the cart totals are summed
         $single_discount = 0;
+        $total_item_vat = 0;
+        $total_item_discount = 0;
 
         if (app('cart')->instance('purchase')->count() > 0) {
             foreach (app('cart')->instance('purchase')->content() as $product) {
@@ -119,6 +121,8 @@ class Checkout extends Component
                 $line_value = ((float) $product->qty - (float) $product->options->discount) * (float) $product->price;
                 $line_discount = (float) ($product->options->item_discount ?? 0);
                 $line_vat = (float) ($product->options->item_vat ?? 0);
+                $total_item_vat += $line_vat;
+                $total_item_discount += $line_discount;
                 $this->total_amount_after_discount += $line_value - $line_discount + $line_vat;
             }
         }
@@ -130,7 +134,7 @@ class Checkout extends Component
             $supplier = $this->supplier;
             $final_balance = $supplier['balance'] + $this->total_tk - $this->grand_total;
             $date = $supplier['date'];
-            $inv = DB::transaction(function () use ($supplier, $date, $final_balance, $validateData, $single_discount) {
+            $inv = DB::transaction(function () use ($supplier, $date, $final_balance, $validateData, $single_discount, $total_item_vat, $total_item_discount) {
 
                 $rowsBeforeInsert = SupplierLedger::where('supplier_id', $supplier['supplier_id'])
                     ->where('date', '>', $date)
@@ -151,9 +155,9 @@ class Checkout extends Component
                     'total_qty' => $this->total_qty,
                     'product_discount' => $this->product_discount,
                     'balance' => $this->balance,
-                    'vat' => $this->total_vat,
+                    'vat' => $total_item_vat,
                     'carring' => $validateData['carring'] ?? 0,
-                    'price_discount' => $this->total_discount,
+                    'price_discount' => $total_item_discount,
                     'total_price' => $this->total_amount_after_discount,
                     'other_charge' => $validateData['other_charge'] ?? 0,
                     'payment' => $validateData['payment'] ?? 0,

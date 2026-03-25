@@ -89,8 +89,6 @@
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th>Sub Total</th>
-                                        <th>Single Discount</th>
-                                        <th>Total Discount</th>
                                         <th>Net Amount</th>
                                     </tr>
                                 </thead>
@@ -136,8 +134,6 @@
                                                 {{ trans_choice($product->product->type, $product->quantity) }}</td>
                                             <td class="text-right p-1">{{formatAmount($product->unit_price)}}/=</td>
                                             <td class="text-right p-1">{{formatAmount($product->total_price)}}/=</td>
-                                            <td class="text-right p-1">{{formatAmount($product->single_discount ?? 0)}}</td>
-                                            <td class="text-right p-1">{{formatAmount($product->total_discount ?? 0)}}</td>
                                             <td class="text-right p-1">{{formatAmount($product->net_amount ?? 0)}}</td>
                                         </tr>
                                     @empty
@@ -179,9 +175,6 @@
                                             <th class="text-right p-1 comon_column"></th>
                                             <th class="text-right p-1 comon_column">
                                                 {{formatAmount($total_summary['sub_total'])}}/=</th>
-                                            <th class="text-right p-1 comon_column"></th>
-                                            <th class="text-right p-1 comon_column">
-                                                {{formatAmount($total_summary['total_discount'])}}</th>
                                             <th class="text-right p-1 comon_column">
                                                 {{formatAmount($total_summary['net_amount'])}}</th>
                                         </tr>
