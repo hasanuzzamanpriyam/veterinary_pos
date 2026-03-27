@@ -71,7 +71,7 @@ class Create extends Component
             'sku' => 'nullable',
             'barcode' => 'nullable',
             'remarks' => 'nullable|max:255',
-            'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif,webp,svg,avif|max:2048',
             'alternative_product_ids' => 'nullable|array',
             'alternative_product_ids.*' => 'exists:products,id',
         ];
@@ -80,7 +80,7 @@ class Create extends Component
     public function updatedPhoto()
     {
         $this->validateOnly('photo', [
-            'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif,webp,svg,avif|max:2048',
         ]);
     }
 
@@ -89,7 +89,7 @@ class Create extends Component
         $validated_data = $this->validate();
         // dd('data', $validated_data);
         if ($this->photo) {
-            $filename = $this->photo->store('/images/product', 'public');
+            $filename = $this->photo->store('images/product', 'public');
         } else {
             $filename = "";
         }

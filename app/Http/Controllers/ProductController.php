@@ -76,7 +76,7 @@ class ProductController extends Controller
             'mrp_rate' => ['max:20'],
             // 'opening_stock' => ['max:10'],
             'alert_quantity' => ['max:10'],
-            'photo' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:1000'],
+            'photo' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp,avif', 'max:1000'],
 
         ]);
         // dd($validator);
@@ -139,14 +139,12 @@ class ProductController extends Controller
             'price_rate' => ['max:20'],
             'mrp_rate' => ['max:20'],
             'alert_quantity' => ['max:10'],
-            'photo' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'photo' => ['image', 'mimes:jpeg,png,jpg,gif,svg,webp,avif', 'max:2048'],
 
         ]);
 
-        // Get existing product to preserve empty fields
         $existingProduct = Product::where('id', $request->id)->first();
 
-        // Photo handling logic
         if (!empty($request->photo)) {
             if ($request->old_photo) {
                 $deletePath = strpos($request->old_photo, 'storage/') === 0
