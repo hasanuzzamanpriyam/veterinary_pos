@@ -354,10 +354,49 @@
                     <div class="col-12 d-flex justify-content-center gap-2">
                         <button type="button" wire:click="cancel" class="btn btn-danger btn-md">Cancel</button>
                         <input type="submit" @if($items == 0) disabled @endif value="Checkout" class="btn btn-primary btn-md">
-                        <a href="{{ url('/dashboard') }}" class="btn btn-info btn-md">Hold</a>
+                        <button type="button" wire:click="hold" @if($items == 0) disabled @endif class="btn btn-info btn-md">Hold</button>
                     </div>
                 </div>
             </form>
+
+            {{-- ========== HELD PURCHASES SECTION ========== --}}
+            @if(isset($held_purchases) && $held_purchases->count() > 0)
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="x_panel mb-0" style="border: 1px solid #17a2b8;">
+                        <div class="x_title" style="background-color: #17a2b8; color: white; padding: 10px;">
+                            <h2 style="font-size: 16px; margin: 0;"><i class="fa fa-pause-circle"></i> Held Purchases ({{ $held_purchases->count() }})</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content p-3">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Company Name</th>
+                                        <th>Total Items</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($held_purchases as $hold)
+                                    <tr>
+                                        <td class="align-middle">{{ $hold->created_at->format('d-m-Y h:i A') }}</td>
+                                        <td class="align-middle">{{ $hold->supplier_name ?: 'N/A' }}</td>
+                                        <td class="align-middle">{{ is_array($hold->cart_data) ? count($hold->cart_data) : 0 }} items</td>
+                                        <td class="align-middle" style="width: 250px;">
+                                            <button type="button" wire:click="resumeHold({{ $hold->id }})" class="btn btn-primary btn-sm m-0"><i class="fa fa-plus"></i> Add</button>
+                                            <button type="button" wire:click="deleteHold({{ $hold->id }})" class="btn btn-danger btn-sm m-0"><i class="fa fa-trash"></i> Delete</button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
 
             {{-- ========== MOVED PRODUCT GALLERY SECTION ========== --}}
             <div class="row mt-4">

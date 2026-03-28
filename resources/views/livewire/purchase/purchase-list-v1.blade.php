@@ -52,7 +52,7 @@
                                 <tr>
                                     <th class="all">Date</th>
                                     <th class="all">Invoice</th>
-                                    <th class="all">Supplier Name</th>
+                                    <th class="all">Company Name</th>
                                     <th class="all">Address</th>
                                     <th class="all">Mobile</th>
                                     <th class="all">Delivery Info</th>

@@ -9,6 +9,7 @@ use App\Models\Store;
 use App\Models\Supplier;
 use App\Models\SupplierLedger;
 use App\Models\Warehouse;
+use App\Models\HeldPurchase;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -218,6 +219,82 @@ class Index extends Component
         ]);
     }
 
+    // hold purchase
+    public function hold()
+    {
+        $cartContent = app('cart')->instance('purchase')->content();
+        if ($cartContent->count() == 0) {
+            return;
+        }
+
+        $cartData = [];
+        foreach ($cartContent as $item) {
+            $cartData[] = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'qty' => $item->qty,
+                'price' => $item->price,
+                'options' => $item->options->toArray()
+            ];
+        }
+
+        HeldPurchase::create([
+            'user_id' => auth()->id(),
+            'supplier_id' => $this->supplier_id,
+            'supplier_name' => $this->supplier_name,
+            'warehouse_id' => $this->warehouse_id,
+            'product_store_id' => $this->product_store_id,
+            'transport_no' => $this->transport_no,
+            'delivery_man' => $this->delivery_man,
+            'cart_data' => $cartData,
+        ]);
+
+        $this->cancel();
+    }
+
+    public function resumeHold($holdId)
+    {
+        $hold = HeldPurchase::where('id', $holdId)->where('user_id', auth()->id())->first();
+        if (!$hold) return;
+
+        app('cart')->instance('purchase')->destroy();
+
+        $this->supplier_id = $hold->supplier_id;
+        $this->supplier_name = $hold->supplier_name;
+        $this->warehouse_id = $hold->warehouse_id;
+        $this->product_store_id = $hold->product_store_id;
+        $this->transport_no = $hold->transport_no;
+        $this->delivery_man = $hold->delivery_man;
+
+        if ($this->supplier_id) {
+            $this->supplier_search = $this->supplier_id;
+            $this->balance = $this->get_previous_balance($this->supplier_id, $this->full_date);
+            session()->put('balance', $this->balance);
+        }
+
+        if (is_array($hold->cart_data)) {
+            foreach ($hold->cart_data as $item) {
+                app('cart')->instance('purchase')->add([
+                    'id' => $item['id'],
+                    'name' => $item['name'],
+                    'qty' => $item['qty'],
+                    'price' => $item['price'],
+                    'options' => $item['options']
+                ]);
+            }
+        }
+
+        $hold->delete();
+
+        // Automatically trigger the proper checkout procedure instead of bypassing it
+        return $this->supplierInfo();
+    }
+
+    public function deleteHold($holdId)
+    {
+        HeldPurchase::where('id', $holdId)->where('user_id', auth()->id())->delete();
+    }
+
     //cancel order
     public function cancel()
     {
@@ -374,6 +451,7 @@ class Index extends Component
         $suppliers = Supplier::get();
         $warehouses = Warehouse::where('status', 1)->get();
         $brands = Brand::get();
+        $held_purchases = HeldPurchase::where('user_id', auth()->id())->latest()->get();
         return view('livewire.purchase.index', get_defined_vars())
             ->extends('layouts.admin')
             ->section('main-content');
