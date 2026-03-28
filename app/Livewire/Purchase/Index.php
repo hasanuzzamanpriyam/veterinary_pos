@@ -40,6 +40,8 @@ class Index extends Component
     public $purchase_date;
     public $production_date;
     public $expire_date;
+    public $held_start_date;
+    public $held_end_date;
 
 
 
@@ -507,7 +509,21 @@ class Index extends Component
         $suppliers = Supplier::get();
         $warehouses = Warehouse::where('status', 1)->get();
         $brands = Brand::get();
-        $held_purchases = HeldPurchase::where('user_id', auth()->id())->latest()->get();
+        
+        $total_held_purchases_count = HeldPurchase::where('user_id', auth()->id())->count();
+        
+        $held_query = HeldPurchase::where('user_id', auth()->id())->latest();
+        
+        if ($this->held_start_date) {
+            $held_query->whereDate('created_at', '>=', date('Y-m-d', strtotime($this->held_start_date)));
+        }
+
+        if ($this->held_end_date) {
+            $held_query->whereDate('created_at', '<=', date('Y-m-d', strtotime($this->held_end_date)));
+        }
+        
+        $held_purchases = $held_query->get();
+
         return view('livewire.purchase.index', get_defined_vars())
             ->extends('layouts.admin')
             ->section('main-content');

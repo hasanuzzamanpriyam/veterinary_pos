@@ -360,12 +360,18 @@
             </form>
 
             {{-- ========== HELD PURCHASES SECTION ========== --}}
-            @if(isset($held_purchases) && $held_purchases->count() > 0)
+            @if(isset($total_held_purchases_count) && $total_held_purchases_count > 0)
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="x_panel mb-0" style="border: 1px solid #17a2b8;">
-                        <div class="x_title" style="background-color: #17a2b8; color: white; padding: 10px;">
-                            <h2 style="font-size: 16px; margin: 0;"><i class="fa fa-pause-circle"></i> Held Purchases ({{ $held_purchases->count() }})</h2>
+                        <div class="x_title d-flex justify-content-between align-items-center" style="background-color: #17a2b8; color: white; padding: 10px;">
+                            <h2 style="font-size: 16px; margin: 0;"><i class="fa fa-pause-circle"></i> Held Purchases ({{ $total_held_purchases_count }})</h2>
+                            <div class="d-flex align-items-center" style="gap: 10px;">
+                                <span class="text-white" style="font-size: 13px; font-weight: 500;">From:</span>
+                                <input type="date" wire:model.live="held_start_date" class="form-control form-control-sm" style="color: black; width: 130px;" title="Start Date">
+                                <span class="text-white" style="font-size: 13px; font-weight: 500; margin-left: 5px;">To:</span>
+                                <input type="date" wire:model.live="held_end_date" class="form-control form-control-sm" style="color: black; width: 130px;" title="End Date">
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content p-3">
