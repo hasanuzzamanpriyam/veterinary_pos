@@ -246,6 +246,8 @@ class Index extends Component
             'product_store_id' => $this->product_store_id,
             'transport_no' => $this->transport_no,
             'delivery_man' => $this->delivery_man,
+            'purchase_date' => $this->purchase_date,
+            'supplier_remarks' => $this->supplier_remarks,
             'cart_data' => $cartData,
         ]);
 
@@ -265,6 +267,8 @@ class Index extends Component
         $this->product_store_id = $hold->product_store_id;
         $this->transport_no = $hold->transport_no;
         $this->delivery_man = $hold->delivery_man;
+        $this->purchase_date = $hold->purchase_date;
+        $this->supplier_remarks = $hold->supplier_remarks;
 
         if ($this->supplier_id) {
             $this->supplier_search = $this->supplier_id;
@@ -289,6 +293,58 @@ class Index extends Component
         // Automatically trigger the proper checkout procedure instead of bypassing it
         return $this->supplierInfo();
     }
+
+    public function editHold($holdId)
+    {
+        $hold = HeldPurchase::where('id', $holdId)->where('user_id', auth()->id())->first();
+        if (!$hold) return;
+
+        app('cart')->instance('purchase')->destroy();
+
+        $this->supplier_id = $hold->supplier_id;
+        $this->supplier_name = $hold->supplier_name;
+        $this->warehouse_id = $hold->warehouse_id;
+        $this->product_store_id = $hold->product_store_id;
+        $this->transport_no = $hold->transport_no;
+        $this->delivery_man = $hold->delivery_man;
+        $this->purchase_date = $hold->purchase_date;
+        $this->supplier_remarks = $hold->supplier_remarks;
+
+        if ($this->warehouse_id) {
+            $warehouse = Warehouse::find($this->warehouse_id);
+            if ($warehouse) {
+                $this->warehouse_name = $warehouse->name;
+            }
+        }
+
+        if ($this->supplier_id) {
+            $this->supplier_search = $this->supplier_id;
+            $this->balance = $this->get_previous_balance($this->supplier_id, $this->full_date);
+            session()->put('balance', $this->balance);
+
+            // Dispatch event for Select2 and Datepicker
+            $this->dispatch('update-supplier-id', $this->supplier_id);
+        }
+
+        if ($this->purchase_date) {
+            $this->dispatch('update-purchase-date', date('d-m-Y', strtotime($this->purchase_date)));
+        }
+
+        if (is_array($hold->cart_data)) {
+            foreach ($hold->cart_data as $item) {
+                app('cart')->instance('purchase')->add([
+                    'id' => $item['id'],
+                    'name' => $item['name'],
+                    'qty' => $item['qty'],
+                    'price' => $item['price'],
+                    'options' => $item['options']
+                ]);
+            }
+        }
+
+        $hold->delete();
+    }
+
 
     public function deleteHold($holdId)
     {

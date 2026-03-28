@@ -385,6 +385,7 @@
                                         <td class="align-middle">{{ $hold->supplier_name ?: 'N/A' }}</td>
                                         <td class="align-middle">{{ is_array($hold->cart_data) ? count($hold->cart_data) : 0 }} items</td>
                                         <td class="align-middle" style="width: 250px;">
+                                            <button type="button" wire:click="editHold({{ $hold->id }})" class="btn btn-warning btn-sm m-0"><i class="fa fa-edit"></i> Edit</button>
                                             <button type="button" wire:click="resumeHold({{ $hold->id }})" class="btn btn-primary btn-sm m-0"><i class="fa fa-plus"></i> Add</button>
                                             <button type="button" wire:click="deleteHold({{ $hold->id }})" class="btn btn-danger btn-sm m-0"><i class="fa fa-trash"></i> Delete</button>
                                         </td>
@@ -524,6 +525,18 @@
         // Reinitialize on Livewire updates
         Livewire.on('refresh', function() {
             initDatePickers();
+        });
+
+        // Sync Select2 with restored supplier
+        Livewire.on('update-supplier-id', function(data) {
+            let id = Array.isArray(data) ? data[0] : (data.id || data);
+            $('#supplier-search').val(id).trigger('change');
+        });
+
+        // Sync Datepicker with restored date
+        Livewire.on('update-purchase-date', function(data) {
+            let date = Array.isArray(data) ? data[0] : (data.date || data);
+            $('#purchase_date_picker_main').datepicker('setDate', date);
         });
 
         // Livewire v3 hook if available

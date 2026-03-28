@@ -17,6 +17,8 @@ class HeldPurchase extends Model
         'product_store_id',
         'transport_no',
         'delivery_man',
+        'purchase_date',
+        'supplier_remarks',
         'cart_data',
     ];
 
