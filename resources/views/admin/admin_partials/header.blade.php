@@ -1,7 +1,7 @@
 <div class="top_nav">
     <div class="nav_menu d-flex align-items-center justify-content-between px-3">
         <div class="nav toggle align-items-center">
-            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            {{-- <a id="menu_toggle"><i class="fa fa-bars"></i></a> --}}
 
             <div class="top-menu float-left d-flex">
                 {{-- <li class="nav-item">
