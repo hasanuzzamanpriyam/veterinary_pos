@@ -12,8 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        {{-- uncomment below link after live project uncomment and  --}}
-        <link href="{{asset('build/assets/app-fdc1baea.css')}}" rel="stylesheet">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
         @livewireStyles
@@ -23,7 +22,6 @@
             {{ $slot }}
         </div>
 
-        <script src="{{asset('build/assets/app-ddee773b.js')}}"></script>
         @livewireScripts
     </body>
 </html>
