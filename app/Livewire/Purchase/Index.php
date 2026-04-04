@@ -43,6 +43,7 @@ class Index extends Component
     public $held_start_date;
     public $held_end_date;
     public $item_vat_mode = []; // indexed by rowId
+    public $item_discount_mode = []; // indexed by rowId
 
 
 
@@ -130,11 +131,33 @@ class Index extends Component
     }
 
     // Update item discount (monetary)
-    public function updateItemDiscount($id, $discount)
+    public function updateItemDiscount($rowId, $discount)
     {
         foreach (app('cart')->instance('purchase')->content() as $item) {
-            if ($item->id == $id) {
+            if ($item->rowId == $rowId) {
                 $newOptions = array_merge($item->options->toArray(), ['item_discount' => (float) $discount]);
+                app('cart')->instance('purchase')->update($item->rowId, [
+                    'options' => $newOptions,
+                ]);
+                break;
+            }
+        }
+    }
+
+    // Set Discount mode for an item (Manual or Percentage)
+    public function setItemDiscountMode($rowId, $mode)
+    {
+        $this->item_discount_mode[$rowId] = $mode;
+    }
+
+    // Update item Discount by percentage
+    public function updateItemDiscountPercent($rowId, $percent)
+    {
+        foreach (app('cart')->instance('purchase')->content() as $item) {
+            if ($item->rowId == $rowId) {
+                $line_value = ($item->qty - $item->options->discount) * $item->price;
+                $discount_amount = $line_value * (float) $percent / 100;
+                $newOptions = array_merge($item->options->toArray(), ['item_discount' => (float) $discount_amount, 'item_discount_percent' => (float) $percent]);
                 app('cart')->instance('purchase')->update($item->rowId, [
                     'options' => $newOptions,
                 ]);

@@ -269,11 +269,44 @@
                                                        value="{{ number_format($line_value, 2, '.', '') }}"
                                                        class="form-control">
                                             </td>
-                                            <td class="text-left">
-                                                <input type="number"
-                                                       wire:change="updateItemDiscount({{ $id }}, $event.target.value || 0)"
-                                                       value="{{ $line_discount }}"
-                                                       class="form-control">
+                                            <td class="text-left" style="vertical-align: middle;">
+                                                @php
+                                                    $item_discount_mode_val = $item_discount_mode[$product->rowId] ?? 1;
+                                                @endphp
+                                                <div class="item-discount-container d-flex flex-column align-items-center">
+                                                    <div class="row-mode-toggle d-flex mb-1" style="border: 1px solid #28a745; border-radius: 4px; overflow: hidden; height: 20px;">
+                                                        <div wire:click="setItemDiscountMode('{{ $product->rowId }}', 1)" 
+                                                             class="px-2 cursor-pointer d-flex align-items-center justify-content-center {{ $item_discount_mode_val == 1 ? 'bg-success text-white' : 'text-success' }}" 
+                                                             style="font-size: 10px; font-weight: bold; width: 30px;">Fixed</div>
+                                                        <div wire:click="setItemDiscountMode('{{ $product->rowId }}', 2)" 
+                                                             class="px-2 cursor-pointer d-flex align-items-center justify-content-center {{ $item_discount_mode_val == 2 ? 'bg-success text-white' : 'text-success' }}" 
+                                                             style="font-size: 10px; font-weight: bold; width: 30px; border-left: 1px solid #28a745;">%</div>
+                                                    </div>
+                                                    
+                                                    <div class="discount-input-wrapper" style="width: 100%; position: relative;">
+                                                        @if($item_discount_mode_val == 1)
+                                                            <input type="number" step="any"
+                                                                wire:change="updateItemDiscount('{{ $product->rowId }}', $event.target.value || 0)"
+                                                                value="{{ number_format($line_discount, 2, '.', '') }}"
+                                                                class="form-control form-control-sm text-center px-1"
+                                                                style="font-size: 11px; height: 24px; border-radius: 3px;"
+                                                                placeholder="TK">
+                                                        @else
+                                                            <div class="d-flex align-items-center" style="position: relative;">
+                                                                <input type="number" step="any"
+                                                                    wire:change="updateItemDiscountPercent('{{ $product->rowId }}', $event.target.value || 0)"
+                                                                    value="{{ $product->options->item_discount_percent ?? 0 }}"
+                                                                    class="form-control form-control-sm text-center px-1 pr-3"
+                                                                    style="font-size: 11px; height: 24px; border-radius: 3px;"
+                                                                    placeholder="%">
+                                                                <span style="position: absolute; right: 5px; font-size: 10px; color: #6c757d;">%</span>
+                                                            </div>
+                                                            <div class="text-center" style="font-size: 11px; margin-top: 1px; font-weight: 500;">
+                                                                = {{ number_format($line_discount, 2) }}
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td class="text-left" style="vertical-align: middle;">
                                                 @php
