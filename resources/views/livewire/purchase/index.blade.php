@@ -154,9 +154,9 @@
                                     <th>Product Name</th>
                                     <th style="width: 95px;">Prod. Date</th>
                                     <th style="width: 95px;">Exp. Date</th>
-                                    <th style="width: 110px;">Purchase(Q)</th>
+                                    <th style="width: 110px;">Quantity</th>
                                     <th style="width: 70px;">Discount</th>
-                                    <th style="width: 92px;">Quantity</th>
+                                    <th style="width: 92px;">Purchase (Q)</th>
                                     <th style="width: 90px;">Rate</th>
                                     <th style="width: 90px;">Value</th>
                                     <th style="width: 90px;">Discount (TK)</th>
