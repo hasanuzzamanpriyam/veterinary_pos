@@ -22,7 +22,7 @@
             <div class="x_content" style="max-width: 720px; margin: 0 auto; float: unset;">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                        <h2 class="text-center text-dark">Invoice #{{$supplier_info->id}}</h2>
+                        <h2 class="text-center text-dark">Purchase ID: {{$supplier_info->id}}</h2>
                     </div>
                 </div>
 
@@ -51,8 +51,8 @@
                                 <thead>
                                     <tr>
                                         <th>Warehouse</th>
-                                        <th>Gari Number</th>
-                                        <th>Delivery Men</th>
+                                        <th>Vehicle Number</th>
+                                        <th>Delivery Man</th>
                                         <th>Remarks</th>
 
                                     </tr>
@@ -82,11 +82,11 @@
                                     <tr>
                                         <th>Code</th>
                                         <th>Name</th>
-                                        <th>Purchase(Qty)</th>
+                                        <th>Quantity</th>
                                         @if($supplier_info->product_discount > 0)
                                             <th>Dis.(Qty)</th>
                                         @endif
-                                        <th>Quantity</th>
+                                        <th>Purchase(Qty)</th>
                                         <th>Price</th>
                                         <th>Sub Total</th>
                                         <th>Net Amount</th>

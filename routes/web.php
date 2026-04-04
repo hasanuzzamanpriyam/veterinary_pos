@@ -389,6 +389,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     // Product route
     Route::prefix('product')->group(function () {
+        Route::get('discount', App\Livewire\Product\Discount::class)->name('product.discount');
         Route::get('/', App\Livewire\Product\ProductList::class)->name('product.index');
         Route::post('/', [ProductController::class, 'store'])->name('product.store');
         Route::get('stock', App\Livewire\Product\Stock::class)->name('product.stock');
