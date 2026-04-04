@@ -42,6 +42,7 @@ class Index extends Component
     public $expire_date;
     public $held_start_date;
     public $held_end_date;
+    public $item_vat_mode = []; // indexed by rowId
 
 
 
@@ -143,11 +144,33 @@ class Index extends Component
     }
 
     // Update item VAT
-    public function updateItemVat($id, $vat)
+    public function updateItemVat($rowId, $vat)
     {
         foreach (app('cart')->instance('purchase')->content() as $item) {
-            if ($item->id == $id) {
+            if ($item->rowId == $rowId) {
                 $newOptions = array_merge($item->options->toArray(), ['item_vat' => (float) $vat]);
+                app('cart')->instance('purchase')->update($item->rowId, [
+                    'options' => $newOptions,
+                ]);
+                break;
+            }
+        }
+    }
+
+    // Set VAT mode for an item (Manual or Percentage)
+    public function setItemVatMode($rowId, $mode)
+    {
+        $this->item_vat_mode[$rowId] = $mode;
+    }
+
+    // Update item VAT by percentage
+    public function updateItemVatPercent($rowId, $percent)
+    {
+        foreach (app('cart')->instance('purchase')->content() as $item) {
+            if ($item->rowId == $rowId) {
+                $line_value = ($item->qty - $item->options->discount) * $item->price;
+                $vat_amount = $line_value * (float) $percent / 100;
+                $newOptions = array_merge($item->options->toArray(), ['item_vat' => (float) $vat_amount, 'item_vat_percent' => (float) $percent]);
                 app('cart')->instance('purchase')->update($item->rowId, [
                     'options' => $newOptions,
                 ]);
@@ -522,6 +545,8 @@ class Index extends Component
             $held_query->whereDate('created_at', '<=', date('Y-m-d', strtotime($this->held_end_date)));
         }
         
+        $held_purchases = $held_query->get();
+
         $held_purchases = $held_query->get();
 
         return view('livewire.purchase.index', get_defined_vars())
