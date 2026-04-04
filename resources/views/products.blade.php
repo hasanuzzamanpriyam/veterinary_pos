@@ -484,6 +484,111 @@
             border-radius: 8px;
             margin-bottom: 20px;
         }
+
+        /* Image Click-to-Enlarge Effect */
+        .product-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+            cursor: pointer;
+        }
+
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-img-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Image Modal/Lightbox */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { 
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .modal-content {
+                max-width: 95%;
+                max-height: 85%;
+            }
+
+            .close-modal {
+                top: -35px;
+                right: 5px;
+                font-size: 30px;
+            }
+        }
     </style>
 </head>
 
@@ -648,7 +753,7 @@
                                 <div class="col-lg-6 col-md-6 mb-4 product-item" data-category="{{ $product['category'] }}"
                                     data-product-type="featured">
                                     <div class="product-card wow fadeInUp">
-                                        <div class="product-img">
+                                        <div class="product-img-wrapper">
                                             <img src="{{ asset('assets/images/' . $product['image']) }}"
                                                 alt="{{ $product['title'] }}">
                                         </div>
@@ -680,7 +785,7 @@
                                     <div class="col-lg-6 col-md-6 mb-4 product-item"
                                         data-category="{{ $product->category_id ?? '' }}" data-product-type="database">
                                         <div class="product-card wow fadeInUp">
-                                            <div class="product-img">
+                                            <div class="product-img-wrapper">
                                                 <img src="{{ $product->image_path }}" alt="{{ $product->name }}">
                                                 @if($product->has_offer)
                                                     <span class="badge bg-danger position-absolute top-0 end-0 m-3">Offer</span>
@@ -972,7 +1077,7 @@
                 return `
                     <div class="col-lg-6 col-md-6 mb-4 product-item" data-category="${product.category_id || ''}" data-product-type="database">
                         <div class="product-card wow fadeInUp">
-                            <div class="product-img">
+                            <div class="product-img-wrapper">
                                 <img src="${product.image_path}" alt="${product.name}">
                                 ${offerBadge}
                             </div>
@@ -992,6 +1097,89 @@
                         </div>
                     </div>
                 `;
+            }
+        });
+
+        // Image Click-to-Enlarge Modal Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create modal elements
+            const modal = document.createElement('div');
+            modal.className = 'image-modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <img src="" alt="Enlarged Product Image">
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            const modalImg = modal.querySelector('img');
+            const closeModal = modal.querySelector('.close-modal');
+
+            // Function to open modal
+            function openModal(imgSrc) {
+                modalImg.src = imgSrc;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
+            }
+
+            // Function to close modal
+            function closeModalFunc() {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore background scroll
+                setTimeout(() => {
+                    modalImg.src = '';
+                }, 300);
+            }
+
+            // Add click event to all product image wrappers
+            function attachClickEvents() {
+                const productImgWrappers = document.querySelectorAll('.product-img-wrapper:not([data-click-initialized])');
+                
+                productImgWrappers.forEach(wrapper => {
+                    wrapper.setAttribute('data-click-initialized', 'true');
+                    const img = wrapper.querySelector('img');
+                    const imgSrc = img.src;
+
+                    wrapper.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        openModal(imgSrc);
+                    });
+                });
+            }
+
+            // Initial attachment
+            attachClickEvents();
+
+            // Close modal when clicking X button
+            closeModal.addEventListener('click', closeModalFunc);
+
+            // Close modal when clicking backdrop
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModalFunc();
+                }
+            });
+
+            // Close modal when pressing ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModalFunc();
+                }
+            });
+
+            // Observe DOM changes to attach click events to dynamically loaded content
+            const productsContainer = document.getElementById('products-container');
+            if (productsContainer) {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'childList') {
+                            attachClickEvents();
+                        }
+                    });
+                });
+
+                observer.observe(productsContainer, { childList: true, subtree: true });
             }
         });
     </script>

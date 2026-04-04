@@ -107,7 +107,7 @@
                                                     // Ensure it points to the correct subdirectory if not already present
                                                     // (Based on list_dir findings, it might need images/product/ prefix)
                                                 @endphp
-                                                <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $product->name }}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                                <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $product->name }}" class="img-thumbnail product-zoom-img" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer;">
                                             @else
                                                 <span class="text-muted">No Image</span>
                                             @endif
@@ -185,7 +185,125 @@
 </div>
 
 @push('scripts')
+<style>
+    #imageZoomModal {
+        display: none;
+        position: fixed;
+        z-index: 99999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        align-items: center;
+        justify-content: center;
+    }
+
+    #imageZoomModal.active {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+    }
+
+    #imageZoomModal .modal-content-zoom {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        animation: zoomIn 0.3s ease;
+    }
+
+    #imageZoomModal img {
+        width: 100%;
+        height: auto;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    #imageZoomModal .close-zoom {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        color: white;
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #imageZoomModal .close-zoom:hover {
+        color: #ff6b35;
+        transform: rotate(90deg);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+        from { 
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to { 
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+</style>
+
+<div id="imageZoomModal">
+    <div class="modal-content-zoom">
+        <span class="close-zoom">&times;</span>
+        <img src="" id="zoomedImage" alt="Enlarged Product Image">
+    </div>
+</div>
+
 <script>
-    // Barcode rendering is handled by Alpine.js x-init on each row
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('imageZoomModal');
+        const zoomedImg = document.getElementById('zoomedImage');
+        const closeBtn = document.querySelector('.close-zoom');
+
+        function closeZoomModal() {
+            modal.classList.remove('active');
+            setTimeout(() => { zoomedImg.src = ''; }, 300);
+        }
+
+        // Use event delegation on the document body to handle Livewire dynamically rendered items
+        document.body.addEventListener('click', function(e) {
+            // Check if clicked element is our image
+            if (e.target && e.target.classList.contains('product-zoom-img')) {
+                const imgSrc = e.target.src;
+                if(imgSrc) {
+                    zoomedImg.src = imgSrc;
+                    modal.classList.add('active');
+                }
+            }
+            
+            // Also act as close if they click the overlay
+            if (e.target === modal) {
+                closeZoomModal();
+            }
+        });
+
+        // Close button functionality
+        if(closeBtn) {
+            closeBtn.addEventListener('click', closeZoomModal);
+        }
+
+        // Esc key to close
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeZoomModal();
+            }
+        });
+    });
 </script>
 @endpush
