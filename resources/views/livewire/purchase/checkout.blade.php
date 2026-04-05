@@ -2,8 +2,8 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- Main Content: Supplier & Products -->
-        <div class="col-lg-8 col-md-7 col-sm-12">
+        <!-- Supplier & Products: Full Width -->
+        <div class="col-12">
             <!-- Supplier Info Card -->
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-white">
@@ -82,78 +82,92 @@
 
                     @if(count(Cart::instance('purchase')->content()) > 0)
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped mb-0">
+                            <table class="table table-bordered table-hover table-striped mb-0" style="table-layout: fixed; width: 100%; border-collapse: collapse; text-align: center;">
+                                <colgroup>
+                                    <col style="width: 110px;">
+                                    <col>
+                                    <col style="width: 140px;">
+                                    @if($product_discounts > 0)
+                                        <col style="width: 120px;">
+                                    @endif
+                                    <col style="width: 120px;">
+                                    <col style="width: 130px;">
+                                    <col style="width: 120px;">
+                                    <col style="width: 120px;">
+                                    <col style="width: 100px;">
+                                    <col style="width: 130px;">
+                                </colgroup>
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Code</th>
-                                        <th>Product Name</th>
-                                        <th>Purchase (Qty)</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Code</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Product Name</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Purchase (Qty)</th>
                                         @if($product_discounts > 0)
-                                            <th>Discount</th>
+                                            <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Discount</th>
                                         @endif
-                                        <th>Quantity</th>
-                                        <th>Price Rate</th>
-                                        <th>Value</th>
-                                        <th>Discount</th>
-                                        <th>VAT</th>
-                                        <th>Sub Total</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Quantity</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Price Rate</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Value</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Discount</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">VAT</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Sub Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse (Cart::instance('purchase')->content() as $product)
                                         <tr>
-                                            <td>
+                                            <td style="vertical-align: middle; text-align: center; overflow: hidden;">
                                                 @if($product->options->barcode)
                                                     <svg class="barcode-render" data-barcode="{{ $product->options->barcode }}"
-                                                        style="height: 25px; max-width: 100%;"></svg>
+                                                        style="height: 25px; width: 100px; display: inline-block;"></svg>
                                                 @endif
                                             </td>
-                                            <td>{{ $product->name }}</td>
-                                            <td>{{ $product->qty - $product->options->discount }} {{ trans_choice($product->options->type, $product->qty - $product->options->discount) }}</td>
+                                            <td style="vertical-align: middle; text-align: center;">{{ $product->name }}</td>
+                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->qty - $product->options->discount }} {{ trans_choice($product->options->type, $product->qty - $product->options->discount) }}</td>
                                             @if($product_discounts > 0)
-                                                <td>{{ $product->options->discount }} {{ trans_choice($product->options->type, $product->options->discount) }}</td>
+                                                <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->options->discount }} {{ trans_choice($product->options->type, $product->options->discount) }}</td>
                                             @endif
-                                            <td>{{ $product->qty }} {{ trans_choice($product->options->type, $product->qty) }}</td>
-                                            <td class="text-right">{{ number_format($product->price, 2) }}/=</td>
+                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->qty }} {{ trans_choice($product->options->type, $product->qty) }}</td>
+                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($product->price, 2) }}/=</td>
                                             @php
                                                 $line_val = ($product->qty - $product->options->discount) * $product->price;
                                                 $line_dis = $product->options->item_discount ?: 0;
                                                 $line_vat = $product->options->item_vat ?: 0;
                                                 $line_subtotal = $line_val - $line_dis + $line_vat;
                                             @endphp
-                                            <td class="text-right">{{ number_format($line_val, 2) }}</td>
-                                            <td class="text-right">{{ number_format($line_dis, 2) }}</td>
-                                            <td class="text-right">{{ number_format($line_vat, 2) }}</td>
-                                            <td class="text-right">{{ number_format($line_subtotal, 2) }}/=</td>
+                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($line_val, 2) }}</td>
+                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($line_dis, 2) }}</td>
+                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($line_vat, 2) }}</td>
+                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($line_subtotal, 2) }}/=</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot class="font-weight-bold">
                                     <tr>
-                                        <td><strong>{{ trans_choice('labels.items', $items) }}:</strong> {{ $items }}</td>
-                                        <td></td>
-                                        <td>
+                                        <td style="text-align: center; vertical-align: middle;"><strong>{{ trans_choice('labels.items', $items) }}:</strong> {{ $items }}</td>
+                                        <td style="text-align: center; vertical-align: middle;"></td>
+                                        <td style="text-align: center; vertical-align: middle;">
                                             @foreach($summary['total'] ?? [] as $key => $value)
                                                 <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ trans_choice(strtolower($key), $value) }}</span>
                                             @endforeach
                                         </td>
                                         @if($product_discounts > 0)
-                                            <td>
+                                            <td style="text-align: center; vertical-align: middle;">
                                                 @foreach($summary['discount'] ?? [] as $key => $value)
                                                     <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ trans_choice(strtolower($key), $value) }}</span>
                                                 @endforeach
                                             </td>
                                         @endif
-                                        <td>
+                                        <td style="text-align: center; vertical-align: middle;">
                                             @foreach($summary['qty'] ?? [] as $key => $value)
                                                 <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ trans_choice(strtolower($key), $value) }}</span>
                                             @endforeach
                                         </td>
-                                        <td></td>
-                                        <td class="text-right"><strong>{{ number_format($total_line_value, 2) }}</strong></td>
-                                        <td class="text-right"><strong>{{ number_format($total_line_discount, 2) }}</strong></td>
-                                        <td class="text-right"><strong>{{ number_format($total_line_vat, 2) }}</strong></td>
-                                        <td class="text-right">{{ number_format($total_amount, 2) }}/=</td>
+                                        <td style="text-align: center; vertical-align: middle;"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><strong>{{ number_format($total_line_value, 2) }}</strong></td>
+                                        <td style="text-align: center; vertical-align: middle;"><strong>{{ number_format($total_line_discount, 2) }}</strong></td>
+                                        <td style="text-align: center; vertical-align: middle;"><strong>{{ number_format($total_line_vat, 2) }}</strong></td>
+                                        <td style="text-align: center; vertical-align: middle;">{{ number_format($total_amount, 2) }}/=</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -163,9 +177,9 @@
             </div>
         </div>
 
-        <!-- Sticky Sidebar: Amount Calculation -->
-        <div class="col-lg-4 col-md-5 col-sm-12">
-            <div class="card shadow-sm sticky-top" style="top: 20px; z-index: 100;">
+        <!-- Amount Calculation: Full Width -->
+        <div class="col-12">
+            <div class="card shadow-sm mb-4">
                 <div class="card-header bg-white">
                     <h5 class="mb-0">Amount Calculation</h5>
                 </div>
@@ -182,13 +196,14 @@
 
                     <form wire:submit.prevent="purchaseStore()" enctype="multipart/form-data" data-parsley-validate>
                         @csrf
-                        <table class="table table-sm table-borderless">
-                            <tr>
-                                <th>Total Purchase</th>
-                                <td class="text-right">{{ number_format($total_amount, 2) }}/=</td>
-                            </tr>
-                            <tr>
-                                <th>
+                        <div class="row">
+                            {{-- Col 1: Totals --}}
+                            <div class="col-md-3 col-sm-6 mb-3">
+                                <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
+                                    <strong>Total Purchase</strong>
+                                    <span>{{ number_format($total_amount, 2) }}/=</span>
+                                </div>
+                                <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle py-0" data-toggle="dropdown">
                                             Discount <span class="caret"></span>
@@ -201,11 +216,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                </th>
-                                <td class="text-right">{{ number_format($total_discount, 2) }}/=</td>
-                            </tr>
-                            <tr>
-                                <th>
+                                    <span>{{ number_format($total_discount, 2) }}/=</span>
+                                </div>
+                                <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle py-0" data-toggle="dropdown">
                                             VAT <span class="caret"></span>
@@ -218,49 +231,50 @@
                                             </div>
                                         </div>
                                     </div>
-                                </th>
-                                <td class="text-right">{{ number_format($total_vat, 2) }}/=</td>
-                            </tr>
-                            <tr>
-                                <th>Total Tk</th>
-                                <td class="text-right">{{ number_format($total_tk, 2) }}/=</td>
-                            </tr>
-                            <tr>
-                                <th>Previous Due</th>
-                                <td class="text-right">{{ number_format($previous_due ?? 0, 2) }}/=</td>
-                            </tr>
-                            <tr>
-                                <th>Current Due</th>
-                                <td class="text-right">{{ number_format($total_tk + ($previous_due ?? 0), 2) }}/=</td>
-                            </tr>
-                            
-                            <tr>
-                                <th>Carrying</th>
-                                <td>
+                                    <span>{{ number_format($total_vat, 2) }}/=</span>
+                                </div>
+                                <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
+                                    <strong>Total Tk</strong>
+                                    <span>{{ number_format($total_tk, 2) }}/=</span>
+                                </div>
+                                <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
+                                    <strong>Previous Due</strong>
+                                    <span>{{ number_format($previous_due ?? 0, 2) }}/=</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <strong>Current Due</strong>
+                                    <span>{{ number_format($total_tk + ($previous_due ?? 0), 2) }}/=</span>
+                                </div>
+                            </div>
+
+                            {{-- Col 2: Carrying & Other Charge --}}
+                            <div class="col-md-3 col-sm-6 mb-3">
+                                <div class="form-group">
+                                    <label><strong>Carrying</strong></label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" wire:model.lazy="carring" name="carring" class="form-control">
                                         <div class="input-group-append">
                                             <span class="input-group-text">/=</span>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Other Charge</th>
-                                <td>
+                                </div>
+                                <div class="form-group">
+                                    <label><strong>Other Charge</strong></label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" wire:model.lazy="other_charge" name="other_charge" class="form-control">
                                         <div class="input-group-append">
                                             <span class="input-group-text">/=</span>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Payment Type</th>
-                                <td>
+                                </div>
+                            </div>
+
+                            {{-- Col 3: Payment Type & Remarks --}}
+                            <div class="col-md-3 col-sm-6 mb-3">
+                                <div class="form-group">
+                                    <label><strong>Payment Type</strong></label>
                                     @if(isset($bank_title))
-                                        <!-- bank title display -->
+                                        {{-- bank title display --}}
                                     @else
                                         <select wire:model="payment_by" wire:change="paymentSearch($event.target.value)" name="payment_by" class="form-control form-control-sm">
                                             <option value="">Select Option</option>
@@ -281,34 +295,34 @@
                                             <input type="text" wire:model="bank_title" class="form-control form-control-sm mt-1">
                                         @endif
                                     @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Remarks</th>
-                                <td>
+                                </div>
+                                <div class="form-group">
+                                    <label><strong>Remarks</strong></label>
                                     <input type="text" wire:model.lazy="payment_remarks" name="payment_remarks" class="form-control form-control-sm">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Payment</th>
-                                <td>
+                                </div>
+                            </div>
+
+                            {{-- Col 4: Payment & Totals --}}
+                            <div class="col-md-3 col-sm-6 mb-3">
+                                <div class="form-group">
+                                    <label><strong>Payment</strong></label>
                                     <div class="input-group input-group-sm">
                                         <input type="text" wire:model.lazy="payment" name="payment" class="form-control">
                                         <div class="input-group-append">
                                             <span class="input-group-text">/=</span>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr class="font-weight-bold border-top">
-                                <th>Total Payment</th>
-                                <td class="text-right">{{ number_format($grand_total, 2) }}/=</td>
-                            </tr>
-                            <tr class="font-weight-bold">
-                                <th>Due Amount</th>
-                                <td class="text-right">{{ number_format($balance, 2) }}/=</td>
-                            </tr>
-                        </table>
+                                </div>
+                                <div class="d-flex justify-content-between border-top pt-2 mb-1 font-weight-bold">
+                                    <span>Total Payment</span>
+                                    <span>{{ number_format($grand_total, 2) }}/=</span>
+                                </div>
+                                <div class="d-flex justify-content-between font-weight-bold">
+                                    <span>Due Amount</span>
+                                    <span>{{ number_format($balance, 2) }}/=</span>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Action Buttons -->
                         <div class="d-flex justify-content-between mt-3">
@@ -320,5 +334,7 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 </div>

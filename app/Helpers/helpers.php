@@ -3,14 +3,15 @@
 if (!function_exists('numberToWords')) {
     function numberToWords($number)
     {
+        if ($number == 0) {
+            return 'Zero Taka Only';
+        }
+
         $words = '';
 
         // Check if the number is negative
         $isNegative = $number < 0;
         $number = abs($number); // Convert to absolute value for processing
-
-        // Units array for the number
-        $units = ['lakh', 'thousand', 'hundred', ''];
 
         // Split the number into parts
         $crore = floor($number / 10000000);
@@ -19,23 +20,48 @@ if (!function_exists('numberToWords')) {
         $hundred = floor(($number % 1000) / 100);
         $remainder = $number % 100;
 
-        // Use NumberFormatter to convert numbers to words
-        $formatter = new NumberFormatter('en', NumberFormatter::SPELLOUT);
+        $convertToWords = function ($num) use (&$convertToWords) {
+            $dictionary = [
+                0 => 'zero', 1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine',
+                10 => 'ten', 11 => 'eleven', 12 => 'twelve', 13 => 'thirteen', 14 => 'fourteen', 15 => 'fifteen', 16 => 'sixteen', 17 => 'seventeen', 18 => 'eighteen', 19 => 'nineteen',
+                20 => 'twenty', 30 => 'thirty', 40 => 'forty', 50 => 'fifty', 60 => 'sixty', 70 => 'seventy', 80 => 'eighty', 90 => 'ninety'
+            ];
+
+            if ($num < 20) {
+                return $dictionary[$num];
+            }
+            if ($num < 100) {
+                $tens = ((int)($num / 10)) * 10;
+                $units = $num % 10;
+                return $dictionary[$tens] . ($units ? '-' . $dictionary[$units] : '');
+            }
+            if ($num < 1000) {
+                $hundreds = (int)($num / 100);
+                $rem = $num % 100;
+                return $dictionary[$hundreds] . ' hundred' . ($rem ? ' ' . $convertToWords($rem) : '');
+            }
+            if ($num < 100000) {
+                $thousands = (int)($num / 1000);
+                $rem = $num % 1000;
+                return $convertToWords($thousands) . ' thousand' . ($rem ? ' ' . $convertToWords($rem) : '');
+            }
+            return (string)$num; // Fallback for very large numbers
+        };
 
         if ($crore) {
-            $words .= $formatter->format($crore) . ' crore ';
+            $words .= $convertToWords($crore) . ' crore ';
         }
         if ($lakh) {
-            $words .= $formatter->format($lakh) . ' lakh ';
+            $words .= $convertToWords($lakh) . ' lakh ';
         }
         if ($thousand) {
-            $words .= $formatter->format($thousand) . ' thousand ';
+            $words .= $convertToWords($thousand) . ' thousand ';
         }
         if ($hundred) {
-            $words .= $formatter->format($hundred) . ' hundred ';
+            $words .= $convertToWords($hundred) . ' hundred ';
         }
         if ($remainder) {
-            $words .= $formatter->format($remainder);
+            $words .= $convertToWords($remainder);
         }
 
         // Handle the negative sign
@@ -129,7 +155,8 @@ if (!function_exists('splitHtml')) {
 if (!function_exists('cute_loader')) {
     function cute_loader()
     {
-        echo '<div wire:loading.flex class="position-absolute w-100 h-100 p-5 align-items-start justify-content-center" style="min-height: 250px; top: 0; left: 0; z-index: 1050;">
+        echo '
+            <div wire:loading.flex class="position-absolute w-100 h-100 p-5 align-items-start justify-content-center" style="min-height: 250px; top: 0; left: 0; z-index: 1050;">
                 <div class="position-absolute w-100 h-100" style="z-index: 10; background-color: #000; opacity: .5; top: 0; left: 0;"></div>
                 <div class="position-relative bg-white p-4 rounded-lg shadow-lg text-center" style="z-index: 20;">
                     <p class="font-weight-bold">Fetching Data...</p>
