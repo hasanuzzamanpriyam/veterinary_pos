@@ -27,4 +27,13 @@ class ProductStore extends Model
     {
         return $this->belongsTo( Supplier::class, 'supplier_id');
     }
+
+    /**
+     * Get the regular quantity by subtracting discount quantity from the total product quantity.
+     * Ensure it doesn't go below 0.
+     */
+    public function getRegularQuantityAttribute()
+    {
+        return max(0, $this->product_quantity - $this->discount_quantity);
+    }
 }

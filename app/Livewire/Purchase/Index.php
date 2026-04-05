@@ -202,7 +202,7 @@ class Index extends Component
         }
     }
 
-    // Update expire date for a cart item
+    // Update require date for a cart item
     public function updateExpireDate($rowId, $expireDate)
     {
         $cart = app('cart')->instance('purchase')->content();
@@ -211,6 +211,22 @@ class Index extends Component
                 app('cart')->instance('purchase')->update($rowId, [
                     'options' => array_merge($item->options->toArray(), [
                         'expire_date' => $expireDate,
+                    ]),
+                ]);
+                break;
+            }
+        }
+    }
+
+    // Update batch type (regular/discount)
+    public function updateBatchType($rowId, $type)
+    {
+        $cart = app('cart')->instance('purchase')->content();
+        foreach ($cart as $item) {
+            if ($item->rowId == $rowId) {
+                app('cart')->instance('purchase')->update($rowId, [
+                    'options' => array_merge($item->options->toArray(), [
+                        'batch_type' => $type,
                     ]),
                 ]);
                 break;
@@ -571,6 +587,8 @@ class Index extends Component
         $held_purchases = $held_query->get();
 
         $held_purchases = $held_query->get();
+
+        $discount_stocks = ProductStore::where('discount_quantity', '>', 0)->with('product')->get();
 
         return view('livewire.purchase.index', get_defined_vars())
             ->extends('layouts.admin')

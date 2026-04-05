@@ -242,6 +242,9 @@ class Checkout extends Component
 
                         if ($product_store) {
                             $product_store->increment('product_quantity', $product->qty);
+                            if (($product->options->batch_type ?? 'regular') === 'discount') {
+                                $product_store->increment('discount_quantity', $product->qty);
+                            }
                         } else {
                             ProductStore::create([
                                 'product_id' => $product->id,
@@ -249,6 +252,7 @@ class Checkout extends Component
                                 'product_store_id' => $supplier['product_store_id'],
                                 'product_name' => $product->name,
                                 'product_quantity' => $product->qty,
+                                'discount_quantity' => (($product->options->batch_type ?? 'regular') === 'discount') ? $product->qty : 0,
                                 'purchase_price' => $product->price,
                                 'production_date' => $production_date,
                                 'expire_date' => $expire_date,

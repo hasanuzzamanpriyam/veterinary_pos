@@ -144,6 +144,37 @@
                     </div>
                 </div>
 
+                {{-- Discounted Stock View --}}
+                @if(isset($discount_stocks) && $discount_stocks->count() > 0)
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="alert alert-info py-2 mb-0" style="background-color: #d1ecf1; border-color: #bee5eb; color: #0c5460;">
+                            <h6 class="m-0"><i class="fa fa-tag"></i> Active Discount Stocks</h6>
+                        </div>
+                        <table class="table table-bordered table-sm mt-1" style="background: white;">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Barcode</th>
+                                    <th>Warehouse/Store</th>
+                                    <th>Discount Quantity Available</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($discount_stocks as $stock)
+                                <tr>
+                                    <td>{{ $stock->product->name ?? 'N/A' }}</td>
+                                    <td>{{ $stock->product->barcode ?? 'N/A' }}</td>
+                                    <td>{{ $stock->store->name ?? 'N/A' }}</td>
+                                    <td class="font-weight-bold text-success">{{ $stock->discount_quantity }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endif
+
                 {{-- Cart Table --}}
                 <div class="row mt-3">
                     <div class="col-12">
@@ -154,6 +185,7 @@
                                     <th>Product Name</th>
                                     <th style="width: 95px;">Prod. Date</th>
                                     <th style="width: 95px;">Exp. Date</th>
+                                    <th style="width: 110px;">Batch Type</th>
                                     <th style="width: 110px;">Quantity</th>
                                     <th style="width: 70px;">Discount</th>
                                     <th style="width: 92px;">Purchase (Q)</th>
@@ -238,6 +270,12 @@
                                                        style="font-size: 12px; width: 100%; min-width: 95px;"
                                                        placeholder="dd-mm-yyyy"
                                                        readonly>
+                                            </td>
+                                            <td class="text-left">
+                                                <select class="form-control p-1" style="font-size: 12px; width: 100%;" wire:change="updateBatchType('{{ $product->rowId }}', $event.target.value)">
+                                                    <option value="regular" {{ ($product->options->batch_type ?? 'regular') == 'regular' ? 'selected' : '' }}>Regular</option>
+                                                    <option value="discount" {{ ($product->options->batch_type ?? 'regular') == 'discount' ? 'selected' : '' }}>Discount</option>
+                                                </select>
                                             </td>
                                             <td class="text-left purchase-qty">
                                                 <input type="text"
@@ -372,6 +410,7 @@
                                 {{-- Summary Row --}}
                                 <tr class="text-left">
                                     <td><strong>{{ trans_choice('labels.items', $items) }}:</strong> {{ $items }}</td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

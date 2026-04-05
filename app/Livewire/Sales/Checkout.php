@@ -230,7 +230,16 @@ class Checkout extends Component
 
                                 //if exists then decrement the product quantity
                                 if ($product_store) {
-                                    $product_store->decrement('product_quantity', $product->qty);
+                                    $qty_to_deduct = $product->qty;
+                                    
+                                    // Priority 1: Deduct from discount_quantity
+                                    $discount_depleted = min($qty_to_deduct, $product_store->discount_quantity);
+                                    if ($discount_depleted > 0) {
+                                        $product_store->decrement('discount_quantity', $discount_depleted);
+                                    }
+                                    
+                                    // Total quantity deduction (Priority 2 & 3 handled implicitly since product_quantity tracks total)
+                                    $product_store->decrement('product_quantity', $qty_to_deduct);
                                 }
                             }
                         }

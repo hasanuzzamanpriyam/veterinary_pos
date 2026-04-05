@@ -165,7 +165,8 @@
                                                 @if(isset($summary['qty']) && $summary['qty'] > 0)
                                                     @foreach ($summary['qty'] as $key => $value)
                                                         <span class="d-inline-block"><strong>{{ $value }}</strong></span>
-                                                    @endif
+                                                    @endforeach
+                                                @endif
                                             </div>
                                         </td>
                                         @if($total_discounts > 0)
