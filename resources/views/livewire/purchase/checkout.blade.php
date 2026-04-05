@@ -81,8 +81,8 @@
                     @endphp
 
                     @if(count(Cart::instance('purchase')->content()) > 0)
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped mb-0" style="table-layout: fixed; width: 100%; border-collapse: collapse; text-align: center;">
+                        <div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                            <table class="table table-bordered table-hover table-striped mb-0" style="min-width: 1000px; table-layout: auto; border-collapse: collapse; text-align: center;">
                                 <colgroup>
                                     <col style="width: 110px;">
                                     <col>
