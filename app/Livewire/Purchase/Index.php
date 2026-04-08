@@ -44,6 +44,7 @@ class Index extends Component
     public $held_end_date;
     public $item_vat_mode = []; // indexed by rowId
     public $item_discount_mode = []; // indexed by rowId
+    public $showHeldPurchases = false;
 
 
 
@@ -70,6 +71,11 @@ class Index extends Component
     {
         $this->showSidebar = !$this->showSidebar;
         session()->put('showSidebar', $this->showSidebar);
+    }
+
+    public function toggleHeldPurchases()
+    {
+        $this->showHeldPurchases = !$this->showHeldPurchases;
     }
 
     //Update quantity directly (now used as read-only or internal update)
