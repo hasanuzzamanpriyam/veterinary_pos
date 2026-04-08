@@ -1711,9 +1711,15 @@ li.select2-results__option {
 
 /*change page heading end*/
 
-/*slaes entry lebel color change*/
+/*sales entry lebel color change*/
 label.sales_entry_lebel {
-    background: linear-gradient(90deg, rgba(150, 1, 159, 1) 39%, rgba(232, 178, 68, 1) 100%);
+    background: transparent !important;
+    color: #444 !important;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
 }
 
 /*slaes entry lebel color change end*/

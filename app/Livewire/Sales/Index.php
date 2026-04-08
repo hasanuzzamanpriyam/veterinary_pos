@@ -265,13 +265,10 @@ class Index extends Component
 
     public function render()
     {
-
         if ($this->customer_search) {
-
             $customers = customer::find($this->customer_search);
             // dd($customers);
             $this->customer_name = $customers->name;
-
             $this->balance = $this->get_previous_balance($customers->id, $this->full_date);
             $this->address = $customers->address;
             $this->mobile = $customers->mobile;

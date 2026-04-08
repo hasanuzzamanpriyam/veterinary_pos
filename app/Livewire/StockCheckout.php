@@ -105,6 +105,7 @@ class StockCheckout extends Component
                     'product_store_id'  => $product_store_id,
                     'product_name'      => $product->name,
                     'product_quantity'  => $product->qty,
+                    'discount_quantity'  => $product->qty,
                     'purchase_price'    => $product->price,
                 ]);
             }
