@@ -51,7 +51,7 @@ class Stock extends Component
             ->when(!empty($this->queryString), function (Builder $query) {
                 $query->where(function ($subQuery) {
                     $subQuery->where('name', 'like', "%{$this->queryString}%")
-                             ->orWhere('barcode', 'like', "%{$this->queryString}%");
+                        ->orWhere('barcode', 'like', "%{$this->queryString}%");
                 });
             })
             ->when(!empty($this->product_id) && $this->product_id != 'all', function (Builder $query) {
@@ -59,9 +59,9 @@ class Stock extends Component
             })
             ->orderby('name', 'asc');
 
-        if(isset($this->perPage) && $this->perPage == 'all'){
+        if (isset($this->perPage) && $this->perPage == 'all') {
             $products = $products_query->get();
-        }else{
+        } else {
             $products = $products_query->paginate((int) $this->perPage);
         }
 
@@ -69,7 +69,7 @@ class Stock extends Component
             ->when(!empty($this->queryString), function (Builder $query) {
                 $query->where(function ($subQuery) {
                     $subQuery->where('product_name', 'like', "%{$this->queryString}%")
-                             ->orWhere('product_code', 'like', "%{$this->queryString}%");
+                        ->orWhere('product_code', 'like', "%{$this->queryString}%");
                 });
             })
             ->when(!empty($this->product_id) && $this->product_id != 'all', function (Builder $query) {
@@ -79,14 +79,16 @@ class Stock extends Component
                 $query->where('product_store_id', $this->store_id);
             })->with('product')->get();
 
-        $grouped = $stocks->groupBy('product_id')->map(function ($items) {
 
-            return [
+        $grouped = $stocks->groupBy(function ($item) {
+            return strtolower(trim($item->product_name)) . '_' . strtolower(trim($item->product->type ?? ''));
+        })->map(function ($items) {            return [
                 'product_id' => $items->first()->product_id,
                 'code' => $items->first()->product->sku ?? '',
                 'barcode' => $items->first()->product_code ?? $items->first()->product->barcode ?? '',
                 'product_name' => $items->first()->product_name, // add more fields as needed
                 'qty' => $items->sum('product_quantity'),
+                'discount_quantity' => $items->sum('discount_quantity'),
                 'purchase_price' => $items->first()->product->purchase_rate,
                 'sale_price' => $items->first()->product->price_rate,
                 'mrp_price' => $items->first()->product->mrp_rate ?? 0,
@@ -120,7 +122,7 @@ class Stock extends Component
         $stores = Store::latest()->get();
 
         return view('livewire.product.stock', get_defined_vars())
-        ->extends('layouts.admin')
-        ->section('main-content');
+            ->extends('layouts.admin')
+            ->section('main-content');
     }
 }

@@ -144,7 +144,7 @@
                     </div>
                 </div>
 
-                {{-- Discounted Stock View --}}
+                {{-- Discounted Stock View
                 @if(isset($discount_stocks) && $discount_stocks->count() > 0)
                 <div class="row mt-3">
                     <div class="col-12">
@@ -173,7 +173,7 @@
                         </table>
                     </div>
                 </div>
-                @endif
+                @endif --}}
 
                 {{-- Cart Table --}}
                 <div class="row mt-3">
@@ -185,7 +185,6 @@
                                     <th>Product Name</th>
                                     <th style="width: 95px;">Prod. Date</th>
                                     <th style="width: 95px;">Exp. Date</th>
-                                    <th style="width: 110px;">Batch Type</th>
                                     <th style="width: 110px;">Quantity</th>
                                     <th style="width: 70px;">Discount</th>
                                     <th style="width: 92px;">Purchase (Q)</th>
@@ -271,12 +270,7 @@
                                                        placeholder="dd-mm-yyyy"
                                                        readonly>
                                             </td>
-                                            <td class="text-left">
-                                                <select class="form-control p-1" style="font-size: 12px; width: 100%;" wire:change="updateBatchType('{{ $product->rowId }}', $event.target.value)">
-                                                    <option value="regular" {{ ($product->options->batch_type ?? 'regular') == 'regular' ? 'selected' : '' }}>Regular</option>
-                                                    <option value="discount" {{ ($product->options->batch_type ?? 'regular') == 'discount' ? 'selected' : '' }}>Discount</option>
-                                                </select>
-                                            </td>
+
                                             <td class="text-left purchase-qty">
                                                 <input type="text"
                                                        wire:change="updatePurchaseQty({{$id}}, $event.target.value)"
@@ -410,7 +404,6 @@
                                 {{-- Summary Row --}}
                                 <tr class="text-left">
                                     <td><strong>{{ trans_choice('labels.items', $items) }}:</strong> {{ $items }}</td>
-                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

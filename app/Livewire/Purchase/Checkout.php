@@ -241,18 +241,23 @@ class Checkout extends Component
                         ])->first();
 
                         if ($product_store) {
+                            $qty_discount_to_add = (float) $product->options->discount;
+                            
                             $product_store->increment('product_quantity', $product->qty);
-                            if (($product->options->batch_type ?? 'regular') === 'discount') {
-                                $product_store->increment('discount_quantity', $product->qty);
+                            
+                            if ($qty_discount_to_add > 0) {
+                                $product_store->increment('discount_quantity', $qty_discount_to_add);
                             }
                         } else {
+                            $qty_discount_to_add = (float) $product->options->discount;
+                        
                             ProductStore::create([
                                 'product_id' => $product->id,
                                 'brand_id' => $product->options->brand_id,
                                 'product_store_id' => $supplier['product_store_id'],
                                 'product_name' => $product->name,
                                 'product_quantity' => $product->qty,
-                                'discount_quantity' => (($product->options->batch_type ?? 'regular') === 'discount') ? $product->qty : 0,
+                                'discount_quantity' => $qty_discount_to_add,
                                 'purchase_price' => $product->price,
                                 'production_date' => $production_date,
                                 'expire_date' => $expire_date,

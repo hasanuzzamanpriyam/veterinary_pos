@@ -47,7 +47,8 @@ class ProductController extends Controller
         $stocks = ProductStore::get();
         $mergedProducts = $stocks->groupBy('product_id')->map(function ($items) {
             return [
-                'qty' => $items->sum('product_quantity')
+                'qty' => $items->sum('product_quantity'),
+                'discount_qty' => $items->sum('discount_quantity')
             ];
         });
         $stock_list = $mergedProducts;

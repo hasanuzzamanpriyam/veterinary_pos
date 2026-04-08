@@ -200,45 +200,50 @@ class Checkout extends Component
 
                     if (app('cart')->instance('sales')->count() > 0) {
                         foreach (app('cart')->instance('sales')->content() as $product) {
-                            foreach (Session::get('customer') as $value) {
+                            CustomerTransactionDetails::insert([
+                                'customer_id' => $value['customer_id'],
+                                'transaction_id' => $invoice,
+                                'product_store_id' => $value['product_store_id'],
+                                'product_id' => $product->id,
+                                'product_name' => $product->name,
+                                'unit_price' => $product->price,
+                                'quantity' => $product->qty,
+                                'weight' => $product->options->weight,
+                                'discount_qty' => $product->options->discount,
+                                'return_qty' => 0,
+                                'total_price' => ($product->qty - $product->options->discount) * $product->price,
+                                'date' => $date,
+                                'transaction_type' => 'sale',
+                                'created_at' => now(),
+                                'updated_at' => now()
+                            ]);
 
-                                CustomerTransactionDetails::insert([
-                                    'customer_id' => $value['customer_id'],
-                                    'transaction_id' => $invoice,
-                                    'product_store_id' => $value['product_store_id'],
-                                    'product_id' => $product->id,
-                                    'product_name' => $product->name,
-                                    'unit_price' => $product->price,
-                                    'quantity' => $product->qty,
-                                    'weight' => $product->options->weight,
-                                    'discount_qty' => $product->options->discount,
-                                    'return_qty' => 0,
-                                    'total_price' => ($product->qty - $product->options->discount) * $product->price,
-                                    'date' => $date,
-                                    'transaction_type' => 'sale',
-                                    'created_at' => now(),
-                                    'updated_at' => now()
-                                ]);
+                            // Find the product store record - prioritizing ones with discount stock
+                            $product_store = ProductStore::where([
+                                'product_id' => $product->id,
+                                'product_store_id' => $value['product_store_id']
+                            ])
+                            ->orderBy('discount_quantity', 'desc')
+                            ->orderBy('product_quantity', 'desc')
+                            ->first();
 
-                                // check if the product is exists in this table
-                                $product_store = ProductStore::where(
-                                    [
-                                        'product_id' => $product->id,
-                                        'product_store_id' => $value['product_store_id']
-                                    ]
-                                )->first();
-
-                                //if exists then decrement the product quantity
-                                if ($product_store) {
-                                    $qty_to_deduct = $product->qty;
+                            if ($product_store) {
+                                $qty_to_deduct = (float) $product->qty;
+                                $current_discount = (float) ($product_store->discount_quantity ?? 0);
+                                
+                                // 1. Deduct from discount_quantity first
+                                if ($current_discount > 0) {
+                                    $discount_depleted = min($qty_to_deduct, $current_discount);
+                                    $product_store->decrement('discount_quantity', $discount_depleted);
                                     
-                                    // Priority 1: Deduct from discount_quantity
-                                    $discount_depleted = min($qty_to_deduct, $product_store->discount_quantity);
-                                    if ($discount_depleted > 0) {
-                                        $product_store->decrement('discount_quantity', $discount_depleted);
+                                    // Ensure it never goes negative (decrement on model might technically allow it if column is signed)
+                                    if ($product_store->fresh()->discount_quantity < 0) {
+                                        $product_store->update(['discount_quantity' => 0]);
                                     }
-                                    
-                                    // Total quantity deduction (Priority 2 & 3 handled implicitly since product_quantity tracks total)
+                                }
+                                
+                                // 2. Reduce the master product_quantity
+                                if ($qty_to_deduct > 0) {
                                     $product_store->decrement('product_quantity', $qty_to_deduct);
                                 }
                             }
@@ -264,7 +269,6 @@ class Checkout extends Component
     //get discount status
     public function discountType($val)
     {
-
         $this->discount_status = $val;
     }
 

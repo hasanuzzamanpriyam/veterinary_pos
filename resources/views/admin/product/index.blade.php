@@ -39,6 +39,7 @@
                                         <th class="all">Type</th>
                                         <th class="all">Mode</th>
                                         <th class="all">Stock</th>
+                                        <th class="all">Discount Qty</th>
                                         <th class="all">TP Rate</th>
                                         <th class="all">MRP Rate</th>
                                         <th class="all">Sales Rate</th>
@@ -49,6 +50,7 @@
                                     @foreach($products as $product)
                                         @php
                                             $stock_qty = isset($stock_list[$product->id]) ? $stock_list[$product->id]['qty'] : 0;
+                                            $discount_qty = isset($stock_list[$product->id]) ? $stock_list[$product->id]['discount_qty'] : 0;
                                         @endphp
                                         <tr>
                                             {{-- S.N. --}}
@@ -102,7 +104,9 @@
 
                                             {{-- Stock --}}
                                             <td>{{$stock_qty}}</td>
-
+                                            
+                                            {{-- Discount Qty --}}
+                                            <td>{{$discount_qty}}</td>
 
                                             {{-- Purchese Rate --}}
                                             @if(empty($product->purchase_rate))

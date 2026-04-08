@@ -95,6 +95,7 @@
                                     <th class="all">Type</th>
                                     <th class="all">Mode</th>
                                     <th class="all">Stock</th>
+                                    <th class="all">Discount Quantity</th>
                                     <th class="all">Purchase Value</th>
                                     <th class="all">Sale Value</th>
                                     <th class="all">MRP Value</th>
@@ -126,8 +127,11 @@
 
                                             $type = $stock['type'];
                                             $gtotal_stock['qty'][$type] = $gtotal_stock['qty'][$type] ?? 0;
+                                            $gtotal_stock['discount_qty'][$type] = $gtotal_stock['discount_qty'][$type] ?? 0;
                                             $quantity = $stock['qty'];
+                                            $discount_qty = $stock['discount_quantity'] ?? 0;
                                             $gtotal_stock['qty'][$type] += $quantity;
+                                            $gtotal_stock['discount_qty'][$type] += $discount_qty;
                                         @endphp
                                         <tr>
                                             <td>{{ $items + $stock_list->firstItem() - 1 }}</td>
@@ -148,6 +152,7 @@
                                             <td>{{$stock['size']}}</td>
                                             <td>{{ucfirst($type)}}</td>
                                             <td>{{formatAmount($quantity)}}</td>
+                                            <td>{{formatAmount($discount_qty)}}</td>
                                             <td class="text-right">{{ $purchase_price ? formatAmount($purchase_price) . '/-' : '' }}</td>
                                             <td class="text-right">{{ $sale_price ? formatAmount($sale_price) . '/-' : '' }}</td>
                                             <td class="text-right">{{ $mrp_price ? formatAmount($mrp_price) . '/-' : '' }}</td>
@@ -177,12 +182,25 @@
                                     <td  class="text-right"></td>
                                     <td  class="text-center">
                                         <div>
-                                            @if( isset($gtotal_stock['qty']) && $gtotal_stock['qty'] > 0)
+                                            @if( isset($gtotal_stock['qty']) && count($gtotal_stock['qty']) > 0)
                                                 @php
                                                     // sort by key
                                                     ksort($gtotal_stock['qty']);
                                                 @endphp
                                                 @foreach ($gtotal_stock['qty'] as $key => $value)
+                                                    <div><strong>{{ formatAmount($value) }} {{ ucfirst($key) }}</strong></div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td  class="text-center">
+                                        <div>
+                                            @if( isset($gtotal_stock['discount_qty']) && count($gtotal_stock['discount_qty']) > 0)
+                                                @php
+                                                    // sort by key
+                                                    ksort($gtotal_stock['discount_qty']);
+                                                @endphp
+                                                @foreach ($gtotal_stock['discount_qty'] as $key => $value)
                                                     <div><strong>{{ formatAmount($value) }} {{ ucfirst($key) }}</strong></div>
                                                 @endforeach
                                             @endif
