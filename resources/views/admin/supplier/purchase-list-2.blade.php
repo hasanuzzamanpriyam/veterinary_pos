@@ -149,7 +149,7 @@ Purchase List 2
                                                     <p class="mb-0 text-left">
                                                         {{ $product->product_code}} -
                                                         {{ $product->product_name}} {{'('}}{{ $product->product->size->description}}{{')'}} -
-                                                        {{ $product->quantity - $product->discount_qty}} {{ trans_choice('labels.'.$type, ($product->quantity - $product->discount_qty))}}{{' @ '}}{{ $product->unit_price}}/=
+                                                        {{ $product->quantity - $product->discount_qty}} {{ $type }}{{' @ '}}{{ $product->unit_price}}/=
                                                         {{ $product->total_price}}/=
                                                     </p>
                                                 @endif
@@ -160,7 +160,7 @@ Purchase List 2
                                         <td class="text-center">
                                             @if($t_type == "purchase" && isset($qty_summary['total']))
                                                 @foreach ($qty_summary['total'] as $type => $qty)
-                                                    {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                    {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                 @endforeach
                                             @endif
                                         </td>
@@ -168,7 +168,7 @@ Purchase List 2
                                         <td class="text-center">
                                             @if(isset($qty_summary['discount']))
                                                 @foreach ($qty_summary['discount'] as $type => $qty)
-                                                    {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                    {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                 @endforeach
                                             @endif
                                         </td>
@@ -176,7 +176,7 @@ Purchase List 2
                                         <td class="text-center">
                                             @if($t_type == "return" && isset($qty_summary['total']))
                                                 @foreach ($qty_summary['total'] as $type => $qty)
-                                                    {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                    {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                 @endforeach
                                             @endif
                                         </td>
@@ -185,7 +185,7 @@ Purchase List 2
                                             @if(isset($qty_summary['purchase']))
                                                 {{ $purchase->type == 'return' ? '(-)' : ''}}
                                                 @foreach ($qty_summary['purchase'] as $type => $qty)
-                                                    {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                    {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                 @endforeach
                                             @endif
                                         </td>

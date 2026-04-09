@@ -106,7 +106,7 @@
                                                 <p class="mb-0 text-left">
                                                     {{ $product->product_code}} -
                                                     {{ $product->product_name}} {{'('}}{{ $product->product->size->description}}{{')'}} -
-                                                    {{ formatAmount((float)$product->quantity - (float)$product->discount_qty)}} {{ trans_choice('labels.'.$type, ((float)$product->quantity - (float)$product->discount_qty))}}{{' @ '}}{{ formatAmount((float)$product->unit_price)}}/=
+                                                    {{ formatAmount((float)$product->quantity - (float)$product->discount_qty)}} {{ $type }}{{' @ '}}{{ formatAmount((float)$product->unit_price)}}/=
                                                     {{ formatAmount((float)$product->total_price)}}/=
                                                 </p>
                                             @endforeach
@@ -116,7 +116,7 @@
                                         <td class="text-center">
                                             @if(isset($qty_summary['total']))
                                                 @foreach ($qty_summary['total'] as $type => $qty)
-                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . $type : ''}}
                                                 @endforeach
                                             @endif
                                         </td>

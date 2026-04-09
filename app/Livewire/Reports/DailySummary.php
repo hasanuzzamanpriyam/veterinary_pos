@@ -75,13 +75,13 @@ class DailySummary extends Component
             $this->saleProducts = new Collection($this->customerLedgers->flatMap->transactions);
             $this->purchaseProducts = new Collection($this->supplierLedgers->flatMap->transactions);
             $totalSaleQuantities = $this->saleProducts
-                ->groupBy(fn($transaction) => $transaction->product->type) // টাইপ অনুযায়ী গ্রুপিং
+                ->groupBy(fn($transaction) => $transaction->product->size->name ?? $transaction->product->type) // টাইপ অনুযায়ী গ্রুপিং
                 ->mapWithKeys(function ($group, $type) {
                     $totalQuantity = $group->sum(fn($transaction) => $transaction->quantity - $transaction->discount_qty);
                     return [$type => $totalQuantity];
                 });
             $totalPurchaseQuantities = $this->purchaseProducts
-                ->groupBy(fn($transaction) => $transaction->product->type) // টাইপ অনুযায়ী গ্রুপিং
+                ->groupBy(fn($transaction) => $transaction->product->size->name ?? $transaction->product->type) // টাইপ অনুযায়ী গ্রুপিং
                 ->mapWithKeys(function ($group, $type) {
                     $totalQuantity = $group->sum(fn($transaction) => $transaction->quantity - $transaction->discount_qty);
                     return [$type => $totalQuantity];

@@ -114,7 +114,7 @@ $type = 0;
                                                                 $total_summary['qty'][$key] = $total_summary['qty'][$key] ?? 0;
                                                                 $total_summary['qty'][$key] += $value;
                                                             @endphp
-                                                            {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                            {{ $value }} {{ $key }}
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -217,7 +217,7 @@ $type = 0;
                                                                 $total_summary['qty'][$key] = $total_summary['qty'][$key] ?? 0;
                                                                 $total_summary['qty'][$key] -= $value;
                                                             @endphp
-                                                            {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                            {{ $value }} {{ $key }}
                                                         @endforeach
                                                     @endif
                                                 </div>

@@ -84,7 +84,7 @@ $type = 0;
                                                             {{ $product->product_code}} -
                                                             {{ $product->product_name}} -
                                                             {{'('}}{{ $product->product->size->description}}{{')'}} -
-                                                            {{ $product->quantity - $product->discount_qty}} {{ trans_choice('labels.'.$type, ($product->quantity - $product->discount_qty))}} {{' @ '}}
+                                                            {{ $product->quantity - $product->discount_qty}} {{ $type }} {{' @ '}}
                                                             {{ $product->unit_price}}/=
                                                             {{$product->total_price}}/=
                                                         </p>
@@ -105,7 +105,7 @@ $type = 0;
                                                 <div>
                                                     @if( isset($qty_summary) && count($qty_summary) > 0)
                                                         @foreach ($qty_summary as $key => $value)
-                                                            {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                            {{ $value }} {{ $key }}
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -197,7 +197,7 @@ $type = 0;
                                                             {{ $product->product_code}} -
                                                             {{ $product->product_name}} -
                                                             {{'('}}{{ $product->product->size->description}}{{')'}} -
-                                                            {{ $product->quantity}} {{ trans_choice('labels.'.$type, $product->quantity)}} {{' @ '}}
+                                                            {{ $product->quantity}} {{ $type }} {{' @ '}}
                                                             {{ $product->unit_price}}/=
                                                             {{$product->total_price}}/=
                                                         </p>
@@ -216,7 +216,7 @@ $type = 0;
                                                 <div>
                                                     @if( isset($qty_summary) && count($qty_summary) > 0)
                                                         @foreach ($qty_summary as $key => $value)
-                                                            {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                            {{ $value }} {{ $key }}
                                                         @endforeach
                                                     @endif
                                                 </div>

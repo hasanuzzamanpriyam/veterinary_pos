@@ -138,7 +138,7 @@ $type = 0;
                                                                 $total_summary['sale'][$key] += $value;
                                                             @endphp
                                                             @if( $value > 0)
-                                                                {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                                {{ $value }} {{ $key }}
                                                             @endif
                                                         @endforeach
                                                     @endif
@@ -167,7 +167,7 @@ $type = 0;
                                                                 $total_summary['discount'][$key] += $value;
                                                             @endphp
                                                             @if( $value > 0)
-                                                                {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                                {{ $value }} {{ $key }}
                                                             @endif
                                                         @endforeach
                                                     @endif
@@ -199,7 +199,7 @@ $type = 0;
                                                                 $total_summary['total_sale'][$key] += $value;
                                                             @endphp
                                                             @if( $value > 0)
-                                                                {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                                {{ $value }} {{ $key }}
                                                             @endif
                                                         @endforeach
                                                     @endif
@@ -378,7 +378,7 @@ $type = 0;
                                                 <div>
                                                     @if( isset($qty_summary) && count($qty_summary) > 0)
                                                         @foreach ($qty_summary as $key => $value)
-                                                            {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                            {{ $value }} {{ $key }}
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -390,7 +390,7 @@ $type = 0;
                                                     @if( isset($qty_summary) && count($qty_summary) > 0)
                                                         -
                                                         @foreach ($qty_summary as $key => $value)
-                                                            {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                            {{ $value }} {{ $key }}
                                                         @endforeach
                                                     @endif
                                                 </div>

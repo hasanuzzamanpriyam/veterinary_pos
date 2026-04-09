@@ -135,7 +135,7 @@ class Index extends Component
                     'weight' => $sales->weight,
                     'product_store_id' => $sales->product_store_id,
                     'stock' => 1,
-                    'type' => $products->product->type,
+                    'type' => $products->product->size->name ?? $products->product->type,
                     'sale_qty'=>$sales->quantity
                 ],
             ]);

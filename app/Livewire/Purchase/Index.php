@@ -276,7 +276,7 @@ class Index extends Component
                 'item_vat' => 0,
                 'weight' => $products->size->name,
                 'brand_id' => $products->brand_id,
-                'type' => $products->type,
+                'type' => $products->size->name ?? $products->type,
                 'code' => $products->code,
                 'sort_index' => microtime(true)
             ]
@@ -558,7 +558,7 @@ class Index extends Component
                 'name' => $items->first()->product->name,
                 'code' => $items->first()->product->sku,
                 'qty' => $items->sum('product_quantity'),
-                'type' => $items->first()->product->type,
+                'type' => $items->first()->product->size->name ?? $items->first()->product->type,
                 'price' => $items->last()->purchase_price
             ];
         });

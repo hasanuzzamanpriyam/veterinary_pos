@@ -148,7 +148,7 @@
                                                                         value="{{ $product->product_id }}">
                                                                         {{ $product->product->name }} -
                                                                         {{ $product->quantity - $product->discount_qty }}{{$product->discount_qty > 0 ? '+' . $product->discount_qty : '' }}
-                                                                        {{ trans_choice('labels.' . $product->product->type, ($product->quantity - $product->discount_qty)) }}
+                                                                        {{ $product->product->size->name ?? $product->product->type }}
                                                                         -
                                                                         {{ $product->unit_price }}/=
                                                                     </option>
@@ -241,7 +241,7 @@
                                                             </td>
                                                             <td class="text-left">{{ $product->name }}</td>
 
-                                                            <td>{{ $product->options->sale_qty }} {{ trans_choice('labels.' . strtolower($type), $product->options->sale_qty) }}</td>
+                                                            <td>{{ $product->options->sale_qty }} {{ $type }}</td>
 
                                                             <td class="return-qty">
                                                                 <div
@@ -296,7 +296,7 @@
                                                 <tr class="text-left">
                                                     <td>
                                                         <div class="d-flex justify-content-start">
-                                                            <span><strong>{{ trans_choice('labels.items', $items) }}:</strong>
+                                                            <span><strong>Items:</strong>
                                                                 {{ $items }}</span>
                                                         </div>
                                                     </td>
@@ -308,7 +308,7 @@
                                                                     <span
                                                                         class="d-inline-block"><strong>{{ $value }}</strong>
                                                                         <span
-                                                                            class="ttl">{{ trans_choice('labels.' . strtolower($key), $value) }}</span></span>
+                                                                            class="ttl">{{ $key }}</span></span>
                                                                 @endforeach
                                                             @endif
                                                         </div>
@@ -320,7 +320,7 @@
                                                                     <span
                                                                         class="d-inline-block"><strong>{{ $value }}</strong>
                                                                         <span
-                                                                            class="ttl">{{ trans_choice('labels.' . strtolower($key), $value) }}</span></span>
+                                                                            class="ttl">{{ $key }}</span></span>
                                                                 @endforeach
                                                             @endif
                                                         </div>

@@ -97,7 +97,7 @@ Ledger - {{ $supplier->company_name }} from {{ $start_date }} to {{ $end_date }}
                                 {{ $product->product_name }}
                                 ({{ optional($product->product->size)->description }}) -
                                 {{ $qty }}
-                                {{ trans_choice('labels.' . strtolower($type), $qty) }}
+                                {{ $type }}
                                 @ {{ $product->unit_price }}/=
                                 {{ $product->total_price }}/=
                             </p>
@@ -107,7 +107,7 @@ Ledger - {{ $supplier->company_name }} from {{ $start_date }} to {{ $end_date }}
                     {{-- QTY --}}
                     <td class="text-center">
                         @foreach($totalQty as $k => $v)
-                            <div>{{ $v }} {{ trans_choice('labels.' . strtolower($k), $v) }}</div>
+                            <div>{{ $v }} {{ $k }}</div>
                         @endforeach
                     </td>
 
@@ -147,7 +147,7 @@ Ledger - {{ $supplier->company_name }} from {{ $start_date }} to {{ $end_date }}
                 <th colspan="3">Total</th>
                 <th>
                     @foreach($totalQty as $k => $v)
-                        <div>{{ $v }} {{ trans_choice('labels.' . strtolower($k), $v) }}</div>
+                        <div>{{ $v }} {{ $k }}</div>
                     @endforeach
                 </th>
                 <th>{{ number_format($totalWeight / 1000, 3) }} MT</th>

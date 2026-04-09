@@ -206,7 +206,7 @@
                                         <tfoot>
                                             <tr>
                                                 <td class="text-right p-0" colspan="4">Total</td>
-                                                <td class="text-right p-0" colspan="1">{{$quantity}} {{ trans_choice("labels.$type", $quantity)}}</td>
+                                                <td class="text-right p-0" colspan="1">{{$quantity}} {{ $type }}</td>
                                                 <td class="text-right p-0" colspan="1">{{$amount ? $amount . ' /= ' : ''}}</td>
                                                 <td class="text-right p-0" colspan="1">{{$discount ? $discount . ' /= ' : ''}}</td>
                                                 <td class="text-right p-0" colspan="1">{{$vat ? $vat . ' /= ' : ''}}</td>

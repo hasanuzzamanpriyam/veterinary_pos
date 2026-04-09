@@ -82,7 +82,7 @@
                                                             {{ $product->name }} —
                                                             {{ $product['qty'] ?? 0 }}
                                                             {{ isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty'] : 0 }}
-                                                            {{ trans_choice($product->type, isset($product_stores[$product->id]) ? $product_stores[$product->id]['qty'] : 0) }}
+                                                            {{ $product->size->name ?? $product->type }}
                                                             — {{ $product->purchase_rate }}/=
                                                         </option>
                                                     @endforeach
@@ -139,7 +139,7 @@
                                             </td>
                                             <td class="align-middle">
                                                 {{ $product->options->stock }}
-                                                {{ trans_choice($product->options->type, $product->options->stock) }}
+                                                {{ $product->options->type }}
                                             </td>
                                             <td class="align-middle">
                                                 <input type="text"

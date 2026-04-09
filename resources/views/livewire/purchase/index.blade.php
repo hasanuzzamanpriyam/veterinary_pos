@@ -135,7 +135,7 @@
                                     @endphp
                                     <option value="{{ $product->id }}">
                                         {{ $product->name }} -
-                                        {{ $line_stock_qty }} {{ trans_choice($product->type, $line_stock_qty) }} -
+                                        {{ $line_stock_qty }} {{ $product->size->name ?? $product->type }} -
                                         {{ $product->purchase_rate }}/=
                                     </option>
                                 @endforeach
@@ -403,28 +403,28 @@
 
                                 {{-- Summary Row --}}
                                 <tr class="text-left">
-                                    <td><strong>{{ trans_choice('labels.items', $items) }}:</strong> {{ $items }}</td>
+                                    <td><strong>Items:</strong> {{ $items }}</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td>
                                         @if(!empty($summary['total']))
                                             @foreach ($summary['total'] as $key => $value)
-                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ trans_choice(strtolower($key), $value) }}</span></span>
+                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ $key }}</span></span>
                                             @endforeach
                                         @endif
                                     </td>
                                     <td>
                                         @if(!empty($summary['discount']))
                                             @foreach ($summary['discount'] as $key => $value)
-                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ trans_choice(strtolower($key), $value) }}</span></span>
+                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ $key }}</span></span>
                                             @endforeach
                                         @endif
                                     </td>
                                     <td>
                                         @if(!empty($summary['qty']))
                                             @foreach ($summary['qty'] as $key => $value)
-                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ trans_choice(strtolower($key), $value) }}</span></span>
+                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ $key }}</span></span>
                                             @endforeach
                                         @endif
                                     </td>
@@ -514,7 +514,7 @@
                                                     <div class="mask">
                                                         <p class="m-0"><span>৳.{{ $product->purchase_rate }}/=</span></p>
                                                         <div class="badge-info text-light">
-                                                            {{ $product->opening_stock ?? 0 }} {{ trans_choice('labels.bag', $product->opening_stock ?? 0) }}
+                                                            {{ $product->opening_stock ?? 0 }} {{ $product->size->name ?? $product->type }}
                                                         </div>
                                                     </div>
                                                     @if(!empty($product->product->brand_id))

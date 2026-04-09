@@ -195,7 +195,7 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $stockEntry->date ? \Carbon\Carbon::parse($stockEntry->date)->format('d-m-Y') : \Carbon\Carbon::parse($stockEntry->created_at)->format('d-m-Y') }}</td>
                             <td class="text-center">{{ $stockEntry->store->name ?? 'N/A' }}</td>
-                            <td class="text-center">{{ formatAmount($qty) }} {{ trans_choice($product->type, $qty) }}</td>
+                            <td class="text-center">{{ formatAmount($qty) }} {{ $product->type }}</td>
                             <td class="text-right">{{ formatAmount($purchase_rate) }}</td>
                             <td class="text-right">{{ formatAmount($net_amount) }}</td>
                             <td class="text-right">{{ formatAmount($product->price_rate) }}</td>
@@ -212,7 +212,7 @@
                 <tfoot>
                         <td colspan="3" class="text-right">Total:</td>
                         <td class="text-center">{{ formatAmount($summary['qty']) }}
-                            {{ trans_choice($product->type, $summary['qty']) }}</td>
+                            {{ $product->type }}</td>
                         <td></td>
                         {{-- <td class="text-right">{{ formatAmount($summary['purchase_tk']) }}</td> --}}
                         <td class="text-right">{{ formatAmount($summary['net_amount']) }}</td>

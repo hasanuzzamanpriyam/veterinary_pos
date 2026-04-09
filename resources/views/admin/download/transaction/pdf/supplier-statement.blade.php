@@ -263,7 +263,7 @@
                                                     $total_summary['qty'][$key] = $total_summary['qty'][$key] ?? 0;
                                                     $total_summary['qty'][$key] += $value;
                                                 @endphp
-                                                {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                {{ $value }} {{ $key }}
                                             @endif
                                         @endforeach
                                     @endif
@@ -345,7 +345,7 @@
                                                 $total_summary['qty'][$key] = $total_summary['qty'][$key] ?? 0;
                                                 $total_summary['qty'][$key] -= $value;
                                             @endphp
-                                            {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                            {{ $value }} {{ $key }}
                                         @endforeach
                                     @endif
                                 </div>
@@ -377,7 +377,7 @@
                                 ksort($total_summary['qty']);
                             @endphp
                             @foreach ($total_summary['qty'] as $key => $value)
-                                <div>{{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}</div>
+                                <div>{{ $value }} {{ $key }}</div>
                             @endforeach
                         @endif
                     </th>

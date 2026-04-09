@@ -28,7 +28,7 @@
                                                     $totalQuantity = $summary['totalSale']['quantity']->sortKeys();
                                                 @endphp
                                                 @forelse ( $totalQuantity as $key => $value )
-                                                    <span class="text-center text-nowrap">{{formatAmount($value)}} {{ trans_choice('labels.' . strtolower($key), $value) }} </span>
+                                                    <span class="text-center text-nowrap">{{formatAmount($value)}} {{ $key }} </span>
                                                 @empty
                                                 @endforelse
                                             @endif
@@ -49,7 +49,7 @@
                                                     $totalQuantity = $summary['totalPurchase']['quantity']->sortKeys();
                                                 @endphp
                                                 @forelse ( $totalQuantity as $key => $value )
-                                                    <span class="text-center text-nowrap">{{formatAmount($value)}} {{ trans_choice('labels.' . strtolower($key), $value) }} </span>
+                                                    <span class="text-center text-nowrap">{{formatAmount($value)}} {{ $key }} </span>
                                                 @empty
                                                 @endforelse
                                             @endif

@@ -267,18 +267,12 @@
                                         <tr>
                                             <td class="text-center p-0 comon_column">{{$product->product_code}}</td>
                                             <td class="text-left p-0 memo_product_title">{{$product->product_name}}</td>
-                                            <td class="text-center p-0 comon_column">{{$product->quantity}} {{
-                                                trans_choice('labels.'.$product->product->type, $product->quantity)
-                                                }}</td>
+                                            <td class="text-center p-0 comon_column">{{$product->quantity}} {{ $product->product->type }}</td>
                                             @if( $customer_info->product_discount > 0)
-                                            <td class="text-center p-0 comon_column">{{$product->discount_qty}} {{
-                                                trans_choice('labels.'.$product->product->type, $product->discount_qty)
-                                                }}</td>
+                                            <td class="text-center p-0 comon_column">{{$product->discount_qty}} {{ $product->product->type }}</td>
                                             @endif
                                             <td class="text-center p-0 comon_column">
-                                                {{$product->quantity - $product->discount_qty}} {{
-                                                trans_choice('labels.'.$product->product->type, ($product->quantity - $product->discount_qty))
-                                                }} </td>
+                                                {{$product->quantity - $product->discount_qty}} {{ $product->product->type }} </td>
                                             <td class="text-right p-0 comon_column">{{formatAmount($product->unit_price)}}/=</td>
                                             <td class="text-right p-0 comon_column">{{formatAmount($product->total_price)}}/=</td>
                                         </tr>
@@ -298,7 +292,7 @@
                                         <th class="text-center p-1 comon_column">
                                             @if ( count($total_summary['qty']) > 0)
                                                 @foreach ($total_summary['qty'] as $key => $value)
-                                                    {{ $value }} {{ trans_choice('labels.'.$key, $value) }}
+                                                    {{ $value }} {{ $key }}
                                                 @endforeach
                                             @endif
                                         </th>
@@ -306,7 +300,7 @@
                                         <th class="text-center p-1 comon_column">
                                             @if ( count($total_summary['dis_qty']) > 0)
                                                 @foreach ($total_summary['dis_qty'] as $key => $value)
-                                                    {{ $value }} {{ trans_choice('labels.'.$key, $value) }}
+                                                    {{ $value }} {{ $key }}
                                                 @endforeach
                                             @endif
                                         </th>
@@ -314,7 +308,7 @@
                                         <th class="text-center p-1 comon_column">
                                             @if ( count($total_summary['sale_qty']) > 0)
                                                 @foreach ($total_summary['sale_qty'] as $key => $value)
-                                                    {{ $value }} {{ trans_choice('labels.'.$key, $value) }}
+                                                    {{ $value }} {{ $key }}
                                                 @endforeach
                                             @endif
                                         </th>

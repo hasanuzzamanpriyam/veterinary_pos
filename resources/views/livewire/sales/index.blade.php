@@ -190,7 +190,7 @@
                                                                             <option class="text-left p-2"
                                                                                 value="{{ $id }}">
                                                                                 {{ $product['name'] }} -
-                                                                                {{ $product['qty'] }} {{trans_choice( 'labels.' . $product['type'], $product['qty'] )}} -
+                                                                                {{ $product['qty'] }} {{ $product['type'] }} -
 
                                                                                 @if ($product_price_group != null)
                                                                                 {{ $product_price_group->price_group_rate }}/=
@@ -324,7 +324,7 @@
                                                                                     @disabled(true)
                                                                                     value="{{ $product->qty - $product->options->discount }}"
                                                                                     class="form-control">
-                                                                                <span>{{ trans_choice('labels.' . strtolower($product->options->type), ($product->qty - $product->options->discount)) }}</span>
+                                                                                <span>{{ $product->options->type }}</span>
                                                                             </div>
                                                                         </td>
 
@@ -375,7 +375,7 @@
                                                             <tr class="text-left">
                                                                 <td>
                                                                      <div class="d-flex justify-content-start">
-                                                                        <span><strong>{{trans_choice('labels.items', $items)}}:</strong>
+                                                                         <span><strong>Items:</strong>
                                                                             {{ $items }}</span>
                                                                     </div>
                                                                 </td>
@@ -384,7 +384,7 @@
                                                                     <div>
                                                                         @if( isset($summary['qty']) && $summary['qty'] > 0)
                                                                             @foreach ($summary['qty'] as $key => $value)
-                                                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ $key }}</span></span>
                                                                             @endforeach
                                                                         @endif
                                                                     </div>
@@ -393,7 +393,7 @@
                                                                     <div>
                                                                         @if( isset($summary['discount']) && $summary['discount'] > 0)
                                                                             @foreach ($summary['discount'] as $key => $value)
-                                                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ $key }}</span></span>
                                                                             @endforeach
                                                                         @endif
                                                                     </div>
@@ -402,7 +402,7 @@
                                                                     <div>
                                                                         @if( isset($summary['total']) && $summary['total'] > 0)
                                                                             @foreach ($summary['total'] as $key => $value)
-                                                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                                                <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ $key }}</span></span>
                                                                             @endforeach
                                                                         @endif
                                                                     </div>
@@ -499,7 +499,7 @@
                                                                 <p class="m-0">
                                                                     <span>৳.{{ $product['price'] }}/=</span>
                                                                 </p>
-                                                                <div class="badge-info text-light">{{ $product['qty'] }} {{ trans_choice('labels.bag', $product['qty']) }}</div>
+                                                                 <div class="badge-info text-light">{{ $product['qty'] }} {{ $product['type'] }}</div>
                                                             </div>
                                                         </div>
                                                     </form>

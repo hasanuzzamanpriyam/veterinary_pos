@@ -154,7 +154,7 @@
                                                                 @foreach ($products as $product)
                                                                     <option class="text-left p-2" value="{{ $product->product_id }}">
                                                                             {{$product->product->name}} -
-                                                                            {{$product->quantity}} {{trans_choice('labels.'.$product->product->type, $product->quantity)}} -
+                                                                            {{$product->product->size->name ?? $product->product->type}} -
                                                                             {{$product->unit_price}}/=
                                                                     </option>
                                                                 @endforeach
@@ -230,7 +230,7 @@
                                                         <td>{{$product->name}}</td>
 
                                                         {{-- Purchased Quantity --}}
-                                                        <td>{{$product->options->purchased_qty}} {{trans_choice('labels.'.$product->options->type, $product->options->purchased_qty)}}</td>
+                                                        <td>{{$product->options->purchased_qty}} {{$product->options->type}}</td>
 
                                                         {{-- Return Quantity --}}
                                                         <td>
@@ -269,7 +269,7 @@
                                                     {{-- Code --}}
                                                     <td>
                                                         <div class="d-flex justify-content-start">
-                                                            <span><strong>{{trans_choice('labels.items', $items)}}:</strong>
+                                                            <span><strong>Items:</strong>
                                                                 {{ $items }}</span>
                                                         </div>
                                                     </td>
@@ -282,7 +282,7 @@
                                                         <div>
                                                             @if( isset($summary['purchased_qty']) && $summary['purchased_qty'] > 0)
                                                                 @foreach ($summary['purchased_qty'] as $key => $value)
-                                                                    <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                                    <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ $key }}</span></span>
                                                                 @endforeach
                                                             @endif
                                                         </div>
@@ -293,7 +293,7 @@
                                                         <div>
                                                             @if( isset($summary['qty']) && $summary['qty'] > 0)
                                                                 @foreach ($summary['qty'] as $key => $value)
-                                                                    <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                                    <span class="d-inline-block"><strong>{{ $value }}</strong> <span class="ttl">{{ $key }}</span></span>
                                                                 @endforeach
                                                             @endif
                                                         </div>
@@ -357,7 +357,7 @@
                                                                 <p>
                                                                 <span>৳.{{$product->product->price_rate}}/=</span>
                                                                 {{-- <span class="text-wrap">{{$product->product->name}}</span> --}}
-                                                                <span class="badge badge-info text-light">Qty: {{ $product->quantity ?? 0 }} {{ trans_choice('labels.' . $product->product->type, $product->quantity ?? 0) }}</span>
+                                                                <span class="badge badge-info text-light">Qty: {{ $product->quantity ?? 0 }} {{ $product->product->size->name ?? $product->product->type }}</span>
                                                                 </p>
                                                             </div>
                                                         </div>

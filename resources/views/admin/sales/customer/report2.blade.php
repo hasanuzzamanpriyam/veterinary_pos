@@ -139,7 +139,7 @@
                                                             {{ $invoice->product_code }} -
                                                             {{ $invoice->product_name }} -
                                                             {{'('}}{{ $invoice->product->size->description}}{{')'}} -
-                                                            {{ $invoice->quantity - $invoice->discount_qty}} {{ trans_choice('labels.'.$type, ($invoice->quantity - $invoice->discount_qty))}} {{' @ '}}
+                                                            {{ $invoice->quantity - $invoice->discount_qty}} {{ $type }} {{' @ '}}
                                                             {{ $invoice->unit_price }}/=
                                                             {{ $invoice->total_price }}/=
                                                         </p>
@@ -152,7 +152,7 @@
                                             <td class="text-center">
                                                 @if (isset($qty_summary['total']))
                                                     @foreach ($qty_summary['total'] as $type => $qty)
-                                                        {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                        {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -160,7 +160,7 @@
                                             {{-- Dis. Qty --}}
                                             <td class="text-center">
                                                 @foreach ($qty_summary['discount'] as $type => $qty)
-                                                    {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                    {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                 @endforeach
                                             </td>
 
@@ -168,7 +168,7 @@
                                             <td class="text-center">
                                                 @if (isset($qty_summary['return']))
                                                     @foreach ($qty_summary['return'] as $type => $qty)
-                                                        {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                        {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -179,7 +179,7 @@
                                                 -
                                                 @endif --}}
                                                 @foreach ($qty_summary['sale'] as $type => $qty)
-                                                    {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                    {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                 @endforeach
                                             </td>
 

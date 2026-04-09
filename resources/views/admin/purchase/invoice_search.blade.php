@@ -138,17 +138,17 @@ Purchase Invoice Search
                                                         <td class="text-left p-1">{{ $product->product_name }}</td>
                                                         <td class="text-center p-1">
                                                             {{ $product->quantity - $product->discount_qty }}
-                                                            {{ trans_choice($product->product->type, $product->quantity - $product->discount_qty) }}
+                                                            {{ $product->product->type }}
                                                         </td>
                                                         @if($supplier_info->product_discount > 0)
                                                             <td class="text-center p-1">
                                                                 {{ $product->discount_qty }}
-                                                                {{ trans_choice($product->product->type, $product->discount_qty) }}
+                                                                {{ $product->product->type }}
                                                             </td>
                                                         @endif
                                                         <td class="text-center p-1">
                                                             {{ $product->quantity }}
-                                                            {{ trans_choice($product->product->type, $product->quantity) }}
+                                                            {{ $product->product->type }}
                                                         </td>
                                                         <td class="text-right p-1">{{ formatAmount($product->unit_price) }}/=</td>
                                                         <td class="text-right p-1">{{ formatAmount($product->total_price) }}/=</td>

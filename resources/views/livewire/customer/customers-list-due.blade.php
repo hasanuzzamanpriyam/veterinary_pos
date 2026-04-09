@@ -130,7 +130,7 @@
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_sale_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                                    <span>{{ number_format($value) }} {{ $key }}</span>
                                                 @endif
                                             @endforeach
                                         </td>
@@ -184,7 +184,7 @@
                                     <td class="text-wrap" style="max-width: 100px">
                                         @if (isset($g_total_summary['sale_qty']) && $g_total_summary['sale_qty'] > 0)
                                             @foreach ($g_total_summary['sale_qty'] as $type => $qty)
-                                                <strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong>
+                                                <strong>{{$qty > 0 ? number_format($qty) . ' ' . $type : ''}}</strong>
                                             @endforeach
                                         @endif
                                     </td>

@@ -163,7 +163,7 @@ class Index extends Component
                 'weight' => $product->size->name,
                 'product_store_id' => $products->product_store_id,
                 'stock' => $product_stock,
-                'type' => $products->product->type]
+                'type' => $products->product->size->name ?? $products->product->type]
         ]);
     }
 
@@ -312,7 +312,7 @@ class Index extends Component
                 return [
                     'name' => $items->first()->product->name,
                     'qty' => $items->sum('product_quantity'),
-                    'type' => $items->first()->product->type,
+                    'type' => $items->first()->product->size->name ?? $items->first()->product->type,
                     'price' => $sale_price,
                     'photo' => $items->first()->product->photo
                 ];

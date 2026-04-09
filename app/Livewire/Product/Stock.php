@@ -32,7 +32,7 @@ class Stock extends Component
         $this->resetPage();
     }
 
-    public function resetData()
+    public function resetFilter()
     {
         $this->queryString = null;
         $this->perPage = 10;
@@ -81,7 +81,7 @@ class Stock extends Component
 
 
         $grouped = $stocks->groupBy(function ($item) {
-            return strtolower(trim($item->product_name)) . '_' . strtolower(trim($item->product->type ?? ''));
+            return strtolower(trim($item->product_name)) . '_' . strtolower(trim($item->product->size->name ?? $item->product->type ?? ''));
         })->map(function ($items) {            return [
                 'product_id' => $items->first()->product_id,
                 'code' => $items->first()->product->sku ?? '',
@@ -95,7 +95,7 @@ class Stock extends Component
                 'offer' => $items->first()->product->activeOffer(),
                 'sale_price_with_offer' => $items->first()->product->priceWithOffer($items->first()->product->price_rate)['price'],
                 'category' => $items->first()->product->category->name ?? 'null',
-                'type' => $items->first()->product->type ?? '',
+                'type' => $items->first()->product->size->name ?? $items->first()->product->type ?? '',
                 'size' => $items->first()->product->size->name ?? '',
                 'brand' => $items->first()->product->brand->name ?? '',
                 'group' => $items->first()->product->productGroup->name ?? ''

@@ -123,7 +123,7 @@ class ManageProductStock extends Component
                     'discount' => 0,
                     'weight' => $stock->product->size->name ?? '',
                     'stock' => 0, // Current stock can be updated if needed
-                    'type' => $stock->product->type
+                    'type' => $stock->product->size->name ?? $stock->product->type
                 ]
             ]);
             
@@ -151,7 +151,7 @@ class ManageProductStock extends Component
                 'discount' => 0,
                 'weight' => $product->size->name,
                 'stock' => $product_stock,
-                'type' => $product->type
+                'type' => $product->size->name ?? $product->type
             ]
         ]);
 

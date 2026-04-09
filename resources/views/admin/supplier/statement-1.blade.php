@@ -112,7 +112,7 @@ $type = 0;
                                                 @if( isset($qty_summary_sale) && count($qty_summary_sale) > 0)
                                                     @foreach ($qty_summary_sale as $key => $value)
                                                         @if( $value > 0)
-                                                            {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                            {{ $value }} {{ $key }}
                                                         @endif
                                                     @endforeach
                                                 @endif
@@ -208,7 +208,7 @@ $type = 0;
                                                 @if( isset($qty_summary_return) && count($qty_summary_return) > 0)
                                                     (-)
                                                     @foreach ($qty_summary_return as $key => $value)
-                                                        {{ $value }} {{trans_choice('labels.'.strtolower($key), $value)}}
+                                                        {{ $value }} {{ $key }}
                                                     @endforeach
                                                 @endif
                                             </div>

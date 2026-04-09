@@ -94,10 +94,10 @@
                                                     </td>
                                                     <td class="align-middle">{{ $product->name }}</td>
                                                     <td class="align-middle text-center">
-                                                        {{ $product->qty }} {{ trans_choice($product->options->type, $product->qty) }}
+                                                        {{ $product->qty }} {{ $product->options->type }}
                                                     </td>
                                                     <td class="align-middle text-center">
-                                                        {{ $product->options->stock }} {{ trans_choice($product->options->type, $product->options->stock) }}
+                                                        {{ $product->options->stock }} {{ $product->options->type }}
                                                     </td>
                                                     <td class="align-middle text-right">{{ $product->price }}/=</td>
                                                     <td class="align-middle text-right">{{ $product->qty * $product->price }}/=</td>

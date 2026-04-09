@@ -111,15 +111,15 @@
                                             <td class="text-left p-1">{{$product->product_name}}</td>
                                             <td class="text-right p-1">
                                                 {{$product->product_quantity - $product->product_discount}}
-                                                {{ trans_choice($product->product->type, $product->product_quantity - $product->product_discount) }}
+                                                {{ $product->product->type }}
                                             </td>
                                             @if($supplier_info->product_discount > 0)
                                                 <td class="text-right p-1">{{$product->product_discount}}
-                                                    {{ trans_choice($product->product->type, $product->product_discount) }}
+                                                    {{ $product->product->type }}
                                                 </td>
                                             @endif
                                             <td class="text-right p-1">{{$product->product_quantity}}
-                                                {{ trans_choice($product->product->type, $product->product_quantity) }}
+                                                {{ $product->product->type }}
                                             </td>
                                             <td class="text-right p-1">{{$product->product_price}}/=</td>
                                             <td class="text-right p-1">{{$product->sub_total}}/=</td>

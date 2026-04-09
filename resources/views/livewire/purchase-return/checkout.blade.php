@@ -127,8 +127,8 @@
                                                     </div>
                                                 </td>
                                                 <td>{{$product->name}}</td>
-                                                <td>{{formatAmount($product->options->purchased_qty)}} {{trans_choice('labels.'. $product->options->type, $product->options->purchased_qty)}}</td>
-                                                <td>{{formatAmount($product->qty)}} {{trans_choice('labels.'. $product->options->type, $product->qty)}}</td>
+                                                <td>{{formatAmount($product->options->purchased_qty)}} {{$product->options->type}}</td>
+                                                <td>{{formatAmount($product->qty)}} {{$product->options->type}}</td>
                                                 <td class="text-right">{{formatAmount($product->price)}}/=</td>
                                                 <td class="text-right">{{formatAmount($product->qty*$product->price)}}/=</td>
                                             </tr>
@@ -142,7 +142,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex justify-content-start">
-                                                <span><strong>{{trans_choice('labels.items', $items)}}:</strong>
+                                                <span><strong>Items:</strong>
                                                     {{ $items }}</span>
                                             </div>
                                         </td>
@@ -151,7 +151,7 @@
                                             <div>
                                                 @if( isset($summary['purchase']) && $summary['purchase'] > 0)
                                                     @foreach ($summary['purchase'] as $key => $value)
-                                                        <span class="d-inline-block"><strong>{{ formatAmount($value) }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                        <span class="d-inline-block"><strong>{{ formatAmount($value) }}</strong> <span class="ttl">{{ $key }}</span></span>
                                                     @endforeach
                                                 @endif
                                             </div>
@@ -160,7 +160,7 @@
                                             <div>
                                                 @if( isset($summary['return']) && $summary['return'] > 0)
                                                     @foreach ($summary['return'] as $key => $value)
-                                                        <span class="d-inline-block"><strong>{{ formatAmount($value) }}</strong> <span class="ttl">{{trans_choice('labels.'.strtolower($key), $value)}}</span></span>
+                                                        <span class="d-inline-block"><strong>{{ formatAmount($value) }}</strong> <span class="ttl">{{ $key }}</span></span>
                                                     @endforeach
                                                 @endif
                                             </div>

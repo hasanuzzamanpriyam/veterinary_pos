@@ -99,7 +99,7 @@ class YearlySummary extends Component
                     return [
                         'date' => date('Y-m', strtotime($dateGroup->first()->date)),
                         'sale_quantity' => $dateGroup->groupBy(function ($transaction) {
-                            return $transaction->product->type;
+                            return $transaction->product->size->name ?? $transaction->product->type;
                             })->mapWithKeys(function ($group, $type) {
                                 $totalQuantity = $group->sum(fn($transaction) => $transaction->quantity - $transaction->discount_qty);
                                 return [$type => $totalQuantity];
@@ -126,7 +126,7 @@ class YearlySummary extends Component
                     return [
                         'date' => date('Y-m', strtotime($dateGroup->first()->date)),
                         'purchase_quantity' => $dateGroup->groupBy(function ($transaction) {
-                            return $transaction->product->type;
+                            return $transaction->product->size->name ?? $transaction->product->type;
                             })->mapWithKeys(function ($group, $type) {
                                 $totalQuantity = $group->sum(fn($transaction) => $transaction->quantity - $transaction->discount_qty);
                                 return [$type => $totalQuantity];

@@ -120,7 +120,7 @@
                                                         {{ $product->product_name}}
                                                         {{'('}}{{ $product->product->size->description}}{{')'}} -
                                                         {{ $product->quantity - $product->discount_qty}}
-                                                        {{ trans_choice('labels.' . $type, ($product->quantity - $product->discount_qty))}}{{' @ '}}{{ $product->unit_price}}/=
+                                                        {{ $type }}{{' @ '}}{{ $product->unit_price}}/=
                                                         {{ $product->total_price}}/=
                                                     </p>
                                                 @endforeach
@@ -134,7 +134,7 @@
                                                             $g_total_summary['sale'][$type] = $g_total_summary['sale'][$type] ?? 0;
                                                             $g_total_summary['sale'][$type] += $qty;
                                                         @endphp
-                                                        {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                        {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                     @endforeach
 
                                                 @endif
@@ -185,7 +185,7 @@
                                         @endphp
                                         @foreach (($g_total_summary['sale'] ?? []) as $type => $qty)
                                             <span
-                                                style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</span>
+                                                style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . $type : ''}}</span>
                                         @endforeach
                                     </th>
                                     <th class="text-right">{{formatAmount($g_total_summary['total'] ?? 0)}}/=</th>

@@ -91,7 +91,7 @@ class CustomersListDue extends Component
             // Iterate through each item and sum up the sale and return quantities
             $items->each(function ($item) use (&$totals) {
                 $transactionType = $item->transaction_type; // e.g., 'sale' or 'return'
-                $productType = $item->product->type ?? 'pc';         // e.g., 'bag' or 'kg'
+                $productType = $item->product->size->name ?? $item->product->type ?? 'pc';         // e.g., 'bag' or 'kg'
                 $quantity = $item->quantity;
                 $discount_quantity = $item->discount_qty;
 
@@ -219,7 +219,7 @@ class CustomersListDue extends Component
             // Iterate through each item and sum up the sale and return quantities
             $items->each(function ($item) use (&$totals) {
                 $transactionType = $item->transaction_type; // e.g., 'sale' or 'return'
-                $productType = $item->product->type ?? 'pc';         // e.g., 'bag' or 'kg'
+                $productType = $item->product->size->name ?? $item->product->type ?? 'pc';         // e.g., 'bag' or 'kg'
                 $quantity = $item->quantity;
                 $discount_quantity = $item->discount_qty;
 

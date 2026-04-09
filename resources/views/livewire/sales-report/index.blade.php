@@ -254,19 +254,19 @@ $type = 0;
                                                                 {{-- Total Qty --}}
                                                                 <td class="text-center">
                                                                     @foreach ($qty_summary['total'] ?? [] as $type => $qty)
-                                                                        {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                                        {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                                     @endforeach
                                                                 </td>
                                                                 {{-- Discount Qty --}}
                                                                 <td class="text-center">
                                                                     @foreach ($qty_summary['discount'] ?? [] as $type => $qty)
-                                                                        {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                                        {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                                     @endforeach
                                                                 </td>
                                                                 {{-- Sale Qty --}}
                                                                 <td class="text-center">
                                                                     @foreach ($qty_summary['sale'] ?? [] as $type => $qty)
-                                                                        {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                                        {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                                     @endforeach
                                                                 </td>
 
@@ -392,19 +392,19 @@ $type = 0;
                                                             {{-- Total Qty --}}
                                                             <td class="text-center">
                                                                 @foreach ($qty_summary['total'] ?? [] as $type => $qty)
-                                                                    {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                                    {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                                 @endforeach
                                                             </td>
                                                             {{-- Discount Qty --}}
                                                             <td class="text-center">
                                                                 @foreach ($qty_summary['discount'] ?? [] as $type => $qty)
-                                                                    {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                                    {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                                 @endforeach
                                                             </td>
                                                             {{-- Sale Qty --}}
                                                             <td class="text-center">
                                                                 @foreach ($qty_summary['sale'] ?? [] as $type => $qty)
-                                                                    {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                                    {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                                 @endforeach
                                                             </td>
 

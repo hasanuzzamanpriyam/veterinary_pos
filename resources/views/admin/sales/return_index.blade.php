@@ -79,7 +79,7 @@ Sales Return List
                                                 <p class="mb-0 text-left">
                                                     {{ $product->product_code}} -
                                                     {{ $product->product_name}} {{'('}}{{ $product->product->size->description}}{{')'}} -
-                                                    {{ $product->quantity}} {{ trans_choice('labels.'.$type, ($product->quantity))}}{{' @ '}}{{ $product->unit_price}}/=
+                                                    {{ $product->quantity}} {{ $type }}{{' @ '}}{{ $product->unit_price}}/=
                                                     {{ $product->total_price}}/=
                                                 </p>
                                             @endforeach
@@ -89,7 +89,7 @@ Sales Return List
                                         <td class="text-center">
                                             @if(isset($qty_summary['total']))
                                             @foreach ($qty_summary['total'] as $type => $qty)
-                                                {{$qty > 0 ? $qty . ' ' . trans_choice('labels.' . $type, $qty) : ''}}
+                                                {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                             @endforeach
                                             @endif
                                         </td>

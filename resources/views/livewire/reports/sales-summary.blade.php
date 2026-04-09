@@ -34,13 +34,14 @@
                                     <td class="text-center">
                                         @foreach ($list_products as $item)
                                             @php
+                                                $p_type = $item->product->size->name ?? $item->product->type;
                                                 // Qty Summary
-                                                $qty_summary[$item->product->type] = $qty_summary[$item->product->type] ?? 0;
-                                                $qty_summary[$item->product->type] += $item->quantity - $item->discount_qty;
+                                                $qty_summary[$p_type] = $qty_summary[$p_type] ?? 0;
+                                                $qty_summary[$p_type] += $item->quantity - $item->discount_qty;
 
                                                 // Total Qty Summary
-                                                $total_qty_summary[$item->product->type] = $total_qty_summary[$item->product->type] ?? 0;
-                                                $total_qty_summary[$item->product->type] += $item->quantity - $item->discount_qty;
+                                                $total_qty_summary[$p_type] = $total_qty_summary[$p_type] ?? 0;
+                                                $total_qty_summary[$p_type] += $item->quantity - $item->discount_qty;
                                             @endphp
                                         @endforeach
 
@@ -50,7 +51,7 @@
 
                                         @foreach ($qty_summary as $key => $value)
                                             <span class="text-center">{{formatAmount($value)}}
-                                                {{ trans_choice('labels.' . strtolower($key), $value) }} </span>
+                                                {{ $key }} </span>
                                         @endforeach
                                     </td>
                                     <td class="text-right">{{formatAmount($report->total_price)}}/=</td>
@@ -69,7 +70,7 @@
                                 @endphp
                                 @foreach ($total_qty_summary as $key => $value)
                                     <span class="text-center text-nowrap">{{formatAmount($value)}}
-                                        {{ trans_choice('labels.' . strtolower($key), $value) }} </span>
+                                        {{ $key }} </span>
                                 @endforeach
                             </td>
                             <td class="text-right font-weight-bold total--amount">{{formatAmount($total_sales)}}/=</td>

@@ -123,11 +123,11 @@
                                                 @endif
                                             </td>
                                             <td style="vertical-align: middle; text-align: center;">{{ $product->name }}</td>
-                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->qty - $product->options->discount }} {{ trans_choice($product->options->type, $product->qty - $product->options->discount) }}</td>
+                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->qty - $product->options->discount }} {{ $product->options->type }}</td>
                                             @if($product_discounts > 0)
-                                                <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->options->discount }} {{ trans_choice($product->options->type, $product->options->discount) }}</td>
+                                                <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->options->discount }} {{ $product->options->type }}</td>
                                             @endif
-                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->qty }} {{ trans_choice($product->options->type, $product->qty) }}</td>
+                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->qty }} {{ $product->options->type }}</td>
                                             <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($product->price, 2) }}/=</td>
                                             @php
                                                 $line_val = ($product->qty - $product->options->discount) * $product->price;
@@ -144,23 +144,23 @@
                                 </tbody>
                                 <tfoot class="font-weight-bold">
                                     <tr>
-                                        <td style="text-align: center; vertical-align: middle;"><strong>{{ trans_choice('labels.items', $items) }}:</strong> {{ $items }}</td>
+                                        <td style="text-align: center; vertical-align: middle;"><strong>Items:</strong> {{ $items }}</td>
                                         <td style="text-align: center; vertical-align: middle;"></td>
                                         <td style="text-align: center; vertical-align: middle;">
                                             @foreach($summary['total'] ?? [] as $key => $value)
-                                                <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ trans_choice(strtolower($key), $value) }}</span>
+                                                <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ $key }}</span>
                                             @endforeach
                                         </td>
                                         @if($product_discounts > 0)
                                             <td style="text-align: center; vertical-align: middle;">
                                                 @foreach($summary['discount'] ?? [] as $key => $value)
-                                                    <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ trans_choice(strtolower($key), $value) }}</span>
+                                                    <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ $key }}</span>
                                                 @endforeach
                                             </td>
                                         @endif
                                         <td style="text-align: center; vertical-align: middle;">
                                             @foreach($summary['qty'] ?? [] as $key => $value)
-                                                <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ trans_choice(strtolower($key), $value) }}</span>
+                                                <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ $key }}</span>
                                             @endforeach
                                         </td>
                                         <td style="text-align: center; vertical-align: middle;"></td>

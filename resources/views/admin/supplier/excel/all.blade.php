@@ -131,7 +131,7 @@
                     <td class="quantity">
                         @foreach ($total_qty as $key => $value)
                             @if($value > 0)
-                                <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                <span>{{ number_format($value) }} {{ $key }}</span>
                             @endif
                         @endforeach
                     </td>
@@ -140,7 +140,7 @@
                     <td class="discount_qty">
                         @foreach ($total_purchase_discount_qty as $key => $value)
                             @if($value > 0)
-                                <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                <span>{{ number_format($value) }} {{ $key }}</span>
                             @endif
                         @endforeach
                     </td>
@@ -149,7 +149,7 @@
                     <td class="return_qty">
                         @foreach ($total_return_qty as $key => $value)
                             @if($value > 0)
-                                <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                <span>{{ number_format($value) }} {{ $key }}</span>
                             @endif
                         @endforeach
                     </td>
@@ -158,7 +158,7 @@
                     <td class="purchase_qty">
                         @foreach ($total_purchase_qty as $key => $value)
                             @if($value > 0)
-                                <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                <span>{{ number_format($value) }} {{ $key }}</span>
                             @endif
                         @endforeach
                     </td>
@@ -245,7 +245,7 @@
                         @if(isset($g_total_sumarry['purchase_qty']) && count($g_total_sumarry['purchase_qty']) > 0)
                             @foreach($g_total_sumarry['purchase_qty'] as $key => $value)
                                 @if($value > 0)
-                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                    <span>{{ number_format($value) }} {{ $key }}</span>
                                 @endif
                             @endforeach
                         @endif
@@ -261,7 +261,7 @@
                         @if(isset($g_total_sumarry['discount_qty']) && count($g_total_sumarry['discount_qty']) > 0)
                             @foreach($g_total_sumarry['discount_qty'] as $key => $value)
                                 @if($value > 0)
-                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                    <span>{{ number_format($value) }} {{ $key }}</span>
                                 @endif
                             @endforeach
                         @endif
@@ -277,7 +277,7 @@
                         @if(isset($g_total_sumarry['return_qty']) && count($g_total_sumarry['return_qty']) > 0)
                             @foreach($g_total_sumarry['return_qty'] as $key => $value)
                                 @if($value > 0)
-                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                    <span>{{ number_format($value) }} {{ $key }}</span>
                                 @endif
                             @endforeach
                         @endif
@@ -293,7 +293,7 @@
                         @if(isset($g_total_sumarry['total_qty']) && count($g_total_sumarry['total_qty']) > 0)
                             @foreach($g_total_sumarry['total_qty'] as $key => $value)
                                 @if($value > 0)
-                                    <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                    <span>{{ number_format($value) }} {{ $key }}</span>
                                 @endif
                             @endforeach
                         @endif

@@ -258,9 +258,7 @@
                                             <td class="text-center p-0 comon_column">{{$product->product_code}}</td>
                                             <td class="text-left p-0 memo_product_title">{{$product->product_name}}</td>
                                             <td class="text-center p-0 comon_column">
-                                                {{$product->quantity}} {{
-                                                trans_choice('labels.'.$product->product->type, $product->quantity)
-                                                }}
+                                                {{$product->quantity}} {{ $product->product->type }}
                                             </td>
                                             <td class="text-right p-0 comon_column">{{number_format($product->unit_price)}}/=</td>
                                             <td class="text-right p-0 comon_column">{{number_format($product->total_price)}}/=</td>
@@ -281,7 +279,7 @@
                                         <th class="text-center p-1 comon_column">
                                             @if ( count($total_summary['qty']) > 0)
                                                 @foreach ($total_summary['qty'] as $key => $value)
-                                                    {{ $value }} {{ trans_choice('labels.'.$key, $value) }}
+                                                    {{ $value }} {{ $key }}
                                                 @endforeach
                                             @endif
                                         </th>

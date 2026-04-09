@@ -59,7 +59,7 @@
                                             <td>{{ $adj->sourceStore->name ?? 'N/A' }}</td>
                                             <td>{{ $adj->destinationStore->name ?? 'N/A' }}</td>
                                             <td>{{ $adj->quantity }}
-                                                {{ $adj->product ? trans_choice(strtolower($adj->product->type), $adj->quantity) : '' }}
+                                                {{ $adj->product ? ($adj->product->size->name ?? $adj->product->type) : '' }}
                                             </td>
                                             <td>{{ $adj->remarks }}</td>
                                         </tr>
@@ -144,7 +144,7 @@
                                                         @foreach ($products as $id => $product)
                                                             <option value="{{ $id }}">
                                                                 {{ $product['name'] }} —
-                                                                {{ $product['qty'] }} {{ trans_choice($product['type'], $product['qty']) }}
+                                                                {{ $product['qty'] }} {{ $product['type'] }}
                                                             </option>
                                                         @endforeach
                                                     @endif
@@ -201,7 +201,7 @@
                                                         <td class="align-middle text-left">{{ $product->name }}</td>
                                                         <td class="align-middle">
                                                             {{ $product->options->stock }}
-                                                            {{ trans_choice(strtolower($product->options->type), $product->options->stock) }}
+                                                            {{ $product->options->type }}
                                                         </td>
                                                         <td class="align-middle">
                                                             <div class="d-flex align-items-center justify-content-center">
@@ -210,7 +210,7 @@
                                                                        value="{{ $product->qty }}"
                                                                        class="form-control form-control-sm text-center mr-1"
                                                                        style="width: 60px;">
-                                                                <span>{{ trans_choice(strtolower($product->options->type), $product->qty) }}</span>
+                                                                <span>{{ $product->options->type }}</span>
                                                             </div>
                                                             @if($product->options->stock < $product->qty)
                                                                 <small class="text-danger d-block">Unavailable</small>
@@ -243,7 +243,7 @@
                                             </tbody>
                                             <tfoot class="bg-light">
                                                 <tr>
-                                                    <td colspan="2"><strong>Total: {{ $items }} {{ trans_choice('labels.items', $items) }}</strong></td>
+                                                    <td colspan="2"><strong>Total: {{ $items }} Items</strong></td>
                                                     <td></td>
                                                     <td>
                                                         @foreach ($summaryQty as $type => $qty)

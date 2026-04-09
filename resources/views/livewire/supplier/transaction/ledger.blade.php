@@ -247,7 +247,7 @@
                                                         <p class="mb-0 text-left">
                                                             {{ $product->product_code}} -
                                                             {{ $product->product_name}} {{'('}}{{ $product->product->size->description ?? 'N/A'}}{{')'}}
-                                                            - {{ $product->quantity - $product->discount_qty}} {{ trans_choice('labels.'.$type, ($product->quantity - $product->discount_qty))}}{{' @ '}}{{ $product->unit_price}}/=
+                                                            - {{ $product->quantity - $product->discount_qty}} {{ $type }}{{' @ '}}{{ $product->unit_price}}/=
                                                             {{ $product->total_price}}/=
                                                         </p>
                                                     @endforeach
@@ -278,7 +278,7 @@
                                                                     $total_summary['qty'][$key] = $total_summary['qty'][$key] ?? 0;
                                                                     $total_summary['qty'][$key] += $value;
                                                                 @endphp
-                                                                {{ $value }} {{trans_choice('labels.' . strtolower($key), $value)}}
+                                                                {{ $value }} {{ $key }}
                                                             @endif
                                                         @endforeach
                                                     @endif
@@ -374,7 +374,7 @@
                                                         <p class="mb-0 text-left">
                                                             {{ $product->product_code}} -
                                                             {{ $product->product_name}} {{'('}}{{ $product->product->size->description ?? 'N/A'}}{{')'}} -
-                                                            {{ $product->quantity}} {{ trans_choice('labels.'.$type, $product->quantity)}}{{' @ '}}{{ $product->unit_price}}/=
+                                                            {{ $product->quantity}} {{ $type }}{{' @ '}}{{ $product->unit_price}}/=
                                                             {{ $product->total_price}}/=
                                                         </p>
                                                     @endforeach
@@ -403,7 +403,7 @@
                                                                 $total_summary['qty'][$key] = $total_summary['qty'][$key] ?? 0;
                                                                 $total_summary['qty'][$key] -= $value;
                                                             @endphp
-                                                            {{ $value }} {{trans_choice('labels.' . strtolower($key), $value)}}
+                                                            {{ $value }} {{ $key }}
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -450,7 +450,7 @@
                                                 ksort($total_summary['qty']);
                                             @endphp
                                             @foreach ($total_summary['qty'] as $key => $value)
-                                                <div>{{ $value }} {{trans_choice('labels.' . strtolower($key), $value)}}</div>
+                                                <div>{{ $value }} {{ $key }}</div>
                                             @endforeach
                                         @endif
                                     </th>

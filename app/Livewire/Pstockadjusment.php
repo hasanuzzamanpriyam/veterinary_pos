@@ -125,7 +125,7 @@ class Pstockadjusment extends Component
                 'weight' => $product->size->name,
                 'product_store_id' => $product->product_store_id,
                 'stock' => $this->products[$id]['qty'] ?? 0,
-                'type' => $product->type
+                'type' => $product->size->name ?? $product->type
             ]
         ]);
     }
@@ -186,7 +186,7 @@ class Pstockadjusment extends Component
                 return [
                     'name' => $items->first()->product->name,
                     'qty' => $items->sum('product_quantity'),
-                    'type' => $items->first()->product->type,
+                    'type' => $items->first()->product->size->name ?? $items->first()->product->type,
                     'price' => $items->last()->purchase_price
                 ];
             });

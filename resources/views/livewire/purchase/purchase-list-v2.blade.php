@@ -141,7 +141,7 @@
                                                         +
                                                         {{ formatAmount((float) $product->discount_qty)}} =
                                                         {{ formatAmount((float) $product->quantity)}}
-                                                        {{ trans_choice($product->product->type, (float) ($product->quantity))}}{{' @ '}}{{ formatAmount($product->unit_price) }}/=
+                                                        {{ $product->product->size->name ?? $product->product->type }}{{' @ '}}{{ formatAmount($product->unit_price) }}/=
                                                         {{ formatAmount($product->total_price)}}/=
                                                     @else
                                                         {{ $product->product_name}} (Product Deleted) -
@@ -160,7 +160,7 @@
                                                         $g_total_summary['purchase'][$type] = $g_total_summary['purchase'][$type] ?? 0;
                                                         $g_total_summary['purchase'][$type] += $qty;
                                                     @endphp
-                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}
+                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . $type : ''}}
                                                 @endforeach
                                             @endif
                                         </td>
@@ -172,7 +172,7 @@
                                                         $g_total_summary['discount'][$type] = $g_total_summary['discount'][$type] ?? 0;
                                                         $g_total_summary['discount'][$type] += $qty;
                                                     @endphp
-                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}
+                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . $type : ''}}
                                                 @endforeach
                                             @endif
                                         </td>
@@ -184,7 +184,7 @@
                                                         $g_total_summary['total'][$type] = $g_total_summary['total'][$type] ?? 0;
                                                         $g_total_summary['total'][$type] += $qty;
                                                     @endphp
-                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}
+                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . $type : ''}}
                                                 @endforeach
                                             @endif
                                         </td>
@@ -248,7 +248,7 @@
                                     @endphp
                                     @foreach (($g_total_summary['purchase'] ?? []) as $type => $qty)
                                         <span
-                                            style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}</span>
+                                            style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . $type : ''}}</span>
                                     @endforeach
                                 </th>
                                 <th class="text-center">
@@ -259,7 +259,7 @@
                                     @endphp
                                     @foreach (($g_total_summary['discount'] ?? []) as $type => $qty)
                                         <span
-                                            style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}</span>
+                                            style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . $type : ''}}</span>
                                     @endforeach
                                 </th>
                                 <th class="text-center">
@@ -270,7 +270,7 @@
                                     @endphp
                                     @foreach (($g_total_summary['total'] ?? []) as $type => $qty)
                                         <span
-                                            style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . trans_choice($type, $qty) : ''}}</span>
+                                            style="white-space: nowrap;">{{$qty > 0 ? formatAmount($qty) . ' ' . $type : ''}}</span>
                                     @endforeach
                                 </th>
                                 <th class="text-center" style="white-space: nowrap;">

@@ -122,8 +122,8 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">{{$product->name}}</td>
-                                            <td class="text-center">{{$product->options->sale_qty}}  {{ trans_choice('labels.'.$type, $product->options->sale_qty) }}</td>
-                                            <td class="text-center">{{$product->qty}}  {{ trans_choice('labels.'.$type, $product->qty) }}</td>
+                                            <td class="text-center">{{$product->options->sale_qty}}  {{ $type }}</td>
+                                            <td class="text-center">{{$product->qty}}  {{ $type }}</td>
                                             <td class="text-right">{{number_format($product->price)}}/=</td>
                                             <td class="text-right">
                                                 @php
@@ -146,14 +146,14 @@
                                             <td class="text-center">
                                                 @if (isset($qty_summary['sale']))
                                                     @foreach ($qty_summary['sale'] as $type => $qty)
-                                                        {{$qty > 0 ? $qty . ' ' . trans_choice('labels.'.$type, $qty) : ''}}
+                                                        {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                     @endforeach
                                                 @endif
                                             </td>
                                             <td class="text-center">
                                                 @if (isset($qty_summary['total']))
                                                     @foreach ($qty_summary['total'] as $type => $qty)
-                                                        {{$qty > 0 ? $qty . ' ' . trans_choice('labels.'.$type, $qty) : ''}}
+                                                        {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                     @endforeach
                                                 @endif
                                             </td>

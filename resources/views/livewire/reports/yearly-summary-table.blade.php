@@ -40,7 +40,7 @@
                                                     $total_summary['purchase_qty'][$key] = $total_summary['purchase_qty'][$key] ?? 0;
                                                     $total_summary['purchase_qty'][$key] += $value;
                                                 @endphp
-                                                <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                                <span>{{ number_format($value) }} {{ $key }}</span>
                                             @endforeach
                                         @endif
                                     </td>
@@ -55,7 +55,7 @@
                                                     $total_summary['sale_qty'][$key] = $total_summary['sale_qty'][$key] ?? 0;
                                                     $total_summary['sale_qty'][$key] += $value;
                                                 @endphp
-                                                <span>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</span>
+                                                <span>{{ number_format($value) }} {{ $key }}</span>
                                             @endforeach
                                         @endif
                                     </td>
@@ -119,7 +119,7 @@
                                         ksort($total_summary['purchase_qty']);
                                     @endphp
                                     @foreach ($total_summary['purchase_qty'] as $key => $value)
-                                        <span class="text-center text-nowrap">{{formatAmount($value)}} {{ trans_choice('labels.' . strtolower($key), $value) }} </span>
+                                        <span class="text-center text-nowrap">{{formatAmount($value)}} {{ $key }} </span>
                                     @endforeach
                                 @endif
                             </td>
@@ -129,7 +129,7 @@
                                         ksort($total_summary['sale_qty']);
                                     @endphp
                                     @foreach ($total_summary['sale_qty'] as $key => $value)
-                                        <span class="text-center text-nowrap">{{formatAmount($value)}} {{ trans_choice('labels.' . strtolower($key), $value) }} </span>
+                                        <span class="text-center text-nowrap">{{formatAmount($value)}} {{ $key }} </span>
                                     @endforeach
                                 @endif
                             </td>

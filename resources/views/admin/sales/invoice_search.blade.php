@@ -150,16 +150,16 @@ Sales Invoice Search
                                                             {{ $product->product_name }}</td>
 
                                                         <td class="text-right p-1 comon_column">
-                                                            {{ $product->product_quantity }} {{ trans_choice('labels.'.$product->product->type, $product->product_quantity) }}
+                                                            {{ $product->product_quantity }} {{ $product->product->type }}
                                                         </td>
                                                         @if($customer_info->product_discount > 0)
                                                         <td class="text-right p-1 comon_column">
-                                                            {{ $product->product_discount }} {{ trans_choice('labels.'.$product->product->type, $product->product_discount) }}
+                                                            {{ $product->product_discount }} {{ $product->product->type }}
                                                         </td>
                                                         @endif
                                                         <td class="text-right p-1 comon_column">
                                                             {{ $product->product_quantity - $product->product_discount }}
-                                                            {{ trans_choice('labels.'.$product->product->type, ($product->product_quantity - $product->product_discount)) }}
+                                                            {{ $product->product->type }}
                                                         </td>
                                                         <td class="text-right p-1 comon_column">{{ $product->product_price }}/=
                                                         </td>

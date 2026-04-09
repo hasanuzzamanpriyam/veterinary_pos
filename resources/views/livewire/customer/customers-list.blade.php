@@ -172,28 +172,28 @@
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <div>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</div>
+                                                    <div>{{ number_format($value) }} {{ $key }}</div>
                                                 @endif
                                             @endforeach
                                         </td>
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_sale_discount_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <div>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</div>
+                                                    <div>{{ number_format($value) }} {{ $key }}</div>
                                                 @endif
                                             @endforeach
                                         </td>
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_return_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <div>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</div>
+                                                    <div>{{ number_format($value) }} {{ $key }}</div>
                                                 @endif
                                             @endforeach
                                         </td>
                                         <td class="text-wrap" style="max-width: 100px">
                                             @foreach ($total_sale_qty as $key => $value)
                                                 @if($value > 0)
-                                                    <div>{{ number_format($value) }} {{ trans_choice('labels.'.$key, $value) }}</div>
+                                                    <div>{{ number_format($value) }} {{ $key }}</div>
                                                 @endif
                                             @endforeach
                                         </td>
@@ -274,28 +274,28 @@
                                     <td class="text-wrap">
                                         @if (isset($g_total_summary['qty']) && $g_total_summary['qty'] > 0)
                                             @foreach ($g_total_summary['qty'] as $type => $qty)
-                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong></div>
+                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . $type : ''}}</strong></div>
                                             @endforeach
                                         @endif
                                     </td>
                                     <td class="text-wrap">
                                         @if (isset($g_total_summary['dis_qty']) && $g_total_summary['dis_qty'] > 0)
                                             @foreach ($g_total_summary['dis_qty'] as $type => $qty)
-                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong></div>
+                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . $type : ''}}</strong></div>
                                             @endforeach
                                         @endif
                                     </td>
                                     <td class="text-wrap">
                                         @if (isset($g_total_summary['return_qty']) && $g_total_summary['return_qty'] > 0)
                                             @foreach ($g_total_summary['return_qty'] as $type => $qty)
-                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong></div>
+                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . $type : ''}}</strong></div>
                                             @endforeach
                                         @endif
                                     </td>
                                     <td class="text-wrap">
                                         @if (isset($g_total_summary['sale_qty']) && $g_total_summary['sale_qty'] > 0)
                                             @foreach ($g_total_summary['sale_qty'] as $type => $qty)
-                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . trans_choice('labels.' . $type, $qty) : ''}}</strong></div>
+                                                <div><strong>{{$qty > 0 ? number_format($qty) . ' ' . $type : ''}}</strong></div>
                                             @endforeach
                                         @endif
                                     </td>
