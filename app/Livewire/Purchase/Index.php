@@ -73,17 +73,14 @@ class Index extends Component
         session()->put('showSidebar', $this->showSidebar);
     }
 
-    public function toggleHeldPurchases()
-    {
-        $this->showHeldPurchases = !$this->showHeldPurchases;
-    }
-
-    //Update quantity directly (now used as read-only or internal update)
     public function updateQuantity($id, $quantities)
     {
         foreach (app('cart')->instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                $item->qty = (float) $quantities;
+                app('cart')->instance('purchase')->update($item->rowId, [
+                    'qty' => (float) $quantities,
+                ]);
+                break;
             }
         }
     }
@@ -108,12 +105,9 @@ class Index extends Component
     {
         foreach (app('cart')->instance('purchase')->content() as $item) {
             if ($item->id == $id) {
-                $purchaseQty = (float) $item->qty - (float) $item->options->discount;
                 $newDiscount = (float) $discounts;
-                $newQty = $purchaseQty + $newDiscount;
                 $newOptions = array_merge($item->options->toArray(), ['discount' => $newDiscount]);
                 app('cart')->instance('purchase')->update($item->rowId, [
-                    'qty' => $newQty,
                     'options' => $newOptions,
                 ]);
                 break;

@@ -115,7 +115,7 @@
                                     @foreach($stock_list as $key => $stock)
                                         @php
                                             $items++;
-                                            $purchase_price = isset($stock['purchase_price']) ? $stock['qty'] * $stock['purchase_price'] : 0;
+                                            $purchase_price = isset($stock['purchase_price']) ? ($stock['qty'] - ($stock['discount_quantity'] ?? 0)) * $stock['purchase_price'] : 0;
                                             $sale_price = isset($stock['sale_price']) ? $stock['qty'] * $stock['sale_price'] : 0;
 
 
@@ -180,6 +180,7 @@
                                     <td  class="text-right"></td>
                                     <td  class="text-right"></td>
                                     <td  class="text-right"></td>
+                                    <td  class="text-right"></td>
                                     <td  class="text-center">
                                         <div>
                                             @if( isset($gtotal_stock['qty']) && count($gtotal_stock['qty']) > 0)
@@ -209,6 +210,7 @@
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_purchase_price)}}/-</strong></td>
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_sale_price)}}/-</strong></td>
                                     <td  class="text-right"><strong>{{formatAmount($gtotal_mrp_price)}}/-</strong></td>
+                                    <td></td>
                                 </tr>
                             </tfoot>
                         </table>

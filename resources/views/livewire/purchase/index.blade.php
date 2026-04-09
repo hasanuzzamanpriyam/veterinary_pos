@@ -272,26 +272,26 @@
                                             </td>
 
                                             <td class="text-left purchase-qty">
-                                                <input type="text"
-                                                       wire:change="updatePurchaseQty({{$id}}, $event.target.value)"
-                                                       value="{{ $qty - $dis_qty }}"
+                                                <input type="number" step="any"
+                                                       wire:change="updateQuantity('{{$id}}', $event.target.value)"
+                                                       value="{{ $qty }}"
                                                        class="form-control">
                                             </td>
                                             <td class="text-left">
-                                                <input type="number"
-                                                       wire:change="updateDiscount({{$id}}, $event.target.value)"
+                                                <input type="number" step="any"
+                                                       wire:change="updateDiscount('{{$id}}', $event.target.value)"
                                                        value="{{ $dis_qty }}"
                                                        class="form-control">
                                             </td>
                                             <td class="text-left">
                                                 <input type="text"
                                                        @disabled(true)
-                                                       value="{{ $qty }}"
+                                                       value="{{ $qty - $dis_qty }}"
                                                        class="form-control purchase-entry-qty">
                                             </td>
                                             <td class="text-left">
-                                                <input type="text"
-                                                       wire:change="updatePrice({{ $id }}, $event.target.value || 0)"
+                                                <input type="number" step="any"
+                                                       wire:change="updatePrice('{{ $id }}', $event.target.value || 0)"
                                                        value="{{ $product->price }}"
                                                        class="form-control">
                                             </td>
