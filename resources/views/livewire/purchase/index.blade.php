@@ -104,7 +104,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label class="purchase_entry_lebel" for="transport_no">Vehicle Number</label>
+                            <label class="purchase_entry_lebel" for="transport_no">Gari Number</label>
                             <input type="text" name="transport_no" wire:model="transport_no" id="transport_no" class="form-control">
                         </div>
                     </div>
