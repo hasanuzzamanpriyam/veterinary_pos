@@ -144,11 +144,21 @@ class Index extends Component
             ->where('product_store_id', $this->product_store_id)
             ->first();
 
-        // dd($products);
+        // Check if product store record exists
+        if (!$products) {
+            session()->flash('error', 'Product not available in selected store.');
+            return;
+        }
 
         $product_stock = $this->products[$id]['qty'] ?? 0;
 
         $product = Product::where('id', $id)->first();
+        
+        // Check if product exists
+        if (!$product) {
+            session()->flash('error', 'Product not found.');
+            return;
+        }
 
         $price_group_rate = PriceGroupProduct::where('price_group_id', $this->price_group_id)->where('product_id', $id)->value('price_group_rate');
 
@@ -158,12 +168,12 @@ class Index extends Component
             'qty' => 1,
             'price' => $price_group_rate ?? $products->product->price_rate,
             'options' => [
-                'barcode' => $products->product->barcode,
+                'barcode' => $products->product->barcode ?? '',
                 'discount' => 0,
-                'weight' => $product->size->name,
+                'weight' => $product->size->name ?? '',
                 'product_store_id' => $products->product_store_id,
                 'stock' => $product_stock,
-                'type' => $products->product->size->name ?? $products->product->type]
+                'type' => $product->size->name ?? $product->type]
         ]);
     }
 
@@ -308,17 +318,25 @@ class Index extends Component
             // dd($source_store_products);
             $this->products = $source_store_products->groupBy('product_id')
             ->map(function ($items) {
-                $sale_price = $items->first()->product->price_rate;
+                $firstItem = $items->first();
+                $product = $firstItem->product;
+                
+                // Skip if product relationship is null
+                if (!$product) {
+                    return null;
+                }
+                
+                $sale_price = $product->price_rate;
                 return [
-                    'name' => $items->first()->product->name,
+                    'name' => $product->name,
                     'qty' => $items->sum('product_quantity'),
-                    'type' => $items->first()->product->size->name ?? $items->first()->product->type,
+                    'type' => $product->size->name ?? $product->type,
                     'price' => $sale_price,
-                    'photo' => $items->first()->product->photo
+                    'photo' => $product->photo
                 ];
             })
             ->filter(function ($product) {
-                return $product['qty'] > 0; // Keep only products with quantity > 0
+                return $product !== null && $product['qty'] > 0; // Keep only products with quantity > 0 and valid data
             });
             $this->dispatch('dataUpdated');
         } else {

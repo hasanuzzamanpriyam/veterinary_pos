@@ -66,13 +66,15 @@
                             $total_line_vat += $line_vat;
                             $total_amount += $line_val - $line_dis + $line_vat;
 
-                            $type = $product->options->type;
+                            // Try to get size name from sizes table, fallback to options->type
+                            $sizeId = $product->options->size_id ?? null;
+                            $size = $sizeId ? (\App\Models\Size::find($sizeId)?->name ?? 'N/A') : ($product->options->type ?? 'N/A');
                             $items++;
-                            $summary['qty'][$type] = ($summary['qty'][$type] ?? 0) + $product->qty;
-                            $summary['discount'][$type] =
-                                ($summary['discount'][$type] ?? 0) + $product->options->discount;
-                            $summary['total'][$type] =
-                                ($summary['total'][$type] ?? 0) + ($product->qty - $product->options->discount);
+                            $summary['qty'][$size] = ($summary['qty'][$size] ?? 0) + $product->qty;
+                            $summary['discount'][$size] =
+                                ($summary['discount'][$size] ?? 0) + $product->options->discount;
+                            $summary['total'][$size] =
+                                ($summary['total'][$size] ?? 0) + ($product->qty - $product->options->discount);
                         @endphp
                     @empty
                         <div class="p-3">No Product Found!</div>
@@ -141,18 +143,18 @@
                                                 {{ $product->name }}</td>
                                             <td
                                                 style="vertical-align: middle; text-align: center; white-space: nowrap;">
-                                                {{ $product->qty }} {{ $product->options->type }}</td>
+                                                {{ $product->qty }} {{ $size }}</td>
 
                                             @if ($product_discounts > 0)
                                                 <td
                                                     style="vertical-align: middle; text-align: center; white-space: nowrap;">
-                                                    {{ $product->options->discount }} {{ $product->options->type }}
+                                                    {{ $product->options->discount }} {{ $size }}
                                                 </td>
                                             @endif
                                             <td
                                                 style="vertical-align: middle; text-align: center; white-space: nowrap;">
                                                 {{ $product->qty - $product->options->discount }}
-                                                {{ $product->options->type }}</td>
+                                                {{ $size }}</td>
 
                                             <td
                                                 style="vertical-align: middle; text-align: center; white-space: nowrap;">

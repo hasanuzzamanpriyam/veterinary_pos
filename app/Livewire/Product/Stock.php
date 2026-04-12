@@ -99,7 +99,7 @@ class Stock extends Component
                 'offer' => $firstProduct->activeOffer(),
                 'sale_price_with_offer' => $firstProduct->priceWithOffer($firstProduct->price_rate ?? 0)['price'],
                 'category' => $firstProduct->category->name ?? 'null',
-                'type' => $firstProduct->size->name ?? $firstProduct->type ?? '',
+                'type' => $firstProduct->productType->name ?? $firstProduct->type ?? '',
                 'size' => $firstProduct->size->name ?? '',
                 'brand' => $firstProduct->brand->name ?? '',
                 'group' => $firstProduct->productGroup->name ?? ''

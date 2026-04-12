@@ -264,15 +264,16 @@
                                     @endphp
                                     @forelse ($products as $product)
                                     @php
-                                    $total_summary['qty'][$product->product->type] =
-                                    $total_summary['qty'][$product->product->type] ?? 0;
-                                    $total_summary['qty'][$product->product->type] += $product->quantity;
-                                    $total_summary['dis_qty'][$product->product->type] =
-                                    $total_summary['dis_qty'][$product->product->type] ?? 0;
-                                    $total_summary['dis_qty'][$product->product->type] += $product->discount_qty;
-                                    $total_summary['purchase_qty'][$product->product->type] =
-                                    $total_summary['purchase_qty'][$product->product->type] ?? 0;
-                                    $total_summary['purchase_qty'][$product->product->type] += ($product->quantity -
+                                    $sizeName = $product->product?->size?->name ?? $product->product?->type ?? 'N/A';
+                                    $total_summary['qty'][$sizeName] =
+                                    $total_summary['qty'][$sizeName] ?? 0;
+                                    $total_summary['qty'][$sizeName] += $product->quantity;
+                                    $total_summary['dis_qty'][$sizeName] =
+                                    $total_summary['dis_qty'][$sizeName] ?? 0;
+                                    $total_summary['dis_qty'][$sizeName] += $product->discount_qty;
+                                    $total_summary['purchase_qty'][$sizeName] =
+                                    $total_summary['purchase_qty'][$sizeName] ?? 0;
+                                    $total_summary['purchase_qty'][$sizeName] += ($product->quantity -
                                     $product->discount_qty);
                                     $total_summary['price'] += $product->unit_price;
                                     $total_summary['sub_total'] += $product->total_price;
@@ -281,13 +282,13 @@
 
                                         <td class="text-center p-1">{{$product->product->barcode ?? $product->product_code}}</td>
                                         <td class="text-left p-1">{{$product->product_name}}</td>
-                                                                                <td class="text-center p-1">{{$product->quantity}} {{ $product->product->type }}</td>
+                                                                                <td class="text-center p-1">{{$product->quantity}} {{ $sizeName }}</td>
 
                                         @if($supplier_info->product_discount > 0)
-                                        <td class="text-center p-1">{{$product->discount_qty}} {{ $product->product->type }}
+                                        <td class="text-center p-1">{{$product->discount_qty}} {{ $sizeName }}
                                         </td>
                                         @endif
-                                                                                <td class="text-center p-1">{{$product->quantity-$product->discount_qty}} {{ $product->product->type }} </td>
+                                                                                <td class="text-center p-1">{{$product->quantity-$product->discount_qty}} {{ $sizeName }} </td>
 
                                         <td class="text-right p-1">{{formatAmount($product->unit_price)}}/=</td>
                                         <td class="text-right p-1">{{formatAmount($product->total_price)}}/=</td>

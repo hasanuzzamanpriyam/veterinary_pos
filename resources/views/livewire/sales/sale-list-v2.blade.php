@@ -122,24 +122,24 @@
                                             <td class="text-left">
                                                 @foreach ($filtered_products as $product)
                                                     @php
-                                                        $type = $product->product->type;
+                                                        $type = $product->product->type ?? 'N/A';
                                                         $qty_summary['total'][$type] = $qty_summary['total'][$type] ?? 0;
-                                                        $qty_summary['total'][$type] += $product->quantity;
+                                                        $qty_summary['total'][$type] += (float)$product->quantity;
                                                         $qty_summary['discount'][$type] = $qty_summary['discount'][$type] ?? 0;
-                                                        $qty_summary['discount'][$type] += $product->discount_qty;
+                                                        $qty_summary['discount'][$type] += (float)$product->discount_qty;
                                                         $qty_summary['sale'][$type] = $qty_summary['sale'][$type] ?? 0;
-                                                        $qty_summary['sale'][$type] += ($product->quantity - $product->discount_qty);
+                                                        $qty_summary['sale'][$type] += ((float)$product->quantity - (float)$product->discount_qty);
                                                         $qty_summary['weight'] = $qty_summary['weight'] ?? 0;
-                                                        $qty_summary['weight'] += ($product->quantity - $product->discount_qty) * $product->weight;
+                                                        $qty_summary['weight'] += ((float)$product->quantity - (float)$product->discount_qty) * (float)$product->weight;
                                                     @endphp
                                                     <p class="mb-0 text-left">
-                                                        @if($product->product->barcode)
+                                                        @if($product->product && $product->product->barcode)
                                                             <svg class="barcode-render"
                                                                 data-barcode="{{ $product->product->barcode }}"
                                                                 style="height: 20px; vertical-align: middle;"></svg> -
                                                         @endif
                                                         {{ $product->product_name}}
-                                                        {{'('}}{{ $product->product->size->description}}{{')'}} -
+                                                        {{'('}}{{ $product->product->size->description ?? 'N/A'}}{{')'}} -
                                                         {{ $product->quantity - $product->discount_qty}}
                                                         {{' @ '}}{{ $product->unit_price}}/=
                                                         {{ $product->total_price}}/=

@@ -108,17 +108,17 @@
                                             <td class="text-left">
                                                 @foreach ($filtered_products as $product)
                                                     @php
-                                                        $type = $product->product->type;
+                                                        $type = $product->product->type ?? 'N/A';
                                                         $qty_summary['sale'][$type] = $qty_summary['sale'][$type] ?? 0;
-                                                        $qty_summary['sale'][$type] += ($product->quantity - $product->discount_qty);
+                                                        $qty_summary['sale'][$type] += ((float)$product->quantity - (float)$product->discount_qty);
                                                     @endphp
                                                     <p class="mb-0 text-left">
-                                                        @if($product->product->barcode)
+                                                        @if($product->product && $product->product->barcode)
                                                             <svg class="barcode-render" data-barcode="{{ $product->product->barcode }}"
                                                                 style="height: 20px; vertical-align: middle; display: inline-block;"></svg> -
                                                         @endif
                                                         {{ $product->product_name}}
-                                                        {{'('}}{{ $product->product->size->description}}{{')'}} -
+                                                        {{'('}}{{ $product->product->size->description ?? 'N/A'}}{{')'}} -
                                                         {{ $product->quantity - $product->discount_qty}}
                                                         {{ $type }}{{' @ '}}{{ $product->unit_price}}/=
                                                         {{ $product->total_price}}/=

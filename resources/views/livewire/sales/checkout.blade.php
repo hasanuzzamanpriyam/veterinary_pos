@@ -112,7 +112,7 @@
                                         @endphp
                                         @forelse (Cart::instance('sales')->content() as $product)
                                             @php
-                                                $type = $product->options->type;
+                                                $type = $product->options->type ?? 'N/A';
 
                                                 $total_amount +=
                                                     ($product->qty - $product->options->discount) * $product->price;

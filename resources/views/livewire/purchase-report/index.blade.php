@@ -181,11 +181,11 @@
                                                             <tbody>
                                                                 @foreach ($report->transactions as $transaction)
                                                                     @php
-                                                                        $type = $transaction->product->type ?? '';
+                                                                        $size = $transaction->product->size->name ?? '';
                                                                     @endphp
                                                                     <tr>
                                                                         <td><small>{{ $transaction->product->name ?? 'N/A' }}</small></td>
-                                                                        <td><small>{{ $transaction->product_quantity }} {{ $type }}</small></td>
+                                                                        <td><small>{{ $transaction->product_quantity }} {{ $size }}</small></td>
                                                                         <td class="text-right"><small>{{ $transaction->product_price }}/=</small></td>
                                                                         <td class="text-right"><small>{{ $transaction->sub_total }}/=</small></td>
                                                                     </tr>
@@ -193,7 +193,7 @@
                                                             </tbody>
                                                         </table>
                                                     </td>
-                                                    <td class="text-center">{{$report->total_qty}} {{$type}}</td>
+                                                    <td class="text-center">{{$report->total_qty}} {{$size}}</td>
                                                     <td class="text-right">{{$report->total_price}}/=</td>
                                                     <td class="text-right">{{$report->price_discount}}/=</td>
                                                     <td class="text-right">{{$report->vat}}/=</td>
@@ -206,7 +206,7 @@
                                         <tfoot>
                                             <tr>
                                                 <td class="text-right p-0" colspan="4">Total</td>
-                                                <td class="text-right p-0" colspan="1">{{$quantity}} {{ $type }}</td>
+                                                <td class="text-right p-0" colspan="1">{{$quantity}} {{$size}}</td>
                                                 <td class="text-right p-0" colspan="1">{{$amount ? $amount . ' /= ' : ''}}</td>
                                                 <td class="text-right p-0" colspan="1">{{$discount ? $discount . ' /= ' : ''}}</td>
                                                 <td class="text-right p-0" colspan="1">{{$vat ? $vat . ' /= ' : ''}}</td>

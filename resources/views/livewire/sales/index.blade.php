@@ -258,7 +258,7 @@
                                                                             $product->price;
                                                                         $total_sales +=
                                                                             $product->qty - $product->options->discount;
-                                                                        $type = $product->options->type;
+                                                                        $type = $product->options->type ?? 'N/A';
                                                                         $total_qty += $product->qty;
                                                                         $discount += $product->options->discount;
                                                                         $items++;

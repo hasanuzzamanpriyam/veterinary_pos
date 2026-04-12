@@ -403,6 +403,10 @@
 
         $(document).on('dataUpdated', function () {
             const timeout = setTimeout(() => {
+                // Destroy existing Select2 instance before reinitializing
+                if ($('#product-search').hasClass('select2-hidden-accessible')) {
+                    $('#product-search').select2('destroy');
+                }
                 $('#product-search').select2();
                 clearTimeout(timeout);
             }, 10);

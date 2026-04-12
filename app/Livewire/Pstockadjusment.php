@@ -71,7 +71,8 @@ class Pstockadjusment extends Component
         if ($value == 0) {
         } else {
             $this->source_store_id = $value;
-            $this->source_store_name = Store::find($value)->name;
+            $store = Store::find($value);
+            $this->source_store_name = $store?->name;
         }
     }
     public function destination_store_id_update($value)
@@ -79,7 +80,8 @@ class Pstockadjusment extends Component
         if ($value == 0) {
         } else {
             $this->destination_store_id = $value;
-            $this->destination_store_name = Store::find($value)->name;
+            $store = Store::find($value);
+            $this->destination_store_name = $store?->name;
         }
     }
 
@@ -122,10 +124,10 @@ class Pstockadjusment extends Component
                 'barcode' => $product->barcode,
                 'brand_id' => $product->brand_id,
                 'discount' => 0,
-                'weight' => $product->size->name,
+                'weight' => $product->size?->name,
                 'product_store_id' => $product->product_store_id,
                 'stock' => $this->products[$id]['qty'] ?? 0,
-                'type' => $product->size->name ?? $product->type
+                'type' => $product->size?->name ?? $product->type
             ]
         ]);
     }
@@ -139,6 +141,12 @@ class Pstockadjusment extends Component
         // we need to find both stores by id
         $source_store = Store::find($validateData['source_store_id']);
         $destination_store = Store::find($validateData['destination_store_id']);
+        
+        if (!$source_store || !$destination_store) {
+            session()->flash('error', 'Invalid store selection.');
+            return redirect()->back();
+        }
+        
         $adjust_remarks = $validateData['remarks'];
 
         session()->put('store_stock_adjust', [
@@ -181,12 +189,17 @@ class Pstockadjusment extends Component
         }
         $stores = Store::where('status', 1)->get();
         if ($this->source_store_id) {
-            $source_store_products = ProductStore::where('product_store_id', $this->source_store_id)->get();
+            $source_store_products = ProductStore::where('product_store_id', $this->source_store_id)
+                ->get()
+                ->filter(function ($item) {
+                    return $item->product !== null;
+                });
             $this->products = $source_store_products->groupBy('product_id')->map(function ($items) {
+                $firstProduct = $items->first()->product;
                 return [
-                    'name' => $items->first()->product->name,
+                    'name' => $firstProduct?->name,
                     'qty' => $items->sum('product_quantity'),
-                    'type' => $items->first()->product->size->name ?? $items->first()->product->type,
+                    'type' => $firstProduct?->size?->name ?? $firstProduct?->type,
                     'price' => $items->last()->purchase_price
                 ];
             });

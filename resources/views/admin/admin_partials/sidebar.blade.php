@@ -3,7 +3,7 @@
 
         @role('Super Admin|Admin|Manager|Staff')
             <ul class="nav side-menu">
-                
+
                 {{-- MESSAGE SECTION --}}
                 @role('Super Admin|Admin')
                     @can('message-view')
@@ -80,7 +80,6 @@
                                 <li><a href="{{ route('live.product.create') }}">Product Add</a></li>
                             @endcan
                             <li><a href="{{ route('product.index') }}">Product List</a></li>
-                            <li><a href="{{ route('product.discount') }}">Discount Product</a></li>
                             @can('product-stock')
                                 <li><a href="{{ route('product.stock') }}">Product Stock</a></li>
                                 <li><a href="{{ route('product.stock.manage') }}">Manage Stock</a></li>

@@ -142,10 +142,12 @@
                                                     <option value="">Select Products</option>
                                                     @if (isset($products))
                                                         @foreach ($products as $id => $product)
-                                                            <option value="{{ $id }}">
-                                                                {{ $product['name'] }} —
-                                                                {{ $product['qty'] }} {{ $product['type'] }}
-                                                            </option>
+                                                            @if($product['name'])
+                                                                <option value="{{ $id }}">
+                                                                    {{ $product['name'] }} —
+                                                                    {{ $product['qty'] }} {{ $product['type'] ?? '' }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     @endif
                                                 </select>

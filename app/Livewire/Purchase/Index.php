@@ -281,6 +281,7 @@ class Index extends Component
                 'item_vat' => 0,
                 'weight' => $products->size->name,
                 'brand_id' => $products->brand_id,
+                'size_id' => $products->size_id,
                 'type' => $products->size->name ?? $products->type,
                 'code' => $products->code,
                 'sort_index' => microtime(true)
