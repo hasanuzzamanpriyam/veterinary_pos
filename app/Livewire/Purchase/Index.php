@@ -73,6 +73,11 @@ class Index extends Component
         session()->put('showSidebar', $this->showSidebar);
     }
 
+    public function toggleHeldPurchases()
+    {
+        $this->showHeldPurchases = !$this->showHeldPurchases;
+    }
+
     public function updateQuantity($id, $quantities)
     {
         foreach (app('cart')->instance('purchase')->content() as $item) {
@@ -571,11 +576,11 @@ class Index extends Component
         $suppliers = Supplier::get();
         $warehouses = Warehouse::where('status', 1)->get();
         $brands = Brand::get();
-        
+
         $total_held_purchases_count = HeldPurchase::where('user_id', auth()->id())->count();
-        
+
         $held_query = HeldPurchase::where('user_id', auth()->id())->latest();
-        
+
         if ($this->held_start_date) {
             $held_query->whereDate('created_at', '>=', date('Y-m-d', strtotime($this->held_start_date)));
         }
@@ -583,7 +588,7 @@ class Index extends Component
         if ($this->held_end_date) {
             $held_query->whereDate('created_at', '<=', date('Y-m-d', strtotime($this->held_end_date)));
         }
-        
+
         $held_purchases = $held_query->get();
 
         $held_purchases = $held_query->get();
