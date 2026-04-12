@@ -557,16 +557,23 @@ class Index extends Component
             ->orderBy('name', 'asc')
             ->get();
 
-        $all_stocks = ProductStore::get();
+        $all_stocks = ProductStore::with('product', 'product.size')->get();
         $store_stocks = $all_stocks->groupBy('product_id')->map(function ($items) {
+            $firstItem = $items->first();
+
+            // Skip if product relationship is null (orphaned record)
+            if (!$firstItem || !$firstItem->product) {
+                return null;
+            }
+
             return [
-                'name' => $items->first()->product->name,
-                'code' => $items->first()->product->sku,
+                'name' => $firstItem->product->name,
+                'code' => $firstItem->product->sku,
                 'qty' => $items->sum('product_quantity'),
-                'type' => $items->first()->product->size->name ?? $items->first()->product->type,
+                'type' => $firstItem->product->size->name ?? $firstItem->product->type,
                 'price' => $items->last()->purchase_price
             ];
-        });
+        })->filter(); // Remove null entries
         // dd($store_stocks);
         // if ($this->source_store_id) {
         // }

@@ -100,7 +100,7 @@
                                             @if(empty($product->size_id))
                                                 <td></td>
                                             @else
-                                                <td>{{$product->size->name * $product->opening_stock / 1000}}</td>
+                                                <td>{{(float)$product->size->name * $product->opening_stock / 1000}}</td>
                                             @endif
                                             <td class="text-right">{{$product->purches_rate}}/-</td>
                                             <td class="text-right">{{$product->price_rate}}/-</td>

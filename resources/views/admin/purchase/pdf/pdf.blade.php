@@ -200,7 +200,7 @@
                                     $type = $product->product->type;
                                 @endphp
                                 <tr>
-                                    <td class="text-center p-0">{{$product->product_code}}</td>
+                                    <td class="text-center p-0">{{$product->product->barcode ?? $product->product_code}}</td>
                                     <td class="text-center p-0">{{$product->product_name}}</td>
                                     <td class="text-right p-0">{{$product->product_quantity}} {{$product->product->type}}
                                     </td>

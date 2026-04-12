@@ -172,7 +172,7 @@ $type = 0;
                                                     $type = $product_info->type;
                                                     $qty_summary_sale[$type] = $qty_summary_sale[$type] ?? 0;
                                                     $qty_summary_sale[$type] += ($product->quantity - $product->discount_qty);
-                                                    $qty_mt += $product->product->size->name * ($product->quantity - $product->discount_qty);
+                                                    $qty_mt += (float)$product->product->size->name * ($product->quantity - $product->discount_qty);
                                                 @endphp
                                             @endforeach
                                             @php
@@ -312,7 +312,7 @@ $type = 0;
                                                     $type = $product_info->type;
                                                     $qty_summary_return[$type] = $qty_summary_return[$type] ?? 0;
                                                     $qty_summary_return[$type] += $product->quantity;
-                                                    $qty_mt += $product->product->size->name * $product->quantity;
+                                                    $qty_mt += (float)$product->product->size->name * $product->quantity;
                                                 @endphp
                                             @endforeach
                                             @php

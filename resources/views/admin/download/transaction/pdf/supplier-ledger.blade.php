@@ -89,7 +89,7 @@ Ledger - {{ $supplier->company_name }} from {{ $start_date }} to {{ $end_date }}
                                 $type = $product->product->type;
 
                                 $totalQty[$type] = ($totalQty[$type] ?? 0) + $qty;
-                                $rowWeight += $product->product->size->name * $qty;
+                                $rowWeight += (float)$product->product->size->name * $qty;
                             @endphp
 
                             <p class="mb-0">

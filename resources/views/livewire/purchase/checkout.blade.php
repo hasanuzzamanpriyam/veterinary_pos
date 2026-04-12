@@ -10,7 +10,7 @@
                     <h5 class="mb-0">Supplier Info</h5>
                 </div>
                 <div class="card-body">
-                    @if($supplier)
+                    @if ($supplier)
                         @php
                             $value = $supplier;
                             $previous_due = $value['balance'];
@@ -57,7 +57,7 @@
                             $total_purchase += $product->qty - $product->options->discount;
                             $product_discounts += $product->options->discount;
                             $total_qty += $product->qty;
-                            
+
                             $line_val = ($product->qty - $product->options->discount) * $product->price;
                             $line_dis = $product->options->item_discount ?: 0;
                             $line_vat = $product->options->item_vat ?: 0;
@@ -69,25 +69,28 @@
                             $type = $product->options->type;
                             $items++;
                             $summary['qty'][$type] = ($summary['qty'][$type] ?? 0) + $product->qty;
-                            $summary['discount'][$type] = ($summary['discount'][$type] ?? 0) + $product->options->discount;
-                            $summary['total'][$type] = ($summary['total'][$type] ?? 0) + ($product->qty - $product->options->discount);
+                            $summary['discount'][$type] =
+                                ($summary['discount'][$type] ?? 0) + $product->options->discount;
+                            $summary['total'][$type] =
+                                ($summary['total'][$type] ?? 0) + ($product->qty - $product->options->discount);
                         @endphp
                     @empty
                         <div class="p-3">No Product Found!</div>
                     @endforelse
 
                     @php
-                        $single_discount = $total_qty > 0 ? ($total_discount / $total_qty) : 0;
+                        $single_discount = $total_qty > 0 ? $total_discount / $total_qty : 0;
                     @endphp
 
-                    @if(count(Cart::instance('purchase')->content()) > 0)
+                    @if (count(Cart::instance('purchase')->content()) > 0)
                         <div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
-                            <table class="table table-bordered table-hover table-striped mb-0" style="min-width: 1000px; table-layout: auto; border-collapse: collapse; text-align: center;">
+                            <table class="table table-bordered table-hover table-striped mb-0"
+                                style="min-width: 1000px; table-layout: auto; border-collapse: collapse; text-align: center;">
                                 <colgroup>
                                     <col style="width: 110px;">
                                     <col>
                                     <col style="width: 140px;">
-                                    @if($product_discounts > 0)
+                                    @if ($product_discounts > 0)
                                         <col style="width: 120px;">
                                     @endif
                                     <col style="width: 120px;">
@@ -99,75 +102,119 @@
                                 </colgroup>
                                 <thead class="thead-light">
                                     <tr>
-                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Code</th>
-                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Product Name</th>
-                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Purchase (Qty)</th>
-                                        @if($product_discounts > 0)
-                                            <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Discount</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">
+                                            Code</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">
+                                            Product Name</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">
+                                            Quantity</th>
+                                        @if ($product_discounts > 0)
+                                            <th
+                                                style="white-space: nowrap; vertical-align: middle; text-align: center;">
+                                                Discount</th>
                                         @endif
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">
+                                            Purchase (Qty)</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">
+                                            Price Rate</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">
+                                            Value</th>
                                         <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Quantity</th>
-                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Price Rate</th>
-                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Value</th>
-                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Discount</th>
-                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">VAT</th>
-                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Sub Total</th>
+
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">VAT
+                                        </th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Sub
+                                            Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse (Cart::instance('purchase')->content() as $product)
                                         <tr>
                                             <td style="vertical-align: middle; text-align: center; overflow: hidden;">
-                                                @if($product->options->barcode)
-                                                    <svg class="barcode-render" data-barcode="{{ $product->options->barcode }}"
+                                                @if ($product->options->barcode)
+                                                    <svg class="barcode-render"
+                                                        data-barcode="{{ $product->options->barcode }}"
                                                         style="height: 25px; width: 100px; display: inline-block;"></svg>
                                                 @endif
                                             </td>
-                                            <td style="vertical-align: middle; text-align: center;">{{ $product->name }}</td>
-                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->qty - $product->options->discount }} {{ $product->options->type }}</td>
-                                            @if($product_discounts > 0)
-                                                <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->options->discount }} {{ $product->options->type }}</td>
+                                            <td style="vertical-align: middle; text-align: center;">
+                                                {{ $product->name }}</td>
+                                            <td
+                                                style="vertical-align: middle; text-align: center; white-space: nowrap;">
+                                                {{ $product->qty }} {{ $product->options->type }}</td>
+
+                                            @if ($product_discounts > 0)
+                                                <td
+                                                    style="vertical-align: middle; text-align: center; white-space: nowrap;">
+                                                    {{ $product->options->discount }} {{ $product->options->type }}
+                                                </td>
                                             @endif
-                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ $product->qty }} {{ $product->options->type }}</td>
-                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($product->price, 2) }}/=</td>
+                                            <td
+                                                style="vertical-align: middle; text-align: center; white-space: nowrap;">
+                                                {{ $product->qty - $product->options->discount }}
+                                                {{ $product->options->type }}</td>
+
+                                            <td
+                                                style="vertical-align: middle; text-align: center; white-space: nowrap;">
+                                                {{ number_format($product->price, 2) }}/=</td>
                                             @php
-                                                $line_val = ($product->qty - $product->options->discount) * $product->price;
+                                                $line_val =
+                                                    ($product->qty - $product->options->discount) * $product->price;
                                                 $line_dis = $product->options->item_discount ?: 0;
                                                 $line_vat = $product->options->item_vat ?: 0;
                                                 $line_subtotal = $line_val - $line_dis + $line_vat;
                                             @endphp
-                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($line_val, 2) }}</td>
-                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($line_dis, 2) }}</td>
-                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($line_vat, 2) }}</td>
-                                            <td style="vertical-align: middle; text-align: center; white-space: nowrap;">{{ number_format($line_subtotal, 2) }}/=</td>
+                                            <td
+                                                style="vertical-align: middle; text-align: center; white-space: nowrap;">
+                                                {{ number_format($line_val, 2) }}</td>
+                                            <td
+                                                style="vertical-align: middle; text-align: center; white-space: nowrap;">
+                                                {{ number_format($line_dis, 2) }}</td>
+                                            <td
+                                                style="vertical-align: middle; text-align: center; white-space: nowrap;">
+                                                {{ number_format($line_vat, 2) }}</td>
+                                            <td
+                                                style="vertical-align: middle; text-align: center; white-space: nowrap;">
+                                                {{ number_format($line_subtotal, 2) }}/=</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot class="font-weight-bold">
                                     <tr>
-                                        <td style="text-align: center; vertical-align: middle;"><strong>Items:</strong> {{ $items }}</td>
+                                        <td style="text-align: center; vertical-align: middle;"><strong>Items:</strong>
+                                            {{ $items }}</td>
                                         <td style="text-align: center; vertical-align: middle;"></td>
                                         <td style="text-align: center; vertical-align: middle;">
-                                            @foreach($summary['total'] ?? [] as $key => $value)
-                                                <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ $key }}</span>
+                                            @foreach ($summary['qty'] ?? [] as $key => $value)
+                                                <span class="d-inline-block mr-2"><strong>{{ $value }}</strong>
+                                                    {{ $key }}</span>
                                             @endforeach
                                         </td>
-                                        @if($product_discounts > 0)
+                                        @if ($product_discounts > 0)
                                             <td style="text-align: center; vertical-align: middle;">
-                                                @foreach($summary['discount'] ?? [] as $key => $value)
-                                                    <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ $key }}</span>
+                                                @foreach ($summary['discount'] ?? [] as $key => $value)
+                                                    <span
+                                                        class="d-inline-block mr-2"><strong>{{ $value }}</strong>
+                                                        {{ $key }}</span>
                                                 @endforeach
                                             </td>
                                         @endif
                                         <td style="text-align: center; vertical-align: middle;">
-                                            @foreach($summary['qty'] ?? [] as $key => $value)
-                                                <span class="d-inline-block mr-2"><strong>{{ $value }}</strong> {{ $key }}</span>
+                                            @foreach ($summary['total'] ?? [] as $key => $value)
+                                                <span class="d-inline-block mr-2"><strong>{{ $value }}</strong>
+                                                    {{ $key }}</span>
                                             @endforeach
                                         </td>
+
                                         <td style="text-align: center; vertical-align: middle;"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><strong>{{ number_format($total_line_value, 2) }}</strong></td>
-                                        <td style="text-align: center; vertical-align: middle;"><strong>{{ number_format($total_line_discount, 2) }}</strong></td>
-                                        <td style="text-align: center; vertical-align: middle;"><strong>{{ number_format($total_line_vat, 2) }}</strong></td>
-                                        <td style="text-align: center; vertical-align: middle;">{{ number_format($total_amount, 2) }}/=</td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <strong>{{ number_format($total_line_value, 2) }}</strong></td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <strong>{{ number_format($total_line_discount, 2) }}</strong></td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <strong>{{ number_format($total_line_vat, 2) }}</strong></td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            {{ number_format($total_amount, 2) }}/=</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -205,14 +252,18 @@
                                 </div>
                                 <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle py-0" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle py-0"
+                                            data-toggle="dropdown">
                                             Discount <span class="caret"></span>
                                         </button>
                                         <div class="dropdown-menu small-dp-menu p-2" style="min-width: 200px;">
-                                            <input type="text" wire:model.lazy="price_discount" class="form-control form-control-sm mb-2" placeholder="Discount" />
+                                            <input type="text" wire:model.lazy="price_discount"
+                                                class="form-control form-control-sm mb-2" placeholder="Discount" />
                                             <div class="d-flex justify-content-between">
-                                                <label class="mb-0"><input type="radio" name="discount" wire:click="discountType(1)"> Fix</label>
-                                                <label class="mb-0"><input type="radio" name="discount" wire:click="discountType(2)"> % Per</label>
+                                                <label class="mb-0"><input type="radio" name="discount"
+                                                        wire:click="discountType(1)"> Fix</label>
+                                                <label class="mb-0"><input type="radio" name="discount"
+                                                        wire:click="discountType(2)"> % Per</label>
                                             </div>
                                         </div>
                                     </div>
@@ -220,14 +271,18 @@
                                 </div>
                                 <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle py-0" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle py-0"
+                                            data-toggle="dropdown">
                                             VAT <span class="caret"></span>
                                         </button>
                                         <div class="dropdown-menu small-dp-menu p-2" style="min-width: 200px;">
-                                            <input type="text" wire:model.lazy="vat_discount" class="form-control form-control-sm mb-2" placeholder="VAT" />
+                                            <input type="text" wire:model.lazy="vat_discount"
+                                                class="form-control form-control-sm mb-2" placeholder="VAT" />
                                             <div class="d-flex justify-content-between">
-                                                <label class="mb-0"><input type="radio" name="vat" wire:click="vatType(1)"> Fix</label>
-                                                <label class="mb-0"><input type="radio" name="vat" wire:click="vatType(2)"> % Per</label>
+                                                <label class="mb-0"><input type="radio" name="vat"
+                                                        wire:click="vatType(1)"> Fix</label>
+                                                <label class="mb-0"><input type="radio" name="vat"
+                                                        wire:click="vatType(2)"> % Per</label>
                                             </div>
                                         </div>
                                     </div>
@@ -252,7 +307,8 @@
                                 <div class="form-group">
                                     <label><strong>Carrying</strong></label>
                                     <div class="input-group input-group-sm">
-                                        <input type="text" wire:model.lazy="carring" name="carring" class="form-control">
+                                        <input type="text" wire:model.lazy="carring" name="carring"
+                                            class="form-control">
                                         <div class="input-group-append">
                                             <span class="input-group-text">/=</span>
                                         </div>
@@ -261,7 +317,8 @@
                                 <div class="form-group">
                                     <label><strong>Other Charge</strong></label>
                                     <div class="input-group input-group-sm">
-                                        <input type="text" wire:model.lazy="other_charge" name="other_charge" class="form-control">
+                                        <input type="text" wire:model.lazy="other_charge" name="other_charge"
+                                            class="form-control">
                                         <div class="input-group-append">
                                             <span class="input-group-text">/=</span>
                                         </div>
@@ -273,32 +330,38 @@
                             <div class="col-md-3 col-sm-6 mb-3">
                                 <div class="form-group">
                                     <label><strong>Payment Type</strong></label>
-                                    @if(isset($bank_title))
+                                    @if (isset($bank_title))
                                         {{-- bank title display --}}
                                     @else
-                                        <select wire:model="payment_by" wire:change="paymentSearch($event.target.value)" name="payment_by" class="form-control form-control-sm">
+                                        <select wire:model="payment_by"
+                                            wire:change="paymentSearch($event.target.value)" name="payment_by"
+                                            class="form-control form-control-sm">
                                             <option value="">Select Option</option>
-                                            @foreach($payment_types as $payment_type)
+                                            @foreach ($payment_types as $payment_type)
                                                 <option value="{{ $payment_type }}">{{ $payment_type }}</option>
                                             @endforeach
                                         </select>
                                     @endif
-                                    @if(isset($bank_list))
-                                        @if($bank_list == 1)
-                                            <select wire:model="bank_title" wire:change="paymentSearch($event.target.value)" name="payment_by" class="form-control form-control-sm mt-1">
+                                    @if (isset($bank_list))
+                                        @if ($bank_list == 1)
+                                            <select wire:model="bank_title"
+                                                wire:change="paymentSearch($event.target.value)" name="payment_by"
+                                                class="form-control form-control-sm mt-1">
                                                 <option value="">Select Option</option>
-                                                @foreach($banks as $bank)
+                                                @foreach ($banks as $bank)
                                                     <option value="{{ $bank->title }}">{{ $bank->title }}</option>
                                                 @endforeach
                                             </select>
                                         @elseif($bank_list == 2)
-                                            <input type="text" wire:model="bank_title" class="form-control form-control-sm mt-1">
+                                            <input type="text" wire:model="bank_title"
+                                                class="form-control form-control-sm mt-1">
                                         @endif
                                     @endif
                                 </div>
                                 <div class="form-group">
                                     <label><strong>Remarks</strong></label>
-                                    <input type="text" wire:model.lazy="payment_remarks" name="payment_remarks" class="form-control form-control-sm">
+                                    <input type="text" wire:model.lazy="payment_remarks" name="payment_remarks"
+                                        class="form-control form-control-sm">
                                 </div>
                             </div>
 
@@ -307,7 +370,8 @@
                                 <div class="form-group">
                                     <label><strong>Payment</strong></label>
                                     <div class="input-group input-group-sm">
-                                        <input type="text" wire:model.lazy="payment" name="payment" class="form-control">
+                                        <input type="text" wire:model.lazy="payment" name="payment"
+                                            class="form-control">
                                         <div class="input-group-append">
                                             <span class="input-group-text">/=</span>
                                         </div>

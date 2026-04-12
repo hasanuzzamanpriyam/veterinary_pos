@@ -279,7 +279,7 @@
                                     @endphp
                                     <tr>
 
-                                        <td class="text-center p-1">{{$product->product_code}}</td>
+                                        <td class="text-center p-1">{{$product->product->barcode ?? $product->product_code}}</td>
                                         <td class="text-left p-1">{{$product->product_name}}</td>
                                         <td class="text-center p-1">{{$product->quantity}} {{ $product->product->type }}</td>
                                         <td class="text-right p-1">{{number_format($product->unit_price)}}/=</td>

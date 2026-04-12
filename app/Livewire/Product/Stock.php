@@ -80,25 +80,29 @@ class Stock extends Component
             })->with('product')->get();
 
 
-        $grouped = $stocks->groupBy(function ($item) {
+        $grouped = $stocks->filter(function ($item) {
+            return $item->product !== null;
+        })->groupBy(function ($item) {
             return strtolower(trim($item->product_name)) . '_' . strtolower(trim($item->product->size->name ?? $item->product->type ?? ''));
-        })->map(function ($items) {            return [
+        })->map(function ($items) {
+            $firstProduct = $items->first()->product;
+            return [
                 'product_id' => $items->first()->product_id,
-                'code' => $items->first()->product->sku ?? '',
-                'barcode' => $items->first()->product_code ?? $items->first()->product->barcode ?? '',
+                'code' => $firstProduct->sku ?? '',
+                'barcode' => $items->first()->product_code ?? $firstProduct->barcode ?? '',
                 'product_name' => $items->first()->product_name, // add more fields as needed
                 'qty' => $items->sum('product_quantity'),
                 'discount_quantity' => $items->sum('discount_quantity'),
-                'purchase_price' => $items->first()->product->purchase_rate,
-                'sale_price' => $items->first()->product->price_rate,
-                'mrp_price' => $items->first()->product->mrp_rate ?? 0,
-                'offer' => $items->first()->product->activeOffer(),
-                'sale_price_with_offer' => $items->first()->product->priceWithOffer($items->first()->product->price_rate)['price'],
-                'category' => $items->first()->product->category->name ?? 'null',
-                'type' => $items->first()->product->size->name ?? $items->first()->product->type ?? '',
-                'size' => $items->first()->product->size->name ?? '',
-                'brand' => $items->first()->product->brand->name ?? '',
-                'group' => $items->first()->product->productGroup->name ?? ''
+                'purchase_price' => $firstProduct->purchase_rate ?? 0,
+                'sale_price' => $firstProduct->price_rate ?? 0,
+                'mrp_price' => $firstProduct->mrp_rate ?? 0,
+                'offer' => $firstProduct->activeOffer(),
+                'sale_price_with_offer' => $firstProduct->priceWithOffer($firstProduct->price_rate ?? 0)['price'],
+                'category' => $firstProduct->category->name ?? 'null',
+                'type' => $firstProduct->size->name ?? $firstProduct->type ?? '',
+                'size' => $firstProduct->size->name ?? '',
+                'brand' => $firstProduct->brand->name ?? '',
+                'group' => $firstProduct->productGroup->name ?? ''
             ];
         })->sortBy('product_name')->values();
 

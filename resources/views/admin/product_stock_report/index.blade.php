@@ -49,7 +49,7 @@ Product List
                             <tbody>
                                 @foreach($products as $product)
                                     <tr>
- 
+
                                         <td>{{$product->name}}</td>
                                         @if(empty($product->brand_id))
                                             <td></td>
@@ -74,7 +74,7 @@ Product List
                                 @if(empty($product->size_id))
                                     <td></td>
                                 @else
-                                    <td>{{$product->size->name*$product->opening_stock/1000}}</td>
+                                    <td>{{(float)$product->size->name*$product->opening_stock/1000}}</td>
                                         @endif
                                         <td class="text-right"></td>
                                         <td class="text-right"></td>
