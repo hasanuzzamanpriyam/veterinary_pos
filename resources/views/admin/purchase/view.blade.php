@@ -123,15 +123,16 @@
 
                                             <td class="text-center p-1">{{$product->product_code}}</td>
                                             <td class="text-left p-1">{{$product->product_name}}</td>
-                                            <td class="text-center p-1">{{$product->quantity - $product->discount_qty}}
-                                                {{ $product->product->type }}
-                                            </td>
+                                            <td class="text-center p-1">{{$product->quantity}}
+                                                {{ $product->product->type }}</td>
                                             @if($supplier_info->product_discount > 0)
                                                 <td class="text-center p-1">{{$product->discount_qty}}
                                                     {{ $product->product->type }}</td>
                                             @endif
-                                            <td class="text-center p-1">{{$product->quantity}}
-                                                {{ $product->product->type }}</td>
+
+                                                                                          <td class="text-center p-1">{{$product->quantity - $product->discount_qty}}
+                                                {{ $product->product->type }}
+                                            </td>
                                             <td class="text-right p-1">{{formatAmount($product->unit_price)}}/=</td>
                                             <td class="text-right p-1">{{formatAmount($product->total_price)}}/=</td>
                                             <td class="text-right p-1">{{formatAmount($product->net_amount ?? 0)}}</td>
@@ -150,8 +151,8 @@
                                             <th></th>
                                             <th></th>
                                             <th class="text-center p-1 comon_column">
-                                                @if (count($total_summary['purchase_qty']) > 0)
-                                                    @foreach ($total_summary['purchase_qty'] as $key => $value)
+                                                @if (count($total_summary['qty']) > 0)
+                                                    @foreach ($total_summary['qty'] as $key => $value)
                                                         {{ $value }} {{ $key }}
                                                     @endforeach
                                                 @endif
@@ -166,8 +167,8 @@
                                                 </th>
                                             @endif
                                             <th class="text-center p-1 comon_column">
-                                                @if (count($total_summary['qty']) > 0)
-                                                    @foreach ($total_summary['qty'] as $key => $value)
+                                                @if (count($total_summary['purchase_qty']) > 0)
+                                                    @foreach ($total_summary['purchase_qty'] as $key => $value)
                                                         {{ $value }} {{ $key }}
                                                     @endforeach
                                                 @endif
