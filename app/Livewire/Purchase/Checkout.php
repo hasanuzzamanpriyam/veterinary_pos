@@ -157,7 +157,7 @@ class Checkout extends Component
                     'balance' => $this->balance,
                     'vat' => $total_item_vat,
                     'carring' => $validateData['carring'] ?? 0,
-                    'price_discount' => $total_item_discount,
+                    'price_discount' => $this->total_discount,
                     'total_price' => $this->total_amount_after_discount,
                     'other_charge' => $validateData['other_charge'] ?? 0,
                     'payment' => $validateData['payment'] ?? 0,
