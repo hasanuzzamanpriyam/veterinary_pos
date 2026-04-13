@@ -249,6 +249,9 @@
                                         @endif
                                         <th class="text-center">Purchase (Qty)</th>
                                         <th class="text-right">Price</th>
+                                        <th class="text-right">Total</th>
+                                        <th class="text-right">Discount</th>
+                                        <th class="text-right">VAT</th>
                                         <th class="text-right">Sub Total</th>
                                     </tr>
                                 </thead>
@@ -259,7 +262,10 @@
                                     'dis_qty' => [],
                                     'purchase_qty' => [],
                                     'price' => 0,
-                                    'sub_total' => 0
+                                    'total' => 0,
+                                    'sub_total' => 0,
+                                    'total_discount' => 0,
+                                    'total_vat' => 0
                                     ];
                                     @endphp
                                     @forelse ($products as $product)
@@ -276,9 +282,10 @@
                                     $total_summary['purchase_qty'][$sizeName] += ($product->quantity -
                                     $product->discount_qty);
                                     $total_summary['price'] += $product->unit_price;
+                                    $total_summary['total'] += ($product->quantity - $product->discount_qty) * $product->unit_price;
+                                    $total_summary['total_discount'] += ($product->discount ?? 0);
+                                    $total_summary['total_vat'] += ($product->vat ?? 0);
                                     $total_summary['sub_total'] += $product->total_price;
-                                    $total_summary['total_discount'] = ($total_summary['total_discount'] ?? 0) + ($product->discount ?? 0);
-                                    $total_summary['total_vat'] = ($total_summary['total_vat'] ?? 0) + ($product->vat ?? 0);
                                     @endphp
                                     <tr>
 
@@ -293,11 +300,14 @@
                                                                                 <td class="text-center p-1">{{$product->quantity-$product->discount_qty}} {{ $sizeName }} </td>
 
                                         <td class="text-right p-1">{{formatAmount($product->unit_price)}}/=</td>
-                                        <td class="text-right p-1">{{formatAmount($product->total_price)}}/=</td>
+                                        <td class="text-right p-1">{{formatAmount(($product->quantity - $product->discount_qty) * $product->unit_price)}}/=</td>
+                                        <td class="text-right p-1">{{formatAmount($product->discount ?? 0)}}/=</td>
+                                        <td class="text-right p-1">{{formatAmount($product->vat ?? 0)}}/=</td>
+                                        <td class="text-right p-1">{{formatAmount($supplier_info->total_price)}}/=</td>
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="10">
                                             Not Found!
                                         </td>
                                     </tr>
@@ -308,7 +318,7 @@
                                     <tr>
                                         <th></th>
                                         <th></th>
-                                                                                <th class="text-center p-1 comon_column">
+                                            <th class="text-center p-1 comon_column">
                                             @if ( count($total_summary['qty']) > 0)
                                             @foreach ($total_summary['qty'] as $key => $value)
                                             {{ $value }} {{ $key }}
@@ -326,7 +336,7 @@
                                         </th>
                                         @endif
 
-                                                                                <th class="text-center p-1 comon_column">
+                                            <th class="text-center p-1 comon_column">
                                             @if ( count($total_summary['purchase_qty']) > 0)
                                             @foreach ($total_summary['purchase_qty'] as $key => $value)
                                             {{ $value }} {{ $key }}
@@ -335,7 +345,13 @@
                                         </th>
                                         <th class="text-right p-1 comon_column"></th>
                                         <th class="text-right p-1 comon_column">
-                                            {{formatAmount($total_summary['sub_total'])}}/=</th>
+                                            {{formatAmount($total_summary['total'])}}/=</th>
+                                        <th class="text-right p-1 comon_column">
+                                            {{formatAmount($total_summary['total_discount'])}}/=</th>
+                                        <th class="text-right p-1 comon_column">
+                                            {{formatAmount($total_summary['total_vat'])}}/=</th>
+                                        <th class="text-right p-1 comon_column">
+                                            {{formatAmount($supplier_info->total_price)}}/=</th>
                                     </tr>
                                 </tfoot>
                                 @endif
@@ -346,6 +362,8 @@
                 </div>
 
             </div>
+
+            <!-- Bottom list -->
             <div class="calculation-area">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -353,7 +371,7 @@
                             <!-- <h3 class="text-center text-dark">Billing Info</h3> -->
                             <!----- calculation-area----->
                             @php
-                            $gTotal = $supplier_info->total_price - $supplier_info->price_discount - $supplier_info->vat
+                            $gTotal = $supplier_info->total_price - $supplier_info->price_discount
                             - $supplier_info->carring - $supplier_info->other_charge;
                             $prev_balance = $supplier_info->balance + $supplier_info->payment - $gTotal;
                             @endphp
@@ -366,12 +384,6 @@
                                 <tr>
                                     <th>Discount</th>
                                     <td>{{formatAmount($supplier_info->price_discount ?? 0)}}/=</td>
-                                </tr>
-                                @endif
-                                @if($supplier_info->vat > 0)
-                                <tr>
-                                    <th>Vat</th>
-                                    <td>{{formatAmount($supplier_info->vat ?? 0 )}}/=</td>
                                 </tr>
                                 @endif
                                 @if($supplier_info->carring > 0)

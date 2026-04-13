@@ -80,58 +80,119 @@
                                     <tr>
                                         <th>Code</th>
                                         <th>Name</th>
-                                        <th>Purchase(Qty)</th>
+                                        <th>Quantity</th>
                                         @if($supplier_info->product_discount > 0)
                                             <th>Dis.(Qty)</th>
                                         @endif
-                                        <th>Quantity</th>
+                                        <th>Purchase(Qty)</th>
                                         <th>Price</th>
+                                        <th>Total</th>
+                                        <th>Discount</th>
+                                        <th>VAT</th>
                                         <th>Sub Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php
-                                        $quantity = 0;
-                                        $discount = 0;
-                                        $purchase_qty = 0;
-                                        $total = 0;
-                                        $type = 0;
+                                        $total_summary = [
+                                            'qty' => [],
+                                            'dis_qty' => [],
+                                            'purchase_qty' => [],
+                                            'price' => 0,
+                                            'total' => 0,
+                                            'sub_total' => 0,
+                                            'total_discount' => 0,
+                                            'total_vat' => 0,
+                                            'net_amount' => 0,
+                                        ];
                                     @endphp
                                     @forelse ($products as $product)
                                         @php
-                                            $quantity += $product->product_quantity;
-                                            $discount += $product->product_discount;
-                                            $purchase_qty += $product->product_quantity - $product->product_discount;
-                                            $total += $product->sub_total;
-                                            $type = $product->product->type;
+                                            $sizeName =
+                                                $product->product?->size?->name ?? ($product->product?->type ?? 'N/A');
+                                            $total_summary['qty'][$sizeName] = $total_summary['qty'][$sizeName] ?? 0;
+                                            $total_summary['qty'][$sizeName] += $product->quantity;
+                                            $total_summary['dis_qty'][$sizeName] =
+                                                $total_summary['dis_qty'][$sizeName] ?? 0;
+                                            $total_summary['dis_qty'][$sizeName] += $product->discount_qty;
+                                            $total_summary['purchase_qty'][$sizeName] =
+                                                $total_summary['purchase_qty'][$sizeName] ?? 0;
+                                            $total_summary['purchase_qty'][$sizeName] +=
+                                                $product->quantity - $product->discount_qty;
+                                            $total_summary['price'] += $product->unit_price;
+                                            $total_summary['total'] += ($product->quantity - $product->discount_qty) * $product->unit_price;
+                                            $total_summary['total_discount'] += $product->discount ?? 0;
+                                            $total_summary['total_vat'] += $product->vat ?? 0;
+                                            $total_summary['sub_total'] += $product->total_price;
                                         @endphp
                                         <tr>
 
                                             <td class="text-center p-1">{{$product->product->barcode ?? $product->product_code}}</td>
                                             <td class="text-left p-1">{{$product->product_name}}</td>
-                                            <td class="text-right p-1">
-                                                {{$product->product_quantity - $product->product_discount}}
-                                                {{ $product->product->type }}
-                                            </td>
+                                            <td class="text-center p-1">{{$product->quantity}}
+                                                {{$sizeName}}</td>
                                             @if($supplier_info->product_discount > 0)
-                                                <td class="text-right p-1">{{$product->product_discount}}
-                                                    {{ $product->product->type }}
+                                                <td class="text-center p-1">{{$product->discount_qty}}
+                                                    {{$sizeName}}
                                                 </td>
                                             @endif
-                                            <td class="text-right p-1">{{$product->product_quantity}}
-                                                {{ $product->product->type }}
+                                            <td class="text-center p-1">{{$product->quantity - $product->discount_qty}}
+                                                {{$sizeName}}
                                             </td>
-                                            <td class="text-right p-1">{{$product->product_price}}/=</td>
-                                            <td class="text-right p-1">{{$product->sub_total}}/=</td>
+                                            <td class="text-right p-1">{{formatAmount($product->unit_price)}}/=</td>
+                                            <td class="text-right p-1">{{formatAmount(($product->quantity - $product->discount_qty) * $product->unit_price)}}/=</td>
+                                            <td class="text-right p-1">{{formatAmount($product->discount ?? 0)}}/=</td>
+                                            <td class="text-right p-1">{{formatAmount($product->vat ?? 0)}}/=</td>
+                                            <td class="text-right p-1">{{formatAmount($supplier_info->total_price)}}/=</td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6">
+                                            <td colspan="9">
                                                 Not Found!
                                             </td>
                                         </tr>
                                     @endforelse
                                 </tbody>
+                                @if (count($products) > 0)
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th class="text-center p-1 comon_column">
+                                                @if (count($total_summary['qty']) > 0)
+                                                    @foreach ($total_summary['qty'] as $key => $value)
+                                                        {{ $value }} {{ $key }}
+                                                    @endforeach
+                                                @endif
+                                            </th>
+                                            @if ($supplier_info->product_discount > 0)
+                                                <th class="text-center p-1 comon_column">
+                                                    @if (count($total_summary['dis_qty']) > 0)
+                                                        @foreach ($total_summary['dis_qty'] as $key => $value)
+                                                            {{ $value }} {{ $key }}
+                                                        @endforeach
+                                                    @endif
+                                                </th>
+                                            @endif
+                                            <th class="text-center p-1 comon_column">
+                                                @if (count($total_summary['purchase_qty']) > 0)
+                                                    @foreach ($total_summary['purchase_qty'] as $key => $value)
+                                                        {{ $value }} {{ $key }}
+                                                    @endforeach
+                                                @endif
+                                            </th>
+                                            <th class="text-right p-1 comon_column"></th>
+                                            <th class="text-right p-1 comon_column">
+                                                {{ formatAmount($total_summary['total']) }}/=</th>
+                                            <th class="text-right p-1 comon_column">
+                                                {{ formatAmount($total_summary['total_discount']) }}/=</th>
+                                            <th class="text-right p-1 comon_column">
+                                                {{ formatAmount($total_summary['total_vat']) }}/=</th>
+                                            <th class="text-right p-1 comon_column">
+                                                {{ formatAmount($supplier_info->total_price) }}/=</th>
+                                        </tr>
+                                    </tfoot>
+                                @endif
 
                             </table>
                         </div>
