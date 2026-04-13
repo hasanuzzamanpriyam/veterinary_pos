@@ -140,9 +140,17 @@ class Index extends Component
             return;
         }
 
-        $products = ProductStore::where('product_id', $id)
-            ->where('product_store_id', $this->product_store_id)
-            ->first();
+        // If a specific store is selected, filter by it; otherwise, get from any available store
+        $productsQuery = ProductStore::where('product_id', $id);
+        
+        if ($this->product_store_id) {
+            $productsQuery->where('product_store_id', $this->product_store_id);
+        } else {
+            // Get from any active store, preferring the one with highest stock
+            $productsQuery->whereIn('product_store_id', Store::where('status', 1)->pluck('id'));
+        }
+        
+        $products = $productsQuery->orderBy('product_quantity', 'desc')->first();
 
         // Check if product store record exists
         if (!$products) {
@@ -153,7 +161,7 @@ class Index extends Component
         $product_stock = $this->products[$id]['qty'] ?? 0;
 
         $product = Product::where('id', $id)->first();
-        
+
         // Check if product exists
         if (!$product) {
             session()->flash('error', 'Product not found.');
@@ -320,12 +328,12 @@ class Index extends Component
             ->map(function ($items) {
                 $firstItem = $items->first();
                 $product = $firstItem->product;
-                
+
                 // Skip if product relationship is null
                 if (!$product) {
                     return null;
                 }
-                
+
                 $sale_price = $product->price_rate;
                 return [
                     'name' => $product->name,
@@ -341,7 +349,52 @@ class Index extends Component
             $this->dispatch('dataUpdated');
         } else {
 
-            //$this->products = ProductStore::latest()->get();
+            // Load products from all stores with available stock when no specific store is selected
+            $stores = Store::where('status', 1)->get();
+            $storeIds = $stores->pluck('id');
+            
+            if ($storeIds->isNotEmpty()) {
+                $source_store_products = ProductStore::whereIn('product_store_id', $storeIds)
+                    ->orderBy('product_code', 'asc')
+                    ->get();
+
+                if ($this->brand_id) {
+                    $source_store_products = ProductStore::whereIn('product_store_id', $storeIds)
+                        ->where('brand_id', $this->brand_id)
+                        ->get();
+                } elseif ($this->search) {
+                    $source_store_products = ProductStore::whereIn('product_store_id', $storeIds)
+                        ->where(function($query) {
+                            $query->where('product_name', 'Like', "%{$this->search}%")
+                                  ->orWhere('product_code', 'Like', "%{$this->search}%");
+                        })
+                        ->get();
+                }
+
+                $this->products = $source_store_products->groupBy('product_id')
+                    ->map(function ($items) {
+                        $firstItem = $items->first();
+                        $product = $firstItem->product;
+
+                        if (!$product) {
+                            return null;
+                        }
+
+                        $sale_price = $product->price_rate;
+                        return [
+                            'name' => $product->name,
+                            'qty' => $items->sum('product_quantity'),
+                            'type' => $product->size->name ?? $product->type,
+                            'price' => $sale_price,
+                            'photo' => $product->photo
+                        ];
+                    })
+                    ->filter(function ($product) {
+                        return $product !== null && $product['qty'] > 0;
+                    });
+            }
+            
+            $this->dispatch('dataUpdated');
 
         }
 

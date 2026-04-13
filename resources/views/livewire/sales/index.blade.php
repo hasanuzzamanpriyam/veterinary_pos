@@ -537,11 +537,10 @@
             });
 
             $(document).on('dataUpdated', function() {
-
-                const timeout = setTimeout(() => {
-                    $('#product-search').select2();
-                    clearTimeout(timeout);
-                }, 10);
+                if ($('#product-search').hasClass('select2-hidden-accessible')) {
+                    $('#product-search').select2('destroy');
+                }
+                $('#product-search').select2();
             })
 
             $('#datepicker33').datepicker({

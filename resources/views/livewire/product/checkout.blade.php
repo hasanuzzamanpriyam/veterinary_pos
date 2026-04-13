@@ -58,7 +58,7 @@
                                 <td>{{ucfirst($product['type'])}}</td>
                             </tr>
                             <tr>
-                                <th>Size</th>
+                                <th>Type</th>
                                 <td>{{$sizes->find($product['size_id'])->description ?? ''}}</td>
                             </tr>
                         </table>
