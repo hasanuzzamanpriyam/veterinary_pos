@@ -277,6 +277,8 @@
                                     $product->discount_qty);
                                     $total_summary['price'] += $product->unit_price;
                                     $total_summary['sub_total'] += $product->total_price;
+                                    $total_summary['total_discount'] = ($total_summary['total_discount'] ?? 0) + ($product->discount ?? 0);
+                                    $total_summary['total_vat'] = ($total_summary['total_vat'] ?? 0) + ($product->vat ?? 0);
                                     @endphp
                                     <tr>
 

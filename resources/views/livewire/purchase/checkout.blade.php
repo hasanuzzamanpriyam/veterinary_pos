@@ -121,7 +121,7 @@
                                             Price Rate</th>
                                         <th style="white-space: nowrap; vertical-align: middle; text-align: center;">
                                             Value</th>
-                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Quantity</th>
+                                        <th style="white-space: nowrap; vertical-align: middle; text-align: center;">Discount</th>
 
                                         <th style="white-space: nowrap; vertical-align: middle; text-align: center;">VAT
                                         </th>
