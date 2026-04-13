@@ -178,7 +178,8 @@
                 {{-- Cart Table --}}
                 <div class="row mt-3">
                     <div class="col-12">
-                        <table class="table table-bordered table-sales-entry" width="100%">
+                        <div class="table-responsive" style="max-height: 500px; overflow-y: auto; overflow-x: auto;">
+                            <table class="table table-bordered table-sales-entry" width="100%">
                             <thead>
                                 <tr class="text-center">
                                     <th style="width: 70px;">Code</th>
@@ -444,6 +445,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
 
