@@ -78,7 +78,7 @@
                                     </tr>
                                 @endif
                                 <tr>
-                                    <th>Type</th>
+                                    <th>Mode</th>
                                     <td>{{$product->type}}</td>
                                 </tr>
 
@@ -93,7 +93,7 @@
                                 @if(empty($product->size_id))
                                 @else
                                     <tr>
-                                        <th>Size</th>
+                                        <th>Type</th>
                                         <td>{{$product->size->description}}</td>
                                     </tr>
                                 @endif

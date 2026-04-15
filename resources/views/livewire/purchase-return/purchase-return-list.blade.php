@@ -97,6 +97,7 @@
                                         <td class="text-left">
                                             @foreach ($filtered_products as $product)
                                                 @php
+                                                    $size = $product->product->size->name;
                                                     $type = $product->product->type;
                                                     $qty_summary['total'][$type] = $qty_summary['total'][$type] ?? 0;
                                                     $qty_summary['total'][$type] += (float)$product->quantity;
@@ -116,7 +117,7 @@
                                         <td class="text-center">
                                             @if(isset($qty_summary['total']))
                                                 @foreach ($qty_summary['total'] as $type => $qty)
-                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . $type : ''}}
+                                                    {{$qty > 0 ? formatAmount($qty) . ' ' . $size : ''}}
                                                 @endforeach
                                             @endif
                                         </td>

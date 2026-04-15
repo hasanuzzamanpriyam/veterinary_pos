@@ -51,7 +51,7 @@
                                 <thead>
                                     <tr>
                                         <th>Warehouse</th>
-                                        <th>Vehicle Number</th>
+                                        <th>Gari Number</th>
                                         <th>Delivery Man</th>
                                         <th>Remarks</th>
 
