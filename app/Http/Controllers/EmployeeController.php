@@ -25,7 +25,6 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'name' => [ 'max:255'],
             'designation' => [  'max:255'],
@@ -40,7 +39,7 @@ class EmployeeController extends Controller
             'bonus_amount' => ['max:20'],
             'security' => ['max:255'],
             'remarks' => ['max:255'],
-            'photo' =>  ['image','mimes:jpeg,png,jpg,gif,svg','max:1000'],
+            'photo' =>  ['image','mimes:jpeg,png,jpg,gif,svg,avif','max:1000'],
 
         ]);
 
@@ -102,7 +101,7 @@ class EmployeeController extends Controller
             'salary_amount' => ['max:20'],
             'security' => ['max:255'],
             'remarks' => ['max:255'],
-            'photo' =>  ['image','mimes:jpeg,png,jpg,gif,svg','max:1000'],
+            'photo' =>  ['image','mimes:jpeg,png,jpg,gif,svg,avif','max:1000'],
 
         ]);
 

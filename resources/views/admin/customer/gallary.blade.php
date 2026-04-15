@@ -41,7 +41,7 @@ Customer Gallery
                                             @if(empty($customer->photo))
                                             <h5 my-auto>Opps No Image Found!</h5>
                                             @else
-                                            <img style="width: 100%; display: block;" src="{{asset($customer->photo)}}" alt="image" />
+                                            <img style="width: 100%; display: block;" src="{{asset('storage/' . $customer->photo)}}" alt="image" />
                                             @endif
                                             <div class="mask">
                                                 @if(empty($customer->id))
