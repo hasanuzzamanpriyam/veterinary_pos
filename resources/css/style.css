@@ -1762,17 +1762,18 @@ label.add_store_lebel {
 
 /*Add customer Start*/
 label.add_customer_lebel {
-    background: linear-gradient(90deg, rgba(30, 54, 100, 1) 50%, rgba(250, 195, 6, 1) 100%);
-    color: #ffffff;
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #183e75;
 }
 
 /*Add customer end*/
 
 /*Add guarantor Start*/
 label.add_guarantor_lebel {
-    background: linear-gradient(90deg, rgba(84, 0, 138, 1) 21%, rgba(254, 71, 71, 1) 100%);
-    color: #ffffff;
-    border-left: 3px solid #f28f28;
+    background: #f8f9fa;
+    color: #333;
+    border-left: 3px solid #183e75;
 }
 
 /*Add guarantor end*/
