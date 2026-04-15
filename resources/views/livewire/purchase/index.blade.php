@@ -501,6 +501,9 @@
                             <div class="row pt-4">
                                 @if(isset($products_grid))
                                     @foreach($products_grid as $product)
+                                        @php
+                                            $gallery_stock = isset($store_stocks[$product->id]) ? $store_stocks[$product->id]['qty'] : 0;
+                                        @endphp
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
                                             <form wire:submit.prevent="sessionStore({{ $product->id }})" enctype="multipart/form-data" style="height: 100%;">
                                                 @csrf
@@ -516,7 +519,7 @@
                                                     <div class="mask">
                                                         <p class="m-0"><span>৳.{{ $product->purchase_rate }}/=</span></p>
                                                         <div class="badge-info text-light">
-                                                            {{ $product->opening_stock ?? 0 }} {{ $product->size->name ?? $product->type }}
+                                                            {{ $gallery_stock }} {{ $product->size->name ?? $product->type }}
                                                         </div>
                                                     </div>
                                                     @if(!empty($product->product->brand_id))
