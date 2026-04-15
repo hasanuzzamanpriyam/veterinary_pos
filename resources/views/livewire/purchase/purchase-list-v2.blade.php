@@ -8,6 +8,7 @@
                         aria-hidden="true"></i> Add New Purchase</a>
             </div>
         </div>
+
         <div class="x_content p-3">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">

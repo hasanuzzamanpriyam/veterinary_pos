@@ -135,7 +135,7 @@
                                         @endphp
                                         <tr>
                                             <td>{{ $items + $stock_list->firstItem() - 1 }}</td>
-                                            
+
                                             <td>
                                                 <div class="d-flex flex-column align-items-start">
                                                     <span>{{ $stock['code'] }}</span>
@@ -151,8 +151,8 @@
                                             <td class="text-left">{{$stock['group'] ?? ''}}</td>
                                             <td>{{$stock['size']}}</td>
                                             <td>{{ucfirst($type)}}</td>
-                                            <td>{{formatAmount($quantity)}}</td>
-                                            <td>{{formatAmount($discount_qty)}}</td>
+                                            <td>{{formatAmount($quantity)}} {{$stock['size']}}</td>
+                                            <td>{{formatAmount($discount_qty)}} {{$stock['size']}}</td>
                                             <td class="text-right">{{ $purchase_price ? formatAmount($purchase_price) . '/-' : '' }}</td>
                                             <td class="text-right">{{ $sale_price ? formatAmount($sale_price) . '/-' : '' }}</td>
                                             <td class="text-right">{{ $mrp_price ? formatAmount($mrp_price) . '/-' : '' }}</td>
@@ -189,7 +189,7 @@
                                                     ksort($gtotal_stock['qty']);
                                                 @endphp
                                                 @foreach ($gtotal_stock['qty'] as $key => $value)
-                                                    <div><strong>{{ formatAmount($value) }} {{ ucfirst($key) }}</strong></div>
+                                                    <div><strong>{{ formatAmount($value) }} {{ $stock['size'] }}</strong></div>
                                                 @endforeach
                                             @endif
                                         </div>
@@ -202,7 +202,7 @@
                                                     ksort($gtotal_stock['discount_qty']);
                                                 @endphp
                                                 @foreach ($gtotal_stock['discount_qty'] as $key => $value)
-                                                    <div><strong>{{ formatAmount($value) }} {{ ucfirst($key) }}</strong></div>
+                                                    <div><strong>{{ formatAmount($value) }} {{ $stock['size'] }}</strong></div>
                                                 @endforeach
                                             @endif
                                         </div>

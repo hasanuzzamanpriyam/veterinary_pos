@@ -109,9 +109,13 @@ class Checkout extends Component
             $inv = DB::transaction(function() use ($value, $cart_total, $validateData) {
                 $final_balance = $value['balance'] - $cart_total - $this->carring - $this->other_charge;
 
-                $rowsBeforeInsert = SupplierLedger::where('supplier_id', $value['supplier_id'])
-                ->where('date', '>', $value['return_date'])
-                ->orderBy('date', 'asc')
+                $rowsBeforeInsert = SupplierLedger::where('supplier_id', $value['supplier_id']);
+
+                if (!empty($value['return_date'])) {
+                    $rowsBeforeInsert->where('date', '>', $value['return_date']);
+                }
+
+                $rowsBeforeInsert = $rowsBeforeInsert->orderBy('date', 'asc')
                 ->orderBy('id', 'asc')
                 ->get();
 
@@ -130,8 +134,8 @@ class Checkout extends Component
                     'other_charge' => $validateData['other_charge'] ?? 0,
                     'total_price' => $cart_total ?? 0,
                     'supplier_remarks' => $value['remarks'],
-                    'purchase_date' => $value['purchase_date'],
-                    'date' => $value['return_date'],
+                    'purchase_date' => $value['purchase_date'] ?? date('Y-m-d'),
+                    'date' => $value['return_date'] ?? date('Y-m-d'),
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);

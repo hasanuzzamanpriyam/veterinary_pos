@@ -74,7 +74,13 @@ class Index extends Component
 
     public function updatedReturnDate($date){
         $this->return_date = $date;
-        $this->full_return_date = date('Y-m-d', strtotime(date('Y-m-d', strtotime($date))));
+        // Convert dd-mm-yyyy to Y-m-d format for proper date parsing
+        if ($date) {
+            $dateObj = \DateTime::createFromFormat('d-m-Y', $date);
+            $this->full_return_date = $dateObj ? $dateObj->format('Y-m-d') : null;
+        } else {
+            $this->full_return_date = null;
+        }
     }
 
     //Increment cart product
@@ -168,6 +174,25 @@ class Index extends Component
         session()->put('supplier_balance',  $this->balance);
         session()->put('purchase_invoice_no',  $this->purchase_invoice_no);
 
+        // Convert dates from dd-mm-yyyy to Y-m-d format safely
+        $purchase_date = null;
+        if ($this->date) {
+            $dateObj = \DateTime::createFromFormat('d-m-Y', $this->date);
+            $purchase_date = $dateObj ? $dateObj->format('Y-m-d') : date('Y-m-d');
+        } else {
+            $purchase_date = date('Y-m-d');
+        }
+        
+        $return_date = null;
+        if ($this->full_return_date) {
+            $return_date = $this->full_return_date;
+        } elseif ($this->return_date) {
+            $dateObj = \DateTime::createFromFormat('d-m-Y', $this->return_date);
+            $return_date = $dateObj ? $dateObj->format('Y-m-d') : date('Y-m-d');
+        } else {
+            $return_date = date('Y-m-d');
+        }
+
         $return_supplier = session()->get('return_supplier');
         if (!$return_supplier) {
             $return_supplier = [
@@ -176,8 +201,8 @@ class Index extends Component
                 'balance' => $this->balance,
                 'address' => $this->address,
                 'mobile' =>  $this->mobile,
-                'purchase_date' => date('Y-m-d', strtotime($this->date)),
-                'return_date' => $this->full_return_date,
+                'purchase_date' => $purchase_date,
+                'return_date' => $return_date,
                 'warehouse_id' => $this->warehouse_id,
                 'warehouse_name' => $this->warehouse_name,
                 'product_store_id' => $validateData['product_store_id'],
@@ -217,25 +242,36 @@ class Index extends Component
                 $this->balance = $this->get_previous_balance($this->supplier_id, $this->full_return_date);
             }
 
-            $target_date = date('Y-m-d', strtotime($this->date));
-
-            if ($target_date) {
+            // First, try to find purchase invoice based on date
+            if ($this->date) {
+                $dateObj = \DateTime::createFromFormat('d-m-Y', $this->date);
+                $target_date = $dateObj ? $dateObj->format('Y-m-d') : null;
+                
+                if ($target_date) {
+                    $value = SupplierTransactionDetails::where('supplier_id', $this->supplier_search)
+                        ->whereRaw("DATE(date) = ?", [$target_date])
+                        ->where('transaction_type', 'purchase')
+                        ->first();
+                    
+                    if ($value) {
+                        $this->purchase_invoice_no = $value->transaction_id;
+                        $this->warehouse_id = $value->warehouse_id;
+                        $this->product_store_id = $value->product_store_id;
+                        $this->product_store_name = Store::where('id', $this->product_store_id)->value('name');
+                        $this->warehouse_name = Warehouse::where('id', $this->warehouse_id)->value('name');
+                    }
+                }
+            }
+            
+            // If no invoice found by date, get the latest purchase transaction for this supplier
+            if (!$this->purchase_invoice_no) {
                 $value = SupplierTransactionDetails::where('supplier_id', $this->supplier_search)
-                    ->whereRaw("DATE(date) = ?", [$target_date])
                     ->where('transaction_type', 'purchase')
+                    ->orderBy('date', 'desc')
                     ->first();
+                    
                 if ($value) {
                     $this->purchase_invoice_no = $value->transaction_id;
-                    $this->warehouse_id = $value->warehouse_id;
-                    $this->product_store_id = $value->product_store_id;
-                    $this->product_store_name = Store::where('id', $this->product_store_id)->value('name');
-                    $this->warehouse_name = Warehouse::where('id', $this->warehouse_id)->value('name');
-                }
-            }elseif ($this->purchase_invoice_no) {
-                $value = SupplierTransactionDetails::where('supplier_id', $this->supplier_search)
-                    ->where('transaction_id', $this->purchase_invoice_no)
-                    ->first();
-                if ($value) {
                     $this->date = $value->date;
                     $this->warehouse_id = $value->warehouse_id;
                     $this->product_store_id = $value->product_store_id;
@@ -247,9 +283,10 @@ class Index extends Component
 
 
         if ($this->supplier_search && $this->purchase_invoice_no) {
-
             // brand wise product search
-            $this->products = SupplierTransactionDetails::where('supplier_id', $this->supplier_search)->where('transaction_id',  $this->purchase_invoice_no)->get();
+            $this->products = SupplierTransactionDetails::where('supplier_id', $this->supplier_search)
+                ->where('transaction_id', $this->purchase_invoice_no)
+                ->get();
             $this->dispatch('dataUpdated');
         }
 
