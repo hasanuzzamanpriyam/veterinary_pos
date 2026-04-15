@@ -104,7 +104,7 @@
                                             @foreach ($filtered_products as $product)
                                                 @if($product->product)
                                                     @php
-                                                        $type = $product->product->type;
+                                                        $type = $product->product->size->name ?? $product->product->type;
                                                         $qty_summary['purchase'][$type] = $qty_summary['purchase'][$type] ?? 0;
                                                         $qty_summary['purchase'][$type] += ((float) $product->quantity - (float) $product->discount_qty);
                                                         $qty_summary['discount'][$type] = $qty_summary['discount'][$type] ?? 0;
