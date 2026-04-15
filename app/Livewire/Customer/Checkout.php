@@ -32,8 +32,8 @@ class Checkout extends Component
         if ( $this->customer ) {
             $balance = $this->customer['advance_payment'] ? -$this->customer['advance_payment'] : $this->customer['previous_due'];
 
-            $photo_path = null;
-            $guarantor_photo_path = null;
+            $photo_path = $this->customer['photo'] ?? null;
+            $guarantor_photo_path = $this->customer['guarantor_photo'] ?? null;
 
             $formated_starting_date = $this->customer['starting_date'] ? date('Y-m-d', strtotime($this->customer['starting_date'])) : null;
 

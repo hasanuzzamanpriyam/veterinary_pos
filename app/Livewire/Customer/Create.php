@@ -6,9 +6,11 @@ use App\Models\Customer;
 use App\Models\CustomerTypes;
 use App\Models\PriceGroup;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
+    use WithFileUploads;
 
     public $price_groups;
     public $customer_types;
@@ -93,7 +95,11 @@ class Create extends Component
 
     public function sessionCreate(){
         $validated_data = $this->validate();
-        // dd($validated_data);
+
+        // Store photos and get paths before session
+        $photo_path = $this->photo ? $this->photo->store('customers/photos', 'public') : null;
+        $guarantor_photo_path = $this->guarantor_photo ? $this->guarantor_photo->store('customers/guarantors', 'public') : null;
+
         $customer = [
             'name' => $validated_data['name'],
             'company_name' => $validated_data['company_name'],
@@ -103,7 +109,7 @@ class Create extends Component
             'birthday' => $validated_data['birthday'],
             'mobile' => $validated_data['mobile'],
             'phone' => $validated_data['phone'],
-            'photo' => $validated_data['photo'],
+            'photo' => $photo_path,
             'email' => $validated_data['email'],
             'ledger_page' => $validated_data['ledger_page'],
             'price_group' => $validated_data['price_group'],
@@ -125,7 +131,7 @@ class Create extends Component
             'guarantor_phone' => $validated_data['guarantor_phone'],
             'guarantor_email' => $validated_data['guarantor_email'],
             'guarantor_security' => $validated_data['guarantor_security'],
-            'guarantor_photo' => $validated_data['guarantor_photo'],
+            'guarantor_photo' => $guarantor_photo_path,
             'guarantor_remarks' => $validated_data['guarantor_remarks'],
 
         ];

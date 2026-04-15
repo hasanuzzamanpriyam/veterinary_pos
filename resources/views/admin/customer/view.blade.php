@@ -25,7 +25,7 @@ Customer View
                                     @if(empty($customer->photo))
                                         <img src="{{asset('assets/images/user.png')}}" alt="Photo" width="100" height="100" class="rounded-circle">
                                     @else
-                                        <img src="{{asset($customer->photo)}}" alt="Photo" width="100" height="100" class="rounded-circle">
+                                        <img src="{{asset('storage/' . $customer->photo)}}" alt="Photo" width="100" height="100" class="rounded-circle">
                                     @endif
 
                                     <h4 class="text-dark">{{$customer->name}}</h4>
@@ -114,7 +114,7 @@ Customer View
                                     @if(empty($customer->guarantor_photo))
                                         <img src="{{asset('assets/images/user.png')}}" alt="Photo" width="100" height="100" class="rounded-circle">
                                     @else
-                                        <img src="{{asset($customer->guarantor_photo)}}" alt="Photo" width="100" height="100" class="rounded-circle">
+                                        <img src="{{asset('storage/' . $customer->guarantor_photo)}}" alt="Photo" width="100" height="100" class="rounded-circle">
                                     @endif
 
                                     <h4 class="text-dark">{{$customer->guarantor_name}}</h4>

@@ -136,11 +136,11 @@
                                                     </div>
                                                 </td>
                                                 <td>{{ $product->name }}</td>
-                                                <td class="text-center">{{ $product->qty }}</td>
+                                                <td class="text-center">{{ $product->qty }} {{ $product->options->weight }}</td>
                                                 @if($total_discounts > 0)
-                                                    <td class="text-center">{{ $product->options->discount }}</td>
+                                                    <td class="text-center">{{ $product->options->discount }} {{ $product->options->weight }}</td>
                                                 @endif
-                                                <td class="text-center">{{ $product->qty - $product->options->discount }}</td>
+                                                <td class="text-center">{{ $product->qty - $product->options->discount }} {{ $product->options->weight }}</td>
                                                 <td class="text-right">{{ $product->price }}/=</td>
                                                 <td class="text-right">
                                                     {{ ($product->qty - $product->options->discount) * $product->price }}/=
@@ -164,7 +164,7 @@
                                             <div>
                                                 @if(isset($summary['qty']) && $summary['qty'] > 0)
                                                     @foreach ($summary['qty'] as $key => $value)
-                                                        <span class="d-inline-block"><strong>{{ $value }}</strong></span>
+                                                        <span class="d-inline-block"><strong>{{ $value }} {{ $product->options->weight }}</strong></span>
                                                     @endforeach
                                                 @endif
                                             </div>
@@ -174,7 +174,7 @@
                                                 <div>
                                                     @if(isset($summary['discount']) && $summary['discount'] > 0)
                                                         @foreach ($summary['discount'] as $key => $value)
-                                                        <span class="d-inline-block"><strong>{{ $value }}</strong></span>
+                                                            <span class="d-inline-block"><strong>{{ $value }} {{ $product->options->weight }}</strong></span>
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -184,7 +184,7 @@
                                             <div>
                                                 @if(isset($summary['total']) && $summary['total'] > 0)
                                                     @foreach ($summary['total'] as $key => $value)
-                                                        <span class="d-inline-block"><strong>{{ $value }}</strong></span>
+                                                        <span class="d-inline-block"><strong>{{ $value }} {{ $product->options->weight }}</strong></span>
                                                     @endforeach
                                                 @endif
                                             </div>

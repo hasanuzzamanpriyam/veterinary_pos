@@ -211,8 +211,8 @@
                                     <i class="fa fa-eye"></i>
                                 </a>
                             </div>
-                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
-                                aria-labelledby="headingOne">
+                            <div id="collapseOne" class="panel-collapse collapse show" role="tabpanel"
+                                aria-labelledby="headingOne" wire:ignore.self>
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-6">

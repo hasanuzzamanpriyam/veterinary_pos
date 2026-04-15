@@ -28,7 +28,7 @@
                             @if(empty($customer['photo']))
                             <h4>No Image Found!</h4>
                             @else
-                            <img src="{{asset($customer['photo'])}}" class="img-thumbnail img-responsive" alt="Logo" width="250" height="320">
+                            <img src="{{asset('storage/' . $customer['photo'])}}" class="img-thumbnail img-responsive" alt="Logo" width="250" height="320">
                             @endif
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             @if(empty($customer['guarantor_photo']))
                             <h4>No Image Found!</h4>
                             @else
-                            <img src="{{asset($customer['guarantor_photo'])}}" class="img-thumbnail img-responsive" alt="Logo" width="250" height="320">
+                            <img src="{{asset('storage/' . $customer['guarantor_photo'])}}" class="img-thumbnail img-responsive" alt="Logo" width="250" height="320">
                             @endif
                         </div>
                     </div>

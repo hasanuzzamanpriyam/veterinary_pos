@@ -136,7 +136,6 @@
                                                         @endphp
                                                         {{$qty > 0 ? $qty . ' ' . $type : ''}}
                                                     @endforeach
-
                                                 @endif
                                             </td>
 
