@@ -41,6 +41,12 @@ class Checkout extends Component
         $this->supplier_info = session()->has('return_supplier') ? session()->get('return_supplier') : null;
         $this->balance = session()->has('supplier_balance') ? session()->get('supplier_balance') : 0;
         $this->purchase_invoice_no = session()->has('purchase_invoice_no') ? session()->get('purchase_invoice_no') : null;
+        
+        // Validate that supplier information is properly loaded
+        if (!$this->supplier_info || empty($this->supplier_info['supplier_id'])) {
+            session()->flash('error', 'Supplier information is missing. Please select a supplier and try again.');
+            $this->redirect(route('live.purchase.return.create'));
+        }
     }
 
     // redirect page
@@ -105,14 +111,25 @@ class Checkout extends Component
 
         if ($this->supplier_info) {
             $value = $this->supplier_info;
+
+            // Validate that supplier_id exists
+            if (empty($value['supplier_id'])) {
+                $notification = array('msg' => 'Supplier information is missing. Please select a supplier and try again.', 'alert-type' => 'error');
+                return redirect()->route('live.purchase.return.create')->with($notification);
+            }
+
+            // Ensure required date fields are set
+            $purchaseDate = !empty($value['purchase_date']) ? $value['purchase_date'] : date('Y-m-d');
+            $returnDate = !empty($value['return_date']) ? $value['return_date'] : date('Y-m-d');
+
             $cart_total = app('cart')->instance('purchase_return')->total() - app('cart')->instance('purchase_return')->tax();
-            $inv = DB::transaction(function() use ($value, $cart_total, $validateData) {
+            $inv = DB::transaction(function() use ($value, $cart_total, $validateData, $purchaseDate, $returnDate) {
                 $final_balance = $value['balance'] - $cart_total - $this->carring - $this->other_charge;
 
                 $rowsBeforeInsert = SupplierLedger::where('supplier_id', $value['supplier_id']);
 
-                if (!empty($value['return_date'])) {
-                    $rowsBeforeInsert->where('date', '>', $value['return_date']);
+                if (!empty($returnDate)) {
+                    $rowsBeforeInsert->where('date', '>', $returnDate);
                 }
 
                 $rowsBeforeInsert = $rowsBeforeInsert->orderBy('date', 'asc')
@@ -133,9 +150,9 @@ class Checkout extends Component
                     'carring' => $validateData['carring'] ?? 0,
                     'other_charge' => $validateData['other_charge'] ?? 0,
                     'total_price' => $cart_total ?? 0,
-                    'supplier_remarks' => $value['remarks'],
-                    'purchase_date' => $value['purchase_date'] ?? date('Y-m-d'),
-                    'date' => $value['return_date'] ?? date('Y-m-d'),
+                    'supplier_remarks' => $value['remarks'] ?? null,
+                    'purchase_date' => $purchaseDate,
+                    'date' => $returnDate,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);

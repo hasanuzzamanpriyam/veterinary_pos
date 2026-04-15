@@ -9,6 +9,11 @@
             </div>
         </div>
         <div class="x_content p-3">
+            @if (session()->has('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -318,14 +323,63 @@
                                     <div class="col-md-12">
                                         <div class="justify-content-center d-flex" style="gap: 10px">
                                             <button type="button" wire:click="cancel" class="btn btn-danger btn-md">Cancel</button>
-                                            <input type="submit" value="Checkout" class="btn btn-primary btn-md">
-                                            <a type="button" href="{{url('/dashboard')}}" class="btn btn-info btn-md">Hold</a>
+                                            <input type="submit" value="Checkout" class="btn btn-primary btn-md" {{ $items == 0 ? 'disabled' : '' }}>
+                                            <button type="button" wire:click="hold" class="btn btn-info btn-md" {{ $items == 0 ? 'disabled' : '' }}>Hold</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
+
+                    {{-- ========== HELD PURCHASE RETURNS SECTION ========== --}}
+                    @if(isset($total_held_purchase_returns_count) && $total_held_purchase_returns_count > 0)
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="x_panel mb-0" style="border: 1px solid #35c8deff;">
+                                <div class="x_title d-flex justify-content-between align-items-center" wire:click="toggleHeldPurchaseReturns" style="color: black; padding: 10px; cursor: pointer; transition: background-color 0.2s;">
+                                    <h2 style="font-size: 16px; margin: 0; flex-grow: 1;"><i class="fa fa-pause-circle"></i> Held Purchase Returns ({{ $total_held_purchase_returns_count }})</h2>
+                                    <div class="d-flex align-items-center" style="gap: 10px; margin-right: 15px;" onclick="event.stopPropagation();">
+                                        <span style="font-size: 13px; font-weight: 500;">From:</span>
+                                        <input type="date" wire:model.live="held_start_date" class="form-control form-control-sm" style="color: black; width: 130px;" title="Start Date">
+                                        <span style="font-size: 13px; font-weight: 500; margin-left: 5px;">To:</span>
+                                        <input type="date" wire:model.live="held_end_date" class="form-control form-control-sm" style="color: black; width: 130px;" title="End Date">
+                                    </div>
+                                    <div>
+                                        <i class="fa {{ $showHeldPurchaseReturns ? 'fa-chevron-up' : 'fa-chevron-down' }}"></i>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content p-3" @if(!$showHeldPurchaseReturns) style="display: none;" @endif>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Company Name</th>
+                                                <th>Total Items</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($held_purchase_returns as $hold)
+                                            <tr>
+                                                <td class="align-middle">{{ $hold->created_at->format('d-m-Y h:i A') }}</td>
+                                                <td class="align-middle">{{ $hold->supplier_name ?: 'N/A' }}</td>
+                                                <td class="align-middle">{{ is_array($hold->cart_data) ? count($hold->cart_data) : 0 }} items</td>
+                                                <td class="align-middle" style="width: 250px;">
+                                                    <button type="button" wire:click="editHold({{ $hold->id }})" class="btn btn-warning btn-sm m-0"><i class="fa fa-edit"></i> Edit</button>
+                                                    <button type="button" wire:click="resumeHold({{ $hold->id }})" class="btn btn-primary btn-sm m-0"><i class="fa fa-plus"></i> Add</button>
+                                                    <button type="button" wire:click="deleteHold({{ $hold->id }})" class="btn btn-danger btn-sm m-0"><i class="fa fa-trash"></i> Delete</button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
 
 
@@ -427,6 +481,24 @@
         });
         $('#return_date_picker input[name=return_date]').on('change', function(e) {
             @this.set('return_date', e.target.value);
+        });
+
+        // Sync Select2 with restored supplier
+        Livewire.on('update-supplier-id', function(data) {
+            let id = Array.isArray(data) ? data[0] : (data.id || data);
+            $('#supplier-search').val(id).trigger('change');
+        });
+
+        // Sync Datepicker with restored date
+        Livewire.on('update-purchase-date', function(data) {
+            let date = Array.isArray(data) ? data[0] : (data.date || data);
+            $('#date_picker').datepicker('setDate', date);
+        });
+
+        // Sync Datepicker with restored return date
+        Livewire.on('update-return-date', function(data) {
+            let date = Array.isArray(data) ? data[0] : (data.date || data);
+            $('#return_date_picker').datepicker('setDate', date);
         });
 
     });

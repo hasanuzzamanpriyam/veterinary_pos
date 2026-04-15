@@ -23,7 +23,7 @@ class PurchaseController extends Controller
             $type = $supplier_info->type;
         }
 
-        $products = SupplierTransactionDetails::where('transaction_id', $invoice)->get();
+        $products = SupplierTransactionDetails::with('product.size')->where('transaction_id', $invoice)->get();
         if ($view == 'return' && $view == $type) {
             return view('admin.purchase.return_view', get_defined_vars());
         } else if ($view == 'payment' && $view == $type) {
